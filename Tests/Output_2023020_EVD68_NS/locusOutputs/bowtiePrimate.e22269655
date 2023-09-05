@@ -1,0 +1,4 @@
+ncurses/6.0(15):ERROR:150: Module 'ncurses/6.0' conflicts with the currently loaded module(s) 'ncurses/6.2-GCCcore-11.2.0'
+ncurses/6.0(15):ERROR:102: Tcl command execution failed: conflict ncurses
+
+dos2unix: converting file dir_check.sh to Unix format ...

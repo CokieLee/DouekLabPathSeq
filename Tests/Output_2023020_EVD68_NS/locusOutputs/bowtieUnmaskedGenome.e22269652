@@ -1,0 +1,85 @@
+ncurses/5.9-goolf-1.7.20(15):ERROR:150: Module 'ncurses/5.9-goolf-1.7.20' conflicts with the currently loaded module(s) 'ncurses/6.2-GCCcore-11.2.0'
+ncurses/5.9-goolf-1.7.20(15):ERROR:102: Tcl command execution failed: conflict ncurses
+
+bzip2/1.0.6-goolf-1.7.20(15):ERROR:150: Module 'bzip2/1.0.6-goolf-1.7.20' conflicts with the currently loaded module(s) 'bzip2/1.0.8-GCCcore-11.2.0'
+bzip2/1.0.6-goolf-1.7.20(15):ERROR:102: Tcl command execution failed: conflict bzip2
+
+zlib/1.2.8-goolf-1.7.20(15):ERROR:150: Module 'zlib/1.2.8-goolf-1.7.20' conflicts with the currently loaded module(s) 'zlib/1.2.11-GCCcore-11.2.0'
+zlib/1.2.8-goolf-1.7.20(15):ERROR:102: Tcl command execution failed: conflict zlib
+
+libreadline/6.3-goolf-1.7.20(17):ERROR:150: Module 'libreadline/6.3-goolf-1.7.20' conflicts with the currently loaded module(s) 'libreadline/8.1-GCCcore-11.2.0'
+libreadline/6.3-goolf-1.7.20(17):ERROR:102: Tcl command execution failed: conflict libreadline
+
+ncurses/5.9-goolf-1.7.20(15):ERROR:150: Module 'ncurses/5.9-goolf-1.7.20' conflicts with the currently loaded module(s) 'ncurses/6.2-GCCcore-11.2.0'
+ncurses/5.9-goolf-1.7.20(15):ERROR:102: Tcl command execution failed: conflict ncurses
+
+SQLite/3.8.8.1-goolf-1.7.20(11):ERROR:150: Module 'SQLite/3.8.8.1-goolf-1.7.20' conflicts with the currently loaded module(s) 'SQLite/3.36-GCCcore-11.2.0'
+SQLite/3.8.8.1-goolf-1.7.20(11):ERROR:102: Tcl command execution failed: conflict SQLite
+
+ncurses/6.0(15):ERROR:150: Module 'ncurses/6.0' conflicts with the currently loaded module(s) 'ncurses/6.2-GCCcore-11.2.0'
+ncurses/6.0(15):ERROR:102: Tcl command execution failed: conflict ncurses
+
+ncurses/5.9-goolf-1.7.20(15):ERROR:150: Module 'ncurses/5.9-goolf-1.7.20' conflicts with the currently loaded module(s) 'ncurses/6.2-GCCcore-11.2.0'
+ncurses/5.9-goolf-1.7.20(15):ERROR:102: Tcl command execution failed: conflict ncurses
+
+dos2unix: converting file dir_check.sh to Unix format ...
+rm: cannot remove ‘*.xml’: No such file or directory
+rm: cannot remove ‘*.sam’: No such file or directory
+rm: cannot remove ‘*.bam*’: No such file or directory
+rm: cannot remove ‘no_ERCC1.fq.gz’: No such file or directory
+rm: cannot remove ‘no_ERCC2.fq.gz’: No such file or directory
+rm: cannot remove ‘unalignedRead1AgainstGenome_582760806_A5_S33_R1_001.fq’: No such file or directory
+rm: cannot remove ‘unalignedRead2AgainstGenome_582760806_A5_S33_R2_001.fq’: No such file or directory
+rm: cannot remove ‘unalignedRead1AgainstERCC_582760806_A5_S33_R1_001.fq’: No such file or directory
+rm: cannot remove ‘unalignedRead2AgainstERCC_582760806_A5_S33_R2_001.fq’: No such file or directory
+rm: cannot remove ‘readindex_index_.fq.gz’: No such file or directory
+rm: cannot remove ‘left*’: No such file or directory
+rm: cannot remove ‘right*’: No such file or directory
+rm: cannot remove ‘*.cxb’: No such file or directory
+rm: cannot remove ‘*.csv’: No such file or directory
+rm: cannot remove ‘*readcount’: No such file or directory
+Generated_Data_1st_Bowtie_Alignment_ERCC
+genome_alignment_ERCC_582760806_A5_S33_R1_001.sam
+Before samtools view call
+After samtools view call
+[bam_sort_core] merging from 0 files and 12 in-memory blocks...
+libreadline/6.3-goolf-1.7.20(17):ERROR:150: Module 'libreadline/6.3-goolf-1.7.20' conflicts with the currently loaded module(s) 'libreadline/8.1-GCCcore-11.2.0'
+libreadline/6.3-goolf-1.7.20(17):ERROR:102: Tcl command execution failed: conflict libreadline
+
+ncurses/5.9-goolf-1.7.20(15):ERROR:150: Module 'ncurses/5.9-goolf-1.7.20' conflicts with the currently loaded module(s) 'ncurses/6.2-GCCcore-11.2.0'
+ncurses/5.9-goolf-1.7.20(15):ERROR:102: Tcl command execution failed: conflict ncurses
+
+bzip2/1.0.6-goolf-1.7.20(15):ERROR:150: Module 'bzip2/1.0.6-goolf-1.7.20' conflicts with the currently loaded module(s) 'bzip2/1.0.8-GCCcore-11.2.0'
+bzip2/1.0.6-goolf-1.7.20(15):ERROR:102: Tcl command execution failed: conflict bzip2
+
+zlib/1.2.8-goolf-1.7.20(15):ERROR:150: Module 'zlib/1.2.8-goolf-1.7.20' conflicts with the currently loaded module(s) 'zlib/1.2.11-GCCcore-11.2.0'
+zlib/1.2.8-goolf-1.7.20(15):ERROR:102: Tcl command execution failed: conflict zlib
+
+SQLite/3.8.8.1-goolf-1.7.20(11):ERROR:150: Module 'SQLite/3.8.8.1-goolf-1.7.20' conflicts with the currently loaded module(s) 'SQLite/3.36-GCCcore-11.2.0'
+SQLite/3.8.8.1-goolf-1.7.20(11):ERROR:102: Tcl command execution failed: conflict SQLite
+
+Tcl/8.6.3-goolf-1.7.20(13):ERROR:150: Module 'Tcl/8.6.3-goolf-1.7.20' conflicts with the currently loaded module(s) 'Tcl/8.6.11-GCCcore-11.2.0'
+Tcl/8.6.3-goolf-1.7.20(13):ERROR:102: Tcl command execution failed: conflict Tcl
+
+Tcl/8.6.3-goolf-1.7.20(13):ERROR:150: Module 'Tcl/8.6.3-goolf-1.7.20' conflicts with the currently loaded module(s) 'Tcl/8.6.11-GCCcore-11.2.0'
+Tcl/8.6.3-goolf-1.7.20(13):ERROR:102: Tcl command execution failed: conflict Tcl
+
+zlib/1.2.8-goolf-1.7.20(15):ERROR:150: Module 'zlib/1.2.8-goolf-1.7.20' conflicts with the currently loaded module(s) 'zlib/1.2.11-GCCcore-11.2.0'
+zlib/1.2.8-goolf-1.7.20(15):ERROR:102: Tcl command execution failed: conflict zlib
+
+zlib/1.2.8-goolf-1.7.20(15):ERROR:150: Module 'zlib/1.2.8-goolf-1.7.20' conflicts with the currently loaded module(s) 'zlib/1.2.11-GCCcore-11.2.0'
+zlib/1.2.8-goolf-1.7.20(15):ERROR:102: Tcl command execution failed: conflict zlib
+
+zlib/1.2.8-goolf-1.7.20(15):ERROR:150: Module 'zlib/1.2.8-goolf-1.7.20' conflicts with the currently loaded module(s) 'zlib/1.2.11-GCCcore-11.2.0'
+zlib/1.2.8-goolf-1.7.20(15):ERROR:102: Tcl command execution failed: conflict zlib
+
+SQLite/3.8.8.1-goolf-1.7.20(11):ERROR:150: Module 'SQLite/3.8.8.1-goolf-1.7.20' conflicts with the currently loaded module(s) 'SQLite/3.36-GCCcore-11.2.0'
+SQLite/3.8.8.1-goolf-1.7.20(11):ERROR:102: Tcl command execution failed: conflict SQLite
+
+GMP/6.1.0-goolf-1.7.20(13):ERROR:150: Module 'GMP/6.1.0-goolf-1.7.20' conflicts with the currently loaded module(s) 'GMP/6.2.1-GCCcore-11.2.0'
+GMP/6.1.0-goolf-1.7.20(13):ERROR:102: Tcl command execution failed: conflict GMP
+
+zlib/1.2.8-goolf-1.7.20(15):ERROR:150: Module 'zlib/1.2.8-goolf-1.7.20' conflicts with the currently loaded module(s) 'zlib/1.2.11-GCCcore-11.2.0'
+zlib/1.2.8-goolf-1.7.20(15):ERROR:102: Tcl command execution failed: conflict zlib
+
+rm: cannot remove ‘*ERCCAlignments*’: No such file or directory

@@ -1,0 +1,31 @@
+Left read file
+Input_Data/582760840_B5_S34_R1_001.fastq.gz
+Left read file rel path from script
+../Input_Data/582760840_B5_S34_R1_001.fastq.gz
+Left read file base name
+582760840_B5_S34_R1_001
+Done with left read base name print out
+582760840_B5_S34_R1_001
+Created sample unique ID for left read
+Line 28
+Input_Data/582760840_B5_S34_R2_001.fastq.gz
+Right read file base name
+582760840_B5_S34_R2_001
+Done with right read base name print out
+582760840_B5_S34_R2_001
+Created sample unique ID for right read
+Function output
+582760840_B5_S34_R1_001
+582760840_B5_S34_R2_001
+22269653
+holdID is 
+22269653
+Ready for star Alignment
+22269656
+holdID is 
+22269656
+Ready for bowtie Primate
+22269658
+22269658
+22269659
+22269659

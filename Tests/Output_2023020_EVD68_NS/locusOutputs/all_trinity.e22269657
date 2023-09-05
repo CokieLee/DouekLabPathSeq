@@ -1,0 +1,72 @@
+ncurses/5.9-goolf-1.7.20(15):ERROR:150: Module 'ncurses/5.9-goolf-1.7.20' conflicts with the currently loaded module(s) 'ncurses/6.2-GCCcore-11.2.0'
+ncurses/5.9-goolf-1.7.20(15):ERROR:102: Tcl command execution failed: conflict ncurses
+
+zlib/1.2.8-goolf-1.7.20(15):ERROR:150: Module 'zlib/1.2.8-goolf-1.7.20' conflicts with the currently loaded module(s) 'zlib/1.2.11-GCCcore-11.2.0'
+zlib/1.2.8-goolf-1.7.20(15):ERROR:102: Tcl command execution failed: conflict zlib
+
+bzip2/1.0.6-goolf-1.7.20(15):ERROR:150: Module 'bzip2/1.0.6-goolf-1.7.20' conflicts with the currently loaded module(s) 'bzip2/1.0.8-GCCcore-11.2.0'
+bzip2/1.0.6-goolf-1.7.20(15):ERROR:102: Tcl command execution failed: conflict bzip2
+
+XZ/5.2.2-goolf-1.7.20(11):ERROR:150: Module 'XZ/5.2.2-goolf-1.7.20' conflicts with the currently loaded module(s) 'XZ/5.2.5-GCCcore-11.2.0'
+XZ/5.2.2-goolf-1.7.20(11):ERROR:102: Tcl command execution failed: conflict XZ
+
+ncurses/5.9-goolf-1.7.20(15):ERROR:150: Module 'ncurses/5.9-goolf-1.7.20' conflicts with the currently loaded module(s) 'ncurses/6.2-GCCcore-11.2.0'
+ncurses/5.9-goolf-1.7.20(15):ERROR:102: Tcl command execution failed: conflict ncurses
+
+zlib/1.2.8-goolf-1.7.20(15):ERROR:150: Module 'zlib/1.2.8-goolf-1.7.20' conflicts with the currently loaded module(s) 'zlib/1.2.11-GCCcore-11.2.0'
+zlib/1.2.8-goolf-1.7.20(15):ERROR:102: Tcl command execution failed: conflict zlib
+
+bzip2/1.0.6-goolf-1.7.20(15):ERROR:150: Module 'bzip2/1.0.6-goolf-1.7.20' conflicts with the currently loaded module(s) 'bzip2/1.0.8-GCCcore-11.2.0'
+bzip2/1.0.6-goolf-1.7.20(15):ERROR:102: Tcl command execution failed: conflict bzip2
+
+zlib/1.2.8-goolf-1.7.20(15):ERROR:150: Module 'zlib/1.2.8-goolf-1.7.20' conflicts with the currently loaded module(s) 'zlib/1.2.11-GCCcore-11.2.0'
+zlib/1.2.8-goolf-1.7.20(15):ERROR:102: Tcl command execution failed: conflict zlib
+
+libreadline/6.3-goolf-1.7.20(17):ERROR:150: Module 'libreadline/6.3-goolf-1.7.20' conflicts with the currently loaded module(s) 'libreadline/8.1-GCCcore-11.2.0'
+libreadline/6.3-goolf-1.7.20(17):ERROR:102: Tcl command execution failed: conflict libreadline
+
+ncurses/5.9-goolf-1.7.20(15):ERROR:150: Module 'ncurses/5.9-goolf-1.7.20' conflicts with the currently loaded module(s) 'ncurses/6.2-GCCcore-11.2.0'
+ncurses/5.9-goolf-1.7.20(15):ERROR:102: Tcl command execution failed: conflict ncurses
+
+dos2unix: converting file dir_check.sh to Unix format ...
+Read1 before filtering:
+total reads: 3674479
+total bases: 554846329
+Q20 bases: 516712427(93.1271%)
+Q30 bases: 482437212(86.9497%)
+
+Read2 before filtering:
+total reads: 3674479
+total bases: 554846329
+Q20 bases: 521381873(93.9687%)
+Q30 bases: 486523207(87.6861%)
+
+Read1 after filtering:
+total reads: 2705233
+total bases: 296507511
+Q20 bases: 283756827(95.6997%)
+Q30 bases: 267910280(90.3553%)
+
+Read2 after filtering:
+total reads: 2705233
+total bases: 296160031
+Q20 bases: 284259164(95.9816%)
+Q30 bases: 267670212(90.3803%)
+
+Filtering result:
+reads passed filter: 6906634
+reads failed due to low quality: 436582
+reads failed due to too many N: 480
+reads failed due to too short: 5262
+reads with adapter trimmed: 5069226
+bases trimmed due to adapters: 258979494
+
+Duplication rate: 20.3668%
+
+Insert size peak (evaluated by paired-end reads): 98
+
+JSON report: fastp.json
+HTML report: fastp.html
+
+fastp -i ../primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001.fq -o fastp_unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001.fq -I ../primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001.fq -O fastp_unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001.fq --dedup --thread 12 
+fastp v0.23.2, time used: 17 seconds
