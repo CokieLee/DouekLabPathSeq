@@ -1,0 +1,53 @@
+dos2unix: converting file dir_check.sh to Unix format ...
+Picked up _JAVA_OPTIONS: -Djava.io.tmpdir=/hpcdata/scratch
+Reading /hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/cokie_pathseqtest0/2023020_EVD68_NS/Sample_582760840_B5_S34_R1_001/RNA_diversity/phylum/RNA_phylum_RNA_Sample_582760840_B5_S34_R1_001_pseudocounts.csv
+Done reading /hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/cokie_pathseqtest0/2023020_EVD68_NS/Sample_582760840_B5_S34_R1_001/RNA_diversity/phylum/RNA_phylum_RNA_Sample_582760840_B5_S34_R1_001_pseudocounts.csv
+Picked up _JAVA_OPTIONS: -Djava.io.tmpdir=/hpcdata/scratch
+Reading /hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/cokie_pathseqtest0/2023020_EVD68_NS/Sample_582760840_B5_S34_R1_001/RNA_diversity/phylum/RNA_phylum_RNA_Sample_582760840_B5_S34_R1_001_tpm.csv
+Done reading /hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/cokie_pathseqtest0/2023020_EVD68_NS/Sample_582760840_B5_S34_R1_001/RNA_diversity/phylum/RNA_phylum_RNA_Sample_582760840_B5_S34_R1_001_tpm.csv
+Loading required package: permute
+Loading required package: lattice
+This is vegan 2.6-2
+
+Attaching package: ‘gplots’
+
+The following object is masked from ‘package:stats’:
+
+    lowess
+
+Error in hclust(my.horn, method = "complete") : 
+  must have n >= 2 objects to cluster
+Calls: pathdiv -> hclust
+In addition: Warning message:
+In vegdist(data, method = "horn") :
+  you have empty rows: their dissimilarities may be
+                 meaningless in method “horn”
+Execution halted
+Loading required package: permute
+Loading required package: lattice
+This is vegan 2.6-2
+
+Attaching package: ‘gplots’
+
+The following object is masked from ‘package:stats’:
+
+    lowess
+
+Error in hclust(my.horn, method = "complete") : 
+  must have n >= 2 objects to cluster
+Calls: pathdiv -> hclust
+Execution halted
+Loading required package: permute
+Loading required package: lattice
+This is vegan 2.6-2
+
+Attaching package: ‘gplots’
+
+The following object is masked from ‘package:stats’:
+
+    lowess
+
+Error in hclust(my.horn, method = "complete") : 
+  must have n >= 2 objects to cluster
+Calls: pathdiv -> hclust
+Execution halted
