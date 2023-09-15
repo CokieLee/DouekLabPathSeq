@@ -65,17 +65,17 @@ outSam_Unmasked_Genome="genome_alignment_unmasked_genome_"$left_read_file_base_n
 
 cur_Dir=$(basename $(pwd))
 echo $cur_Dir
-correct_cur_Dir="scripts"
-dir_check  $correct_cur_Dir
+#correct_cur_Dir="scripts"
+#dir_check  $correct_cur_Dir
 
 
 
-cd ../
+#cd ../
 
-cur_Dir=$(basename $(pwd))
-echo $cur_Dir
-correct_cur_Dir=$projectID
-dir_check  $correct_cur_Dir
+#cur_Dir=$(basename $(pwd))
+#echo $cur_Dir
+#correct_cur_Dir=$projectID
+#dir_check  $correct_cur_Dir
 
 sample_folder_name="Sample_"$left_read_file_base_name
 mkdir $sample_folder_name

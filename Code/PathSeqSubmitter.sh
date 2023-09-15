@@ -5,11 +5,13 @@
 #$ -l quick
 #$ -cwd
 
-projectID=$1
-left_read_file=$2
-right_read_file=$3
-origin=$4
-MIN_CONTIG_LENGTH=$5
+codePath=$1
+projectID=$2
+left_read_file=$3
+right_read_file=$4
+origin=$5
+MIN_CONTIG_LENGTH=$6
+outputPath=$7
 readsPerFile=20000 ## Trinity reads per file (used when splitting output)
 ## Define absolute paths to reference sets
 
@@ -64,34 +66,34 @@ salmonQuantScript="salmonQuantSingleLevel.sh"
 palmScanScript="palm_scan.sh"
 
 ## Source script for directory checking function
-dos2unix dir_check.sh
-source ./dir_check.sh 
+dos2unix "$CodePath/dir_check.sh"
+source "$CodePath/dir_check.sh" 
 
 ## Confirm that we are in the scripts folder
 #correct_cur_Dir="test" #Unit testing of dir check function (comment out for regular use)
-correct_cur_Dir="scripts" ## Regular operation
-dir_check  $correct_cur_Dir 
+#correct_cur_Dir="Code" ## Regular operation
+##dir_check  $correct_cur_Dir 
 
 ## Check if script files with those names actually exist and are not empty (size >0) in the scripts folder
 #file_exist_check "unit_test_file" ## Uncomment if unit testing
-file_exist_check $bowtieScript
-file_exist_check $starScript
-file_exist_check $primateScript
-file_exist_check $trinityScript
-file_exist_check $split_filter_submit_script
-file_exist_check $filterScript
-file_exist_check $kaijuScript
-file_exist_check $parseKaijuScript
-file_exist_check $mergeScript
-file_exist_check $prepDiversityScript
-file_exist_check $salmonQuantScript
-file_exist_check $palmScanScript
-file_exist_check $rScriptDiv
+file_exist_check $codePath/$bowtieScript
+file_exist_check $codePath/$starScript
+file_exist_check $codePath/$primateScript
+file_exist_check $codePath/$trinityScript
+file_exist_check $codePath/$split_filter_submit_script
+file_exist_check $codePath/$filterScript
+file_exist_check $codePath/$kaijuScript
+file_exist_check $codePath/$parseKaijuScript
+file_exist_check $codePath/$mergeScript
+file_exist_check $codePath/$prepDiversityScript
+file_exist_check $codePath/$salmonQuantScript
+file_exist_check $codePath/$palmScanScript
+file_exist_check $codePath/$rScriptDiv
 
 ## Sources the functions for extracting the unique IDs for each read from the original read file name
 ## The "./" makes the file "get_unique_sample_ID_names.sh" executable
-dos2unix get_unique_sample_ID_names.sh
-source ./get_unique_sample_ID_names.sh 
+dos2unix $codePath/get_unique_sample_ID_names.sh
+source $codePath/get_unique_sample_ID_names.sh 
 
 
 left_read_file_base_name=""
@@ -103,6 +105,8 @@ echo "Function output"
 echo $left_read_file_base_name
 echo $right_read_file_base_name
 
+cd $outputPath
+
 ###########################################
 
 ###########################################
@@ -112,6 +116,8 @@ holdID=$(qsub $bowtieScript $projectID $left_read_file $right_read_file $left_re
 ## get the short jobID from array jobID
 echo $holdID
 
+
+"""
 OLD_IFS=$IFS
 IFS="."
 newArray=($holdID)
@@ -189,3 +195,4 @@ echo $holdID
 
 
 # qsub -hold_jid $holdID $parseKaijuScript $projectID $file $origin
+"""
