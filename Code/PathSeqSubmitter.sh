@@ -15,6 +15,8 @@ outputPath=$7
 readsPerFile=20000 ## Trinity reads per file (used when splitting output)
 ## Define absolute paths to reference sets
 
+# Todo: check that output directory actually exists otherwise throw an error
+
 ### Bowtie ERCC reference index
 bowtieERCCIndex=/hpcdata/vrc/vrc1_data/douek_lab/reference_sets/ERCC/ERCC92
 ### Bowtie unmasked human genome reference index
@@ -52,7 +54,7 @@ NCBI_nt_kaiju_ref_taxonomy=/hpcdata/vrc/vrc1_data/douek_lab/reference_sets/NCBI_
 rScriptDiv="pathDiv.R"
 
 ## Names of scripts to be called (should be stored in scripts folder)
-bowtieScript="bowtieUnmaskedGenome.sh"
+bowtieScript=$codePath"/bowtieUnmaskedGenome.sh"
 starScript="starAfterBowtie.sh"
 primateScript="bowtiePrimate.sh"
 trinityScript="all_trinity.sh"
@@ -66,17 +68,12 @@ salmonQuantScript="salmonQuantSingleLevel.sh"
 palmScanScript="palm_scan.sh"
 
 ## Source script for directory checking function
-dos2unix "$CodePath/dir_check.sh"
-source "$CodePath/dir_check.sh" 
-
-## Confirm that we are in the scripts folder
-#correct_cur_Dir="test" #Unit testing of dir check function (comment out for regular use)
-#correct_cur_Dir="Code" ## Regular operation
-##dir_check  $correct_cur_Dir 
+dos2unix $codePath/dir_check.sh
+source $codePath/dir_check.sh
 
 ## Check if script files with those names actually exist and are not empty (size >0) in the scripts folder
 #file_exist_check "unit_test_file" ## Uncomment if unit testing
-file_exist_check $codePath/$bowtieScript
+file_exist_check $bowtieScript
 file_exist_check $codePath/$starScript
 file_exist_check $codePath/$primateScript
 file_exist_check $codePath/$trinityScript
@@ -92,26 +89,33 @@ file_exist_check $codePath/$rScriptDiv
 
 ## Sources the functions for extracting the unique IDs for each read from the original read file name
 ## The "./" makes the file "get_unique_sample_ID_names.sh" executable
-dos2unix $codePath/get_unique_sample_ID_names.sh
-source $codePath/get_unique_sample_ID_names.sh 
+# dos2unix $codePath/get_unique_sample_ID_names.sh
+# source $codePath/get_unique_sample_ID_names.sh 
 
 
-left_read_file_base_name=""
-right_read_file_base_name=""
-get_left_read_unique_ID  $projectID $left_read_file $left_read_file_base_name
-get_right_read_unique_ID  $projectID $right_read_file $right_read_file_base_name
+# left_read_file_base_name=""
+# right_read_file_base_name=""
+# get_left_read_unique_ID  $projectID $left_read_file $left_read_file_base_name
+# get_right_read_unique_ID  $projectID $right_read_file $right_read_file_base_name
+
+left_read_file_base_name=$(echo ${left_read_file} | cut -d'.' -f1| rev | cut -d'/' -f 1 | rev )
+right_read_file_base_name=$(echo ${right_read_file} | cut -d'.' -f1| rev | cut -d'/' -f 1 | rev )
+
+# make a subfolder in outputPath for this particular sample
+outPathLeft=$outputPath"Sample_"$left_read_file_base_name
+mkdir $outPathLeft
+outPathRight=$outputPath"Sample_"$right_read_file_base_name
+mkdir $outPathRight
+
+# debug
+echo $codePath
 
 echo "Function output"
-echo $left_read_file_base_name
-echo $right_read_file_base_name
-
-cd $outputPath
 
 ###########################################
-
 ###########################################
 ## submit first alignment pass and capture the array jobID
-holdID=$(qsub $bowtieScript $projectID $left_read_file $right_read_file $left_read_file_base_name  $right_read_file_base_name $bowtieERCCIndex $bowtieUnmaskedGenomeIndex $picard | cut -d' ' -f3)
+holdID=$(qsub $bowtieScript $projectID $left_read_file $right_read_file $left_read_file_base_name  $right_read_file_base_name $outPathLeft $outPathRight $codePath $bowtieERCCIndex $bowtieUnmaskedGenomeIndex $picard | cut -d' ' -f3)
 ###########################################
 ## get the short jobID from array jobID
 echo $holdID

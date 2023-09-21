@@ -20,32 +20,48 @@ module load ncurses/5.9-goolf-1.7.20
 
 COUNTER=$SGE_TASK_ID
 projectID=$1
+
+# must be full paths:
 left_read_file=$2
 right_read_file=$3
+
 left_read_file_base_name=$4
 right_read_file_base_name=$5
-bowtieERCCIndex=$6
-bowtieUnmaskedGenomeIndex=$7
-picard=$8
+outPathLeft=$6
+outPathRight=$7
+
+# debug
+echo $outPathRight
+
+scriptsPath=$8
+
+bowtieERCCIndex=$9
+bowtieUnmaskedGenomeIndex=$10
+
+#debug
+echo $scriptsPath
+
+picard=$11
+
 
 
 ## Source script for directory checking function
-dos2unix dir_check.sh
-source ./dir_check.sh 
+dos2unix $scriptsPath/dir_check.sh
+source $scriptsPath/dir_check.sh 
 
 
 echo "Line 28"
 echo $left_read_file
 
-rel_path_to_proj_dir="../"
+# rel_path_to_proj_dir="../"
 
-left_read_file_rel_path_from_script=${rel_path_to_proj_dir}$left_read_file
-right_read_file_rel_path_from_script=${rel_path_to_proj_dir}$right_read_file
+# left_read_file_rel_path_from_script=${rel_path_to_proj_dir}$left_read_file
+# right_read_file_rel_path_from_script=${rel_path_to_proj_dir}$right_read_file
 
 
 
 echo 'Line 38'
-echo $left_read_file_rel_path_from_script
+# echo $left_read_file_rel_path_from_script
 
 
 ##########################################
@@ -53,11 +69,11 @@ echo $left_read_file_rel_path_from_script
 
 ##########################################
 
-generated_Data_dir="../Generated_Data/"
-outputDir_unmaskedGenome="../unmasked_genome_alignment_rates/"
-erccoutputDir="../ERCC_alignment_rates/"
-erccAlignmentCountsDir="../ERCC_alignment_counts/"
-insertSizeOutputDir="../insert_size_metrics"
+generated_Data_dir=$outputPath"/Generated_Data/"
+outputDir_unmaskedGenome=$outputPath"/unmasked_genome_alignment_rates/"
+erccoutputDir=$outputPath"/ERCC_alignment_rates/"
+erccAlignmentCountsDir=$outputPath"/ERCC_alignment_counts/"
+insertSizeOutputDir=$outputPath"/insert_size_metrics"
 
 outSam_ERCC="genome_alignment_ERCC_"$left_read_file_base_name".sam"
 outSam_Unmasked_Genome="genome_alignment_unmasked_genome_"$left_read_file_base_name".sam"
@@ -77,13 +93,13 @@ echo $cur_Dir
 #correct_cur_Dir=$projectID
 #dir_check  $correct_cur_Dir
 
-sample_folder_name="Sample_"$left_read_file_base_name
-mkdir $sample_folder_name
+# sample_folder_name="Sample_"$left_read_file_base_name
+# mkdir $sample_folder_name
 
 #Confirm that sample folder exists
-file_exist_check $sample_folder_name
+file_exist_check $outPathLeft
 
-cd $sample_folder_name
+cd $outPathLeft
 
 mkdir Generated_Data_1st_Bowtie_Alignment_ERCC
 
