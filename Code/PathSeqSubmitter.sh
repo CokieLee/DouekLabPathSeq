@@ -118,6 +118,11 @@ echo "Function output"
 holdID=$(qsub $bowtieScript $projectID $left_read_file $right_read_file $left_read_file_base_name  $right_read_file_base_name $outPathLeft $outPathRight $codePath $bowtieERCCIndex $bowtieUnmaskedGenomeIndex $picard | cut -d' ' -f3)
 ###########################################
 ## get the short jobID from array jobID
+
+# debug
+echo "Calling BowtieUnmaskedGenome.sh: "
+echo "$bowtieScript $projectID $left_read_file $right_read_file $left_read_file_base_name  $right_read_file_base_name $outPathLeft $outPathRight $codePath $bowtieERCCIndex $bowtieUnmaskedGenomeIndex $picard | cut -d' ' -f3)"
+
 echo $holdID
 
 

@@ -31,7 +31,7 @@ outPathLeft=$6
 outPathRight=$7
 
 # debug
-echo $outPathRight
+#echo $outPathRight
 
 scriptsPath=$8
 
@@ -39,7 +39,7 @@ bowtieERCCIndex=$9
 bowtieUnmaskedGenomeIndex=$10
 
 #debug
-echo $scriptsPath
+#echo $scriptsPath
 
 picard=$11
 
@@ -53,15 +53,17 @@ source $scriptsPath/dir_check.sh
 echo "Line 28"
 echo $left_read_file
 
-# rel_path_to_proj_dir="../"
+rel_path_to_proj_dir="../"
 
-# left_read_file_rel_path_from_script=${rel_path_to_proj_dir}$left_read_file
-# right_read_file_rel_path_from_script=${rel_path_to_proj_dir}$right_read_file
+#Todo: change all of the following variable name in the script
+# because rel implies its relative, but it is not anymore
+left_read_file_rel_path_from_script=$left_read_file
+right_read_file_rel_path_from_script=$right_read_file
 
 
 
 echo 'Line 38'
-# echo $left_read_file_rel_path_from_script
+echo $left_read_file_rel_path_from_script
 
 
 ##########################################
@@ -143,18 +145,26 @@ pwd
 
 bowtieAlignRate_ERCC="../ERCC_alignment_rates/ERCC_alignment_rate_"$left_read_file_base_name".txt"
 
-test_bowtie_cmd="bowtie2 --no-mixed --no-discordant -p 4 -x $bowtieERCCIndex -1 $left_read_file_rel_path_from_script -2 $right_read_file_rel_path_from_script 1>$outSam_ERCC 2>$bowtieAlignRate_ERCC"
 
-left_read_file_rel_path_from_ERCC_bowtie_folder="../"$left_read_file_rel_path_from_script
-right_read_file_rel_path_from_ERCC_bowtie_folder="../"$right_read_file_rel_path_from_script
+# Todo: examine the following variable names
+left_read_file_rel_path_from_ERCC_bowtie_folder=$left_read_file_rel_path_from_script
+right_read_file_rel_path_from_ERCC_bowtie_folder=$right_read_file_rel_path_from_script
 
 ## Confirm path to read file works
 file_exist_check $left_read_file_rel_path_from_ERCC_bowtie_folder
 file_exist_check $right_read_file_rel_path_from_ERCC_bowtie_folder
 
+# debug
+echo "ALIGNMENT:"
 echo "path to read file"
-echo $left_read_file_rel_path_from_gen_data_folder
+echo $left_read_file_rel_path_from_ERCC_bowtie_folder
+echo "output path"
+echo $outSam_ERCC
+echo "alignment rate path"
+echo $bowtieAlignRate_ERCC
 bowtie2 --no-mixed --no-discordant -p 4 -x $bowtieERCCIndex -1 $left_read_file_rel_path_from_ERCC_bowtie_folder -2 $right_read_file_rel_path_from_ERCC_bowtie_folder 1>$outSam_ERCC 2>$bowtieAlignRate_ERCC
+
+test_bowtie_cmd="bowtie2 --no-mixed --no-discordant -p 4 -x $bowtieERCCIndex -1 $left_read_file_rel_path_from_ERCC_bowtie_folder -2 $right_read_file_rel_path_from_ERCC_bowtie_folder 1>$outSam_ERCC 2>$bowtieAlignRate_ERCC"
 
 echo "bowtie test command"
 echo $test_bowtie_cmd
@@ -181,8 +191,16 @@ then
     samtools view -@ 12 -b -F 4 $outSam_ERCC > $outERCCbam
     echo "After samtools view call" >&2
 
+    # debug
+    echo $sortedERCCbam
     samtools sort -@ 12 -m 7G $outERCCbam 1> $sortedERCCbam
+    # debug
+    echo $sortedERCCbam
     samtools index -@ 12 $sortedERCCbam
+    # debug
+    echo "current directory before calling samtools idxstats:"
+    echo $cur_Dir
+    echo $erccAlignmentCountsDir"ERCC_alignment_counts_rate_"$left_read_file_base_name".txt"
     samtools idxstats $sortedERCCbam 1> $erccAlignmentCountsDir"ERCC_alignment_counts_rate_"$left_read_file_base_name".txt"
 
     samtools view -@ 12 -f 4 $outSam_ERCC | grep -v ^@ | awk 'NR%2==1 {print "@"$1"\n"$10"\n+\n"$11}' > "unalignedRead1AgainstERCC_"$left_read_file_base_name".fq"
