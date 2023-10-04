@@ -115,18 +115,17 @@ echo "Function output"
 ###########################################
 ###########################################
 ## submit first alignment pass and capture the array jobID
-holdID=$(qsub $bowtieScript $projectID $left_read_file $right_read_file $left_read_file_base_name  $right_read_file_base_name $outPathLeft $outPathRight $codePath $bowtieERCCIndex $bowtieUnmaskedGenomeIndex $picard | cut -d' ' -f3)
+holdID=$(qsub $bowtieScript $projectID $left_read_file $right_read_file $left_read_file_base_name $right_read_file_base_name $outPathLeft $outPathRight $codePath $bowtieERCCIndex $bowtieUnmaskedGenomeIndex $picard)
 ###########################################
 ## get the short jobID from array jobID
 
-# debug
+# Print status
 echo "Calling BowtieUnmaskedGenome.sh: "
-echo "$bowtieScript $projectID $left_read_file $right_read_file $left_read_file_base_name  $right_read_file_base_name $outPathLeft $outPathRight $codePath $bowtieERCCIndex $bowtieUnmaskedGenomeIndex $picard | cut -d' ' -f3)"
+echo "$bowtieScript $projectID $left_read_file $right_read_file $left_read_file_base_name  $right_read_file_base_name $outPathLeft $outPathRight $codePath $bowtieERCCIndex $bowtieUnmaskedGenomeIndex $picard)"
 
 echo $holdID
 
 
-"""
 OLD_IFS=$IFS
 IFS="."
 newArray=($holdID)
@@ -143,12 +142,17 @@ holdID2=$(qsub -hold_jid $holdID $starScript $projectID $left_read_file_base_nam
 ## get the short jobID from array jobID
 echo $holdID2
 
+# Print status
+echo "Calling starAfterBowtie.sh: "
+echo "$starScript $projectID $left_read_file_base_name  $right_read_file_base_name $hg38_starDB| cut -d' ' -f3)"
+
 OLD_IFS=$IFS
 IFS="."
 newArray=($holdID2)
 holdID=${newArray[0]}
 IFS=$OLD_IFS
 
+"""
 echo "holdID is "
 echo $holdID
 

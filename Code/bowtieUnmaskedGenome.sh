@@ -31,19 +31,26 @@ outPathLeft=$6
 outPathRight=$7
 
 # debug
-#echo $outPathRight
+echo "out path right: "
+echo $outPathRight
 
 scriptsPath=$8
 
 bowtieERCCIndex=$9
-bowtieUnmaskedGenomeIndex=$10
+bowtieUnmaskedGenomeIndex=${10}
 
 #debug
-#echo $scriptsPath
+echo "code path: "
+echo $scriptsPath
+echo "bowtie ercc index: "
+echo $bowtieERCCIndex
+echo "bowtie unmasked genome index: "
+echo $bowtieUnmaskedGenomeIndex
 
-picard=$11
+picard=${11}
 
-
+# get starting directory so we can return to it
+startDir=$(pwd)
 
 ## Source script for directory checking function
 dos2unix $scriptsPath/dir_check.sh
@@ -83,20 +90,6 @@ outSam_Unmasked_Genome="genome_alignment_unmasked_genome_"$left_read_file_base_n
 
 cur_Dir=$(basename $(pwd))
 echo $cur_Dir
-#correct_cur_Dir="scripts"
-#dir_check  $correct_cur_Dir
-
-
-
-#cd ../
-
-#cur_Dir=$(basename $(pwd))
-#echo $cur_Dir
-#correct_cur_Dir=$projectID
-#dir_check  $correct_cur_Dir
-
-# sample_folder_name="Sample_"$left_read_file_base_name
-# mkdir $sample_folder_name
 
 #Confirm that sample folder exists
 file_exist_check $outPathLeft
@@ -156,20 +149,22 @@ file_exist_check $right_read_file_rel_path_from_ERCC_bowtie_folder
 
 # debug
 echo "ALIGNMENT:"
-echo "path to read file"
+echo "path to read file: "
 echo $left_read_file_rel_path_from_ERCC_bowtie_folder
-echo "output path"
+echo "output path: "
 echo $outSam_ERCC
-echo "alignment rate path"
+echo "alignment rate path: "
 echo $bowtieAlignRate_ERCC
+echo " "
+
+# Perform first alignment step
 bowtie2 --no-mixed --no-discordant -p 4 -x $bowtieERCCIndex -1 $left_read_file_rel_path_from_ERCC_bowtie_folder -2 $right_read_file_rel_path_from_ERCC_bowtie_folder 1>$outSam_ERCC 2>$bowtieAlignRate_ERCC
 
-test_bowtie_cmd="bowtie2 --no-mixed --no-discordant -p 4 -x $bowtieERCCIndex -1 $left_read_file_rel_path_from_ERCC_bowtie_folder -2 $right_read_file_rel_path_from_ERCC_bowtie_folder 1>$outSam_ERCC 2>$bowtieAlignRate_ERCC"
+bowtie_cmd_str="bowtie2 --no-mixed --no-discordant -p 4 -x $bowtieERCCIndex -1 $left_read_file_rel_path_from_ERCC_bowtie_folder -2 $right_read_file_rel_path_from_ERCC_bowtie_folder 1>$outSam_ERCC 2>$bowtieAlignRate_ERCC"
 
 echo "bowtie test command"
-echo $test_bowtie_cmd
+echo $bowtie_cmd_str
 echo "Done printing bowtie test command"
-#cp $bowtieAlignRate_ERCC $erccoutputDir
 
 outERCCbam="ERCCAlignments_"$left_read_file_base_name".bam"
 #outERCCbam="ERCCAlignments.bam"
@@ -178,6 +173,7 @@ cur_Dir=$(basename $(pwd))
 
 samtools_version=$(samtools --version)
 
+# create indexes and human readable output for still unaligned reads
 if [ -e $outSam_ERCC ]
 then
     echo $cur_Dir >&1
@@ -219,6 +215,9 @@ else
 
 fi
 
+# debug
+echo "SECOND ALIGNMENT STEP: "
+
 #Confirm directory change was succesful
 correct_cur_Dir="Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome"
 cd ../Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome
@@ -235,6 +234,11 @@ ERRC_right_read_out_path_from_2nd_bowtie_folder=$bowtieERCCDirPath"unalignedRead
 file_exist_check $ERRC_left_read_out_path_from_2nd_bowtie_folder
 file_exist_check $ERRC_left_read_out_path_from_2nd_bowtie_folder
 
+# debug
+echo $ERRC_left_read_out_path_from_2nd_bowtie_folder
+echo $bowtieAlignRate_UnmaskedGenome
+
+# 2nd alignment step
 bowtie2 -p 12 --no-mixed --no-discordant -x $bowtieUnmaskedGenomeIndex -1 $ERRC_left_read_out_path_from_2nd_bowtie_folder -2 $ERRC_right_read_out_path_from_2nd_bowtie_folder 1>$outSam_Unmasked_Genome 2>$bowtieAlignRate_UnmaskedGenome
 cp $bowtieAlignRate_UnmaskedGenome $outputDir_unmaskedGenome
 
@@ -254,9 +258,27 @@ picard_stdout_file_name="picard_stdout_"$left_read_file_base_name".txt"
 picard_stderr_file_name="picard_stderr_"$left_read_file_base_name".txt" 
 insert_size_metrics_file_name="insert_size_metrics_"$left_read_file_base_name".txt" 
 insert_Hist_pdf_file_name="insert_size_histogram_"$left_read_file_base_name".pdf" 
+
+# debug
+echo "jar file name: "
+echo $picard
+echo "picard collectInsertSizeMetrics input: "
+echo $tempSortedAlignments_filename
+
 java -Xmx6G -jar $picard CollectInsertSizeMetrics I=$tempSortedAlignments_filename O=$insert_size_metrics_file_name H=$insert_Hist_pdf_file_name M=0.5 1>$picard_stdout_file_name 2>$picard_stderr_file_name
 OUT=$?
 echo "Reached line 148"
+
+# debug
+echo "insert_Hist_pdf_file_name exists: "
+if [ -e $insert_Hist_pdf_file_name ]
+then
+    echo "true"
+else
+    echo "false"
+fi
+
+
 if [ -e $insert_Hist_pdf_file_name ]
 then
 	echo $left_read_file_base_name" Everything successful ("$OUT") and deleting intermediate files" >> "../finished_bowtieUnmaskedGenome.txt"
@@ -280,15 +302,7 @@ else
    	#rm tempSortedAlignments.bam
 fi
 
-echo "Reached line 172"
+# return to starting directory
+cd $startDir
 
-## Return to scripts folder at end of script
-cd ../../scripts/
-
-## Confirm that we are in fact in the scripts folder
-cur_Dir=$(basename $(pwd))
-echo $cur_Dir
-correct_cur_Dir="scripts"
-dir_check  $correct_cur_Dir
-
-
+echo "Reached end of bowtieUnmasked.sh"

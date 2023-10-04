@@ -15,11 +15,13 @@ COUNTER=$SGE_TASK_ID
 projectID=$1
 left_read_file_base_name=$2
 right_read_file_base_name=$3
-hg38_starDB=$4
+codePath=$4
+outputPath=$5
+hg38_starDB=$6
 
 ## Source script for directory checking function
-dos2unix dir_check.sh
-source ./dir_check.sh 
+dos2unix $codePath/dir_check.sh
+source $codePath/dir_check.sh 
 
 echo $left_read_file_base_name
 echo $right_read_file_base_name
@@ -38,25 +40,12 @@ demultiplexDir="../Input_Data/"
 left="unalignedRead1AgainstGenome_"$left_read_file_base_name".fq"
 right="unalignedRead2AgainstGenome_"$right_read_file_base_name".fq"
 
-#outDir_Star="STAR"
-
-##Confirm that we are  in scripts folder
-cur_Dir=$(basename $(pwd))
-echo $cur_Dir
-correct_cur_Dir="scripts"
-dir_check  $correct_cur_Dir
-
-##Change directories to project folder
-cd "../"
+##Change directories to output folder
+cd $outputPath
 
 ##Confirm that we are in project folder
 cur_Dir=$(basename $(pwd))
 echo $cur_Dir
-correct_cur_Dir=$projectID
-dir_check  $correct_cur_Dir
-
-
-sample_folder_name="Sample_"$left_read_file_base_name
 
 ## Confirm that sample folder exists
 file_exist_check $sample_folder_name
