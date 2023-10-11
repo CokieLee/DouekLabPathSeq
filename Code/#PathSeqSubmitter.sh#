@@ -137,7 +137,7 @@ echo $holdID
 echo "Ready for star Alignment"
 ###########################################
 ## submit second alignment pass, holding for first pass to finish and capture the array jobID
-holdID2=$(qsub -hold_jid $holdID $starScript $projectID $left_read_file_base_name  $right_read_file_base_name $codePath $outputPath $hg38_starDB)
+holdID2=$(qsub -hold_jid $holdID $starScript $projectID $left_read_file_base_name  $right_read_file_base_name $hg38_starDB| cut -d' ' -f3)
 ###########################################
 ## get the short jobID from array jobID
 echo $holdID2

@@ -1,4 +1,4 @@
-  #!/bin/sh
+#!/bin/sh
 #$ -N starAfterBowtie
 #$ -S /bin/bash
 #$ -M rahul.subramanian@nih.gov
