@@ -1,11 +1,12 @@
 #!/bin/sh
 #$ -N starAfterBowtie
 #$ -S /bin/bash
-#$ -M rahul.subramanian@nih.gov
-#$ -m n
+#$ -M cokie.parker@nih.gov
+#$ -m be
 #$ -l h_vmem=50G
 #$ -l quick
 #$ -cwd
+#$ -j y
 
 module load STAR/2.4.2a-goolf-1.7.20
 module load SAMtools/1.4-goolf-1.7.20
@@ -14,27 +15,34 @@ COUNTER=$SGE_TASK_ID
 
 projectID=$1
 left_read_file_base_name=$2
-right_read_file_base_name=$3
-codePath=$4
-outputPath=$5
-hg38_starDB=$6
+codePath=$3
+outputPath=$4
+hg38_starDB=$5
+
+## print input args
+echo "STAR AFTER BOWTIE INPUTS:"
+echo "projectID:"
+echo $projectID
+
+echo "output_base_name:"
+echo $left_read_file_base_name
+
+echo "codePath:"
+echo $codePath
+
+echo "outputPath:"
+echo $outputPath
+
+echo "hg38_starDB:"
+echo $hg38_starDB
 
 ## Source script for directory checking function
-dos2unix $codePath/dir_check.sh
-source $codePath/dir_check.sh 
-
-echo $left_read_file_base_name
-echo $right_read_file_base_name
-echo "line 25"
-
+dos2unix $codePath"/dir_check.sh"
+source $codePath"/dir_check.sh"
 
 #hg38_starDB="/hpcdata/vrc/vrc1_data/douek_lab/reference_sets/hg38/Sequence/STAR/"
 #hg_38_gtf="/hpcdata/vrc/vrc1_data/douek_lab/reference_sets/hg38/Annotation/Genes/genes.gtf"
 #hg38_referenceFasta="/hpcdata/vrc/vrc1_data/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa"
-
-echo $hg38_starDB
-#echo $hg_38_gtf
-#echo $hg38_referenceFasta
 
 demultiplexDir="../Input_Data/"
 left="unalignedRead1AgainstGenome_"$left_read_file_base_name".fq"

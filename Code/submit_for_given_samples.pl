@@ -8,6 +8,8 @@ if($#ARGV < 6){die" Usage: Code_Path InputDataPath SampleName Start_number End_n
 my($codePath,$inputPath,$sampName,$start,$end,$type,$outputPath)=($ARGV[0],$ARGV[1],$ARGV[2],$ARGV[3],$ARGV[4],$ARGV[5],$ARGV[6]);
 print "running PathSeq for $end $start..$end samples\n";
 
+# debug
+print "Input file list at: $inputPath/file_list";
 
 open(LIST,"$inputPath/file_list")|| die "could not open list\n";
 
