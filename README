@@ -1,0 +1,3 @@
+Pathseq pipeline, rewritten to remove file structure dependencies, and add checkpointing, tests, and error checking.
+
+To run a test 
