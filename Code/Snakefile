@@ -1,0 +1,18 @@
+configfile: "config.yaml"
+
+# todo make rule for splitting up and feeding 
+
+rule bowtieUnmasked:
+	input:
+		scriptPath=os.path.join(configfile["codepath"], "bowtieUnmaskedGenome.sh"),
+		projectID=,
+		leftReadFile=,
+		rightReadFile=,
+		origin=,
+		minContigLegnth=,
+		outputPath=
+    output:
+    shell:
+		"{input.scriptPath} {input.projectID} {input.leftReadFile} \
+		{input.rightReadFile} {basename} {input.outputPath} \
+		{codepath} {ercc} {unmaskedindex} {picardpath}"
