@@ -1,17 +1,32 @@
 configfile: "config.yaml"
 
-# todo make rule for splitting up and feeding 
+# get samples list from input files directory
+import pandas as pd
+sample_list_file = os.path.join(configfile["inputpath"], "file_list")
+sample_names = pd.read_csv(sample_list_file, header=None)[0].tolist()
 
+# the final output is the 
+rule all:
+    input:
+        expand(os.path.join(configfile["outputpath"], "{sample}"), sample=sample_names)
+
+# run bowtie unmasked on samples
 rule bowtieUnmasked:
 	input:
 		scriptPath=os.path.join(configfile["codepath"], "bowtieUnmaskedGenome.sh"),
-		projectID=,
-		leftReadFile=,
-		rightReadFile=,
-		origin=,
-		minContigLegnth=,
-		outputPath=
+		projectID=configfile["projectid"],
+		leftReadFile={sample},
+		rightReadFile={sample}.replace("R1", "R2"),
+		origin="RNA",
+		minContigLegnth=300,
+		outputPath=configfile["outputpath"]
     output:
+		directory(os.path.join(configfile["outputpath"], {sample}, "Generated_Data_1st_Bowtie_Alignment_ERCC")),
+		directory(os.path.join(configfile["outputpath"], {sample}, "Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome")),
+		directory(os.path.join(configfile["outputpath"], {sample}, "unmasked_genome_alignment_rates")),
+		directory(os.path.join(configfile["outputpath"], {sample}, "ERCC_alignment_rates")),
+		directory(os.path.join(configfile["outputpath"], {sample}, "ERCC_alignment_counts")),
+		directory(os.path.join(configfile["outputpath"], {sample}, "insert_size_metrics"))
     shell:
 		"{input.scriptPath} {input.projectID} {input.leftReadFile} \
 		{input.rightReadFile} {basename} {input.outputPath} \
