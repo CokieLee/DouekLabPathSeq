@@ -1,9 +1,8 @@
 #!/bin/sh
-#$ -N PathSeqSubmitter
-#$ -S /bin/bash
-#$ -l h_vmem=2G
-#$ -l quick
-#$ -cwd
+#SBATCH -J PathSeqSubmitter
+#SBATCH --mem=2G
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=cokie.parker@nih.gov
 
 projectID=$1
 left_read_file=$2
@@ -14,37 +13,37 @@ readsPerFile=20000 ## Trinity reads per file (used when splitting output)
 ## Define absolute paths to reference sets
 
 ### Bowtie ERCC reference index
-bowtieERCCIndex=/hpcdata/vrc/vrc1_data/douek_lab/reference_sets/ERCC/ERCC92
+bowtieERCCIndex=/data/vrc_his/douek_lab/reference_sets/ERCC/ERCC92
 ### Bowtie unmasked human genome reference index
-bowtieUnmaskedGenomeIndex="/hpcdata/vrc/vrc1_data/douek_lab/reference_sets/hg19/unmasked/genome"
+bowtieUnmaskedGenomeIndex="/data/vrc_his//douek_lab/reference_sets/hg19/unmasked/genome"
 ## starDB reference databases 
-hg38_starDB="/hpcdata/vrc/vrc1_data/douek_lab/reference_sets/hg38/Sequence/STAR/"
+hg38_starDB="/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/STAR/"
 #hg_38_gtf="/hpcdata/vrc/vrc1_data/douek_lab/reference_sets/hg38/Annotation/Genes/genes.gtf"
 #hg38_referenceFasta="/hpcdata/vrc/vrc1_data/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa"
 
 ### Bowtie primate reference index
-bowtiePrimateIndex=/hpcdata/vrc/vrc1_data/douek_lab/reference_sets/NCBI_nt/20210302/primates
+bowtiePrimateIndex=/data/vrc_his/douek_lab/reference_sets/NCBI_nt/20210302/primates
 
 ## Paths to programs
-picard=/hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/programs/picard/2.18.14/picard.jar
-program_PathSeqRemoveHostForKaiju=/hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/programs/PathSeqRemoveHostForKaiju/dist/PathSeqRemoveHostForKaiju.jar
+picard=/data/vrc_his/douek_lab/projects/PathSeq/programs/picard/2.18.14/picard.jar
+program_PathSeqRemoveHostForKaiju=/data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqRemoveHostForKaiju/dist/PathSeqRemoveHostForKaiju.jar
 
-PathSeqKaijuConcensusSplitter2_program=/hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/programs/PathSeqKaijuConcensusSplitter2/dist/PathSeqKaijuConcensusSplitter2.jar
+PathSeqKaijuConcensusSplitter2_program=/data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqKaijuConcensusSplitter2/dist/PathSeqKaijuConcensusSplitter2.jar
 
-PathSeqMergeQIIME2TaxAndSalmon_program=/hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/programs/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar
+PathSeqMergeQIIME2TaxAndSalmon_program=/data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar
 
-PathSeqSplitOutputTableByTaxonomy_program=/hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/programs/PathSeqSplitOutputTableByTaxonomy/dist/PathSeqSplitOutputTableByTaxonomy.jar
+PathSeqSplitOutputTableByTaxonomy_program=/data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqSplitOutputTableByTaxonomy/dist/PathSeqSplitOutputTableByTaxonomy.jar
 
 ## Blast reference databases
-blastDB_Mammalia=/hpcdata/vrc/vrc1_data/douek_lab/reference_sets/NCBI_nt/20210716/Mammalia.fa
+blastDB_Mammalia=/data/vrc_his/douek_lab/reference_sets/NCBI_nt/20210716/Mammalia.fa
 
 ## Files for kaiju reference database  (.dmp is a memory dump file format, fmi= functional 
 ## mockup interface, format used for model simulations)
 
-kaiju_nodes=/hpcdata/vrc/vrc1_data/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp
-kaiju_fmi=/hpcdata/vrc/vrc1_data/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/kaiju_db_nr_euk.fmi
+kaiju_nodes=/data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp
+kaiju_fmi=/data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/kaiju_db_nr_euk.fmi
 
-NCBI_nt_kaiju_ref_taxonomy=/hpcdata/vrc/vrc1_data/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/qiime2_formatted_taxonomy.tab
+NCBI_nt_kaiju_ref_taxonomy=/data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/qiime2_formatted_taxonomy.tab
 
 ## Rscript for calculating diversity metrics
 rScriptDiv="pathDiv.R"

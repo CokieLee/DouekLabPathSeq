@@ -1,11 +1,8 @@
 #!/bin/sh
-#$ -N palm_scan
-#$ -S /bin/bash
-#$ -M rahul.subramanian@nih.gov
-#$ -m n
-#$ -l h_vmem=20G
-#$ -l quick
-#$ -cwd
+#SBATCH -J palm_scan
+#SBATCH --mem=20G
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=cokie.parker@nih.gov
 
 export TMPDIR=/hpcdata/scratch/
 export _JAVA_OPTIONS="-Djava.io.tmpdir=/hpcdata/scratch"

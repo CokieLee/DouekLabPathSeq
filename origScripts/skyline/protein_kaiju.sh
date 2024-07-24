@@ -1,12 +1,9 @@
 #!/bin/sh
-#$ -N protein_kaiju
-#$ -S /bin/bash
-#$ -M rahul.subramanian@nih.gov
-#$ -m n
-#$ -l h_vmem=50G
-#$ -pe threaded 4
-#$ -l quick
-#$ -cwd
+#SBATCH -J protein_kaiju
+#SBATCH --mem=50G
+#SBATCH --cpus-per-task=4
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=cokie.parker@nih.gov
 
 ## Load FASTX module
 module load FASTX-Toolkit/0.0.14-goolf-1.7.20

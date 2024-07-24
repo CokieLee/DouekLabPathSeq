@@ -1,11 +1,8 @@
-  #!/bin/sh
-#$ -N starAfterBowtie
-#$ -S /bin/bash
-#$ -M rahul.subramanian@nih.gov
-#$ -m n
-#$ -l h_vmem=50G
-#$ -l quick
-#$ -cwd
+#!/bin/sh
+#SBTACH -J starAfterBowtie
+#SBATCH --mem=50G
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=cokie.parker@nih.gov
 
 module load STAR/2.4.2a-goolf-1.7.20
 module load SAMtools/1.4-goolf-1.7.20

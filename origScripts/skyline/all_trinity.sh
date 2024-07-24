@@ -1,11 +1,9 @@
 #!/bin/sh
-#$ -N all_trinity
-#$ -S /bin/bash
-#$ -M rahul.subramanian@nih.gov
-#$ -m be
-#$ -pe threaded 12
-#$ -l h_vmem=16.5G
-#$ -cwd
+#SBATCH -J all_trinity
+#SBATCH --cpus-per-task=12
+#SBATCH --mem=16.5G
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=cokie.parker@nih.gov
 
 export TMPDIR=/hpcdata/scratch/
 export _JAVA_OPTIONS="-Djava.io.tmpdir=/hpcdata/scratch"

@@ -1,10 +1,8 @@
 #!/bin/sh
-#$ -N bowtieUnmaskedGenome
-#$ -S /bin/bash
-#$ -m n
-#$ -pe threaded 12
-#$ -l quick
-#$ -cwd
+#SBATCH -J bowtieUnmaskedGenome
+#SBATCH --cpus-per-task=12
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=cokie.parker@nih.gov
 
 module load ncurses/5.9-goolf-1.7.20
 module load Bowtie2/2.3.3.1-py27pl5.22

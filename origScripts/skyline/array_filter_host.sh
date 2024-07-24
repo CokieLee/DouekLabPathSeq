@@ -1,12 +1,9 @@
 #!/bin/sh
-#$ -N array_filter_host
-#$ -S /bin/bash
-#$ -M rahul.subramanian@nih.gov
-#$ -m n
-#$ -l h_vmem=50G
-#$ -pe threaded 4
-#$ -l quick
-#$ -cwd
+#SBATCH -J array_filter_host
+#SBATCH --mem=50G
+#SBATCH --cpus-per-task=4
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=cokie.parker@nih.gov
 
 module load BLAST+
 module load java

@@ -1,10 +1,8 @@
 #!/bin/sh
-#$ -N salmonQuantSingleLevel
-#$ -S /bin/bash
-#$ -M rahul.subramanian@nih.gov
-#$ -m n
-#$ -l h_vmem=100G
-#$ -cwd
+#SBATCH -J salmonQuantSingleLevel
+#SBATCH --mem=100G
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=cokie.parker@nih.gov
 
 
 ## load Locus modules

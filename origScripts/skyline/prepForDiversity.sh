@@ -1,10 +1,8 @@
 #!/bin/sh
-#$ -N prepForDiversity
-#$ -S /bin/bash
-#$ -M rahul.subramanian@nih.gov
-#$ -m n
-#$ -l h_vmem=25G
-#$ -cwd
+#SBATCH -J prepForDiversity
+#SBATCH --mem=25G
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=cokie.parker@nih.gov
 
 ## load Locus modules
 module load java

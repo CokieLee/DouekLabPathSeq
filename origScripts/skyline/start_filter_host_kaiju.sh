@@ -1,10 +1,8 @@
 #!/bin/sh
-#$ -N start_filter_host_kaiju
-#$ -S /bin/bash
-#$ -M rahul.subramanian@nih.gov
-#$ -m be
-#$ -l quick
-#$ -cwd
+#SBATCH -J start_filter_host_kaiju
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=cokie.parker@nih.gov
+
 projectID=$1
 left_read_file_base_name=$2
 right_read_file_base_name=$3

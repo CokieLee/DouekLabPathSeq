@@ -1,10 +1,8 @@
 #!/bin/sh
-#$ -N concat_kaiju_build_salmon
-#$ -S /bin/bash
-#$ -M rahul.subramanian@nih.gov
-#$ -m be
-#$ -l h_vmem=100G
-#$ -cwd
+#SBATCH -J concat_kaiju_build_salmon
+#SBATCH --mem=100G
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=cokie.parker@nih.gov
 
 module load java
 

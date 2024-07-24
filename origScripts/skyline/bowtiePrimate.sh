@@ -1,11 +1,8 @@
 #!/bin/sh
-#$ -N bowtiePrimate
-#$ -S /bin/bash
-#$ -M rahul.subramanian@nih.gov
-#$ -m n
-#$ -pe threaded 12
-#$ -l quick
-#$ -cwd
+#SBATCH -J bowtiePrimate
+#SBATCH --cpus-per-task=12
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=cokie.parker@nih.gov
 
 module load bowtie2
 module load SAMtools
