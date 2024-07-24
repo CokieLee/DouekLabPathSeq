@@ -160,12 +160,12 @@ if [ $exitCode -eq 0 ]
 
 		full_path_to_start_filter_script=$full_dir"/"$split_filter_submit_script
 
-		qsub $full_path_to_start_filter_script $projectID $left_read_file_base_name $right_read_file_base_name $MIN_CONTIG_LENGTH $origin $readsPerFile $program_PathSeqRemoveHostForKaiju $blastDB_Mammalia $filterScript $kaiju_nodes $kaiju_fmi $kaijuScript $parseKaijuScript $PathSeqKaijuConcensusSplitter2_program $NCBI_nt_kaiju_ref_taxonomy $mergeScript $prepDiversityScript $salmonQuantScript $left_read_file  $right_read_file $PathSeqMergeQIIME2TaxAndSalmon_program $PathSeqSplitOutputTableByTaxonomy_program $palmScanScript $rScriptDiv
+		sbatch $full_path_to_start_filter_script $projectID $left_read_file_base_name $right_read_file_base_name $MIN_CONTIG_LENGTH $origin $readsPerFile $program_PathSeqRemoveHostForKaiju $blastDB_Mammalia $filterScript $kaiju_nodes $kaiju_fmi $kaijuScript $parseKaijuScript $PathSeqKaijuConcensusSplitter2_program $NCBI_nt_kaiju_ref_taxonomy $mergeScript $prepDiversityScript $salmonQuantScript $left_read_file  $right_read_file $PathSeqMergeQIIME2TaxAndSalmon_program $PathSeqSplitOutputTableByTaxonomy_program $palmScanScript $rScriptDiv
 
-		#qsub "/hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/"$projectID"/scripts/start_filter_host_kaiju.sh" $projectID $left_read_file_base_name $right_read_file_base_name $MIN_CONTIG_LENGTH $origin $readsPerFile $program_PathSeqRemoveHostForKaiju $blastDB_Mammalia
+		#sbatch "/hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/"$projectID"/scripts/start_filter_host_kaiju.sh" $projectID $left_read_file_base_name $right_read_file_base_name $MIN_CONTIG_LENGTH $origin $readsPerFile $program_PathSeqRemoveHostForKaiju $blastDB_Mammalia
 
 
-		#holdID5=$(qsub $start_filter_script $projectID $left_read_file_base_name $right_read_file_base_name $MIN_CONTIG_LENGTH  $readsPerFile $origin | cut -d' ' -f3)
+		#holdID5=$(sbatch $start_filter_script $projectID $left_read_file_base_name $right_read_file_base_name $MIN_CONTIG_LENGTH  $readsPerFile $origin | cut -d' ' -f3)
 		
 		#echo $holdID5
 	else

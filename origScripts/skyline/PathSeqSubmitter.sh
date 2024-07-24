@@ -106,7 +106,7 @@ echo $right_read_file_base_name
 
 ###########################################
 ## submit first alignment pass and capture the array jobID
-holdID=$(qsub $bowtieScript $projectID $left_read_file $right_read_file $left_read_file_base_name  $right_read_file_base_name $bowtieERCCIndex $bowtieUnmaskedGenomeIndex $picard | cut -d' ' -f3)
+holdID=$(sbatch $bowtieScript $projectID $left_read_file $right_read_file $left_read_file_base_name  $right_read_file_base_name $bowtieERCCIndex $bowtieUnmaskedGenomeIndex $picard | cut -d' ' -f3)
 ###########################################
 ## get the short jobID from array jobID
 echo $holdID
@@ -122,7 +122,7 @@ echo $holdID
 echo "Ready for star Alignment"
 ###########################################
 ## submit second alignment pass, holding for first pass to finish and capture the array jobID
-holdID2=$(qsub -hold_jid $holdID $starScript $projectID $left_read_file_base_name  $right_read_file_base_name $hg38_starDB| cut -d' ' -f3)
+holdID2=$(sbatch -hold_jid $holdID $starScript $projectID $left_read_file_base_name  $right_read_file_base_name $hg38_starDB| cut -d' ' -f3)
 ###########################################
 ## get the short jobID from array jobID
 echo $holdID2
@@ -139,7 +139,7 @@ echo $holdID
 echo "Ready for bowtie Primate"
 ###########################################
 ## submit third alignment pass, holding for second pass to finish and capture the array jobID
-holdID3=$(qsub -hold_jid $holdID $primateScript $projectID $left_read_file_base_name  $right_read_file_base_name $bowtiePrimateIndex | cut -d' ' -f3)
+holdID3=$(sbatch -hold_jid $holdID $primateScript $projectID $left_read_file_base_name  $right_read_file_base_name $bowtiePrimateIndex | cut -d' ' -f3)
 # ###########################################
 ## get the short jobID from array jobID
 echo $holdID3
@@ -153,7 +153,7 @@ IFS=$OLD_IFS
 echo $holdID
 ###########################################
 ## submit the trinity script, holding for the all alignment passes to finish 
-holdID4=$(qsub -hold_jid $holdID $trinityScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $MIN_CONTIG_LENGTH $split_filter_submit_script $program_PathSeqRemoveHostForKaiju $blastDB_Mammalia $filterScript $kaiju_nodes $kaiju_fmi $kaijuScript $parseKaijuScript $PathSeqKaijuConcensusSplitter2_program $NCBI_nt_kaiju_ref_taxonomy $mergeScript $prepDiversityScript $salmonQuantScript $left_read_file  $right_read_file $PathSeqMergeQIIME2TaxAndSalmon_program $PathSeqSplitOutputTableByTaxonomy_program $palmScanScript $rScriptDiv | cut -d' ' -f3)
+holdID4=$(sbatch -hold_jid $holdID $trinityScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $MIN_CONTIG_LENGTH $split_filter_submit_script $program_PathSeqRemoveHostForKaiju $blastDB_Mammalia $filterScript $kaiju_nodes $kaiju_fmi $kaijuScript $parseKaijuScript $PathSeqKaijuConcensusSplitter2_program $NCBI_nt_kaiju_ref_taxonomy $mergeScript $prepDiversityScript $salmonQuantScript $left_read_file  $right_read_file $PathSeqMergeQIIME2TaxAndSalmon_program $PathSeqSplitOutputTableByTaxonomy_program $palmScanScript $rScriptDiv | cut -d' ' -f3)
 
 echo $holdID4
 
@@ -184,7 +184,7 @@ echo $holdID
 
 
 
-#holdID5=$(qsub -hold_jid $holdID $split_filter_submit_script $projectID $left_read_file_base_name $right_read_file_base_name $MIN_CONTIG_LENGTH  $readsPerFile $origin | cut -d' ' -f3)
+#holdID5=$(sbatch -hold_jid $holdID $split_filter_submit_script $projectID $left_read_file_base_name $right_read_file_base_name $MIN_CONTIG_LENGTH  $readsPerFile $origin | cut -d' ' -f3)
 
 
-# qsub -hold_jid $holdID $parseKaijuScript $projectID $file $origin
+# sbatch -hold_jid $holdID $parseKaijuScript $projectID $file $origin
