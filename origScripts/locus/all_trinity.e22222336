@@ -1,6 +1,0 @@
-dos2unix: converting file dir_check.sh to Unix format ...
-mkdir: cannot create directory ‘RNA_trinity_output’: File exists
-File  
-../primate_alignment_rates/unalignedRead1AgainstPrimate_100-0652-D0_S1_L001_R1_001.fq
-was not found in directory  
-RNA_trinity_output
