@@ -1,0 +1,6 @@
+dos2unix: converting file dir_check.sh to Unix format ...
+mkdir: cannot create directory ‘primate_alignment_rates’: File exists
+File  
+../Generated_Data_Star_Alignment/100-0652-D0_S1_L001_R1_001_unalignedRead1AgainstTranscriptome.fq
+was not found in directory  
+primate_alignment_rates

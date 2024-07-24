@@ -1,0 +1,14 @@
+Line 28
+Input_Data/100-0587-D0_S1_L001_R1_001.fq.gz
+Line 38
+../Input_Data/100-0587-D0_S1_L001_R1_001.fq.gz
+scripts
+202302_Manning_DengueMicrobiome
+Input_Data/100-0587-D0_S1_L001_R1_001.fq.gz
+Input_Data/100-0587-D0_S1_L001_R2_001.fq.gz
+line 89
+/hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/cokie_pathseqtest0/202302_Manning_DengueMicrobiome/Sample_100-0587-D0_S1_L001_R1_001/Generated_Data_1st_Bowtie_Alignment_ERCC
+File  
+../../Input_Data/100-0587-D0_S1_L001_R1_001.fq.gz
+was not found in directory  
+Generated_Data_1st_Bowtie_Alignment_ERCC

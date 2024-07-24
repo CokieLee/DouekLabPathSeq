@@ -1,0 +1,30 @@
+ncurses/6.0(15):ERROR:150: Module 'ncurses/6.0' conflicts with the currently loaded module(s) 'ncurses/5.9-goolf-1.7.20'
+ncurses/6.0(15):ERROR:102: Tcl command execution failed: conflict ncurses
+
+dos2unix: converting file dir_check.sh to Unix format ...
+mkdir: cannot create directory ‘Sample_100-0587-D0_S1_L001_R1_001’: File exists
+mkdir: cannot create directory ‘Generated_Data_1st_Bowtie_Alignment_ERCC’: File exists
+mkdir: cannot create directory ‘Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome’: File exists
+mkdir: cannot create directory ‘unmasked_genome_alignment_rates’: File exists
+mkdir: cannot create directory ‘insert_size_metrics’: File exists
+mkdir: cannot create directory ‘ERCC_alignment_rates’: File exists
+mkdir: cannot create directory ‘ERCC_alignment_counts’: File exists
+rm: cannot remove ‘*.xml’: No such file or directory
+rm: cannot remove ‘*.sam’: No such file or directory
+rm: cannot remove ‘*.bam*’: No such file or directory
+rm: cannot remove ‘no_ERCC1.fq.gz’: No such file or directory
+rm: cannot remove ‘no_ERCC2.fq.gz’: No such file or directory
+rm: cannot remove ‘unalignedRead1AgainstGenome_100-0587-D0_S1_L001_R1_001.fq’: No such file or directory
+rm: cannot remove ‘unalignedRead2AgainstGenome_100-0587-D0_S1_L001_R2_001.fq’: No such file or directory
+rm: cannot remove ‘unalignedRead1AgainstERCC_100-0587-D0_S1_L001_R1_001.fq’: No such file or directory
+rm: cannot remove ‘unalignedRead2AgainstERCC_100-0587-D0_S1_L001_R2_001.fq’: No such file or directory
+rm: cannot remove ‘readindex_index_.fq.gz’: No such file or directory
+rm: cannot remove ‘left*’: No such file or directory
+rm: cannot remove ‘right*’: No such file or directory
+rm: cannot remove ‘*.cxb’: No such file or directory
+rm: cannot remove ‘*.csv’: No such file or directory
+rm: cannot remove ‘*readcount’: No such file or directory
+File  
+../../Input_Data/100-0587-D0_S1_L001_R1_001.fq.gz
+was not found in directory  
+Generated_Data_1st_Bowtie_Alignment_ERCC

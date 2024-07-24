@@ -1,0 +1,7 @@
+dos2unix: converting file dir_check.sh to Unix format ...
+mkdir: cannot create directory ‘alignment_stats’: File exists
+mkdir: cannot create directory ‘Generated_Data_Star_Alignment’: File exists
+File  
+../Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_100-0587-D0_S1_L001_R1_001.fq
+was not found in directory  
+Generated_Data_Star_Alignment

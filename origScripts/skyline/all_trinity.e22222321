@@ -1,0 +1,43 @@
+dos2unix: converting file dir_check.sh to Unix format ...
+mkdir: cannot create directory ‘RNA_trinity_output’: File exists
+Read1 before filtering:
+total reads: 81653235
+total bases: 12329638485
+Q20 bases: 11975520888(97.1279%)
+Q30 bases: 11553775455(93.7073%)
+
+Read2 before filtering:
+total reads: 81653235
+total bases: 12329638485
+Q20 bases: 11768905550(95.4522%)
+Q30 bases: 11173719292(90.6249%)
+
+Read1 after filtering:
+total reads: 28808851
+total bases: 4299541006
+Q20 bases: 4085010207(95.0104%)
+Q30 bases: 3876540568(90.1617%)
+
+Read2 after filtering:
+total reads: 28808851
+total bases: 4299541006
+Q20 bases: 3985440492(92.6946%)
+Q30 bases: 3707706899(86.2349%)
+
+Filtering result:
+reads passed filter: 161347218
+reads failed due to low quality: 1959252
+reads failed due to too many N: 0
+reads failed due to too short: 0
+reads with adapter trimmed: 4831146
+bases trimmed due to adapters: 120050146
+
+Duplication rate: 63.5214%
+
+Insert size peak (evaluated by paired-end reads): 269
+
+JSON report: fastp.json
+HTML report: fastp.html
+
+fastp -i ../primate_alignment_rates/unalignedRead1AgainstPrimate_100-0587-D0_S1_L001_R1_001.fq -o fastp_unalignedRead1AgainstPrimate_100-0587-D0_S1_L001_R1_001.fq -I ../primate_alignment_rates/unalignedRead1AgainstPrimate_100-0587-D0_S1_L001_R2_001.fq -O fastp_unalignedRead1AgainstPrimate_100-0587-D0_S1_L001_R2_001.fq --dedup --thread 12 
+fastp v0.23.2, time used: 157 seconds
