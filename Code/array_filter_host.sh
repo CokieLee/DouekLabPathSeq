@@ -9,7 +9,7 @@
 #$ -cwd
 
 module load BLAST+
-module load java
+module load javafx
 
 COUNTER=$SGE_TASK_ID
 projectID=$1

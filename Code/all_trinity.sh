@@ -10,7 +10,7 @@
 export TMPDIR=/hpcdata/scratch/
 export _JAVA_OPTIONS="-Djava.io.tmpdir=/hpcdata/scratch"
 
-module load Trinity/2.13.2-goolf-1.7.20
+module load trinity
 export PATH="/hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/programs/fastp:$PATH"
 
 projectID=$1
@@ -134,7 +134,7 @@ if [ $exitCode -eq 0 ]
 	then
 		echo "Trinity sample (" $left_read_file_base_name ") successful ("$exitCode")" >> "../finished_Trinity.txt"
 		module purge
-		module load FASTX-Toolkit/0.0.14-goolf-1.7.20
+		module load fastx-toolkit
 		##changes the width of sequences line in a FASTA file (all nucleotide sequences appear on a single line)
 		fasta_formatter -i $Trinity_fa_out_file_name > $formatted_Trinity_fa_out_file_name
 
@@ -155,8 +155,8 @@ if [ $exitCode -eq 0 ]
 		#start_filter_script="start_filter_host_kaiju.sh"
 
 
-		module purge
-		module load uge
+		# module purge
+		# module load uge
 
 		full_dir=$(pwd)
 

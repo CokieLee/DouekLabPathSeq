@@ -4,7 +4,7 @@
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=cokie.parker@nih.gov
 
-module load java
+module load javafx
 
 projectID=$1
 left_read_file_base_name=$2
@@ -121,8 +121,8 @@ salmon index -t family_sequences.fa -i family_salmon
 salmon index -t genus_sequences.fa -i genus_salmon
 salmon index -t species_sequences.fa -i species_salmon
 
-module purge
-module load uge
+# module purge
+# module load uge
 
 
 ## Get relative paths to original base reads

@@ -5,8 +5,8 @@
 #SBATCH --mail-user=cokie.parker@nih.gov
 
 ## load Locus modules
-module load java
-module load R/4.1.0
+module load javafx
+module load r
 
 
 projectID=$1

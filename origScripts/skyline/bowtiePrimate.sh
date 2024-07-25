@@ -5,7 +5,7 @@
 #SBATCH --mail-user=cokie.parker@nih.gov
 
 module load bowtie2
-module load SAMtools
+module load samtools
 
 COUNTER=$SGE_TASK_ID
 

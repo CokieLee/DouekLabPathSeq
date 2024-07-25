@@ -61,7 +61,7 @@ mergeScript="mergeTaxonomyAndQuantificationSingleLevel.sh"
 prepDiversityScript="prepForDiversity.sh"
 salmonQuantScript="salmonQuantSingleLevel.sh"
 palmScanScript="palm_scan.sh"
-
+8
 ## Source script for directory checking function
 dos2unix dir_check.sh
 source ./dir_check.sh 
@@ -106,64 +106,37 @@ echo $right_read_file_base_name
 
 ###########################################
 ## submit first alignment pass and capture the array jobID
-holdID=$(sbatch $bowtieScript $projectID $left_read_file $right_read_file $left_read_file_base_name  $right_read_file_base_name $bowtieERCCIndex $bowtieUnmaskedGenomeIndex $picard | cut -d' ' -f3)
+bowtieJobID=$(sbatch --parsable $bowtieScript $projectID $left_read_file $right_read_file $left_read_file_base_name  $right_read_file_base_name $bowtieERCCIndex $bowtieUnmaskedGenomeIndex $picard | cut -d' ' -f3)
 ###########################################
 ## get the short jobID from array jobID
-echo $holdID
-
-OLD_IFS=$IFS
-IFS="."
-newArray=($holdID)
-holdID=${newArray[0]}
-IFS=$OLD_IFS
-
 echo "holdID is "
-echo $holdID
+echo $bowtieJobID
+
 echo "Ready for star Alignment"
 ###########################################
 ## submit second alignment pass, holding for first pass to finish and capture the array jobID
-holdID2=$(sbatch -hold_jid $holdID $starScript $projectID $left_read_file_base_name  $right_read_file_base_name $hg38_starDB| cut -d' ' -f3)
+starJobID=$(sbatch --parsable --dependency=afterok:$bowtieJobID $starScript $projectID $left_read_file_base_name  $right_read_file_base_name $hg38_starDB| cut -d' ' -f3)
 ###########################################
 ## get the short jobID from array jobID
-echo $holdID2
-
-OLD_IFS=$IFS
-IFS="."
-newArray=($holdID2)
-holdID=${newArray[0]}
-IFS=$OLD_IFS
-
 echo "holdID is "
-echo $holdID
+echo $starJobID
 
 echo "Ready for bowtie Primate"
 ###########################################
 ## submit third alignment pass, holding for second pass to finish and capture the array jobID
-holdID3=$(sbatch -hold_jid $holdID $primateScript $projectID $left_read_file_base_name  $right_read_file_base_name $bowtiePrimateIndex | cut -d' ' -f3)
+bowtie2JobID=$(sbatch --parsable --dependency=afterok:$starJobID $primateScript $projectID $left_read_file_base_name  $right_read_file_base_name $bowtiePrimateIndex | cut -d' ' -f3)
 # ###########################################
 ## get the short jobID from array jobID
-echo $holdID3
+echo "holdID is "
+echo $bowtie2JobID
 
-OLD_IFS=$IFS
-IFS="."
-newArray=($holdID3)
-holdID=${newArray[0]}
-IFS=$OLD_IFS
-
-echo $holdID
+echo "Ready for Trinity"
 ###########################################
 ## submit the trinity script, holding for the all alignment passes to finish 
-holdID4=$(sbatch -hold_jid $holdID $trinityScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $MIN_CONTIG_LENGTH $split_filter_submit_script $program_PathSeqRemoveHostForKaiju $blastDB_Mammalia $filterScript $kaiju_nodes $kaiju_fmi $kaijuScript $parseKaijuScript $PathSeqKaijuConcensusSplitter2_program $NCBI_nt_kaiju_ref_taxonomy $mergeScript $prepDiversityScript $salmonQuantScript $left_read_file  $right_read_file $PathSeqMergeQIIME2TaxAndSalmon_program $PathSeqSplitOutputTableByTaxonomy_program $palmScanScript $rScriptDiv | cut -d' ' -f3)
+trinityJobID=$(sbatch --parsable --dependency=afterok:$bowtie2JobID $trinityScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $MIN_CONTIG_LENGTH $split_filter_submit_script $program_PathSeqRemoveHostForKaiju $blastDB_Mammalia $filterScript $kaiju_nodes $kaiju_fmi $kaijuScript $parseKaijuScript $PathSeqKaijuConcensusSplitter2_program $NCBI_nt_kaiju_ref_taxonomy $mergeScript $prepDiversityScript $salmonQuantScript $left_read_file  $right_read_file $PathSeqMergeQIIME2TaxAndSalmon_program $PathSeqSplitOutputTableByTaxonomy_program $palmScanScript $rScriptDiv | cut -d' ' -f3)
 
-echo $holdID4
-
-OLD_IFS=$IFS
-IFS="."
-newArray=($holdID4)
-holdID=${newArray[0]}
-IFS=$OLD_IFS
-
-echo $holdID
+echo "holdID is "
+echo $trinityJobID
 
 
 # ## Sources the functions for splitting trinity output files

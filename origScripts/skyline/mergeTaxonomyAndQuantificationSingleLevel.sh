@@ -5,7 +5,7 @@
 #SBATCH --mail-user=cokie.parker@nih.gov
 
 ## load Locus modules
-module load java
+module load javafx
 
 
 COUNTER=$SGE_TASK_ID

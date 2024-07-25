@@ -6,7 +6,7 @@
 #SBATCH --mail-user=cokie.parker@nih.gov
 
 ## Load FASTX module
-module load FASTX-Toolkit/0.0.14-goolf-1.7.20
+module load fastx-toolkit
 
 projectID=$1
 left_read_file_base_name=$2
