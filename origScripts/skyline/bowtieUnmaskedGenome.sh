@@ -4,13 +4,21 @@
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=cokie.parker@nih.gov
 
-module load ncurses
-module load bowtie2
-module load fastx-toolkit
+echo "load open jdk"
+module load openjdk/11.0.17_8-kzgd7of
+echo "load ncurses"
+module load ncurses/6.4-bhkjprr
+echo "load bowtie2"
+module load bowtie2/2.5.1-bfbrd2r
+echo "module load fastx-toolkit"
+module load fastx-toolkit/0.0.14-vzydz2l
 #module load BEDTools
-module load samtools
-module load javafx
-module load curl
+echo "module load samtools"
+module load samtools/1.17-pdu7bhd
+# echo "module load javafx"
+# module load javafx/20.0.1-6uf7mnd
+echo "module load curl"
+module load curl/7.88.1-cj5vz32
 
 #picard=/hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/programs/picard/2.18.14/picard.jar
 

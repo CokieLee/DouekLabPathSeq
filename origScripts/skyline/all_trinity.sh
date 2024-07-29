@@ -1,7 +1,7 @@
 #!/bin/sh
 #SBATCH -J all_trinity
 #SBATCH --cpus-per-task=12
-#SBATCH --mem=16.5G
+#SBATCH --mem=17G
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=cokie.parker@nih.gov
 
