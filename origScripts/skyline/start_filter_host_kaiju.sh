@@ -160,16 +160,16 @@ correct_cur_Dir="scripts"
 dir_check  $correct_cur_Dir
 echo "Line 141"
 echo $filterScript
-holdID=$(sbatch -t 1-$fileCount -tc 100 $filterScript $projectID $left_read_file_base_name $right_read_file_base_name $origin $program_PathSeqRemoveHostForKaiju $blastDB_Mammalia  | cut -d' ' -f3)
+filterJobID=$(sbatch --parsable --array=1-$fileCount%100 $filterScript $projectID $left_read_file_base_name $right_read_file_base_name $origin $program_PathSeqRemoveHostForKaiju $blastDB_Mammalia  | cut -d' ' -f3)
 
-OLD_IFS=$IFS
-IFS="."
-newArray=($holdID)
-holdID=${newArray[0]}
-IFS=$OLD_IFS
+# OLD_IFS=$IFS
+# IFS="."
+# newArray=($holdID)
+# holdID=${newArray[0]}
+# IFS=$OLD_IFS
 
 echo "line 151"
 echo $kaijuScript
-holdID=$(sbatch -hold_jid $holdID $kaijuScript $projectID  $left_read_file_base_name $right_read_file_base_name $origin $fileCount $kaiju_nodes $kaiju_fmi | cut -d' ' -f3)
+kaijuJobID=$(sbatch --dependency=afterok:$filterJobID --parsable $kaijuScript $projectID  $left_read_file_base_name $right_read_file_base_name $origin $fileCount $kaiju_nodes $kaiju_fmi | cut -d' ' -f3)
 sbatch -hold_jid $holdID $parseKaijuScript $projectID $left_read_file_base_name $right_read_file_base_name $origin $kaiju_nodes $PathSeqKaijuConcensusSplitter2_program $NCBI_nt_kaiju_ref_taxonomy $mergeScript $prepDiversityScript $salmonQuantScript $left_read_file  $right_read_file $PathSeqMergeQIIME2TaxAndSalmon_program $PathSeqSplitOutputTableByTaxonomy_program $palmScanScript $rScriptDiv
 
