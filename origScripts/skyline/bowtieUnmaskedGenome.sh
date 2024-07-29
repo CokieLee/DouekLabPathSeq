@@ -204,7 +204,7 @@ cp $bowtieAlignRate_UnmaskedGenome $outputDir_unmaskedGenome
 samtools view -@ 12 -f 4 $outSam_Unmasked_Genome | grep -v ^@ | awk 'NR%2==1 {print "@"$1"\n"$10"\n+\n"$11}' > "unalignedRead1AgainstGenome_"$left_read_file_base_name".fq"
 samtools view -@ 12 -f 4 $outSam_Unmasked_Genome | grep -v ^@ | awk 'NR%2==0 {print "@"$1"\n"$10"\n+\n"$11}' > "unalignedRead2AgainstGenome_"$right_read_file_base_name".fq"
 
-module load R/3.4.3-goolf-1.7.20
+module load r
 tempGenomeAlignments_filename="tempGenomeAlignments_"$left_read_file_base_name".bam"
 
 samtools view -b $outSam_Unmasked_Genome > $tempGenomeAlignments_filename

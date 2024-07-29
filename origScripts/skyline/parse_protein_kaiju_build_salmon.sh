@@ -205,130 +205,130 @@ file_exist_check $prepDiversityScript
 file_exist_check $salmonQuantScript
 
 mytaxLevel=kingdom
-holdID_1=$(sbatch -t 1-1 -tc 100 $salmonQuantScript $projectID $left_read_file_base_name  $right_read_file_base_name  $origin $mytaxLevel $left_read_file_rel_path_from_salmon $right_read_file_rel_path_from_salmon | cut -d' ' -f3)
+salmonKingdomJobID=$(sbatch --parsable --array=1-1%100 $salmonQuantScript $projectID $left_read_file_base_name  $right_read_file_base_name  $origin $mytaxLevel $left_read_file_rel_path_from_salmon $right_read_file_rel_path_from_salmon | cut -d' ' -f3)
 echo "holdID post 207"
-echo $holdID_1
+echo $salmonKingdomJobID
 #tempJobsHoldID=$(getShortHoldID $holdID)
 #echo "temp Jobs Hold ID"
 #echo $tempJobsHoldID
 
-hold_jid_trunc=$holdID_1
-hold_jid=$holdID_1
-get_trunc_hold_jid  $hold_jid $hold_jid_trunc
-holdID_1_trunc=$hold_jid_trunc
+# hold_jid_trunc=$holdID_1
+# hold_jid=$holdID_1
+# get_trunc_hold_jid  $hold_jid $hold_jid_trunc
+# holdID_1_trunc=$hold_jid_trunc
 
-echo "holdID_1_trunc"
-echo $holdID_1_trunc
+# echo "holdID_1_trunc"
+# echo $holdID_1_trunc
 
 
 echo "merge script before call"
 echo $mergeScript
-holdID_2=$(sbatch -hold_jid $holdID_1_trunc $mergeScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqMergeQIIME2TaxAndSalmon_program | cut -d' ' -f3)
+mergeKingdomJobID=$(sbatch --parsable --dependency=afterok:$salmonKingdomJobID $mergeScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqMergeQIIME2TaxAndSalmon_program | cut -d' ' -f3)
 
-hold_jid_trunc=$holdID_2
-hold_jid=$holdID_2
-get_trunc_hold_jid  $hold_jid $hold_jid_trunc
-holdID_2_trunc=$hold_jid_trunc
+# hold_jid_trunc=$holdID_2
+# hold_jid=$holdID_2
+# get_trunc_hold_jid  $hold_jid $hold_jid_trunc
+# holdID_2_trunc=$hold_jid_trunc
 
-sbatch -hold_jid $holdID_2_trunc $prepDiversityScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqSplitOutputTableByTaxonomy_program $rScriptDiv
+sbatch --dependency=afterok:$mergeKingdomJobID $prepDiversityScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqSplitOutputTableByTaxonomy_program $rScriptDiv
 
 mytaxLevel=phylum
-holdID_4=$(sbatch -t 1-1 -tc 100 $salmonQuantScript $projectID $left_read_file_base_name  $right_read_file_base_name  $origin $mytaxLevel $left_read_file_rel_path_from_salmon $right_read_file_rel_path_from_salmon | cut -d' ' -f3)
-hold_jid_trunc=$holdID_4
-hold_jid=$holdID_4
-get_trunc_hold_jid  $hold_jid $hold_jid_trunc
-holdID_4_trunc=$hold_jid_trunc
+salmonPhylumJobID=$(sbatch --parsable --array=1-1%100 $salmonQuantScript $projectID $left_read_file_base_name  $right_read_file_base_name  $origin $mytaxLevel $left_read_file_rel_path_from_salmon $right_read_file_rel_path_from_salmon | cut -d' ' -f3)
+# hold_jid_trunc=$holdID_4
+# hold_jid=$holdID_4
+# get_trunc_hold_jid  $hold_jid $hold_jid_trunc
+# holdID_4_trunc=$hold_jid_trunc
 
-holdID_5=$(sbatch -hold_jid $holdID_4_trunc $mergeScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqMergeQIIME2TaxAndSalmon_program | cut -d' ' -f3)
+mergePhylumJobID=$(sbatch --parsable --dependency=afterok:$salmonPhylumJobID $mergeScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqMergeQIIME2TaxAndSalmon_program | cut -d' ' -f3)
 
-hold_jid_trunc=$holdID_5
-hold_jid=$holdID_5
-get_trunc_hold_jid  $hold_jid $hold_jid_trunc
-holdID_5_trunc=$hold_jid_trunc
+# hold_jid_trunc=$holdID_5
+# hold_jid=$holdID_5
+# get_trunc_hold_jid  $hold_jid $hold_jid_trunc
+# holdID_5_trunc=$hold_jid_trunc
 
-sbatch -hold_jid $holdID_5_trunc $prepDiversityScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqSplitOutputTableByTaxonomy_program $rScriptDiv
+sbatch --dependency=afterok:$mergePhylumJobID $prepDiversityScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqSplitOutputTableByTaxonomy_program $rScriptDiv
 
 
 mytaxLevel=class
-holdID_7=$(sbatch -t 1-1 -tc 100 $salmonQuantScript $projectID $left_read_file_base_name  $right_read_file_base_name  $origin $mytaxLevel $left_read_file_rel_path_from_salmon $right_read_file_rel_path_from_salmon | cut -d' ' -f3)
-hold_jid_trunc=$holdID_7
-hold_jid=$holdID_7
-get_trunc_hold_jid  $hold_jid $hold_jid_trunc
-holdID_7_trunc=$hold_jid_trunc
+salmonClassJobID=$(sbatch --parsable --array=1-1%100 $salmonQuantScript $projectID $left_read_file_base_name  $right_read_file_base_name  $origin $mytaxLevel $left_read_file_rel_path_from_salmon $right_read_file_rel_path_from_salmon | cut -d' ' -f3)
+# hold_jid_trunc=$holdID_7
+# hold_jid=$holdID_7
+# get_trunc_hold_jid  $hold_jid $hold_jid_trunc
+# holdID_7_trunc=$hold_jid_trunc
 
-holdID_8=$(sbatch -hold_jid $holdID_7_trunc $mergeScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqMergeQIIME2TaxAndSalmon_program | cut -d' ' -f3)
-hold_jid_trunc=$holdID_8
-hold_jid=$holdID_8
-get_trunc_hold_jid  $hold_jid $hold_jid_trunc
-holdID_8_trunc=$hold_jid_trunc
+mergeClassJobID=$(sbatch --parsable --dependency=afterok:$salmonClassJobID $mergeScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqMergeQIIME2TaxAndSalmon_program | cut -d' ' -f3)
+# hold_jid_trunc=$holdID_8
+# hold_jid=$holdID_8
+# get_trunc_hold_jid  $hold_jid $hold_jid_trunc
+# holdID_8_trunc=$hold_jid_trunc
 
-sbatch -hold_jid $holdID_8_trunc $prepDiversityScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqSplitOutputTableByTaxonomy_program $rScriptDiv
+sbatch --dependency=afterok:$mergeClassJobID $prepDiversityScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqSplitOutputTableByTaxonomy_program $rScriptDiv
 
 
 mytaxLevel=order
-holdID_10=$(sbatch -t 1-1 -tc 100 $salmonQuantScript $projectID $left_read_file_base_name  $right_read_file_base_name  $origin $mytaxLevel $left_read_file_rel_path_from_salmon $right_read_file_rel_path_from_salmon | cut -d' ' -f3)
-hold_jid_trunc=$holdID_10
-hold_jid=$holdID_10
-get_trunc_hold_jid  $hold_jid $hold_jid_trunc
-holdID_10_trunc=$hold_jid_trunc
+salmonOrderJobID=$(sbatch --parsable --array=1-1%100 $salmonQuantScript $projectID $left_read_file_base_name  $right_read_file_base_name  $origin $mytaxLevel $left_read_file_rel_path_from_salmon $right_read_file_rel_path_from_salmon | cut -d' ' -f3)
+# hold_jid_trunc=$holdID_10
+# hold_jid=$holdID_10
+# get_trunc_hold_jid  $hold_jid $hold_jid_trunc
+# holdID_10_trunc=$hold_jid_trunc
 
-holdID_11=$(sbatch -hold_jid $holdID_10_trunc $mergeScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqMergeQIIME2TaxAndSalmon_program | cut -d' ' -f3)
-hold_jid_trunc=$holdID_11
-hold_jid=$holdID_11
-get_trunc_hold_jid  $hold_jid $hold_jid_trunc
-holdID_11_trunc=$hold_jid_trunc
+mergeOrderJobID=$(sbatch --parsable --dependency=afterok:$salmonOrderJobID $mergeScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqMergeQIIME2TaxAndSalmon_program | cut -d' ' -f3)
+# hold_jid_trunc=$holdID_11
+# hold_jid=$holdID_11
+# get_trunc_hold_jid  $hold_jid $hold_jid_trunc
+# holdID_11_trunc=$hold_jid_trunc
 
-sbatch -hold_jid $holdID_11_trunc $prepDiversityScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqSplitOutputTableByTaxonomy_program $rScriptDiv
+sbatch --dependency=afterok:$mergeOrderJobID $prepDiversityScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqSplitOutputTableByTaxonomy_program $rScriptDiv
 
 
 mytaxLevel=family
-holdID_13=$(sbatch -t 1-1 -tc 100 $salmonQuantScript $projectID $left_read_file_base_name  $right_read_file_base_name  $origin $mytaxLevel $left_read_file_rel_path_from_salmon $right_read_file_rel_path_from_salmon | cut -d' ' -f3)
-hold_jid_trunc=$holdID_13
-hold_jid=$holdID_13
-get_trunc_hold_jid  $hold_jid $hold_jid_trunc
-holdID_13_trunc=$hold_jid_trunc
+salmonFamilyJobID=$(sbatch --parsable --array=1-1%100 $salmonQuantScript $projectID $left_read_file_base_name  $right_read_file_base_name  $origin $mytaxLevel $left_read_file_rel_path_from_salmon $right_read_file_rel_path_from_salmon | cut -d' ' -f3)
+# hold_jid_trunc=$holdID_13
+# hold_jid=$holdID_13
+# get_trunc_hold_jid  $hold_jid $hold_jid_trunc
+# holdID_13_trunc=$hold_jid_trunc
 
-holdID_14=$(sbatch -hold_jid $holdID_13_trunc $mergeScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqMergeQIIME2TaxAndSalmon_program | cut -d' ' -f3)
-hold_jid_trunc=$holdID_14
-hold_jid=$holdID_14
-get_trunc_hold_jid  $hold_jid $hold_jid_trunc
-holdID_14_trunc=$hold_jid_trunc
+mergeFamilyJobID=$(sbatch --parsable --dependency=afterok:$salmonFamilyJobID $mergeScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqMergeQIIME2TaxAndSalmon_program | cut -d' ' -f3)
+# hold_jid_trunc=$holdID_14
+# hold_jid=$holdID_14
+# get_trunc_hold_jid  $hold_jid $hold_jid_trunc
+# holdID_14_trunc=$hold_jid_trunc
 
-sbatch -hold_jid $holdID_14_trunc $prepDiversityScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqSplitOutputTableByTaxonomy_program $rScriptDiv
+sbatch --dependency=afterok:$mergeFamilyJobID $prepDiversityScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqSplitOutputTableByTaxonomy_program $rScriptDiv
 
 
 mytaxLevel=genus
-holdID_16=$(sbatch -t 1-1 -tc 100 $salmonQuantScript $projectID $left_read_file_base_name  $right_read_file_base_name  $origin $mytaxLevel $left_read_file_rel_path_from_salmon $right_read_file_rel_path_from_salmon | cut -d' ' -f3)
-hold_jid_trunc=$holdID_16
-hold_jid=$holdID_16
-get_trunc_hold_jid  $hold_jid $hold_jid_trunc
-holdID_16_trunc=$hold_jid_trunc
+salmonGenusJobID=$(sbatch --parsable --array=1-1%100 $salmonQuantScript $projectID $left_read_file_base_name  $right_read_file_base_name  $origin $mytaxLevel $left_read_file_rel_path_from_salmon $right_read_file_rel_path_from_salmon | cut -d' ' -f3)
+# hold_jid_trunc=$holdID_16
+# hold_jid=$holdID_16
+# get_trunc_hold_jid  $hold_jid $hold_jid_trunc
+# holdID_16_trunc=$hold_jid_trunc
 
 
-holdID_17=$(sbatch -hold_jid $holdID_16_trunc $mergeScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqMergeQIIME2TaxAndSalmon_program | cut -d' ' -f3)
-hold_jid_trunc=$holdID_17
-hold_jid=$holdID_17
-get_trunc_hold_jid  $hold_jid $hold_jid_trunc
-holdID_17_trunc=$hold_jid_trunc
+mergeGenusJobID=$(sbatch --parsable --dependency=afterok:$salmonGenusJobID $mergeScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqMergeQIIME2TaxAndSalmon_program | cut -d' ' -f3)
+# hold_jid_trunc=$holdID_17
+# hold_jid=$holdID_17
+# get_trunc_hold_jid  $hold_jid $hold_jid_trunc
+# holdID_17_trunc=$hold_jid_trunc
 
-sbatch -hold_jid $holdID_17_trunc $prepDiversityScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqSplitOutputTableByTaxonomy_program $rScriptDiv
+sbatch --dependency=afterok:$mergeGenusJobID $prepDiversityScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqSplitOutputTableByTaxonomy_program $rScriptDiv
 
 
 mytaxLevel=species
-holdID_19=$(sbatch -t 1-1 -tc 100 $salmonQuantScript $projectID $left_read_file_base_name  $right_read_file_base_name  $origin $mytaxLevel $left_read_file_rel_path_from_salmon $right_read_file_rel_path_from_salmon | cut -d' ' -f3)
-hold_jid_trunc=$holdID_19
-hold_jid=$holdID_19
-get_trunc_hold_jid  $hold_jid $hold_jid_trunc
-holdID_19_trunc=$hold_jid_trunc
+salmonSpeciesJobID=$(sbatch --parsable --array=1-1%100 $salmonQuantScript $projectID $left_read_file_base_name  $right_read_file_base_name  $origin $mytaxLevel $left_read_file_rel_path_from_salmon $right_read_file_rel_path_from_salmon | cut -d' ' -f3)
+# hold_jid_trunc=$holdID_19
+# hold_jid=$holdID_19
+# get_trunc_hold_jid  $hold_jid $hold_jid_trunc
+# holdID_19_trunc=$hold_jid_trunc
 
 
-holdID_20=$(sbatch -hold_jid $holdID_19_trunc $mergeScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqMergeQIIME2TaxAndSalmon_program | cut -d' ' -f3)
-hold_jid_trunc=$holdID_20
-hold_jid=$holdID_20
-get_trunc_hold_jid  $hold_jid $hold_jid_trunc
-holdID_20_trunc=$hold_jid_trunc
+mergeSpeciesJobID=$(sbatch --parsable --dependency=afterok:$salmonSpeciesJobID $mergeScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqMergeQIIME2TaxAndSalmon_program | cut -d' ' -f3)
+# hold_jid_trunc=$holdID_20
+# hold_jid=$holdID_20
+# get_trunc_hold_jid  $hold_jid $hold_jid_trunc
+# holdID_20_trunc=$hold_jid_trunc
 
-sbatch -hold_jid $holdID_20_trunc $prepDiversityScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqSplitOutputTableByTaxonomy_program $rScriptDiv
+sbatch --dependency=afterok:$mergeSpeciesJobID $prepDiversityScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqSplitOutputTableByTaxonomy_program $rScriptDiv
 
 if [[ $origin == *"RNA"* ]]; then
 	sbatch $palmScanScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin

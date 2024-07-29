@@ -61,7 +61,7 @@ mergeScript="mergeTaxonomyAndQuantificationSingleLevel.sh"
 prepDiversityScript="prepForDiversity.sh"
 salmonQuantScript="salmonQuantSingleLevel.sh"
 palmScanScript="palm_scan.sh"
-8
+
 ## Source script for directory checking function
 dos2unix dir_check.sh
 source ./dir_check.sh 
