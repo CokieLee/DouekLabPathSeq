@@ -5,7 +5,7 @@
 #SBATCH --mail-user=cokie.parker@nih.gov
 
 ## load Locus modules
-module load javafx
+module load openjdk
 
 
 COUNTER=$SGE_TASK_ID
@@ -16,7 +16,7 @@ origin=$4 ## RNA, DNA or all
 mytaxLevel=$5
 PathSeqMergeQIIME2TaxAndSalmon_program=$6
 
-salmonQuantBase="/hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/"$projectID"/"$origin"_salmon_quant/"
+salmonQuantBase="/data/vrc_his/douek_lab/projects/PathSeq/"$projectID"/"$origin"_salmon_quant/"
 
 echo $projectID
 echo $left_read_file_base_name

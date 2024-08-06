@@ -23,8 +23,8 @@ echo "origin"
 echo $origin
 
 ## Export paths to prodigal and kaiju programs
-export PATH="/hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/programs/prodigal/bin:$PATH"
-export PATH="/hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/programs/kaiju/kaiju-v1.9.0-linux-x86_64-static:$PATH"
+export PATH="/data/vrc_his/douek_lab/projects/PathSeq/programs/prodigal/bin:$PATH"
+export PATH="/data/vrc_his/douek_lab/projects/PathSeq/programs/kaiju/kaiju-v1.9.0-linux-x86_64-static:$PATH"
 
 
 ## Source script for directory checking function

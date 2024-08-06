@@ -17,7 +17,7 @@ bowtieERCCIndex=/data/vrc_his/douek_lab/reference_sets/ERCC/ERCC92
 ### Bowtie unmasked human genome reference index
 bowtieUnmaskedGenomeIndex="/data/vrc_his//douek_lab/reference_sets/hg19/unmasked/genome"
 ## starDB reference databases 
-hg38_starDB="/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/STAR/"
+hg38_starDB="/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/StarReindex/"
 #hg_38_gtf="/hpcdata/vrc/vrc1_data/douek_lab/reference_sets/hg38/Annotation/Genes/genes.gtf"
 #hg38_referenceFasta="/hpcdata/vrc/vrc1_data/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa"
 

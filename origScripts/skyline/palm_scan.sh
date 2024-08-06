@@ -4,9 +4,9 @@
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=cokie.parker@nih.gov
 
-export TMPDIR=/hpcdata/scratch/
-export _JAVA_OPTIONS="-Djava.io.tmpdir=/hpcdata/scratch"
-export PATH="/hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/programs/palmscan-main/bin:$PATH"
+export TMPDIR=/data/scratch/
+export _JAVA_OPTIONS="-Djava.io.tmpdir=/data/scratch"
+export PATH="/data/vrc_his/douek_lab/projects/PathSeq/programs/palmscan-main/bin:$PATH"
 
 projectID=$1
 left_read_file_base_name=$2

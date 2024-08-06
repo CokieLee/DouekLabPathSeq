@@ -4,7 +4,7 @@
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=cokie.parker@nih.gov
 
-module load javafx
+module load openjdk
 
 projectID=$1
 left_read_file_base_name=$2

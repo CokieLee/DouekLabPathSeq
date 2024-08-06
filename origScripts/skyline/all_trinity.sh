@@ -5,11 +5,11 @@
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=cokie.parker@nih.gov
 
-export TMPDIR=/hpcdata/scratch/
-export _JAVA_OPTIONS="-Djava.io.tmpdir=/hpcdata/scratch"
+export TMPDIR=/data/scratch/
+export _JAVA_OPTIONS="-Djava.io.tmpdir=/data/scratch"
 
 module load trinity
-export PATH="/hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/programs/fastp:$PATH"
+export PATH="/data/vrc_his/douek_lab/projects/PathSeq/programs/fastp:$PATH"
 
 projectID=$1
 left_read_file_base_name=$2
@@ -153,8 +153,8 @@ if [ $exitCode -eq 0 ]
 		#start_filter_script="start_filter_host_kaiju.sh"
 
 
-		# module purge
-		# module load uge
+		module purge
+		module load slurm
 
 		full_dir=$(pwd)
 

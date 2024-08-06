@@ -6,7 +6,7 @@
 #SBATCH --mail-user=cokie.parker@nih.gov
 
 module load blast-plus
-module load javafx
+module load openjdk
 
 COUNTER=$SGE_TASK_ID
 projectID=$1

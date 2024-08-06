@@ -5,7 +5,7 @@
 #SBATCH --mail-user=cokie.parker@nih.gov
 
 ## load Locus modules
-module load javafx
+module load openjdk
 module load r
 
 
