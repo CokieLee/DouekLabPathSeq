@@ -8,6 +8,8 @@
 export TMPDIR=/data/scratch/
 export _JAVA_OPTIONS="-Djava.io.tmpdir=/data/scratch"
 
+module load python/3.10.10-djxmyiw
+module load py-setuptools/67.6.0-34rmvjj
 module load trinity
 export PATH="/data/vrc_his/douek_lab/projects/PathSeq/programs/fastp:$PATH"
 
@@ -47,7 +49,7 @@ echo $right_read_file_base_name
 cur_Dir=$(basename $(pwd))
 #echo $cur_Dir
 correct_cur_Dir="scripts"
-dir_check  $correct_cur_Dir
+dir_check $correct_cur_Dir
 
 ## Confirm correct script file inputs
 file_exist_check $split_filter_submit_script
