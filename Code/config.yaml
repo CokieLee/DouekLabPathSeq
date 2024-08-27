@@ -1,10 +1,14 @@
+## cluster settings
+cluster: sbatch
+jobs: 32
+
 ## parameters that must be changed for each different run
 projectid: 2023020_EVD68_NS
 inputpath: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/2023020_EVD68_NS/Input_Data/
 
 ## configurable parameters
 codepath: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/
-outputpath: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/
+outputpath: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Output/
 
 ## paths of necessary installs and references on system
 bowtieERCCIndex: /data/vrc_his/douek_lab/reference_sets/ERCC/ERCC92

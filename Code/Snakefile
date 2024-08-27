@@ -1,54 +1,57 @@
 configfile: "config.yaml"
 
-# get samples list from input files directory
-sample_names = []
+wildcard_constraints:
+    filename = ".+"  # Use 'filename' to represent the entire filename
+
+with open(os.path.join(config["inputpath"], "file_list"), "r") as file:
+    SAMPLES = [line.strip().split(".")[0] for line in file]
+
+## Basic rule for testing environment. Should take all input files,
+## and print them each to a file of the same base name.
+# rule all:
+#     input:
+#         expand(os.path.join(config["outputpath"], "{sample}.txt"), sample=SAMPLES)
+
+# rule testRule:
+#     params:
+#         "this file corresponds to {sample}"
+#     output:
+#         os.path.join(config["outputpath"], "{sample}.txt")
+#     shell:
+#         """
+#         echo {params} > {output}
+#        """
 
 rule all:
     input:
-        os.path.join(config["outputpath"], "{sample}.txt")  # Use wildcard directly
+        expand(os.path.join(config["outputpath"], "Sample_{sample}",
+                            "Generated_Data_1st_Bowtie_Alignment_Unmasked_Genome",
+                            "genome_alignment_ERCC_{sample}.sam"),
+                sample=SAMPLES)
 
-rule read_sample_list:
+# run bowtie unmasked on samples
+rule bowtieUnmasked:
     input:
-        os.path.join(config["inputpath"], "file_list")
+        scriptPath=os.path.join(config["codepath"], "bowtieUnmaskedGenome.sh"),
+        leftReadFile=os.path.join(config["inputpath"], "{sample}.fastq.gz"),
+        rightReadFile=os.path.join(config["inputpath"], "{sample}.fastq.gz".replace("R1", "R2")),
+        picard=config["picard"]
+    params:
+        outPath=config["outputpath"],
+        codePath=config["codepath"],
+        sampleNameLeft="{sample}",
+        sampleNameRight="{sample}".replace("R1", "R2"),
+        bowtieERCCIndex=config["bowtieERCCIndex"],
+        bowtieUnmaskedGenomeIndex=config["bowtieUnmaskedGenomeIndex"]
     output:
-        # no file output
-    run:
-        with open(input[0], "r") as file:
-            sample_names.extend(line.strip() for line in file)
-
-rule print_sample:
-    input:
-        os.path.join(config["inputpath"], "file_list") 
-    output:
-        os.path.join(config["outputpath"], "{sample}.txt")  
+        os.path.join(config["outputpath"], "Sample_{sample}",
+                    "Generated_Data_1st_Bowtie_Alignment_Unmasked_Genome",
+                    "genome_alignment_ERCC_{sample}.sam")
+    resources:
+        cpus=12
     shell:
-        "echo {wildcards.sample} > {output}"
-
-# the final output is the sample directories
-# rule all:
-#     input:
-#         expand(os.path.join(configfile["outputpath"], "{sample}"), sample=sample_names)
-
-# # run bowtie unmasked on samples
-# rule bowtieUnmasked:
-#     input:
-#         scriptPath=os.path.join(configfile["codepath"], "bowtieUnmaskedGenome.sh"),
-#         projectID=configfile["projectid"],
-#         leftReadFile={sample},
-#         rightReadFile={sample}.replace("R1", "R2"),
-#         origin="RNA",
-#         minContigLegnth=300,
-#         outputPath=configfile["outputpath"]
-#     output:
-#         directory(os.path.join(configfile["outputpath"], {sample}, "Generated_Data_1st_Bowtie_Alignment_ERCC")),
-#         directory(os.path.join(configfile["outputpath"], {sample}, "Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome")),
-#         directory(os.path.join(configfile["outputpath"], {sample}, "unmasked_genome_alignment_rates")),
-#         directory(os.path.join(configfile["outputpath"], {sample}, "ERCC_alignment_rates")),
-#         directory(os.path.join(configfile["outputpath"], {sample}, "ERCC_alignment_counts")),
-#         directory(os.path.join(configfile["outputpath"], {sample}, "insert_size_metrics"))
-#     conda:
-#         "./environment.yaml"
-#     shell:
-#         "{input.scriptPath} {input.projectID} {input.leftReadFile} \
-#         {input.rightReadFile} {basename} {input.outputPath} \
-#         {codepath} {ercc} {unmaskedindex} {picardpath}"
+        """
+        bash {input.scriptPath} {params.sampleNameLeft} {params.sampleNameRight} {input.leftReadFile} \
+        {input.rightReadFile} {params.outPath} {params.codePath} {params.bowtieERCCIndex} \
+        {params.bowtieUnmaskedGenomeIndex} {input.picard}
+        """

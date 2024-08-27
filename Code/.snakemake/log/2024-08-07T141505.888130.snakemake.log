@@ -1,5 +1,0 @@
-Building DAG of jobs...
-MissingInputException in rule read_sample_list in file /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/Snakefile, line 6:
-Missing input files for rule read_sample_list:
-    affected files:
-        /data/vrc_his/douek_lab/projects/cokie_pathseq_rewrite/2023020_EVD68_NS/Input_Data/file_list

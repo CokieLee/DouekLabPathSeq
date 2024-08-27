@@ -31,7 +31,7 @@ for my $i (@a)
   print "$left,$right,$list[$i]\n";
 
 # print "$i$left Read $right Read files are submitted\n";
-  my $run_cmd = "sbatch PathSeqSubmitter.sh 2023020_EVD68_NS Input_Data/$left Input_Data/$right $type 300";
+  my $run_cmd = "sbatch PathSeqSubmitter.sh 2023020_EVD68_NS_temp_skyline Input_Data/$left Input_Data/$right $type 300";
   print "$run_cmd\n";
  system("$run_cmd");
  }

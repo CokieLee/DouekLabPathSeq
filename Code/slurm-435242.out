@@ -1,0 +1,63 @@
+load open jdk
+load ncurses
+load bowtie2
+module load fastx-toolkit
+module load samtools
+module load curl
+CHECKPOINT 1: BOWTIE UNMASKED INPUTS
+1: projectID: 
+2023020_EVD68_NS
+2: left_read_file: 
+/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R1_001.fastq.gz
+3: right_read_file: 
+/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R1_001.fastq.gz
+5: outPath: 
+/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Output
+6: code path: 
+/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code
+7: bowtie ercc index: 
+/data/vrc_his/douek_lab/reference_sets/ERCC/ERCC92
+8: bowtie unmasked genome index: 
+/data/vrc_his/douek_lab/reference_sets/hg19/unmasked/genome
+9: picard: 
+/data/vrc_his/douek_lab/projects/PathSeq/programs/picard/2.18.14/picard.jar
+dos2unix: converting file /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/dir_check.sh to Unix format...
+/var/spool/slurm/d/job435242/slurm_script: line 67: =pwd: command not found
+CHECKPOINT 2: Currently inside: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/OutputSample_/Generated_Data_1st_Bowtie_Alignment_ERCC/
+rm: cannot remove '*.xml': No such file or directory
+rm: cannot remove '*.sam': No such file or directory
+rm: cannot remove '*.bam*': No such file or directory
+rm: cannot remove 'no_ERCC1.fq.gz': No such file or directory
+rm: cannot remove 'no_ERCC2.fq.gz': No such file or directory
+rm: cannot remove 'unalignedRead1AgainstGenome_.fq': No such file or directory
+rm: cannot remove 'unalignedRead2AgainstGenome_.fq': No such file or directory
+rm: cannot remove 'unalignedRead1AgainstERCC_.fq': No such file or directory
+rm: cannot remove 'unalignedRead2AgainstERCC_.fq': No such file or directory
+rm: cannot remove 'readindex_index_.fq.gz': No such file or directory
+rm: cannot remove 'left*': No such file or directory
+rm: cannot remove 'right*': No such file or directory
+rm: cannot remove '*.cxb': No such file or directory
+rm: cannot remove '*.csv': No such file or directory
+rm: cannot remove '*readcount': No such file or directory
+CHECKPOINT 3: first bowtie test command:
+bowtie2 --no-mixed --no-discordant -p 4 -x /data/vrc_his/douek_lab/reference_sets/ERCC/ERCC92 -1 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R1_001.fastq.gz -2 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R1_001.fastq.gz 1>genome_alignment_ERCC_.sam 2>/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/OutputSample_/ERCC_alignment_rates/ERCC_alignment_rate_.txt
+FINISHED running first bowtie
+Generated_Data_1st_Bowtie_Alignment_ERCC
+genome_alignment_ERCC_.sam
+genome_alignment_ERCC_.sam
+Test line 245
+Generated_Data_1st_Bowtie_Alignment_ERCC
+genome_alignment_ERCC_.sam
+samtools 1.17 Using htslib 1.17 Copyright (C) 2023 Genome Research Ltd. Samtools compilation details: Features: build=configure curses=yes CC: /data/apps/install/tools/spack/lib/spack/env/gcc/gcc CPPFLAGS: CFLAGS: -Wall -g -O2 LDFLAGS: HTSDIR: LIBS: CURSES_LIB: -lncursesw -ltinfow HTSlib compilation details: Features: build=configure libcurl=yes S3=yes GCS=yes libdeflate=yes lzma=yes bzip2=yes plugins=no htscodecs=1.4.0 CC: /data/apps/install/tools/spack/lib/spack/env/gcc/gcc CPPFLAGS: CFLAGS: -Wall -g -O2 -fvisibility=hidden LDFLAGS: -fvisibility=hidden HTSlib URL scheme handlers present: built-in: preload, data, file S3 Multipart Upload: s3w, s3w+https, s3w+http Amazon S3: s3+https, s3+http, s3 Google Cloud Storage: gs+http, gs+https, gs libcurl: imaps, pop3, gophers, http, smb, gopher, ftps, imap, smtp, smtps, rtsp, ftp, telnet, mqtt, https, smbs, tftp, pop3s, dict crypt4gh-needed: crypt4gh mem: mem
+Before samtools view call
+After samtools view call
+/var/spool/slurm/d/job435242/slurm_script: line 186: =bowtie2 -p 12 --no-mixed --no-discordant -x /data/vrc_his/douek_lab/reference_sets/hg19/unmasked/genome -1 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/OutputSample_/Generated_Data_1st_Bowtie_Alignment_ERCC/unalignedRead1AgainstERCC_.fq -2 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/OutputSample_/Generated_Data_1st_Bowtie_Alignment_ERCC/unalignedRead2AgainstERCC_.fq 1>genome_alignment_unmasked_genome_.sam 2>genome_alignment_rate_.txt: No such file or directory
+CHECKPOINT 3: first bowtie test command:
+
+cp: missing destination file operand after 'genome_alignment_rate_.txt'
+Try 'cp --help' for more information.
+FINISHED running second bowtie
+Reached line 145
+Reached line 148
+rm: cannot remove '*ERCCAlignments*': No such file or directory
+REACHED END OF BOWTIEUNMASKED
