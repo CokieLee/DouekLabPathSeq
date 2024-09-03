@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH -J snakemakePathseq
 #SBATCH --output=snakemakePathseq.out
-#SBATCH --cpus-per-task=1
-#SBATCH --mem=10g
+#SBATCH --cpus-per-task=12
+#SBATCH --mem=100G
 
 module load snakemake
 

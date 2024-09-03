@@ -3,25 +3,27 @@ Using shell: /usr/bin/bash
 Provided cores: 1 (use --cores to define parallelism)
 Rules claiming more threads will be scaled down.
 Job stats:
-job               count    min threads    max threads
---------------  -------  -------------  -------------
-all                   1              1              1
-bowtieUnmasked        2              1              1
-total                 3              1              1
+job                count    min threads    max threads
+---------------  -------  -------------  -------------
+all                    1              1              1
+bowtiePrimate          2              1              1
+bowtieUnmasked         2              1              1
+starAfterBowtie        2              1              1
+total                  7              1              1
 
 Select jobs to execute...
 
-[Mon Aug 26 17:53:32 2024]
+[Tue Sep  3 15:41:32 2024]
 rule bowtieUnmasked:
-    input: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/bowtieUnmaskedGenome.sh, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R1_001.fastq.gz, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R1_001.fastq.gz, /data/vrc_his/douek_lab/projects/PathSeq/programs/picard/2.18.14/picard.jar
-    output: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Output/Sample_582760806_A5_S33_R1_001/Generated_Data_1st_Bowtie_Alignment_Unmasked_Genome/genome_alignment_ERCC_582760806_A5_S33_R1_001.sam
-    jobid: 1
-    reason: Missing output files: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Output/Sample_582760806_A5_S33_R1_001/Generated_Data_1st_Bowtie_Alignment_Unmasked_Genome/genome_alignment_ERCC_582760806_A5_S33_R1_001.sam
-    wildcards: sample=582760806_A5_S33_R1_001
-    resources: tmpdir=/data/scratch/parkercol/ai-hpcsubmit1, cpus=12
+    input: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/bowtieUnmaskedGenome.sh, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R1_001.fastq.gz, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R2_001.fastq.gz, /data/vrc_his/douek_lab/projects/PathSeq/programs/picard/2.18.14/picard.jar
+    output: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_582760806_A5_S33_R1_001.fq, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_582760806_A5_S33_R2_001.fq
+    jobid: 3
+    reason: Missing output files: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_582760806_A5_S33_R1_001.fq, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_582760806_A5_S33_R2_001.fq
+    wildcards: sample=582760806_A5_S33
+    resources: tmpdir=/data/scratch/parkercol/ai-hpcsubmit2, cpus=12
 
 
-        bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/bowtieUnmaskedGenome.sh 582760806_A5_S33_R1_001 582760806_A5_S33_R1_001 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R1_001.fastq.gz         /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R1_001.fastq.gz /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Output/ /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/ /data/vrc_his/douek_lab/reference_sets/ERCC/ERCC92         /data/vrc_his/douek_lab/reference_sets/hg19/unmasked/genome /data/vrc_his/douek_lab/projects/PathSeq/programs/picard/2.18.14/picard.jar
+        bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/bowtieUnmaskedGenome.sh 582760806_A5_S33_R1_001 582760806_A5_S33_R2_001 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R1_001.fastq.gz         /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R2_001.fastq.gz /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/ /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/ /data/vrc_his/douek_lab/reference_sets/ERCC/ERCC92         /data/vrc_his/douek_lab/reference_sets/hg19/unmasked/genome /data/vrc_his/douek_lab/projects/PathSeq/programs/picard/2.18.14/picard.jar
         
 load open jdk
 load ncurses
@@ -32,14 +34,14 @@ module load curl
 CHECKPOINT 1: BOWTIE UNMASKED INPUTS
 1: sampleNameLeft: 
 582760806_A5_S33_R1_001
-rightSampleName:
-
+sampleNameRight:
+582760806_A5_S33_R2_001
 2: left_read_file: 
 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R1_001.fastq.gz
 3: right_read_file: 
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R1_001.fastq.gz
+/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R2_001.fastq.gz
 5: outPath: 
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Output/
+/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/
 6: code path: 
 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/
 7: bowtie ercc index: 
@@ -49,20 +51,20 @@ rightSampleName:
 9: picard: 
 /data/vrc_his/douek_lab/projects/PathSeq/programs/picard/2.18.14/picard.jar
 dos2unix: converting file /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code//dir_check.sh to Unix format...
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/bowtieUnmaskedGenome.sh: line 64: =pwd: command not found
-mkdir: cannot create directory ‘/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Output//Sample_582760806_A5_S33_R1_001’: File exists
-mkdir: cannot create directory ‘/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Output//Sample_582760806_A5_S33_R1_001/Generated_Data_1st_Bowtie_Alignment_ERCC/’: File exists
-mkdir: cannot create directory ‘/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Output//Sample_582760806_A5_S33_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/’: File exists
-mkdir: cannot create directory ‘/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Output//Sample_582760806_A5_S33_R1_001/unmasked_genome_alignment_rates/’: File exists
-mkdir: cannot create directory ‘/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Output//Sample_582760806_A5_S33_R1_001/ERCC_alignment_rates/’: File exists
-mkdir: cannot create directory ‘/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Output//Sample_582760806_A5_S33_R1_001/ERCC_alignment_counts/’: File exists
-mkdir: cannot create directory ‘/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Output//Sample_582760806_A5_S33_R1_001/insert_size_metrics/’: File exists
-CHECKPOINT 2: Currently inside: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Output//Sample_582760806_A5_S33_R1_001/Generated_Data_1st_Bowtie_Alignment_ERCC/
+/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/bowtieUnmaskedGenome.sh: line 63: =pwd: command not found
+mkdir: cannot create directory ‘/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001’: File exists
+mkdir: cannot create directory ‘/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001/Generated_Data_1st_Bowtie_Alignment_ERCC/’: File exists
+mkdir: cannot create directory ‘/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/’: File exists
+mkdir: cannot create directory ‘/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001/unmasked_genome_alignment_rates/’: File exists
+mkdir: cannot create directory ‘/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001/ERCC_alignment_rates/’: File exists
+mkdir: cannot create directory ‘/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001/ERCC_alignment_counts/’: File exists
+mkdir: cannot create directory ‘/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001/insert_size_metrics/’: File exists
+CHECKPOINT 2: Currently inside: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001/Generated_Data_1st_Bowtie_Alignment_ERCC/
 rm: cannot remove '*.xml': No such file or directory
 rm: cannot remove 'no_ERCC1.fq.gz': No such file or directory
 rm: cannot remove 'no_ERCC2.fq.gz': No such file or directory
 rm: cannot remove 'unalignedRead1AgainstGenome_582760806_A5_S33_R1_001.fq': No such file or directory
-rm: cannot remove 'unalignedRead2AgainstGenome_.fq': No such file or directory
+rm: cannot remove 'unalignedRead2AgainstGenome_582760806_A5_S33_R2_001.fq': No such file or directory
 rm: cannot remove 'readindex_index_.fq.gz': No such file or directory
 rm: cannot remove 'left*': No such file or directory
 rm: cannot remove 'right*': No such file or directory
@@ -70,7 +72,7 @@ rm: cannot remove '*.cxb': No such file or directory
 rm: cannot remove '*.csv': No such file or directory
 rm: cannot remove '*readcount': No such file or directory
 CHECKPOINT 3: first bowtie test command:
-bowtie2 --no-mixed --no-discordant -p 4 -x /data/vrc_his/douek_lab/reference_sets/ERCC/ERCC92 -1 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R1_001.fastq.gz -2 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R1_001.fastq.gz 1>genome_alignment_ERCC_582760806_A5_S33_R1_001.sam 2>/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Output//Sample_582760806_A5_S33_R1_001/ERCC_alignment_rates/ERCC_alignment_rate_582760806_A5_S33_R1_001.txt
+bowtie2 --no-mixed --no-discordant -p 4 -x /data/vrc_his/douek_lab/reference_sets/ERCC/ERCC92 -1 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R1_001.fastq.gz -2 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R2_001.fastq.gz 1>genome_alignment_ERCC_582760806_A5_S33_R1_001.sam 2>/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001/ERCC_alignment_rates/ERCC_alignment_rate_582760806_A5_S33_R1_001.txt
 FINISHED running first bowtie
 Generated_Data_1st_Bowtie_Alignment_ERCC
 genome_alignment_ERCC_582760806_A5_S33_R1_001.sam
@@ -81,26 +83,115 @@ genome_alignment_ERCC_582760806_A5_S33_R1_001.sam
 samtools 1.17 Using htslib 1.17 Copyright (C) 2023 Genome Research Ltd. Samtools compilation details: Features: build=configure curses=yes CC: /data/apps/install/tools/spack/lib/spack/env/gcc/gcc CPPFLAGS: CFLAGS: -Wall -g -O2 LDFLAGS: HTSDIR: LIBS: CURSES_LIB: -lncursesw -ltinfow HTSlib compilation details: Features: build=configure libcurl=yes S3=yes GCS=yes libdeflate=yes lzma=yes bzip2=yes plugins=no htscodecs=1.4.0 CC: /data/apps/install/tools/spack/lib/spack/env/gcc/gcc CPPFLAGS: CFLAGS: -Wall -g -O2 -fvisibility=hidden LDFLAGS: -fvisibility=hidden HTSlib URL scheme handlers present: built-in: preload, data, file S3 Multipart Upload: s3w, s3w+https, s3w+http Amazon S3: s3+https, s3+http, s3 Google Cloud Storage: gs+http, gs+https, gs libcurl: imaps, pop3, gophers, http, smb, gopher, ftps, imap, smtp, smtps, rtsp, ftp, telnet, mqtt, https, smbs, tftp, pop3s, dict crypt4gh-needed: crypt4gh mem: mem
 Before samtools view call
 After samtools view call
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/bowtieUnmaskedGenome.sh: line 183: =bowtie2 -p 12 --no-mixed --no-discordant -x /data/vrc_his/douek_lab/reference_sets/hg19/unmasked/genome -1 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Output//Sample_582760806_A5_S33_R1_001/Generated_Data_1st_Bowtie_Alignment_ERCC/unalignedRead1AgainstERCC_582760806_A5_S33_R1_001.fq -2 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Output//Sample_582760806_A5_S33_R1_001/Generated_Data_1st_Bowtie_Alignment_ERCC/unalignedRead2AgainstERCC_.fq 1>genome_alignment_unmasked_genome_582760806_A5_S33_R1_001.sam 2>genome_alignment_rate_582760806_A5_S33_R1_001.txt: No such file or directory
+[bam_sort_core] merging from 0 files and 12 in-memory blocks...
+FINISHED extracting unaligned reads from first bowtie
 CHECKPOINT 4: second bowtie test command:
-
+bowtie2 -p 12 --no-mixed --no-discordant -x /data/vrc_his/douek_lab/reference_sets/hg19/unmasked/genome -1 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001/Generated_Data_1st_Bowtie_Alignment_ERCC/unalignedRead1AgainstERCC_582760806_A5_S33_R1_001.fq -2 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001/Generated_Data_1st_Bowtie_Alignment_ERCC/unalignedRead2AgainstERCC_582760806_A5_S33_R2_001.fq 1>genome_alignment_unmasked_genome_582760806_A5_S33_R1_001.sam 2>genome_alignment_rate_582760806_A5_S33_R1_001.txt
+Current working directory: 
+/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome
 FINISHED running second bowtie
-[E::hts_open_format] Failed to open file "genome_alignment_unmasked_genome_582760806_A5_S33_R1_001.sam" : No such file or directory
-samtools view: failed to open "genome_alignment_unmasked_genome_582760806_A5_S33_R1_001.sam" for reading: No such file or directory
-[E::hts_open_format] Failed to open file "genome_alignment_unmasked_genome_582760806_A5_S33_R1_001.sam" : No such file or directory
-samtools view: failed to open "genome_alignment_unmasked_genome_582760806_A5_S33_R1_001.sam" for reading: No such file or directory
-[E::hts_open_format] Failed to open file "genome_alignment_unmasked_genome_582760806_A5_S33_R1_001.sam" : No such file or directory
-samtools view: failed to open "genome_alignment_unmasked_genome_582760806_A5_S33_R1_001.sam" for reading: No such file or directory
-[W::hts_set_opt] Cannot change block size for this format
-samtools sort: failed to read header from "tempGenomeAlignments_582760806_A5_S33_R1_001.bam"
-Reached line 145
-Reached line 148
-REACHED END OF BOWTIEUNMASKED
-Waiting at most 30 seconds for missing files.
-MissingOutputException in rule bowtieUnmasked in file /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/Snakefile, line 33:
-Job 1  completed successfully, but some output files are missing. Missing files after 30 seconds. This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait:
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Output/Sample_582760806_A5_S33_R1_001/Generated_Data_1st_Bowtie_Alignment_Unmasked_Genome/genome_alignment_ERCC_582760806_A5_S33_R1_001.sam
-Shutting down, this might take some time.
-Exiting because a job execution failed. Look above for error message
-Complete log: .snakemake/log/2024-08-26T175325.761644.snakemake.log
-RAN SNAKEMAKE
+FINISHED extracting unaligned reads from second bowtie
+Lmod Warning:
+-------------------------------------------------------------------------------
+The following dependent module(s) are not currently loaded: bzip2/1.0.8-zqkxayh
+(required by: htslib/1.17-mf2cpdv), curl/7.88.1-cj5vz32 (required by:
+htslib/1.17-mf2cpdv), libxml2/2.10.3-6oukh5z (required by:
+hwloc/2.9.1-7yogq6u), ncurses/6.4-bhkjprr (required by: hwloc/2.9.1-7yogq6u,
+samtools/1.17-pdu7bhd), perl/5.36.0-tr63w3u (required by:
+bowtie2/2.5.1-bfbrd2r, samtools/1.17-pdu7bhd), python/3.10.10-djxmyiw (required
+by: py-appdirs/1.4.4-5cip6bs, py-jmespath/1.0.1-mgxnw6g, py-six/1.16.0-vk4vx3r,
+py-python-dateutil/2.8.2-z3b75ln, py-urllib3/1.26.12-t3rd55v,
+py-botocore/1.29.84-oxnqo5i, py-s3transfer/0.6.0-ysttt7k,
+py-boto3/1.26.26-friqbx4, py-configargparse/1.2.3-5infnil,
+py-connectionpool/0.0.3-tyxyazo, py-datrie/0.8.2-utkf73h,
+py-docutils/0.19-wb4ahx2, py-smmap/5.0.0-hkvdges, py-gitdb/4.0.9-jdpadab,
+py-gitpython/3.1.27-cde2mlq, py-humanfriendly/8.2-qe2zazd,
+py-markupsafe/2.1.1-wfrogob, py-jinja2/3.1.2-oify2nz, py-attrs/22.2.0-ro5fi4q,
+py-pyrsistent/0.19.3-7gr4oly, py-jsonschema/4.17.3-u5xhvdl,
+py-fastjsonschema/2.16.3-6bjrp77, py-platformdirs/3.5.0-3xhietd,
+py-traitlets/5.9.0-cdsbtrb, py-jupyter-core/5.3.0-65ag7xg,
+py-nbformat/5.8.0-qew4aag, py-psutil/5.9.4-mu2uubs, py-pulp/2.6.0-etejn5n,
+py-pyyaml/6.0-yjid5vm, py-certifi/2022.12.7-fsickvl,
+py-charset-normalizer/2.0.12-x6x4gjg, py-idna/3.4-aibtfjq,
+py-requests/2.28.2-7v26qtj, py-reretry/0.11.1-h7hhd55,
+py-setuptools/67.6.0-34rmvjj, py-smart-open/5.2.1-tpr4nfq,
+py-stopit/1.1.2-7ki62ih, py-tabulate/0.8.9-kakx5jc, py-throttler/1.2.2-jju2fhe,
+py-toposort/1.6-aouwqgm, py-wrapt/1.14.1-fjoxhpz, py-dpath/2.0.1-c6oouti,
+py-plac/1.3.5-gqq6372, py-yte/1.5.1-3uah3xq, snakemake/7.22.0-ufanewz,
+bowtie2/2.5.1-bfbrd2r, samtools/1.17-pdu7bhd), readline/8.2-2urjwmo (required
+by: bowtie2/2.5.1-bfbrd2r), xz/5.4.1-f5oddyl (required by: htslib/1.17-mf2cpdv)
+-------------------------------------------------------------------------------
+
+
+
+
+The following have been reloaded with a version change:
+  1) berkeley-db/18.1.40-zurtwpz => berkeley-db/18.1.40-e75knhy
+  2) bzip2/1.0.8-zqkxayh => bzip2/1.0.8-an5x3j4
+  3) cairo/1.16.0-ps6fdfr => cairo/1.16.0-jxyn2tm
+  4) curl/7.88.1-cj5vz32 => curl/8.7.1-abnev23
+  5) elfutils/0.189-7toctvl => elfutils/0.191-55dbwwy
+  6) expat/2.5.0-hudfwbq => expat/2.6.2-4e3nmm4
+  7) font-util/1.4.0-njursgz => font-util/1.4.1-miwbvka
+  8) fontconfig/2.14.2-a5ll7kg => fontconfig/2.15.0-kq4ootb
+  9) freetype/2.11.1-d7dpifq => freetype/2.13.2-eqrt4xq
+ 10) fribidi/1.0.12-qfy2xeh => fribidi/1.0.12-ghxaiwm
+ 11) gdbm/1.23-gbelm7p => gdbm/1.23-myvhbzr
+ 12) gettext/0.21.1-hynezcr => gettext/0.22.5-ff4qrhe
+ 13) glib/2.78.0-4tyj4h6 => glib/2.78.3-uwue2hj
+ 14) gobject-introspection/1.76.1-l7sj6jf => gobject-introspection/1.78.1-rpvkxg2
+ 15) graphite2/1.3.14-zeiv77t => graphite2/1.3.14-biwml7e
+ 16) harfbuzz/7.3.0-m5jh3c7 => harfbuzz/9.0.0-dlf3m32
+ 17) icu4c/67.1-5x6rvnh => icu4c/74.2-lt3umyt
+ 18) json-glib/1.6.6-egmprh4 => json-glib/1.6.6-w6zqmex
+ 19) kbproto/1.0.7-lvo7xp3 => kbproto/1.0.7-myfhzop
+ 20) libbsd/0.11.7-ffqw4kj => libbsd/0.12.2-xiociei
+ 21) libffi/3.4.4-yvwl2tq => libffi/3.4.6-xeqw4au
+ 22) libice/1.0.9-xyc3zdr => libice/1.1.1-ep3q25g
+ 23) libiconv/1.17-lg36l2c => libiconv/1.17-czestdg
+ 24) libidn2/2.3.4-bn7zybr => libidn2/2.3.7-zfeihxx
+ 25) libjpeg-turbo/2.1.5-zbmfgsl => libjpeg-turbo/3.0.3-zupuojm
+ 26) libmd/1.0.4-jenehbb => libmd/1.0.4-6u7jhxq
+ 27) libpng/1.6.39-ny5jxhp => libpng/1.6.39-zsm2dgr
+ 28) libpthread-stubs/0.4-bt3g75g => libpthread-stubs/0.5-jfzh64n
+ 29) libsm/1.2.3-5jrd5nq => libsm/1.2.4-llhffqf
+ 30) libtiff/4.5.1-ntfnmcy => libtiff/4.6.0-47kweiv
+ 31) libunistring/1.1-b2nbkmk => libunistring/1.2-6ox45tn
+ 32) libx11/1.8.4-q5tshyg => libx11/1.8.10-7ykujko
+ 33) libxau/1.0.8-7ciy6jg => libxau/1.0.11-pfeq3zx
+ 34) libxcb/1.14-xs6wozs => libxcb/1.17.0-ksnhef6
+ 35) libxcrypt/4.4.33-zsaekpb => libxcrypt/4.4.35-h4mxyr7
+ 36) libxdmcp/1.1.4-cv6laiq => libxdmcp/1.1.5-krls7fe
+ 37) libxext/1.3.3-qiq7jau => libxext/1.3.6-jdpkgcr
+ 38) libxft/2.3.2-dkwgywc => libxft/2.3.8-pi6kuvd
+ 39) libxml2/2.10.3-6oukh5z => libxml2/2.10.3-zdtrphf
+ 40) libxmu/1.1.4-szxxh3l => libxmu/1.2.1-ykzabcu
+ 41) libxrender/0.9.10-2nj3dfu => libxrender/0.9.11-6xwe2lr
+ 42) libxscrnsaver/1.2.2-ykn42ea => libxscrnsaver/1.2.4-srk6ec7
+ 43) libxt/1.1.5-qzbf23a => libxt/1.3.0-6m3l3yp
+ 44) ncurses/6.4-bhkjprr => ncurses/6.5-ememl4d
+ 45) openjdk/11.0.17_8-kzgd7of => openjdk/17.0.11_9-mcbjre6
+ 46) openssl/1.1.1t-rci5luz => openssl/3.3.1-cxlqwh2
+ 47) pango/1.50.13-lplinho => pango/1.52.2-3rtc2v2
+ 48) pcre2/10.42-pgq4jpc => pcre2/10.43-inhjwvu
+ 49) perl/5.36.0-tr63w3u => perl/5.40.0-qsxvqj2
+ 50) pigz/2.7-jsfzins => pigz/2.8-ohndkhp
+ 51) pixman/0.42.2-aby76pg => pixman/0.42.2-4pf2kga
+ 52) pkgconf/1.9.5-rxvtng4 => pkgconf/2.2.0-h7t52ql
+ 53) python/3.10.10-djxmyiw => python/3.11.9-4z43o4e
+ 54) r/4.3.0-a22xr47 => r/4.4.1-yjw4ytb
+ 55) readline/8.2-2urjwmo => readline/8.2-wygil4v
+ 56) renderproto/0.11.1-3svpn3f => renderproto/0.11.1-dyeyjrj
+ 57) scrnsaverproto/1.2.2-fbi62ci => scrnsaverproto/1.2.2-fplpmln
+ 58) sqlite/3.40.1-nlhafvt => sqlite/3.46.0-td53fnl
+ 59) tar/1.34-5rv5p52 => tar/1.34-bk4nxmp
+ 60) tcl/8.6.12-3esc24l => tcl/8.6.12-xbthzqm
+ 61) tk/8.6.11-g5cnzxs => tk/8.6.11-cvu3dbf
+ 62) util-linux-uuid/2.38.1-jwkyn2s => util-linux-uuid/2.40.2-jzewrqj
+ 63) which/2.21-zwmnxcy => which/2.21-euypgrv
+ 64) xextproto/7.3.0-tq5vy3r => xextproto/7.3.0-jpsn4kb
+ 65) xproto/7.0.31-taj6t5t => xproto/7.0.31-nr67tng
+ 66) xtrans/1.4.0-ubggp2o => xtrans/1.5.0-ul7mw75
+ 67) xz/5.4.1-f5oddyl => xz/5.4.6-2nxpj2z
+ 68) zstd/1.5.5-wsnij6f => zstd/1.5.6-yucvkmw
+

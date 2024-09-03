@@ -1,40 +1,48 @@
 #!/bin/sh
-#$ -N bowtiePrimate
-#$ -S /bin/bash
-#$ -M cokie.parker@nih.gov
-#$ -m be
-#$ -pe threaded 12
-#$ -l quick
-#$ -cwd
-#$ -j y
+#SBATCH -J bowtiePrimate
+#SBATCH --cpus-per-task=12
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=cokie.parker@nih.gov
 
 module load bowtie2
 module load samtools
 
-COUNTER=$SGE_TASK_ID
+unalignedLeftFile=$1
+unalignedRightFile=$2
+outPath=$3
+scriptsPath=$4
+left_read_file_base_name=$5
+right_read_file_base_name=$6
+bowtiePrimateIndex=$7
 
-projectID=$1
-left_read_file_base_name=$2
-right_read_file_base_name=$3
-bowtiePrimateIndex=$4
+##############################
+# print input paths
+echo "CHECKPOINT 1: BOWTIE PRIMATE INPUTS"
+echo "1: unalignedLeftFile: "
+echo $unalignedLeftFile
+echo "2: unalignedRightFile:"
+echo $unalignedRightFile
 
-## Source script for directory checking function
-dos2unix dir_check.sh
-source ./dir_check.sh 
+echo "3: outPath: "
+echo $outPath
+echo "4: scriptsPath: "
+echo $scriptsPath
 
+echo "5: left_read_file_base_name: "
 echo $left_read_file_base_name
+echo "6: right_read_file_base_name: "
 echo $right_read_file_base_name
-echo "line 25"
 
+echo "7: bowtiePrimateIndex: "
+echo $bowtiePrimateIndex
+##############################
 
+dos2unix $scriptsPath/dir_check.sh
+source $scriptsPath/dir_check.sh
 
-##########################################
-#####
-left="unalignedRead1AgainstTranscriptome.fq"
-right="unalignedRead2AgainstTranscriptome.fq"
-##########################################
-outputDir_Primate="../primate_alignment_rates/"
+$startDir=pwd
 
+outputDir_Primate=$outPath"/primate_alignment_rates/"
 outSam_Primate="primate_alignment_bowtie_"$left_read_file_base_name".sam"
 
 ##Confirm that we are  in scripts folder

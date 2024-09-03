@@ -1,0 +1,4 @@
+
+EXITING because of fatal input ERROR: could not open readFilesIn=/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R2_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_582760806_A5_S33_R1_001.fq
+
+Sep 03 12:56:52 ...... FATAL ERROR, exiting

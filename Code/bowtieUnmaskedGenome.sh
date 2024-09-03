@@ -16,9 +16,8 @@ module load samtools/1.17-pdu7bhd
 echo "module load curl"
 module load curl/7.88.1-cj5vz32
 
-COUNTER=$SGE_TASK_ID
 sampleNameLeft=$1
-SampleNameRight=$2
+sampleNameRight=$2
 
 # must be full paths:
 left_read_file=$3
@@ -36,7 +35,7 @@ picard=$9
 echo "CHECKPOINT 1: BOWTIE UNMASKED INPUTS"
 echo "1: sampleNameLeft: "
 echo $sampleNameLeft
-echo "rightSampleName:"
+echo "sampleNameRight:"
 echo $sampleNameRight
 
 echo "2: left_read_file: "
@@ -67,7 +66,7 @@ $startDir=pwd
 outSam_ERCC="genome_alignment_ERCC_"$sampleNameLeft".sam"
 outSam_Unmasked_Genome="genome_alignment_unmasked_genome_"$sampleNameLeft".sam"
 
-sample_folder_name=$outPath"/Sample_"$sampleNameLeft
+sample_folder_name=$outPath"Sample_"$sampleNameLeft
 mkdir $sample_folder_name
 
 #Confirm that sample folder exists
@@ -101,7 +100,7 @@ rm *.bam*
 rm no_ERCC1.fq.gz
 rm no_ERCC2.fq.gz
 rm "unalignedRead1AgainstGenome_"${sampleNameLeft}".fq"
-rm "unalignedRead2AgainstGenome_"${rightsampleNameLeft}".fq"
+rm "unalignedRead2AgainstGenome_"${sampleNameRight}".fq"
 rm "unalignedRead1AgainstERCC_"$sampleNameLeft".fq"
 rm "unalignedRead2AgainstERCC_"$sampleNameRight".fq"
 rm "readindex_index_"$index".fq.gz"
@@ -166,6 +165,8 @@ else
 
 fi
 
+echo "FINISHED extracting unaligned reads from first bowtie"
+
 #Confirm directory change was succesful
 correct_cur_Dir=$generatedDataSecondAlignDir
 cd $generatedDataSecondAlignDir
@@ -173,17 +174,19 @@ cd $generatedDataSecondAlignDir
 #bowtieIndex="/hpcdata/vrc/vrc1_data/douek_lab/reference_sets/hg19/unmasked/genome"
 bowtieAlignRate_UnmaskedGenome="genome_alignment_rate_"$sampleNameLeft".txt"
 
-ERRC_left_read_out_path_from_2nd_bowtie_folder=$generatedDataFirstAlignDir"unalignedRead1AgainstERCC_"$sampleNameLeft".fq"
-ERRC_right_read_out_path_from_2nd_bowtie_folder=$generatedDataFirstAlignDir"unalignedRead2AgainstERCC_"$sampleNameRight".fq"
+ERRC_left_unaligned=$generatedDataFirstAlignDir"unalignedRead1AgainstERCC_"$sampleNameLeft".fq"
+ERRC_right_unaligned=$generatedDataFirstAlignDir"unalignedRead2AgainstERCC_"$sampleNameRight".fq"
 
 ## Confirm paths to ERCC ouptuts work (files exist)
-file_exist_check $ERRC_left_read_out_path_from_2nd_bowtie_folder
-file_exist_check $ERRC_left_read_out_path_from_2nd_bowtie_folder
+file_exist_check $ERRC_left_unaligned
+file_exist_check $ERRC_right_unaligned
 
-$bowtie2_cmd="bowtie2 -p 12 --no-mixed --no-discordant -x $bowtieUnmaskedGenomeIndex -1 $ERRC_left_read_out_path_from_2nd_bowtie_folder -2 $ERRC_right_read_out_path_from_2nd_bowtie_folder 1>$outSam_Unmasked_Genome 2>$bowtieAlignRate_UnmaskedGenome"
+bowtie2_cmd="bowtie2 -p 12 --no-mixed --no-discordant -x $bowtieUnmaskedGenomeIndex -1 $ERRC_left_unaligned -2 $ERRC_right_unaligned 1>$outSam_Unmasked_Genome 2>$bowtieAlignRate_UnmaskedGenome"
 
 echo "CHECKPOINT 4: second bowtie test command:"
 echo $bowtie2_cmd
+echo "Current working directory: "
+pwd
 
 echo "$bowtie2_cmd" | bash
 
@@ -192,6 +195,8 @@ echo "FINISHED running second bowtie"
 samtools view -@ 12 -f 4 $outSam_Unmasked_Genome | grep -v ^@ | awk 'NR%2==1 {print "@"$1"\n"$10"\n+\n"$11}' > "unalignedRead1AgainstGenome_"$sampleNameLeft".fq"
 samtools view -@ 12 -f 4 $outSam_Unmasked_Genome | grep -v ^@ | awk 'NR%2==0 {print "@"$1"\n"$10"\n+\n"$11}' > "unalignedRead2AgainstGenome_"$sampleNameRight".fq"
 
+echo "FINISHED extracting unaligned reads from second bowtie"
+
 module load r
 tempGenomeAlignments_filename="tempGenomeAlignments_"$sampleNameLeft".bam"
 
@@ -199,14 +204,25 @@ samtools view -b $outSam_Unmasked_Genome > $tempGenomeAlignments_filename
 
 tempSortedAlignments_filename="tempSortedAlignments_"$sampleNameLeft".bam"
 samtools sort -m 20G $tempGenomeAlignments_filename> $tempSortedAlignments_filename
-echo "Reached line 145"
-picard_stdout_file_name="picard_stdout_"$sampleNameLeft".txt" 
+
+picard_stdout_file_name="picard_stdout_"$sampleNameLeft".txt"
 picard_stderr_file_name="picard_stderr_"$sampleNameLeft".txt" 
 insert_size_metrics_file_name="insert_size_metrics_"$sampleNameLeft".txt" 
-insert_Hist_pdf_file_name="insert_size_histogram_"$sampleNameLeft".pdf" 
-java -Xmx6G -jar $picard CollectInsertSizeMetrics I=$tempSortedAlignments_filename O=$insert_size_metrics_file_name H=$insert_Hist_pdf_file_name M=0.5 1>$picard_stdout_file_name 2>$picard_stderr_file_name
+insert_Hist_pdf_file_name="insert_size_histogram_"$sampleNameLeft".pdf"
+
+echo "CHECKPOINT 5: run picard CollectInsertSizeMetrics command:"
+
+sizeMetrics_cmd="java -Xmx6G -jar $picard CollectInsertSizeMetrics I=$tempSortedAlignments_filename O=$insert_size_metrics_file_name H=$insert_Hist_pdf_file_name M=0.5 1>$picard_stdout_file_name 2>$picard_stderr_file_name"
+
+echo $sizeMetrics_cmd
+echo "Current working directory: "
+pwd
+
+echo "$sizeMetrics_cmd" | bash
 OUT=$?
-echo "Reached line 148"
+
+echo "FINISHED running picard CollectInsertSizeMetrics command"
+
 if [ -e $insert_Hist_pdf_file_name ]
 then
 	echo $sampleNameLeft" Everything successful ("$OUT") and deleting intermediate files" >> "../finished_bowtieUnmaskedGenome.txt"

@@ -8,7 +8,7 @@ inputpath: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/202302
 
 ## configurable parameters
 codepath: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/
-outputpath: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Output/
+outputpath: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/
 
 ## paths of necessary installs and references on system
 bowtieERCCIndex: /data/vrc_his/douek_lab/reference_sets/ERCC/ERCC92

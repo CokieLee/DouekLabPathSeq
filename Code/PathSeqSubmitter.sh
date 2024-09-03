@@ -115,7 +115,7 @@ echo $bowtieJobID
 echo "Ready for star Alignment"
 ###########################################
 ## submit second alignment pass, holding for first pass to finish and capture the array jobID
-starJobID=$(sbatch --parsable --dependency=afterok:$bowtieJobID $starScript $projectID $left_read_file_base_name  $right_read_file_base_name $hg38_starDB| cut -d' ' -f3)
+starJobID=$(sbatch --parsable --dependency=afterok:$bowtieJobID $starScript $projectID $left_read_file_base_name $right_read_file_base_name $hg38_starDB| cut -d' ' -f3)
 ###########################################
 ## get the short jobID from array jobID
 echo "holdID is "

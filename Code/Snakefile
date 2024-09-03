@@ -4,13 +4,21 @@ wildcard_constraints:
     filename = ".+"  # Use 'filename' to represent the entire filename
 
 with open(os.path.join(config["inputpath"], "file_list"), "r") as file:
-    SAMPLES = [line.strip().split(".")[0] for line in file]
+    FULLSAMPLES = [line.strip().split(".")[0] for line in file]
 
-## Basic rule for testing environment. Should take all input files,
-## and print them each to a file of the same base name.
+
+SAMPLES = [sample.split("_R1_")[0] for sample in FULLSAMPLES]
+
+leftEnding = "_R1_" + FULLSAMPLES[0].split("_R1_")[1]
+rightEnding = leftEnding.replace("R1", "R2")
+
+print(rightEnding)
+
+# Basic rule for testing environment. Should take all input files,
+# and print them each to a file of the same base name.
 # rule all:
 #     input:
-#         expand(os.path.join(config["outputpath"], "{sample}.txt"), sample=SAMPLES)
+#         expand(os.path.join(config["outputpath"], "{sample}.txt"), sample=FULLSAMPLES)
 
 # rule testRule:
 #     params:
@@ -24,29 +32,38 @@ with open(os.path.join(config["inputpath"], "file_list"), "r") as file:
 
 rule all:
     input:
-        expand(os.path.join(config["outputpath"], "Sample_{sample}",
-                            "Generated_Data_1st_Bowtie_Alignment_Unmasked_Genome",
-                            "genome_alignment_ERCC_{sample}.sam"),
+        expand(os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "primate_alignment_rates", "primate_alignment_bowtie_{sample}"+ leftEnding +".sam"),
                 sample=SAMPLES)
 
 # run bowtie unmasked on samples
 rule bowtieUnmasked:
     input:
         scriptPath=os.path.join(config["codepath"], "bowtieUnmaskedGenome.sh"),
-        leftReadFile=os.path.join(config["inputpath"], "{sample}.fastq.gz"),
-        rightReadFile=os.path.join(config["inputpath"], "{sample}.fastq.gz".replace("R1", "R2")),
+        leftReadFile=os.path.join(config["inputpath"], "{sample}" + leftEnding +".fastq.gz"),
+        rightReadFile=os.path.join(config["inputpath"], "{sample}" + rightEnding +".fastq.gz"),
         picard=config["picard"]
     params:
         outPath=config["outputpath"],
         codePath=config["codepath"],
-        sampleNameLeft="{sample}",
-        sampleNameRight="{sample}".replace("R1", "R2"),
+        sampleNameLeft="{sample}" + leftEnding,
+        sampleNameRight="{sample}" + rightEnding,
         bowtieERCCIndex=config["bowtieERCCIndex"],
         bowtieUnmaskedGenomeIndex=config["bowtieUnmaskedGenomeIndex"]
     output:
-        os.path.join(config["outputpath"], "Sample_{sample}",
-                    "Generated_Data_1st_Bowtie_Alignment_Unmasked_Genome",
-                    "genome_alignment_ERCC_{sample}.sam")
+        ## following outputs are directly used by subsequent steps:
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_{sample}" + leftEnding + ".fq"),
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_{sample}" + rightEnding + ".fq")
+        ## following outputs are solely informational:
+        # first bowtie alignment:
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding, "finished_bowtieUnmaskedGenome.txt")
+        # second bowtie alignment:
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding, 
+                    "Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/picard_stderr_{sample}"+ leftEnding +".txt")
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding, 
+                    "Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/picard_stdout_{sample}"+ leftEnding +".txt")
     resources:
         cpus=12
     shell:
@@ -55,3 +72,72 @@ rule bowtieUnmasked:
         {input.rightReadFile} {params.outPath} {params.codePath} {params.bowtieERCCIndex} \
         {params.bowtieUnmaskedGenomeIndex} {input.picard}
         """
+
+rule starAfterBowtie:
+    input:
+        scriptPath=os.path.join(config["codepath"], "starAfterBowtie.sh"),
+        leftUnaligned=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_{sample}" + leftEnding + ".fq"),
+        rightUnaligned=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_{sample}" + rightEnding + ".fq"),
+    params:
+        sampleNameLeft="{sample}" + leftEnding,
+        codePath=config["codepath"],
+        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
+        hgStarDb=config["hg38_starDB"]
+    output:
+        ## following outputs are directly used by subsequent steps
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "Generated_Data_Star_Alignment/{sample}" + leftEnding + "_unalignedRead1AgainstTranscriptome.fq"),
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "Generated_Data_Star_Alignment/{sample}" + rightEnding + "_unalignedRead2AgainstTranscriptome.fq"),
+        ## following outputs are solely informational
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "Generated_Data_Star_Alignment/{sample}" + leftEnding + "_star_alignment_stats.txt")
+    shell:
+        """
+        bash {input.scriptPath} {input.leftUnaligned} {input.rightUnaligned} \
+        {params.sampleNameLeft} {params.codePath} {params.outPath} {params.hgStarDb}
+        """
+
+rule bowtiePrimate:
+    input:
+        scriptPath=os.path.join(config["codepath"], "bowtiePrimate.sh"),
+        leftUnaligned=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "Generated_Data_Star_Alignment/{sample}" + leftEnding + "_unalignedRead1AgainstTranscriptome.fq"),
+        rightUnaligned=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "Generated_Data_Star_Alignment/{sample}" + rightEnding + "_unalignedRead2AgainstTranscriptome.fq"),
+    params:
+        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
+        codePath=config["codepath"],
+        sampleNameLeft="{sample}" + leftEnding,
+        sampleNameRight="{sample}" + rightEnding,
+        primateIndex=config["bowtiePrimatePaths"]
+    output:
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "primate_alignment_rates", "primate_alignment_bowtie_{sample}"+ leftEnding +".sam")
+    shell:
+        """
+        bash {input.scriptPath} {input.leftUnaligned} {input.rightUnaligned} {params.outPath} \
+        {params.codePath} {params.sampleNameLeft} {params.sampleNameRight} {params.primateIndex}
+        """
+
+# rule trinity:
+#     input:
+#     params:
+#     output:
+#     shell:
+
+# rule filter:
+
+# rule kaiju:
+
+# rule parseKaiju:
+
+# rule merge:
+
+# rule prepDiversity:
+
+# rule salmon:
+
+# rule palmScan:

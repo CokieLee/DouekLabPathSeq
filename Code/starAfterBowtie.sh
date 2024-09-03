@@ -1,28 +1,28 @@
 #!/bin/sh
-#$ -N starAfterBowtie
-#$ -S /bin/bash
-#$ -M cokie.parker@nih.gov
-#$ -m be
-#$ -l h_vmem=50G
-#$ -l quick
-#$ -cwd
-#$ -j y
+#SBTACH -J starAfterBowtie
+#SBATCH --mem=50G
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=cokie.parker@nih.gov
 
-module load STAR/2.4.2a-goolf-1.7.20
-module load SAMtools/1.4-goolf-1.7.20
+module load star
+module load samtools
 
 COUNTER=$SGE_TASK_ID
 
-projectID=$1
-left_read_file_base_name=$2
-codePath=$3
-outputPath=$4
-hg38_starDB=$5
+leftUnalignedFile=$1
+rightUnalignedFile=$2
+left_read_file_base_name=$3
+codePath=$4
+outputPath=$5
+hg38_starDB=$6
 
 ## print input args
 echo "STAR AFTER BOWTIE INPUTS:"
-echo "projectID:"
-echo $projectID
+
+echo "leftUnalignedFile:"
+echo $leftUnalignedFile
+echo "rightUnalignedFile:"
+echo $rightUnalignedFile
 
 echo "output_base_name:"
 echo $left_read_file_base_name
@@ -30,47 +30,20 @@ echo $left_read_file_base_name
 echo "codePath:"
 echo $codePath
 
-echo "outputPath:"
-echo $outputPath
-
 echo "hg38_starDB:"
 echo $hg38_starDB
+
+echo "outputPath:"
+echo $outputPath
 
 ## Source script for directory checking function
 dos2unix $codePath"/dir_check.sh"
 source $codePath"/dir_check.sh"
 
-#hg38_starDB="/hpcdata/vrc/vrc1_data/douek_lab/reference_sets/hg38/Sequence/STAR/"
-#hg_38_gtf="/hpcdata/vrc/vrc1_data/douek_lab/reference_sets/hg38/Annotation/Genes/genes.gtf"
-#hg38_referenceFasta="/hpcdata/vrc/vrc1_data/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa"
-
-demultiplexDir="../Input_Data/"
-left="unalignedRead1AgainstGenome_"$left_read_file_base_name".fq"
-right="unalignedRead2AgainstGenome_"$right_read_file_base_name".fq"
-
 ##Change directories to output folder
 cd $outputPath
 
-##Confirm that we are in project folder
-cur_Dir=$(basename $(pwd))
-echo $cur_Dir
-
-## Confirm that sample folder exists
-file_exist_check $sample_folder_name
-
-## Change into sample folder
-cd $sample_folder_name
-
-## Confirm that we are in sample folder
-correct_cur_Dir=$sample_folder_name
-dir_check  $correct_cur_Dir
-
-alignments="../alignment_stats/"
-echo "alignments"
-echo $alignments
-
 mkdir "alignment_stats"
-
 mkdir Generated_Data_Star_Alignment
 
 cd Generated_Data_Star_Alignment/
@@ -81,21 +54,13 @@ echo $cur_Dir
 correct_cur_Dir="Generated_Data_Star_Alignment"
 dir_check  $correct_cur_Dir
 
+echo "CHECKPOINT 1: star command:"
+starCmd="STAR --genomeDir $hg38_starDB --readFilesIn $leftUnalignedFile $rightUnalignedFile  --outFileNamePrefix ./$left_read_file_base_name --outReadsUnmapped Fastx --outSAMtype BAM SortedByCoordinate --outSAMstrandField intronMotif 1>star_stdout.txt 2>star_stderr.txt"
+echo starCmd
 
-bowtieUnmaskedDir="../Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/"
+echo "$starCmd" | bash
 
-
-pwd
-
-rel_path_to_bowtie_left_out_from_star_folder=$bowtieUnmaskedDir$left
-rel_path_to_bowtie_right_out_from_star_folder=$bowtieUnmaskedDir$right
-
-#Confirm that relative paths to unaligned reads work (files exist)
-file_exist_check $rel_path_to_bowtie_left_out_from_star_folder
-file_exist_check $rel_path_to_bowtie_right_out_from_star_folder
-
-STAR --genomeDir $hg38_starDB --readFilesIn $rel_path_to_bowtie_left_out_from_star_folder $rel_path_to_bowtie_right_out_from_star_folder  --outFileNamePrefix ./$left_read_file_base_name --outReadsUnmapped Fastx --outSAMtype BAM SortedByCoordinate --outSAMstrandField intronMotif 1>star_stdout.txt 2>star_stderr.txt
-
+echo "STAR run finished"
 
 bam_out_file_name=${left_read_file_base_name}"Aligned.sortedByCoord.out.bam"
 log_out_file_name=${left_read_file_base_name}"Log.final.out"
@@ -112,23 +77,12 @@ cp ${left_read_file_base_name}"_star_align_summary.txt" $alignments
 mv $left_read_file_base_name"Unmapped.out.mate1" $left_read_file_base_name"_unalignedRead1AgainstTranscriptome.fq"
 mv $left_read_file_base_name"Unmapped.out.mate2" $right_read_file_base_name"_unalignedRead2AgainstTranscriptome.fq"
 
-
-
-
-
-rm $bowtieUnmaskedDir$left 
-rm $bowtieUnmaskedDir$right
+## remove unaligned files from bowtie after aligning them
+rm $leftUnalignedFile
+rm $rightUnalignedFile
 
 lineCount="$(wc -l $left_read_file_base_name"_unalignedRead1AgainstTranscriptome.fq" | cut -d' ' -f1)"
 fastqCount=$(expr $lineCount / 4)
 echo $left_read_file_base_name","$fastqCount >> "../finished_bowtie_star.csv"
 
-## Change directories back to scripts folder
-cd ../../scripts/
-
-##Confirm that we are in scripts directory
-echo "Line 140"
-cur_Dir=$(basename $(pwd))
-echo $cur_Dir
-correct_cur_Dir="scripts"
-dir_check  $correct_cur_Dir
+echo "END OF STAR FILE"
