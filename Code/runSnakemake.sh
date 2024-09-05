@@ -6,6 +6,6 @@
 
 module load snakemake
 
-snakemake -p -c1 --latency-wait 30
+snakemake -p -c1 --latency-wait 120
 
 echo "RAN SNAKEMAKE"

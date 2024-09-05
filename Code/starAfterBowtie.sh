@@ -7,14 +7,13 @@
 module load star
 module load samtools
 
-COUNTER=$SGE_TASK_ID
-
 leftUnalignedFile=$1
 rightUnalignedFile=$2
 left_read_file_base_name=$3
-codePath=$4
-outputPath=$5
-hg38_starDB=$6
+right_read_file_base_name=$4
+codePath=$5
+outputPath=$6
+hg38_starDB=$7
 
 ## print input args
 echo "STAR AFTER BOWTIE INPUTS:"
@@ -26,6 +25,7 @@ echo $rightUnalignedFile
 
 echo "output_base_name:"
 echo $left_read_file_base_name
+echo $right_read_file_base_name
 
 echo "codePath:"
 echo $codePath
@@ -40,13 +40,13 @@ echo $outputPath
 dos2unix $codePath"/dir_check.sh"
 source $codePath"/dir_check.sh"
 
-##Change directories to output folder
-cd $outputPath
+alignStatsDir=$outputPath"alignment_stats"
+starGeneratedDir=$outputPath"Generated_Data_Star_Alignment"
 
-mkdir "alignment_stats"
-mkdir Generated_Data_Star_Alignment
+mkdir $alignStatsDir
+mkdir $starGeneratedDir
 
-cd Generated_Data_Star_Alignment/
+cd $starGeneratedDir
 
 ## Confirm that we are in the folder Generated_Data_Star_Alignment
 cur_Dir=$(basename $(pwd))
@@ -60,7 +60,7 @@ echo starCmd
 
 echo "$starCmd" | bash
 
-echo "STAR run finished"
+echo "FINISHED star command"
 
 bam_out_file_name=${left_read_file_base_name}"Aligned.sortedByCoord.out.bam"
 log_out_file_name=${left_read_file_base_name}"Log.final.out"
@@ -70,16 +70,16 @@ echo "Log.out file name"
 echo $log_out_file_name
 samtools index $bam_out_file_name
 samtools idxstats $bam_out_file_name > ${left_read_file_base_name}"_star_alignment_stats.txt"
-cp ${left_read_file_base_name}"_star_alignment_stats.txt" $alignments
+cp ${left_read_file_base_name}"_star_alignment_stats.txt" $alignStatsDir
 mv $log_out_file_name ${left_read_file_base_name}"_star_align_summary.txt"
-cp ${left_read_file_base_name}"_star_align_summary.txt" $alignments
+cp ${left_read_file_base_name}"_star_align_summary.txt" $alignStatsDir
 
 mv $left_read_file_base_name"Unmapped.out.mate1" $left_read_file_base_name"_unalignedRead1AgainstTranscriptome.fq"
 mv $left_read_file_base_name"Unmapped.out.mate2" $right_read_file_base_name"_unalignedRead2AgainstTranscriptome.fq"
 
 ## remove unaligned files from bowtie after aligning them
-rm $leftUnalignedFile
-rm $rightUnalignedFile
+# rm $leftUnalignedFile
+# rm $rightUnalignedFile
 
 lineCount="$(wc -l $left_read_file_base_name"_unalignedRead1AgainstTranscriptome.fq" | cut -d' ' -f1)"
 fastqCount=$(expr $lineCount / 4)

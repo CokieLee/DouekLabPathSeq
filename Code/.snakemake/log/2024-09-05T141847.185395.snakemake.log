@@ -23,30 +23,6 @@ rule starAfterBowtie:
 
         bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/starAfterBowtie.sh /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_582760806_A5_S33_R1_001.fq /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_582760806_A5_S33_R2_001.fq         582760806_A5_S33_R1_001 582760806_A5_S33_R2_001 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/ /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001 /data/vrc_his/douek_lab/reference_sets/hg38/Sequence/STAR/
         
-STAR AFTER BOWTIE INPUTS:
-leftUnalignedFile:
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_582760806_A5_S33_R1_001.fq
-rightUnalignedFile:
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_582760806_A5_S33_R2_001.fq
-output_base_name:
-582760806_A5_S33_R1_001
-582760806_A5_S33_R2_001
-codePath:
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/
-hg38_starDB:
-/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/STAR/
-outputPath:
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001
-dos2unix: converting file /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code//dir_check.sh to Unix format...
-Sample_582760806_A5_S33_R1_001Generated_Data_Star_Alignment
-In wrong directory should be in 
-Generated_Data_Star_Alignment
-But instead is in  
-Sample_582760806_A5_S33_R1_001Generated_Data_Star_Alignment
-In wrong directory should be in 
-Generated_Data_Star_Alignment
-But instead is in  
-Sample_582760806_A5_S33_R1_001Generated_Data_Star_Alignment
 [Thu Sep  5 14:18:53 2024]
 Error in rule starAfterBowtie:
     jobid: 1
@@ -61,5 +37,3 @@ Error in rule starAfterBowtie:
 Shutting down, this might take some time.
 Exiting because a job execution failed. Look above for error message
 Complete log: .snakemake/log/2024-09-05T141847.185395.snakemake.log
-_R2_001
-RAN SNAKEMAKE

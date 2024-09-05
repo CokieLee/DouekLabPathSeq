@@ -74,14 +74,12 @@ file_exist_check $sample_folder_name
 
 generatedDataFirstAlignDir=$sample_folder_name"/Generated_Data_1st_Bowtie_Alignment_ERCC/"
 generatedDataSecondAlignDir=$sample_folder_name"/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/"
-alignmentRatesDir=$sample_folder_name"/unmasked_genome_alignment_rates/"
 erccAlignmentRates=$sample_folder_name"/ERCC_alignment_rates/"
 erccAlignmentCountsDir=$sample_folder_name"/ERCC_alignment_counts/"
 insertSizeOutputDir=$sample_folder_name"/insert_size_metrics/"
 
 mkdir $generatedDataFirstAlignDir
 mkdir $generatedDataSecondAlignDir
-mkdir $alignmentRatesDir
 mkdir $erccAlignmentRates
 mkdir $erccAlignmentCountsDir
 mkdir $insertSizeOutputDir
@@ -93,25 +91,25 @@ correct_cur_Dir=$generatedDataFirstAlignDir
 echo "CHECKPOINT 2: Currently inside: "$correct_cur_Dir
 
 ##########################################
-rm *.xml
-##rm *.fq
-rm *.sam
-rm *.bam*
-rm no_ERCC1.fq.gz
-rm no_ERCC2.fq.gz
-rm "unalignedRead1AgainstGenome_"${sampleNameLeft}".fq"
-rm "unalignedRead2AgainstGenome_"${sampleNameRight}".fq"
-rm "unalignedRead1AgainstERCC_"$sampleNameLeft".fq"
-rm "unalignedRead2AgainstERCC_"$sampleNameRight".fq"
-rm "readindex_index_"$index".fq.gz"
-rm left*
-rm right*
-rm *.cxb
-##rm *.txt
-rm *.csv
-##rm *.tab
-##rm *tab.gz
-rm *readcount
+# rm *.xml
+# ##rm *.fq
+# rm *.sam
+# rm *.bam*
+# rm no_ERCC1.fq.gz
+# rm no_ERCC2.fq.gz
+# rm "unalignedRead1AgainstGenome_"${sampleNameLeft}".fq"
+# rm "unalignedRead2AgainstGenome_"${sampleNameRight}".fq"
+# rm "unalignedRead1AgainstERCC_"$sampleNameLeft".fq"
+# rm "unalignedRead2AgainstERCC_"$sampleNameRight".fq"
+# rm "readindex_index_"$index".fq.gz"
+# rm left*
+# rm right*
+# rm *.cxb
+# ##rm *.txt
+# rm *.csv
+# ##rm *.tab
+# ##rm *tab.gz
+# rm *readcount
 ##########################################
 
 bowtieAlignRate_ERCC=$erccAlignmentRates"ERCC_alignment_rate_"$sampleNameLeft".txt"
@@ -191,6 +189,8 @@ pwd
 echo "$bowtie2_cmd" | bash
 
 echo "FINISHED running second bowtie"
+echo "alignments were sent to: "
+echo $outSam_Unmasked_Genome
 
 samtools view -@ 12 -f 4 $outSam_Unmasked_Genome | grep -v ^@ | awk 'NR%2==1 {print "@"$1"\n"$10"\n+\n"$11}' > "unalignedRead1AgainstGenome_"$sampleNameLeft".fq"
 samtools view -@ 12 -f 4 $outSam_Unmasked_Genome | grep -v ^@ | awk 'NR%2==0 {print "@"$1"\n"$10"\n+\n"$11}' > "unalignedRead2AgainstGenome_"$sampleNameRight".fq"
@@ -225,25 +225,25 @@ echo "FINISHED running picard CollectInsertSizeMetrics command"
 
 if [ -e $insert_Hist_pdf_file_name ]
 then
-	echo $sampleNameLeft" Everything successful ("$OUT") and deleting intermediate files" >> "../finished_bowtieUnmaskedGenome.txt"
-	rm $outSam_Unmasked_Genome
-	rm $tempSortedAlignments_filename
-	rm $tempGenomeAlignments_filename
-	#rm unmapped.genome.bam
-	#rm temp.unaligned.bam
-	rm *ERCCAlignments*
-	##rm unalignedRead1AgainstERCC.fq
-	##rm unalignedRead2AgainstERCC.fq
+	echo "$sampleNameLeft Everything successful ("${OUT}") and deleting intermediate files" >> "../finished_bowtieUnmaskedGenome.txt"
+	# rm $outSam_Unmasked_Genome
+	# rm $tempSortedAlignments_filename
+	# rm $tempGenomeAlignments_filename
+	# #rm unmapped.genome.bam
+	# #rm temp.unaligned.bam
+	# rm *ERCCAlignments*
+	# ##rm unalignedRead1AgainstERCC.fq
+	# ##rm unalignedRead2AgainstERCC.fq
 	mv $insert_size_metrics_file_name "../insert_size_metrics/"$insert_size_metrics_file_name
 	mv $insert_Hist_pdf_file_name "../insert_size_metrics/"$insert_Hist_pdf_file_name
 	#cp $sampleNameLeft"_insert_size_metrics.txt" $insertSizeOutputDir
 	#cp $sampleNameLeft"_insert_size_histogram.pdf" $insertSizeOutputDir
 else
-    echo $sampleNameLeft" Something went wrong ("$OUT"), keeping first intermediate alignment file" >> "../finished_bowtieUnmaskedGenome.txt"
-    rm $tempSortedAlignments_filename
-	rm $tempGenomeAlignments_filename
-   	#rm unmapped.genome.bam
-   	#rm tempSortedAlignments.bam
+    echo $sampleNameLeft" Something went wrong ("${OUT}"), keeping first intermediate alignment file" >> "../finished_bowtieUnmaskedGenome.txt"
+    # rm $tempSortedAlignments_filename
+	# rm $tempGenomeAlignments_filename
+   	# #rm unmapped.genome.bam
+   	# #rm tempSortedAlignments.bam
 fi
 
 ## Return to scripts folder at end of script
