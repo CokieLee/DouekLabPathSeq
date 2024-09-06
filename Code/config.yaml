@@ -5,6 +5,8 @@ jobs: 32
 ## parameters that must be changed for each different run
 projectid: 2023020_EVD68_NS
 inputpath: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/2023020_EVD68_NS/Input_Data/
+origin: RNA
+minContigLen: 300
 
 ## configurable parameters
 codepath: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/
@@ -13,6 +15,7 @@ outputpath: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Paths
 ## paths of necessary installs and references on system
 bowtieERCCIndex: /data/vrc_his/douek_lab/reference_sets/ERCC/ERCC92
 bowtieUnmaskedGenomeIndex: /data/vrc_his/douek_lab/reference_sets/hg19/unmasked/genome
+hg38_starDB: /data/vrc_his/douek_lab/reference_sets/hg38/Sequence/STAR/
 bowtiePrimatePaths: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20210302/primates
 picard: /data/vrc_his/douek_lab/projects/PathSeq/programs/picard/2.18.14/picard.jar
 program_PathSeqRemoveHostForKaiju: /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqRemoveHostForKaiju/dist/PathSeqRemoveHostForKaiju.jar
@@ -23,4 +26,3 @@ blastDB_Mammalia: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20210716/Mammal
 kaiju_nodes: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp
 kaiju_fmi: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/kaiju_db_nr_euk.fmi
 NCBI_nt_kaiju_ref_taxonomy: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/qiime2_formatted_taxonomy.tab
-hg38_starDB: /data/vrc_his/douek_lab/reference_sets/hg38/Sequence/STAR/

@@ -1,3 +1,8 @@
-Pathseq pipeline, rewritten to remove file structure dependencies, and add checkpointing, tests, and error checking.
+Pathseq pipeline, rewritten using snakemake pipeline manager
+to remove file structure dependencies, and add checkpointing, tests, and errorchecking.
 
-To run a test 
+Software versions used:
+    - bowtie2/2.5.1
+    - star/2.7.10
+
+To run a test:

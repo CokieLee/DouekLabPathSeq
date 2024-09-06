@@ -1,11 +1,9 @@
 #!/bin/sh
-#$ -N all_trinity
-#$ -S /bin/bash
-#$ -M rahul.subramanian@nih.gov
-#$ -m be
-#$ -pe threaded 12
-#$ -l h_vmem=16.5G
-#$ -cwd
+#SBATCH -J all_trinity
+#SBATCH --cpus-per-task=12
+#SBATCH --mem=17G
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=cokie.parker@nih.gov
 
 export TMPDIR=/hpcdata/scratch/
 export _JAVA_OPTIONS="-Djava.io.tmpdir=/hpcdata/scratch"
@@ -13,80 +11,46 @@ export _JAVA_OPTIONS="-Djava.io.tmpdir=/hpcdata/scratch"
 module load trinity
 export PATH="/hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/programs/fastp:$PATH"
 
-projectID=$1
-left_read_file_base_name=$2
-right_read_file_base_name=$3
-origin=$4
-MIN_CONTIG_LENGTH=$5
-split_filter_submit_script=$6
-program_PathSeqRemoveHostForKaiju=$7
-blastDB_Mammalia=$8
-filterScript=$9
-kaiju_nodes=${10}
-kaiju_fmi=${11}
-kaijuScript=${12}
-parseKaijuScript=${13}
-PathSeqKaijuConcensusSplitter2_program=${14}
-NCBI_nt_kaiju_ref_taxonomy=${15}
-mergeScript=${16}
-prepDiversityScript=${17}
-salmonQuantScript=${18}
-left_read_file=${19}
-right_read_file=${20}
-PathSeqMergeQIIME2TaxAndSalmon_program=${21}
-PathSeqSplitOutputTableByTaxonomy_program=${22}
-palmScanScript=${23}
-rScriptDiv=${24}
+unalignedInputLeft=$1
+unalignedInputRight=$2
+left_read_file_base_name=$3
+right_read_file_base_name=$4
+origin=$5
+MIN_CONTIG_LENGTH=$6
+codePath=$7
+outPath=$8
 
 ## Source script for directory checking function
-dos2unix dir_check.sh
-source ./dir_check.sh 
+dos2unix $codePath"dir_check.sh"
+source $codePath"/dir_check.sh"
 
+echo "CHECKPOINT 1: ALL_TRINITY INPUTS:"
+echo "1. unalignedInputLeft:"
+echo $unalignedInputLeft
+echo "2. unalignedInputRight:"
+echo $unalignedInputRight
+
+echo "3. left_read_file_base_name:"
 echo $left_read_file_base_name
+echo "4. right_read_file_base_name:"
 echo $right_read_file_base_name
 
-##Confirm that we are  in scripts folder
-cur_Dir=$(basename $(pwd))
-#echo $cur_Dir
-correct_cur_Dir="scripts"
-dir_check  $correct_cur_Dir
+echo "5. origin:"
+echo $origin
+echo "6. min_contig_length:"
+echo $MIN_CONTIG_LENGTH
 
-## Confirm correct script file inputs
-file_exist_check $split_filter_submit_script
-file_exist_check $filterScript
-file_exist_check $kaijuScript
-file_exist_check $parseKaijuScript
-file_exist_check $mergeScript
-file_exist_check $prepDiversityScript
-file_exist_check $salmonQuantScript
-file_exist_check $palmScanScript
-file_exist_check $rScriptDiv
+echo "7. codePath:"
+echo $codePath
+echo "8. outPath:"
+echo $outPath
 
-##Change directories to project folder
-cd "../"
-
-##Confirm that we are in project folder
-cur_Dir=$(basename $(pwd))
-#echo $cur_Dir
-correct_cur_Dir=$projectID
-dir_check  $correct_cur_Dir
-
-sample_folder_name="Sample_"$left_read_file_base_name
-
-## Confirm that sample folder exists
-file_exist_check $sample_folder_name
-
-## Change into sample folder
-cd $sample_folder_name
-
-## Confirm that we are in sample folder
-correct_cur_Dir=$sample_folder_name
-dir_check  $correct_cur_Dir
+# Confirm input exists
+file_exist_check $unalignedInputLeft
+file_exist_check $unalignedInputRight
 
 ## Make directory to store trinity output
-
-
-trinity_folder_name=$origin"_trinity_output"
+trinity_folder_name=$outPath$origin"_trinity_output"
 mkdir $trinity_folder_name
 
 ## Confirm that the directory exists
@@ -99,19 +63,10 @@ cd $trinity_folder_name
 correct_cur_Dir=$trinity_folder_name
 dir_check  $correct_cur_Dir
 
-# Get relative path to read files
-bowtiePrimateDir="../primate_alignment_rates/"
-rel_path_to_bowtie_Primate_left_out_from_trinity_folder=$bowtiePrimateDir"unalignedRead1AgainstPrimate_"$left_read_file_base_name".fq"
-rel_path_to_bowtie_Primate_right_out_from_trinity_folder=$bowtiePrimateDir"unalignedRead1AgainstPrimate_"$right_read_file_base_name".fq"
-
-##Confirm that the relative path to read files works (that the files exist)
-file_exist_check $rel_path_to_bowtie_Primate_left_out_from_trinity_folder
-file_exist_check $rel_path_to_bowtie_Primate_right_out_from_trinity_folder
-
 fastp_output_file_name_for_trinity_left="fastp_unalignedRead1AgainstPrimate_"$left_read_file_base_name".fq"
 fastp_output_file_name_for_trinity_right="fastp_unalignedRead1AgainstPrimate_"$right_read_file_base_name".fq"
 
-fastp -i $rel_path_to_bowtie_Primate_left_out_from_trinity_folder -o $fastp_output_file_name_for_trinity_left -I $rel_path_to_bowtie_Primate_right_out_from_trinity_folder -O $fastp_output_file_name_for_trinity_right --dedup --thread 12
+fastp -i $unalignedInputLeft -o $fastp_output_file_name_for_trinity_left -I $unalignedInputRight -O $fastp_output_file_name_for_trinity_right --dedup --thread 12
 
 trinityOutDirectory="myTrinity_Origin_"$origin"_Sample_"$left_read_file_base_name
 if [ -e $trinityOutDirectory ]
@@ -137,42 +92,11 @@ if [ $exitCode -eq 0 ]
 		module load fastx-toolkit
 		##changes the width of sequences line in a FASTA file (all nucleotide sequences appear on a single line)
 		fasta_formatter -i $Trinity_fa_out_file_name > $formatted_Trinity_fa_out_file_name
-
-		
-
-		## Return to scripts folder at end of script
-		cd ../../scripts/
-
-		## Confirm that we are in fact in the scripts folder
-		cur_Dir=$(basename $(pwd))
-		#echo $cur_Dir
-		correct_cur_Dir="scripts"
-		dir_check  $correct_cur_Dir
-
-		echo "Current directory is"
-		echo $cur_Dir
-
-		#start_filter_script="start_filter_host_kaiju.sh"
-
-
-		# module purge
-		# module load uge
-
-		full_dir=$(pwd)
-
-		full_path_to_start_filter_script=$full_dir"/"$split_filter_submit_script
-
-		qsub $full_path_to_start_filter_script $projectID $left_read_file_base_name $right_read_file_base_name $MIN_CONTIG_LENGTH $origin $readsPerFile $program_PathSeqRemoveHostForKaiju $blastDB_Mammalia $filterScript $kaiju_nodes $kaiju_fmi $kaijuScript $parseKaijuScript $PathSeqKaijuConcensusSplitter2_program $NCBI_nt_kaiju_ref_taxonomy $mergeScript $prepDiversityScript $salmonQuantScript $left_read_file  $right_read_file $PathSeqMergeQIIME2TaxAndSalmon_program $PathSeqSplitOutputTableByTaxonomy_program $palmScanScript $rScriptDiv
-
-		#qsub "/hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/"$projectID"/scripts/start_filter_host_kaiju.sh" $projectID $left_read_file_base_name $right_read_file_base_name $MIN_CONTIG_LENGTH $origin $readsPerFile $program_PathSeqRemoveHostForKaiju $blastDB_Mammalia
-
-
-		#holdID5=$(qsub $start_filter_script $projectID $left_read_file_base_name $right_read_file_base_name $MIN_CONTIG_LENGTH  $readsPerFile $origin | cut -d' ' -f3)
-		
-		#echo $holdID5
 	else
 		echo "Trinity sample ("$left_read_file_base_name") failed ("$exitCode") retrying and STOPPING! You will need to resume the pipeline manually" > "../finished_Trinity.txt"
 		##Trinity --CPU 12 --FORCE --output $trinityOutDirectory --min_contig_length $MIN_CONTIG_LENGTH --seqType fq --max_memory 175G  --min_kmer_cov 1 --left fastp_unmapped_left.fq --right fastp_unmapped_right.fq --no_version_check 1>"trinity_retry_out_"$MIN_CONTIG_LENGTH".txt" 2>trinity_err.txt
 
 fi
 
+## command for running next script
+# qsub $full_path_to_start_filter_script $projectID $left_read_file_base_name $right_read_file_base_name $MIN_CONTIG_LENGTH $origin $readsPerFile $program_PathSeqRemoveHostForKaiju $blastDB_Mammalia $filterScript $kaiju_nodes $kaiju_fmi $kaijuScript $parseKaijuScript $PathSeqKaijuConcensusSplitter2_program $NCBI_nt_kaiju_ref_taxonomy $mergeScript $prepDiversityScript $salmonQuantScript $left_read_file  $right_read_file $PathSeqMergeQIIME2TaxAndSalmon_program $PathSeqSplitOutputTableByTaxonomy_program $palmScanScript $rScriptDiv

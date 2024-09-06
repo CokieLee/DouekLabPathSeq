@@ -87,7 +87,7 @@ rule starAfterBowtie:
         sampleNameLeft="{sample}" + leftEnding,
         sampleNameRight="{sample}" + rightEnding,
         codePath=config["codepath"],
-        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
+        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding + "/"),
         hgStarDb=config["hg38_starDB"]
     output:
         ## following outputs are directly used by subsequent steps
@@ -118,19 +118,40 @@ rule bowtiePrimate:
         sampleNameRight="{sample}" + rightEnding,
         primateIndex=config["bowtiePrimatePaths"]
     output:
+        ## following outputs are directly used by subsequent steps
         os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
-                    "primate_alignment_rates", "primate_alignment_bowtie_{sample}"+ leftEnding +".sam")
+                    "primate_alignment_rates/{sample}" + leftEnding + "_unalignedRead2AgainstTranscriptome.fq"),
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "primate_alignment_rates/{sample}" + leftEnding + "_unalignedRead2AgainstTranscriptome.fq")
     shell:
         """
         bash {input.scriptPath} {input.leftUnaligned} {input.rightUnaligned} {params.outPath} \
         {params.codePath} {params.sampleNameLeft} {params.sampleNameRight} {params.primateIndex}
         """
 
-# rule trinity:
-#     input:
-#     params:
-#     output:
-#     shell:
+rule trinity:
+    input:
+        scriptPath=os.path.join(config["codepath"], "all_trinity.sh"),
+        leftUnaligned=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "primate_alignment_rates/{sample}" + leftEnding + "_unalignedRead2AgainstTranscriptome.fq"),
+        rightUnaligned=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "primate_alignment_rates/{sample}" + leftEnding + "_unalignedRead2AgainstTranscriptome.fq")
+    params:
+        sampleNameLeft="{sample}" + leftEnding,
+        sampleNameRight="{sample}" + rightEnding,
+        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
+        codePath=config["codepath"],
+        origin=config["origin"],
+        minContigLen=config["minContigLen"]
+    output:
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "myTrinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding,
+                    "formatted_myTrinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding + ".Trinity.fasta")
+    shell:
+    """
+    bash {input.scriptPath} {input.leftUnaligned} {input.rightUnaligned} {params.sampleNameLeft} \
+    {params.sampleNameRight} {params.origin} {params.minContigLen} {params.codePath} {params.outPath}
+    """
 
 # rule filter:
 

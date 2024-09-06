@@ -37,8 +37,8 @@ echo "outputPath:"
 echo $outputPath
 
 ## Source script for directory checking function
-dos2unix $codePath"/dir_check.sh"
-source $codePath"/dir_check.sh"
+dos2unix $codePath"dir_check.sh"
+source $codePath"dir_check.sh"
 
 alignStatsDir=$outputPath"alignment_stats"
 starGeneratedDir=$outputPath"Generated_Data_Star_Alignment"
@@ -64,9 +64,9 @@ echo "FINISHED star command"
 
 bam_out_file_name=${left_read_file_base_name}"Aligned.sortedByCoord.out.bam"
 log_out_file_name=${left_read_file_base_name}"Log.final.out"
-echo "BAM out file name"
+echo "BAM out file name:"
 echo $bam_out_file_name
-echo "Log.out file name"
+echo "Log.out file name:"
 echo $log_out_file_name
 samtools index $bam_out_file_name
 samtools idxstats $bam_out_file_name > ${left_read_file_base_name}"_star_alignment_stats.txt"
