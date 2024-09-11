@@ -18,10 +18,12 @@ bowtieUnmaskedGenomeIndex: /data/vrc_his/douek_lab/reference_sets/hg19/unmasked/
 hg38_starDB: /data/vrc_his/douek_lab/reference_sets/hg38/Sequence/STAR/
 bowtiePrimatePaths: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20210302/primates
 picard: /data/vrc_his/douek_lab/projects/PathSeq/programs/picard/2.18.14/picard.jar
-program_PathSeqRemoveHostForKaiju: /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqRemoveHostForKaiju/dist/PathSeqRemoveHostForKaiju.jar
-PathSeqKaijuConcensusSplitter2_program: /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqKaijuConcensusSplitter2/dist/PathSeqKaijuConcensusSplitter2.jar
-PathSeqMergeQIIME2TaxAndSalmon_program: /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar
-PathSeqSplitOutputTableByTaxonomy_program: /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqSplitOutputTableByTaxonomy/dist/PathSeqSplitOutputTableByTaxonomy.jar
+program_RemoveHostForKaiju: /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqRemoveHostForKaiju/dist/PathSeqRemoveHostForKaiju.jar
+program_PathSeqKaijuConcensusSplitter2: /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqKaijuConcensusSplitter2/dist/PathSeqKaijuConcensusSplitter2.jar
+program_PathSeqMergeQIIME2TaxAndSalmon: /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar
+program_PathSeqSplitOutputTableByTaxonomy: /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqSplitOutputTableByTaxonomy/dist/PathSeqSplitOutputTableByTaxonomy.jar
+program_prodigal: /data/vrc_his/douek_lab/projects/PathSeq/programs/prodigal/bin
+program_kaiju: /data/vrc_his/douek_lab/projects/PathSeq/programs/kaiju/kaiju-v1.9.0-linux-x86_64-static
 blastDB_Mammalia: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20210716/Mammalia.fa
 kaiju_nodes: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp
 kaiju_fmi: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/kaiju_db_nr_euk.fmi

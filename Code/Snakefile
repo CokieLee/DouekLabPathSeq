@@ -129,6 +129,7 @@ rule bowtiePrimate:
         {params.codePath} {params.sampleNameLeft} {params.sampleNameRight} {params.primateIndex}
         """
 
+## assembly remaining unaligned reads into contigs
 rule trinity:
     input:
         scriptPath=os.path.join(config["codepath"], "all_trinity.sh"),
@@ -148,15 +149,60 @@ rule trinity:
                     "myTrinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding,
                     "formatted_myTrinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding + ".Trinity.fasta")
     shell:
-    """
-    bash {input.scriptPath} {input.leftUnaligned} {input.rightUnaligned} {params.sampleNameLeft} \
-    {params.sampleNameRight} {params.origin} {params.minContigLen} {params.codePath} {params.outPath}
-    """
+        """
+        bash {input.scriptPath} {input.leftUnaligned} {input.rightUnaligned} {params.sampleNameLeft} \
+        {params.sampleNameRight} {params.origin} {params.minContigLen} {params.codePath} {params.outPath}
+        """
 
-# rule filter:
+## blast trinity assembled contigs for further host contamination
+## TODO: in the original code, this script is run as a parallel array job
+## on trinity output files split up in start_filter_host_kaiju.sh.
+## First make it run sequentially on non-split trinity output, skipping start_filter_host_kaiju.sh.
+rule filterHostKaiju:
+    input:
+        scriptPath=os.path.join(config["codepath"], "array_filter_host.sh"),
+        program_RemoveHostForKaiju=config["program_RemoveHostForKaiju"],
+        blastDB_Mammalia=config["blastDB_Mammalia"]
+    params:
+        sampleNameLeft="{sample}" + leftEnding,
+        sampleNameRight="{sample}" + rightEnding,
+        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
+        codePath=config["codepath"],
+        origin=config["origin"]
+    output:
+    shell:
+        """
+        bash {input.scriptPath}
+        """
 
-# rule kaiju:
+rule kaiju:
+    input:
+        scriptPath=os.path.join(config["codepath"], "protein_kaiju.sh"),
+        kaiju_nodes=config["kaiju_nodes"],
+        kaiju_fmi=config["kaiju_fmi"],
+        nonHostContigs= ##TODO fill in after determining output files of filterHostKaiju
+    params:
+        sampleNameLeft="{sample}" + leftEnding,
+        sampleNameRight="{sample}" + rightEnding,
+        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
+        codePath=config["codepath"],
+        origin=config["origin"],
+        program_prodigal=config["program_prodigal"],
+        program_kaiju=config["program_kaiju"]
+    output:
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding, config["origin"] + "kaiju_output",
+                    "sorted_protein_kaiju_"+ config["origin"] + "_Sample_" + "{sample}" + leftEnding + ".tab")
+    shell:
+        """
+        bash {input.scriptPath} {params.sampleNameLeft} {params.sampleNameRight} {input.nonHostContigs} \
+        {params.origin} {params.program_prodigal} {params.program_kaiju} {input.kaiju_nodes} {input.kaiju_fmi} \
+        {params.codePath} {params.outPath}
+        """
 
+## TODO: parse runs salmon, merge, and diversity for each taxonomic level output by kaiju.
+## I need to think about the best way to convert this to rules, whether it is possible to have
+## separate rules for each step and have snakemake manage the redundancies, or whether I should
+## leave it as is for now except for converting to slurm syntax
 # rule parseKaiju:
 
 # rule merge:

@@ -1,141 +1,64 @@
 #!/bin/sh
-#$ -N protein_kaiju
-#$ -S /bin/bash
-#$ -M rahul.subramanian@nih.gov
-#$ -m n
-#$ -l h_vmem=50G
-#$ -pe threaded 4
-#$ -l quick
-#$ -cwd
+#SBATCH -J protein_kaiju
+#SBATCH --mem=50G
+#SBATCH --cpus-per-task=4
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=cokie.parker@nih.gov
 
 ## Load FASTX module
-module load FASTX-Toolkit/0.0.14-goolf-1.7.20
+module load fastx-toolkit
 
-projectID=$1
-left_read_file_base_name=$2
-right_read_file_base_name=$3
+left_read_file_base_name=$1
+right_read_file_base_name=$2
+nonHostContigs=$3
 origin=$4  ## RNA, DNA or all            
-fileCount=$5
-kaiju_nodes=$6
-kaiju_fmi=$7
+program_prodigal=$5
+program_kaiju=$6
+kaiju_nodes=$7
+kaiju_fmi=$8
+codePath=$9
+outPath=${10}
 
-echo "left_read_file_base_name"
+echo "CHECKPOINT 1: PROTEIN_KAIJU INPUTS:"
+echo "1. left_read_file_base_name:"
 echo $left_read_file_base_name
+echo "2. right_read_file_base_name:"
+echo $right_read_file_base_name
+
+file_exist_check $nonHostContigs
 
 echo "origin"
 echo $origin
 
 ## Export paths to prodigal and kaiju programs
-export PATH="/hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/programs/prodigal/bin:$PATH"
-export PATH="/hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/programs/kaiju/kaiju-v1.9.0-linux-x86_64-static:$PATH"
+export PATH="$program_prodigal:$PATH"
+export PATH="$program_kaiju:$PATH"
 
 
 ## Source script for directory checking function
-dos2unix dir_check.sh
-source ./dir_check.sh 
-
-## Confirm that we are in the scripts directory
-correct_cur_Dir="scripts"
-dir_check  $correct_cur_Dir
-
-##Change directories to project folder
-cd "../"
-
-##Confirm that we are in project folder
-correct_cur_Dir=$projectID
-dir_check  $correct_cur_Dir
-
-sample_folder_name="Sample_"$left_read_file_base_name
+dos2unix $codePath"dir_check.sh"
+source $codePath"/dir_check.sh"
 
 ## Confirm that sample folder exists
-file_exist_check $sample_folder_name
-
+file_exist_check $outPath
 ## Change into sample folder
-cd $sample_folder_name
-
+cd $outPath
 ## Confirm that we are in sample folder
-correct_cur_Dir=$sample_folder_name
+correct_cur_Dir=$outPath
 dir_check  $correct_cur_Dir
 
-trinity_output_folder=$origin"_trinity_output"
+kaiju_output_folder=$outPath$origin"_kaiju_output"
+mkdir $kaiju_output_folder
 ## Confirm that the trinity output folder exists
-file_exist_check $trinity_output_folder
+file_exist_check $kaiju_output_folder
 
 ## Change directories into that folder
-cd $trinity_output_folder
+cd $kaiju_output_folder
 
 ## Confirm that we are in that folder
 correct_cur_Dir=$trinity_output_folder
 dir_check  $correct_cur_Dir
 
-
-## Define sample specific trinity split output folder
-trinitySplitDirectory="splitTrinity_"$left_read_file_base_name
-
-## Confirm that the split trinity output folder exists
-file_exist_check $trinitySplitDirectory
-
-## Change directories into it
-cd $trinitySplitDirectory
-
-## Confirm that we are in the split Trinity directory
-correct_cur_Dir=$trinitySplitDirectory
-dir_check  $correct_cur_Dir
-
-#cd "/hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/"$projectID"/"$origin"_trinity/splitTrinity/"
-
-trinity_prefix="trinity_"$origin"_Sample_"$left_read_file_base_name"_split_"
-
-non_host_formatted_Trinity_file_name="non_host_formatted_Trinity_"$origin"_Sample_"$left_read_file_base_name".fa"
-
-## Loop through each split Trinity file
-currentcount=1
-while [ "$currentcount" -le "$fileCount" ]
-do
-	##tempCounter is set to the output number of one of the files (trinity output file number)
-	tempCounter=$currentcount
-	## Recall that the suffixes for the split trinity output files have 4 digits. We are going to select one of the output files
-	## corresponding to the array job index (ranges from 1 to fileCount, which was the number of files-see start_filter script for more info).
-	## However, we can't just select file 1, 2, etc-need to add padding 0s, so it becomes 001, 002 etc. The code below adds that paddding.
-
-	## Count the number of digits of temp counter (number of digits in suffix)
-	length=$(expr $tempCounter : '.*')
-	while [[ $length < 4 ]]
-    	do
-    		tempCounter="0$tempCounter"
-    		length=$(expr $tempCounter : '.*')
-    	done
-
-	##Now identify appropriate split trinity output file correspnding to that suffix
-	trinityFile=$trinity_prefix$tempCounter
-	trinity_contigs_not_aligned_to_mammal_BLAST="unaligned_"$trinityFile
-
-	#Check that unaligned trinity file exists
-	file_exist_check $trinity_contigs_not_aligned_to_mammal_BLAST
-	
-	
-	## Combine all of the trinity reads that could not be aligned to the mamallian host reference
-	## into one file (instead of split ones, now that they should be smaller)
-	cat $trinity_contigs_not_aligned_to_mammal_BLAST >> $non_host_formatted_Trinity_file_name
-	currentcount=$(expr $currentcount + 1)
-done
-
-#Check that combined file was created
-file_exist_check $non_host_formatted_Trinity_file_name
-
-cp $non_host_formatted_Trinity_file_name ../
-
-## Go up one directory to main trinity output folder
-cd ..
-
-## Confirm that we are in that directory
-correct_cur_Dir=$trinity_output_folder
-dir_check  $correct_cur_Dir
-
-#Check that combined file was copied
-file_exist_check $non_host_formatted_Trinity_file_name
-
-cp $non_host_formatted_Trinity_file_name ../
 
 ## Prodigal is a program that predicts protein coding regions in bacterial and acrchael genomes,
 ## specifically identifying potential translation initiation sites with confidence scores and RBS
@@ -222,13 +145,3 @@ kaiju -t $kaiju_nodes -f $kaiju_fmi -i $formatted_non_host_proteins_translations
 ## Sort kaiju output
 ## The -k option denotes sorting via a key, the 2 denotes sorting on field 2 (confirm)
 sort -k 2 $protein_kaiju_output_file_tab > $sorted_protein_kaiju_output_file_tab
-
-
-## Return to scripts folder at end of script
-cd ../../scripts/
-
-## Confirm that we are in fact in the scripts folder
-cur_Dir=$(basename $(pwd))
-#echo $cur_Dir
-correct_cur_Dir="scripts"
-dir_check  $correct_cur_Dir
