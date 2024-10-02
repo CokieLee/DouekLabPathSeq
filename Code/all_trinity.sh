@@ -8,8 +8,10 @@
 export TMPDIR=/hpcdata/scratch/
 export _JAVA_OPTIONS="-Djava.io.tmpdir=/hpcdata/scratch"
 
+
+module load py-setuptools
 module load trinity
-export PATH="/hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/programs/fastp:$PATH"
+export PATH="/data/vrc_his/douek_lab/projects/PathSeq/programs/fastp:$PATH"
 
 unalignedInputLeft=$1
 unalignedInputRight=$2
@@ -50,22 +52,21 @@ file_exist_check $unalignedInputLeft
 file_exist_check $unalignedInputRight
 
 ## Make directory to store trinity output
-trinity_folder_name=$outPath$origin"_trinity_output"
-mkdir $trinity_folder_name
+trinity_folder_name=$origin"_trinity_output"
+trinity_folder=$outPath/$trinity_folder_name
+mkdir $trinity_folder
 
 ## Confirm that the directory exists
-file_exist_check $trinity_folder_name
+file_exist_check $trinity_folder
 
 ## Change directories into that folder
-cd $trinity_folder_name
+cd $trinity_folder
 
 ## Confirm that we are in that folder
 correct_cur_Dir=$trinity_folder_name
 dir_check  $correct_cur_Dir
 
-fastp_output_file_name_for_trinity_left="fastp_unalignedRead1AgainstPrimate_"$left_read_file_base_name".fq"
-fastp_output_file_name_for_trinity_right="fastp_unalignedRead1AgainstPrimate_"$right_read_file_base_name".fq"
-
+echo "CHECKPOINT 2: FASTP COMMAND:"
 fastp -i $unalignedInputLeft -o $fastp_output_file_name_for_trinity_left -I $unalignedInputRight -O $fastp_output_file_name_for_trinity_right --dedup --thread 12
 
 trinityOutDirectory="myTrinity_Origin_"$origin"_Sample_"$left_read_file_base_name
@@ -75,10 +76,13 @@ then
 fi
 
 Trinity_fa_out_file_name=$trinityOutDirectory".Trinity.fasta"
-
 formatted_Trinity_fa_out_file_name="formatted_"$trinityOutDirectory".Trinity.fasta"
+trinityRunOutput="trinity_out_"$MIN_CONTIG_LENGTH"_"$left_read_file_base_name".txt"
+trinityRunError="trinity_err_"$left_read_file_base_name".txt"
 
-Trinity --CPU 12 --output $trinityOutDirectory --min_contig_length $MIN_CONTIG_LENGTH --seqType fq --max_memory 175G  --min_kmer_cov 1 --left $fastp_output_file_name_for_trinity_left --right $fastp_output_file_name_for_trinity_right --no_version_check 1>"trinity_out_"$MIN_CONTIG_LENGTH"_"$left_read_file_base_name".txt" 2>"trinity_err_"$left_read_file_base_name".txt"
+echo "CHECKPOINT 3: TRINITY COMMAND: "
+
+Trinity --CPU 12 --output $trinityOutDirectory --min_contig_length $MIN_CONTIG_LENGTH --seqType fq --max_memory 175G  --min_kmer_cov 1 --left $unalignedInputLeft --right $unalignedInputRight --no_version_check 1>$trinityRunOutput 2>$trinityRunError
 
 exitCode=$?
 

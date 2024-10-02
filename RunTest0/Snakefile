@@ -20,10 +20,8 @@ rightEnding = leftEnding.replace("R1", "R2")
 rule all:
     input:
         expand(os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
-                    "primate_alignment_rates/unalignedRead1AgainstPrimate_{sample}" + leftEnding + ".fq"),
-                    sample=SAMPLES),
-        expand(os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
-                    "primate_alignment_rates/unalignedRead1AgainstPrimate_{sample}" + rightEnding + ".fq"),
+                    "myTrinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding,
+                    "formatted_myTrinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding + ".Trinity.fasta"),
                     sample=SAMPLES)
 
 # Basic rule for testing environment. Should take all input files,
@@ -129,6 +127,7 @@ rule bowtiePrimate:
                     "primate_alignment_rates/unalignedRead1AgainstPrimate_{sample}" + leftEnding + ".fq"),
         os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
                     "primate_alignment_rates/unalignedRead1AgainstPrimate_{sample}" + rightEnding + ".fq")
+        ## following outputs are solely informational
     shell:
         """
         bash {input.scriptPath} {input.leftUnaligned} {input.rightUnaligned} {params.outPath} \
@@ -140,20 +139,28 @@ rule trinity:
     input:
         scriptPath=os.path.join(config["codepath"], "all_trinity.sh"),
         leftUnaligned=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
-                    "primate_alignment_rates/{sample}" + leftEnding + "_unalignedRead2AgainstTranscriptome.fq"),
+                    "primate_alignment_rates/unalignedRead1AgainstPrimate_{sample}" + leftEnding + ".fq"),
         rightUnaligned=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
-                    "primate_alignment_rates/{sample}" + leftEnding + "_unalignedRead2AgainstTranscriptome.fq")
+                    "primate_alignment_rates/unalignedRead1AgainstPrimate_{sample}" + rightEnding + ".fq")
     params:
-        sampleNameLeft="{sample}" + leftEnding,
-        sampleNameRight="{sample}" + rightEnding,
         outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
         codePath=config["codepath"],
+        sampleNameLeft="{sample}" + leftEnding,
+        sampleNameRight="{sample}" + rightEnding,
         origin=config["origin"],
         minContigLen=config["minContigLen"]
     output:
+        ## following outputs are directly used by subsequent steps
         os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
                     "myTrinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding,
                     "formatted_myTrinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding + ".Trinity.fasta")
+        ## following outputs are solely informational
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "myTrinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding,
+                    "trinity_out_" + config["minContigLength"] + "_Sample_{sample}" + leftEnding + ".txt")
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "myTrinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding,
+                    "trinity_err_Sample_{sample}" + leftEnding + ".txt")
     shell:
         """
         bash {input.scriptPath} {input.leftUnaligned} {input.rightUnaligned} {params.sampleNameLeft} \

@@ -1,4 +1,194 @@
 Building DAG of jobs...
-Nothing to be done (all requested files are present and up to date).
-Complete log: .snakemake/log/2024-10-02T165934.827993.snakemake.log
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job        count    min threads    max threads
+-------  -------  -------------  -------------
+all            1              1              1
+trinity        1              1              1
+total          2              1              1
+
+Select jobs to execute...
+
+[Wed Oct  2 17:41:31 2024]
+rule trinity:
+    input: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/all_trinity.sh, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq
+    output: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001_short_test/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta
+    jobid: 1
+    reason: Missing output files: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001_short_test/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta
+    wildcards: sample=582760806_A5_S33
+    resources: tmpdir=/data/scratch/parkercol/ai-hpcsubmit2
+
+
+        bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/all_trinity.sh /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq 582760806_A5_S33_R1_001_short_test         582760806_A5_S33_R2_001_short_test RNA 300 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/ /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001_short_test
+        
+Lmod Warning:
+-------------------------------------------------------------------------------
+The following dependent module(s) are not currently loaded: bzip2/1.0.8-zqkxayh
+(required by: freetype/2.11.1-d7dpifq, elfutils/0.189-7toctvl,
+perl/5.36.0-tr63w3u, r/4.3.0-a22xr47), gdbm/1.23-gbelm7p (required by:
+perl/5.36.0-tr63w3u), gettext/0.21.1-hynezcr (required by:
+elfutils/0.189-7toctvl, glib/2.78.0-4tyj4h6), libbsd/0.11.7-ffqw4kj (required
+by: libxdmcp/1.1.4-cv6laiq), libffi/3.4.4-yvwl2tq (required by:
+glib/2.78.0-4tyj4h6, gobject-introspection/1.76.1-l7sj6jf,
+pango/1.50.13-lplinho), libiconv/1.17-lg36l2c (required by:
+elfutils/0.189-7toctvl, glib/2.78.0-4tyj4h6, libunistring/1.1-b2nbkmk),
+libxml2/2.10.3-6oukh5z (required by: fontconfig/2.14.2-a5ll7kg),
+ncurses/6.4-bhkjprr (required by: r/4.3.0-a22xr47), openssl/1.1.1t-rci5luz
+(required by: curl/7.88.1-cj5vz32), py-setuptools/67.6.0-34rmvjj (required by:
+snakemake/7.22.0-ufanewz), python/3.10.10-djxmyiw (required by:
+glib/2.78.0-4tyj4h6, xcb-proto/1.15.2-wpgjuul,
+gobject-introspection/1.76.1-l7sj6jf, py-appdirs/1.4.4-5cip6bs,
+py-jmespath/1.0.1-mgxnw6g, py-six/1.16.0-vk4vx3r,
+py-python-dateutil/2.8.2-z3b75ln, py-urllib3/1.26.12-t3rd55v,
+py-botocore/1.29.84-oxnqo5i, py-s3transfer/0.6.0-ysttt7k,
+py-boto3/1.26.26-friqbx4, py-configargparse/1.2.3-5infnil,
+py-connectionpool/0.0.3-tyxyazo, py-datrie/0.8.2-utkf73h,
+py-docutils/0.19-wb4ahx2, py-smmap/5.0.0-hkvdges, py-gitdb/4.0.9-jdpadab,
+py-gitpython/3.1.27-cde2mlq, py-humanfriendly/8.2-qe2zazd,
+py-markupsafe/2.1.1-wfrogob, py-jinja2/3.1.2-oify2nz, py-attrs/22.2.0-ro5fi4q,
+py-pyrsistent/0.19.3-7gr4oly, py-jsonschema/4.17.3-u5xhvdl,
+py-fastjsonschema/2.16.3-6bjrp77, py-platformdirs/3.5.0-3xhietd,
+py-traitlets/5.9.0-cdsbtrb, py-jupyter-core/5.3.0-65ag7xg,
+py-nbformat/5.8.0-qew4aag, py-psutil/5.9.4-mu2uubs, py-pulp/2.6.0-etejn5n,
+py-pyyaml/6.0-yjid5vm, py-certifi/2022.12.7-fsickvl,
+py-charset-normalizer/2.0.12-x6x4gjg, py-idna/3.4-aibtfjq,
+py-requests/2.28.2-7v26qtj, py-reretry/0.11.1-h7hhd55,
+py-smart-open/5.2.1-tpr4nfq, py-stopit/1.1.2-7ki62ih,
+py-tabulate/0.8.9-kakx5jc, py-throttler/1.2.2-jju2fhe, py-toposort/1.6-aouwqgm,
+py-wrapt/1.14.1-fjoxhpz, py-dpath/2.0.1-c6oouti, py-plac/1.3.5-gqq6372,
+py-yte/1.5.1-3uah3xq, snakemake/7.22.0-ufanewz), readline/8.2-2urjwmo (required
+by: r/4.3.0-a22xr47), util-linux-uuid/2.38.1-jwkyn2s (required by:
+fontconfig/2.14.2-a5ll7kg, libsm/1.2.3-5jrd5nq), xz/5.4.1-f5oddyl (required by:
+elfutils/0.189-7toctvl, r/4.3.0-a22xr47), zstd/1.5.5-wsnij6f (required by:
+elfutils/0.189-7toctvl)
+-------------------------------------------------------------------------------
+
+
+
+
+The following have been reloaded with a version change:
+  1) bzip2/1.0.8-zqkxayh => bzip2/1.0.8-an5x3j4
+  2) expat/2.5.0-hudfwbq => expat/2.6.2-4e3nmm4
+  3) gdbm/1.23-gbelm7p => gdbm/1.23-myvhbzr
+  4) gettext/0.21.1-hynezcr => gettext/0.22.5-ff4qrhe
+  5) libbsd/0.11.7-ffqw4kj => libbsd/0.12.2-xiociei
+  6) libffi/3.4.4-yvwl2tq => libffi/3.4.6-xeqw4au
+  7) libiconv/1.17-lg36l2c => libiconv/1.17-czestdg
+  8) libmd/1.0.4-jenehbb => libmd/1.0.4-6u7jhxq
+  9) libxcrypt/4.4.33-zsaekpb => libxcrypt/4.4.35-h4mxyr7
+ 10) libxml2/2.10.3-6oukh5z => libxml2/2.10.3-zdtrphf
+ 11) ncurses/6.4-bhkjprr => ncurses/6.5-ememl4d
+ 12) openssl/1.1.1t-rci5luz => openssl/3.0.13-jqsoz2p
+ 13) pigz/2.7-jsfzins => pigz/2.8-ohndkhp
+ 14) py-setuptools/67.6.0-34rmvjj => py-setuptools/69.2.0-xh36o2g
+ 15) python/3.10.10-djxmyiw => python/3.11.7-o6jxsqd
+ 16) readline/8.2-2urjwmo => readline/8.2-wygil4v
+ 17) sqlite/3.40.1-nlhafvt => sqlite/3.46.0-td53fnl
+ 18) tar/1.34-5rv5p52 => tar/1.34-bk4nxmp
+ 19) util-linux-uuid/2.38.1-jwkyn2s => util-linux-uuid/2.40.2-jzewrqj
+ 20) xz/5.4.1-f5oddyl => xz/5.4.6-2nxpj2z
+ 21) zstd/1.5.5-wsnij6f => zstd/1.5.6-yucvkmw
+
+Lmod Warning:
+-------------------------------------------------------------------------------
+The following dependent module(s) are not currently loaded:
+py-setuptools/67.6.0-34rmvjj (required by: snakemake/7.22.0-ufanewz)
+-------------------------------------------------------------------------------
+
+
+
+
+The following have been reloaded with a version change:
+  1) bzip2/1.0.8-an5x3j4 => bzip2/1.0.8-zqkxayh
+  2) expat/2.6.2-4e3nmm4 => expat/2.5.0-hudfwbq
+  3) gdbm/1.23-myvhbzr => gdbm/1.23-gbelm7p
+  4) gettext/0.22.5-ff4qrhe => gettext/0.21.1-hynezcr
+  5) libbsd/0.12.2-xiociei => libbsd/0.11.7-ffqw4kj
+  6) libffi/3.4.6-xeqw4au => libffi/3.4.4-yvwl2tq
+  7) libiconv/1.17-czestdg => libiconv/1.17-lg36l2c
+  8) libmd/1.0.4-6u7jhxq => libmd/1.0.4-jenehbb
+  9) libxcrypt/4.4.35-h4mxyr7 => libxcrypt/4.4.33-zsaekpb
+ 10) libxml2/2.10.3-zdtrphf => libxml2/2.10.3-6oukh5z
+ 11) ncurses/6.5-ememl4d => ncurses/6.4-bhkjprr
+ 12) openssl/3.0.13-jqsoz2p => openssl/1.1.1t-rci5luz
+ 13) pigz/2.8-ohndkhp => pigz/2.7-jsfzins
+ 14) py-setuptools/69.2.0-xh36o2g => py-setuptools/63.4.3-7dn4wxv
+ 15) python/3.11.7-o6jxsqd => python/3.10.10-djxmyiw
+ 16) readline/8.2-wygil4v => readline/8.2-2urjwmo
+ 17) sqlite/3.46.0-td53fnl => sqlite/3.40.1-nlhafvt
+ 18) tar/1.34-bk4nxmp => tar/1.34-5rv5p52
+ 19) util-linux-uuid/2.40.2-jzewrqj => util-linux-uuid/2.38.1-jwkyn2s
+ 20) xz/5.4.6-2nxpj2z => xz/5.4.1-f5oddyl
+ 21) zstd/1.5.6-yucvkmw => zstd/1.5.5-wsnij6f
+
+dos2unix: converting file /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/dir_check.sh to Unix format...
+CHECKPOINT 1: ALL_TRINITY INPUTS:
+1. unalignedInputLeft:
+/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq
+2. unalignedInputRight:
+/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq
+3. left_read_file_base_name:
+582760806_A5_S33_R1_001_short_test
+4. right_read_file_base_name:
+582760806_A5_S33_R2_001_short_test
+5. origin:
+RNA
+6. min_contig_length:
+300
+7. codePath:
+/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/
+8. outPath:
+/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001_short_test
+CHECKPOINT 2: FASTP COMMAND:
+Read1 before filtering:
+total reads: 32
+total bases: 4832
+Q20 bases: 4473(92.5704%)
+Q30 bases: 4113(85.12%)
+
+Read2 before filtering:
+total reads: 32
+total bases: 4832
+Q20 bases: 4349(90.0041%)
+Q30 bases: 4037(83.5472%)
+
+Read1 after filtering:
+total reads: 28
+total bases: 3114
+Q20 bases: 2995(96.1785%)
+Q30 bases: 2836(91.0726%)
+
+Read2 after filtering:
+total reads: 28
+total bases: 3114
+Q20 bases: 3061(98.298%)
+Q30 bases: 2898(93.0636%)
+
+Filtering result:
+reads passed filter: 56
+reads failed due to low quality: 8
+reads failed due to too many N: 0
+reads failed due to too short: 0
+reads with adapter trimmed: 38
+bases trimmed due to adapters: 2012
+
+Duplication rate: 0%
+
+Insert size peak (evaluated by paired-end reads): 87
+
+JSON report: fastp.json
+HTML report: fastp.html
+
+fastp -i /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq -o fastp_unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq -I /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq -O fastp_unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq --dedup --thread 12 
+fastp v0.23.2, time used: 2 seconds
+CHECKPOINT 3: TRINITY COMMAND: 
+Waiting at most 240 seconds for missing files.
+MissingOutputException in rule trinity in file /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/RunTest0/Snakefile, line 137:
+Job 1  completed successfully, but some output files are missing. Missing files after 240 seconds. This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait:
+/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001_short_test/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-10-02T174128.199695.snakemake.log
 RAN SNAKEMAKE

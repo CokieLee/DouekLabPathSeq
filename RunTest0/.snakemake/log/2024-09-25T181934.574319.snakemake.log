@@ -1,4 +1,0 @@
-Building DAG of jobs...
-WildcardError in rule all in file /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/RunTest0/Snakefile, line 20:
-Wildcards in input files cannot be determined from output files:
-'sample'
