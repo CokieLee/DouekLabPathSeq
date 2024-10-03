@@ -20,7 +20,7 @@ rightEnding = leftEnding.replace("R1", "R2")
 rule all:
     input:
         expand(os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
-                    "myTrinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding,
+                    config["origin"] + "_trinity_output",
                     "formatted_myTrinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding + ".Trinity.fasta"),
                     sample=SAMPLES)
 
@@ -152,14 +152,14 @@ rule trinity:
     output:
         ## following outputs are directly used by subsequent steps
         os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
-                    "myTrinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding,
-                    "formatted_myTrinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding + ".Trinity.fasta")
+                    config["origin"] + "_trinity_output",
+                    "formatted_myTrinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding + ".Trinity.fasta"),
         ## following outputs are solely informational
         os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
-                    "myTrinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding,
-                    "trinity_out_" + config["minContigLength"] + "_Sample_{sample}" + leftEnding + ".txt")
+                    config["origin"] + "_trinity_output",
+                    "trinity_out_" + str(config["minContigLen"]) + "_Sample_{sample}" + leftEnding + ".txt"),
         os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
-                    "myTrinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding,
+                    config["origin"] + "_trinity_output",
                     "trinity_err_Sample_{sample}" + leftEnding + ".txt")
     shell:
         """
