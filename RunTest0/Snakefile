@@ -12,6 +12,8 @@ SAMPLES = [sample.split("_R1_")[0] for sample in FULLSAMPLES]
 leftEnding = "_R1_" + FULLSAMPLES[0].split("_R1_")[1]
 rightEnding = leftEnding.replace("R1", "R2")
 
+numContigFilterThreads=8
+
 # print("sample name, left ending, right ending, respectively: ")
 # print(SAMPLES[0])
 # print(leftEnding)
@@ -20,8 +22,8 @@ rightEnding = leftEnding.replace("R1", "R2")
 rule all:
     input:
         expand(os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
-                    config["origin"] + "_trinity_output",
-                    "formatted_myTrinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding + ".Trinity.fasta"),
+                    config["origin"] + "_trinity_filtered",
+                    "nonHost_trinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding + ".Trinity.fasta"),
                     sample=SAMPLES)
 
 # Basic rule for testing environment. Should take all input files,
@@ -167,50 +169,107 @@ rule trinity:
         {params.sampleNameRight} {params.origin} {params.minContigLen} {params.codePath} {params.outPath}
         """
 
+rule splitContigsForFiltering:
+    input:
+        contigs=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    config["origin"] + "_trinity_output",
+                    "formatted_myTrinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding + ".Trinity.fasta")
+    params:
+        trinityPrefix="trinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding + "_split_",
+    output:
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    config["origin"] + "_trinity_filtered",
+                    "trinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding + "_split_{splitNum}.Trinity.fasta")
+    shell:
+        ## TODO: set the lines perfile (originally based off readsPerFile)
+        """
+        trinity_prefix={params.trinityPrefix}
+        linesPerFile=
+        cat {input.contigs} | split -a 4 --numeric-suffixes=1 -l $linesPerFile - $trinity_prefix > {output}
+        """
+
+
 ## blast trinity assembled contigs for further host contamination
-## TODO: in the original code, this script is run as a parallel array job
-## on trinity output files split up in start_filter_host_kaiju.sh.
-## First make it run sequentially on non-split trinity output, skipping start_filter_host_kaiju.sh.
 rule filterHostKaiju:
     input:
         scriptPath=os.path.join(config["codepath"], "array_filter_host.sh"),
+        contigs=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                            config["origin"] + "_trinity_filtered",
+                            "trinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding + "_split_{splitNum}.Trinity.fasta"),
         program_RemoveHostForKaiju=config["program_RemoveHostForKaiju"],
         blastDB_Mammalia=config["blastDB_Mammalia"]
     params:
         sampleNameLeft="{sample}" + leftEnding,
         sampleNameRight="{sample}" + rightEnding,
-        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
+        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding, config["origin"] + "_trinity_filtered"),
         codePath=config["codepath"],
         origin=config["origin"]
     output:
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    config["origin"] + "_trinity_filtered",
+                    "unaligned_trinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding + "_split_{splitNum}.Trinity.fasta")
     shell:
         """
-        bash {input.scriptPath}
+        bash {input.scriptPath} {input.contigs} {wildcards.splitNum} {params.codePath} {params.outPath} {params.origin} \
+        {input.program_RemoveHostForKaiju} {input.blastDB_Mammalia}
         """
 
-# rule kaiju:
-#     input:
-#         scriptPath=os.path.join(config["codepath"], "protein_kaiju.sh"),
-#         kaiju_nodes=config["kaiju_nodes"],
-#         kaiju_fmi=config["kaiju_fmi"],
-#         nonHostContigs= ##TODO fill in after determining output files of filterHostKaiju
-#     params:
-#         sampleNameLeft="{sample}" + leftEnding,
-#         sampleNameRight="{sample}" + rightEnding,
-#         outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
-#         codePath=config["codepath"],
-#         origin=config["origin"],
-#         program_prodigal=config["program_prodigal"],
-#         program_kaiju=config["program_kaiju"]
-#     output:
-#         os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding, config["origin"] + "kaiju_output",
-#                     "sorted_protein_kaiju_"+ config["origin"] + "_Sample_" + "{sample}" + leftEnding + ".tab")
-#     shell:
-#         """
-#         bash {input.scriptPath} {params.sampleNameLeft} {params.sampleNameRight} {input.nonHostContigs} \
-#         {params.origin} {params.program_prodigal} {params.program_kaiju} {input.kaiju_nodes} {input.kaiju_fmi} \
-#         {params.codePath} {params.outPath}
-#         """
+
+## Comment describing rule
+rule condenseContigsFiltered:
+    input:
+        contigFiles=expand(os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                                        config["origin"] + "_trinity_filtered",
+                                        "unaligned_trinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding + "_split_{splitNum}.Trinity.fasta"),
+                            sample=SAMPLES, splitNum=range(numContigFilterThreads)
+                            )
+    params:
+        numSplits=numContigFilterThreads,
+        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding, config["origin"] + "_trinity_filtered"),
+    output:
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    config["origin"] + "_trinity_filtered",
+                    "nonHost_trinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding + ".Trinity.fasta")
+    shell:
+        """
+        currentcount=1
+        while [ "$currentcount" -le "{params.numSplits}" ]
+        do
+            unalignedTrinityFile={input.contigFiles}[$currentcount]
+            
+            file_exist_check $unalignedTrinityFile
+            
+            cat $unalignedTrinityFile >> {output}
+            currentcount=$(expr $currentcount + 1)
+        done
+        """
+
+## comment describing rule
+rule kaiju:
+    input:
+        scriptPath=os.path.join(config["codepath"], "protein_kaiju.sh"),
+        kaiju_nodes=config["kaiju_nodes"],
+        kaiju_fmi=config["kaiju_fmi"],
+        nonHostContigs=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                                    config["origin"] + "_trinity_filtered",
+                                    "unaligned_trinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding + ".Trinity.fasta")
+    params:
+        sampleNameLeft="{sample}" + leftEnding,
+        sampleNameRight="{sample}" + rightEnding,
+        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
+        codePath=config["codepath"],
+        origin=config["origin"],
+        program_prodigal=config["program_prodigal"],
+        program_kaiju=config["program_kaiju"]
+    output:
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding, config["origin"] + "kaiju_output",
+                    "sorted_protein_kaiju_"+ config["origin"] + "_Sample_" + "{sample}" + leftEnding + ".tab")
+    shell:
+        """
+        bash {input.scriptPath} {params.sampleNameLeft} {params.sampleNameRight} {input.nonHostContigs} \
+        {params.origin} {params.program_prodigal} {params.program_kaiju} {input.kaiju_nodes} {input.kaiju_fmi} \
+        {params.codePath} {params.outPath}
+        """
 
 ## TODO: parse runs salmon, merge, and diversity for each taxonomic level output by kaiju.
 ## I need to think about the best way to convert this to rules, whether it is possible to have

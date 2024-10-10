@@ -172,4 +172,3 @@ echo "line 151"
 echo $kaijuScript
 holdID=$(qsub -hold_jid $holdID $kaijuScript $projectID  $left_read_file_base_name $right_read_file_base_name $origin $fileCount $kaiju_nodes $kaiju_fmi | cut -d' ' -f3)
 qsub -hold_jid $holdID $parseKaijuScript $projectID $left_read_file_base_name $right_read_file_base_name $origin $kaiju_nodes $PathSeqKaijuConcensusSplitter2_program $NCBI_nt_kaiju_ref_taxonomy $mergeScript $prepDiversityScript $salmonQuantScript $left_read_file  $right_read_file $PathSeqMergeQIIME2TaxAndSalmon_program $PathSeqSplitOutputTableByTaxonomy_program $palmScanScript $rScriptDiv
-
