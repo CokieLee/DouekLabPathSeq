@@ -1,0 +1,436 @@
+STAR version=2.7.10b
+STAR compilation time,server,dir=2023-12-20T15:44:32-05:00 ai-hpcgpu21.niaid.nih.gov:/data/home/svc_hpcinstaller/tmp/spack-stage/spack-stage-star-2.7.10b-djwbspg7savasevzsvc6diekfeeg2rwl/spack-src/source
+STAR git: 
+##### Command Line:
+STAR --runThreadN 16 --runMode genomeGenerate --genomeDir /data/vrc_his/douek_lab/reference_sets/hg38/Sequence/STAR/ --genomeFastaFiles /data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa --sjdbGTFfile /data/vrc_his/douek_lab/reference_sets/hg38/Sequence/STAR/ --sjdbOverhang 299
+##### Initial USER parameters from Command Line:
+###### All USER parameters from Command Line:
+runThreadN                    16     ~RE-DEFINED
+runMode                       genomeGenerate        ~RE-DEFINED
+genomeDir                     /data/vrc_his/douek_lab/reference_sets/hg38/Sequence/STAR/     ~RE-DEFINED
+genomeFastaFiles              /data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa        ~RE-DEFINED
+sjdbGTFfile                   /data/vrc_his/douek_lab/reference_sets/hg38/Sequence/STAR/     ~RE-DEFINED
+sjdbOverhang                  299     ~RE-DEFINED
+##### Finished reading parameters from all sources
+
+##### Final user re-defined parameters-----------------:
+runMode                           genomeGenerate   
+runThreadN                        16
+genomeDir                         /data/vrc_his/douek_lab/reference_sets/hg38/Sequence/STAR/
+genomeFastaFiles                  /data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa   
+sjdbGTFfile                       /data/vrc_his/douek_lab/reference_sets/hg38/Sequence/STAR/
+sjdbOverhang                      299
+
+-------------------------------
+##### Final effective command line:
+STAR   --runMode genomeGenerate      --runThreadN 16   --genomeDir /data/vrc_his/douek_lab/reference_sets/hg38/Sequence/STAR/   --genomeFastaFiles /data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa      --sjdbGTFfile /data/vrc_his/douek_lab/reference_sets/hg38/Sequence/STAR/   --sjdbOverhang 299
+----------------------------------------
+
+Number of fastq files for each mate = 1
+ParametersSolo: --soloCellFilterType CellRanger2.2 filtering parameters:  3000 0.99 10
+Finished loading and checking parameters
+--genomeDir directory exists and will be overwritten: /data/vrc_his/douek_lab/reference_sets/hg38/Sequence/STAR/
+!!!!! WARNING: Could not move Log.out file from ./Log.out into /data/vrc_his/douek_lab/reference_sets/hg38/Sequence/STAR/Log.out. Will keep ./Log.out
+
+Sep 05 16:00:27 ... starting to generate Genome files
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 0  "chr1" chrStart: 0
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 1  "chr2" chrStart: 249036800
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 2  "chr3" chrStart: 491257856
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 3  "chr4" chrStart: 689700864
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 4  "chr5" chrStart: 880017408
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 5  "chr6" chrStart: 1061683200
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 6  "chr7" chrStart: 1232601088
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 7  "chr8" chrStart: 1391984640
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 8  "chr9" chrStart: 1537212416
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 9  "chr10" chrStart: 1675624448
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 10  "chr11" chrStart: 1809580032
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 11  "chr12" chrStart: 1944846336
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 12  "chr13" chrStart: 2078277632
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 13  "chr14" chrStart: 2192834560
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 14  "chr15" chrStart: 2300051456
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 15  "chr16" chrStart: 2402287616
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 16  "chr17" chrStart: 2492727296
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 17  "chr18" chrStart: 2576089088
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 18  "chr19" chrStart: 2656567296
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 19  "chr20" chrStart: 2715287552
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 20  "chr21" chrStart: 2779774976
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 21  "chr22" chrStart: 2826698752
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 22  "chrX" chrStart: 2877554688
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 23  "chrY" chrStart: 3033792512
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 24  "chrM" chrStart: 3091202048
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 25  "chr1_KI270706v1_random" chrStart: 3091464192
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 26  "chr1_KI270707v1_random" chrStart: 3091726336
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 27  "chr1_KI270708v1_random" chrStart: 3091988480
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 28  "chr1_KI270709v1_random" chrStart: 3092250624
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 29  "chr1_KI270710v1_random" chrStart: 3092512768
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 30  "chr1_KI270711v1_random" chrStart: 3092774912
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 31  "chr1_KI270712v1_random" chrStart: 3093037056
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 32  "chr1_KI270713v1_random" chrStart: 3093299200
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 33  "chr1_KI270714v1_random" chrStart: 3093561344
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 34  "chr2_KI270715v1_random" chrStart: 3093823488
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 35  "chr2_KI270716v1_random" chrStart: 3094085632
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 36  "chr3_GL000221v1_random" chrStart: 3094347776
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 37  "chr4_GL000008v2_random" chrStart: 3094609920
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 38  "chr5_GL000208v1_random" chrStart: 3094872064
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 39  "chr9_KI270717v1_random" chrStart: 3095134208
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 40  "chr9_KI270718v1_random" chrStart: 3095396352
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 41  "chr9_KI270719v1_random" chrStart: 3095658496
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 42  "chr9_KI270720v1_random" chrStart: 3095920640
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 43  "chr11_KI270721v1_random" chrStart: 3096182784
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 44  "chr14_GL000009v2_random" chrStart: 3096444928
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 45  "chr14_GL000225v1_random" chrStart: 3096707072
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 46  "chr14_KI270722v1_random" chrStart: 3096969216
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 47  "chr14_GL000194v1_random" chrStart: 3097231360
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 48  "chr14_KI270723v1_random" chrStart: 3097493504
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 49  "chr14_KI270724v1_random" chrStart: 3097755648
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 50  "chr14_KI270725v1_random" chrStart: 3098017792
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 51  "chr14_KI270726v1_random" chrStart: 3098279936
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 52  "chr15_KI270727v1_random" chrStart: 3098542080
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 53  "chr16_KI270728v1_random" chrStart: 3099066368
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 54  "chr17_GL000205v2_random" chrStart: 3101163520
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 55  "chr17_KI270729v1_random" chrStart: 3101425664
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 56  "chr17_KI270730v1_random" chrStart: 3101949952
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 57  "chr22_KI270731v1_random" chrStart: 3102212096
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 58  "chr22_KI270732v1_random" chrStart: 3102474240
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 59  "chr22_KI270733v1_random" chrStart: 3102736384
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 60  "chr22_KI270734v1_random" chrStart: 3102998528
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 61  "chr22_KI270735v1_random" chrStart: 3103260672
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 62  "chr22_KI270736v1_random" chrStart: 3103522816
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 63  "chr22_KI270737v1_random" chrStart: 3103784960
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 64  "chr22_KI270738v1_random" chrStart: 3104047104
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 65  "chr22_KI270739v1_random" chrStart: 3104309248
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 66  "chrY_KI270740v1_random" chrStart: 3104571392
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 67  "chrUn_KI270302v1" chrStart: 3104833536
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 68  "chrUn_KI270304v1" chrStart: 3105095680
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 69  "chrUn_KI270303v1" chrStart: 3105357824
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 70  "chrUn_KI270305v1" chrStart: 3105619968
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 71  "chrUn_KI270322v1" chrStart: 3105882112
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 72  "chrUn_KI270320v1" chrStart: 3106144256
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 73  "chrUn_KI270310v1" chrStart: 3106406400
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 74  "chrUn_KI270316v1" chrStart: 3106668544
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 75  "chrUn_KI270315v1" chrStart: 3106930688
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 76  "chrUn_KI270312v1" chrStart: 3107192832
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 77  "chrUn_KI270311v1" chrStart: 3107454976
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 78  "chrUn_KI270317v1" chrStart: 3107717120
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 79  "chrUn_KI270412v1" chrStart: 3107979264
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 80  "chrUn_KI270411v1" chrStart: 3108241408
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 81  "chrUn_KI270414v1" chrStart: 3108503552
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 82  "chrUn_KI270419v1" chrStart: 3108765696
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 83  "chrUn_KI270418v1" chrStart: 3109027840
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 84  "chrUn_KI270420v1" chrStart: 3109289984
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 85  "chrUn_KI270424v1" chrStart: 3109552128
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 86  "chrUn_KI270417v1" chrStart: 3109814272
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 87  "chrUn_KI270422v1" chrStart: 3110076416
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 88  "chrUn_KI270423v1" chrStart: 3110338560
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 89  "chrUn_KI270425v1" chrStart: 3110600704
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 90  "chrUn_KI270429v1" chrStart: 3110862848
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 91  "chrUn_KI270442v1" chrStart: 3111124992
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 92  "chrUn_KI270466v1" chrStart: 3111649280
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 93  "chrUn_KI270465v1" chrStart: 3111911424
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 94  "chrUn_KI270467v1" chrStart: 3112173568
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 95  "chrUn_KI270435v1" chrStart: 3112435712
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 96  "chrUn_KI270438v1" chrStart: 3112697856
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 97  "chrUn_KI270468v1" chrStart: 3112960000
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 98  "chrUn_KI270510v1" chrStart: 3113222144
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 99  "chrUn_KI270509v1" chrStart: 3113484288
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 100  "chrUn_KI270518v1" chrStart: 3113746432
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 101  "chrUn_KI270508v1" chrStart: 3114008576
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 102  "chrUn_KI270516v1" chrStart: 3114270720
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 103  "chrUn_KI270512v1" chrStart: 3114532864
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 104  "chrUn_KI270519v1" chrStart: 3114795008
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 105  "chrUn_KI270522v1" chrStart: 3115057152
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 106  "chrUn_KI270511v1" chrStart: 3115319296
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 107  "chrUn_KI270515v1" chrStart: 3115581440
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 108  "chrUn_KI270507v1" chrStart: 3115843584
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 109  "chrUn_KI270517v1" chrStart: 3116105728
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 110  "chrUn_KI270529v1" chrStart: 3116367872
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 111  "chrUn_KI270528v1" chrStart: 3116630016
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 112  "chrUn_KI270530v1" chrStart: 3116892160
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 113  "chrUn_KI270539v1" chrStart: 3117154304
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 114  "chrUn_KI270538v1" chrStart: 3117416448
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 115  "chrUn_KI270544v1" chrStart: 3117678592
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 116  "chrUn_KI270548v1" chrStart: 3117940736
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 117  "chrUn_KI270583v1" chrStart: 3118202880
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 118  "chrUn_KI270587v1" chrStart: 3118465024
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 119  "chrUn_KI270580v1" chrStart: 3118727168
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 120  "chrUn_KI270581v1" chrStart: 3118989312
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 121  "chrUn_KI270579v1" chrStart: 3119251456
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 122  "chrUn_KI270589v1" chrStart: 3119513600
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 123  "chrUn_KI270590v1" chrStart: 3119775744
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 124  "chrUn_KI270584v1" chrStart: 3120037888
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 125  "chrUn_KI270582v1" chrStart: 3120300032
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 126  "chrUn_KI270588v1" chrStart: 3120562176
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 127  "chrUn_KI270593v1" chrStart: 3120824320
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 128  "chrUn_KI270591v1" chrStart: 3121086464
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 129  "chrUn_KI270330v1" chrStart: 3121348608
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 130  "chrUn_KI270329v1" chrStart: 3121610752
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 131  "chrUn_KI270334v1" chrStart: 3121872896
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 132  "chrUn_KI270333v1" chrStart: 3122135040
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 133  "chrUn_KI270335v1" chrStart: 3122397184
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 134  "chrUn_KI270338v1" chrStart: 3122659328
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 135  "chrUn_KI270340v1" chrStart: 3122921472
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 136  "chrUn_KI270336v1" chrStart: 3123183616
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 137  "chrUn_KI270337v1" chrStart: 3123445760
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 138  "chrUn_KI270363v1" chrStart: 3123707904
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 139  "chrUn_KI270364v1" chrStart: 3123970048
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 140  "chrUn_KI270362v1" chrStart: 3124232192
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 141  "chrUn_KI270366v1" chrStart: 3124494336
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 142  "chrUn_KI270378v1" chrStart: 3124756480
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 143  "chrUn_KI270379v1" chrStart: 3125018624
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 144  "chrUn_KI270389v1" chrStart: 3125280768
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 145  "chrUn_KI270390v1" chrStart: 3125542912
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 146  "chrUn_KI270387v1" chrStart: 3125805056
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 147  "chrUn_KI270395v1" chrStart: 3126067200
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 148  "chrUn_KI270396v1" chrStart: 3126329344
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 149  "chrUn_KI270388v1" chrStart: 3126591488
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 150  "chrUn_KI270394v1" chrStart: 3126853632
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 151  "chrUn_KI270386v1" chrStart: 3127115776
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 152  "chrUn_KI270391v1" chrStart: 3127377920
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 153  "chrUn_KI270383v1" chrStart: 3127640064
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 154  "chrUn_KI270393v1" chrStart: 3127902208
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 155  "chrUn_KI270384v1" chrStart: 3128164352
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 156  "chrUn_KI270392v1" chrStart: 3128426496
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 157  "chrUn_KI270381v1" chrStart: 3128688640
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 158  "chrUn_KI270385v1" chrStart: 3128950784
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 159  "chrUn_KI270382v1" chrStart: 3129212928
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 160  "chrUn_KI270376v1" chrStart: 3129475072
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 161  "chrUn_KI270374v1" chrStart: 3129737216
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 162  "chrUn_KI270372v1" chrStart: 3129999360
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 163  "chrUn_KI270373v1" chrStart: 3130261504
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 164  "chrUn_KI270375v1" chrStart: 3130523648
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 165  "chrUn_KI270371v1" chrStart: 3130785792
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 166  "chrUn_KI270448v1" chrStart: 3131047936
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 167  "chrUn_KI270521v1" chrStart: 3131310080
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 168  "chrUn_GL000195v1" chrStart: 3131572224
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 169  "chrUn_GL000219v1" chrStart: 3131834368
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 170  "chrUn_GL000220v1" chrStart: 3132096512
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 171  "chrUn_GL000224v1" chrStart: 3132358656
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 172  "chrUn_KI270741v1" chrStart: 3132620800
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 173  "chrUn_GL000226v1" chrStart: 3132882944
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 174  "chrUn_GL000213v1" chrStart: 3133145088
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 175  "chrUn_KI270743v1" chrStart: 3133407232
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 176  "chrUn_KI270744v1" chrStart: 3133669376
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 177  "chrUn_KI270745v1" chrStart: 3133931520
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 178  "chrUn_KI270746v1" chrStart: 3134193664
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 179  "chrUn_KI270747v1" chrStart: 3134455808
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 180  "chrUn_KI270748v1" chrStart: 3134717952
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 181  "chrUn_KI270749v1" chrStart: 3134980096
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 182  "chrUn_KI270750v1" chrStart: 3135242240
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 183  "chrUn_KI270751v1" chrStart: 3135504384
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 184  "chrUn_KI270752v1" chrStart: 3135766528
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 185  "chrUn_KI270753v1" chrStart: 3136028672
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 186  "chrUn_KI270754v1" chrStart: 3136290816
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 187  "chrUn_KI270755v1" chrStart: 3136552960
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 188  "chrUn_KI270756v1" chrStart: 3136815104
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 189  "chrUn_KI270757v1" chrStart: 3137077248
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 190  "chrUn_GL000214v1" chrStart: 3137339392
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 191  "chrUn_KI270742v1" chrStart: 3137601536
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 192  "chrUn_GL000216v2" chrStart: 3137863680
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 193  "chrUn_GL000218v1" chrStart: 3138125824
+/data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa : chr # 194  "chrEBV" chrStart: 3138387968
+Chromosome sequence lengths: 
+chr1	248956422
+chr2	242193529
+chr3	198295559
+chr4	190214555
+chr5	181538259
+chr6	170805979
+chr7	159345973
+chr8	145138636
+chr9	138394717
+chr10	133797422
+chr11	135086622
+chr12	133275309
+chr13	114364328
+chr14	107043718
+chr15	101991189
+chr16	90338345
+chr17	83257441
+chr18	80373285
+chr19	58617616
+chr20	64444167
+chr21	46709983
+chr22	50818468
+chrX	156040895
+chrY	57227415
+chrM	16569
+chr1_KI270706v1_random	175055
+chr1_KI270707v1_random	32032
+chr1_KI270708v1_random	127682
+chr1_KI270709v1_random	66860
+chr1_KI270710v1_random	40176
+chr1_KI270711v1_random	42210
+chr1_KI270712v1_random	176043
+chr1_KI270713v1_random	40745
+chr1_KI270714v1_random	41717
+chr2_KI270715v1_random	161471
+chr2_KI270716v1_random	153799
+chr3_GL000221v1_random	155397
+chr4_GL000008v2_random	209709
+chr5_GL000208v1_random	92689
+chr9_KI270717v1_random	40062
+chr9_KI270718v1_random	38054
+chr9_KI270719v1_random	176845
+chr9_KI270720v1_random	39050
+chr11_KI270721v1_random	100316
+chr14_GL000009v2_random	201709
+chr14_GL000225v1_random	211173
+chr14_KI270722v1_random	194050
+chr14_GL000194v1_random	191469
+chr14_KI270723v1_random	38115
+chr14_KI270724v1_random	39555
+chr14_KI270725v1_random	172810
+chr14_KI270726v1_random	43739
+chr15_KI270727v1_random	448248
+chr16_KI270728v1_random	1872759
+chr17_GL000205v2_random	185591
+chr17_KI270729v1_random	280839
+chr17_KI270730v1_random	112551
+chr22_KI270731v1_random	150754
+chr22_KI270732v1_random	41543
+chr22_KI270733v1_random	179772
+chr22_KI270734v1_random	165050
+chr22_KI270735v1_random	42811
+chr22_KI270736v1_random	181920
+chr22_KI270737v1_random	103838
+chr22_KI270738v1_random	99375
+chr22_KI270739v1_random	73985
+chrY_KI270740v1_random	37240
+chrUn_KI270302v1	2274
+chrUn_KI270304v1	2165
+chrUn_KI270303v1	1942
+chrUn_KI270305v1	1472
+chrUn_KI270322v1	21476
+chrUn_KI270320v1	4416
+chrUn_KI270310v1	1201
+chrUn_KI270316v1	1444
+chrUn_KI270315v1	2276
+chrUn_KI270312v1	998
+chrUn_KI270311v1	12399
+chrUn_KI270317v1	37690
+chrUn_KI270412v1	1179
+chrUn_KI270411v1	2646
+chrUn_KI270414v1	2489
+chrUn_KI270419v1	1029
+chrUn_KI270418v1	2145
+chrUn_KI270420v1	2321
+chrUn_KI270424v1	2140
+chrUn_KI270417v1	2043
+chrUn_KI270422v1	1445
+chrUn_KI270423v1	981
+chrUn_KI270425v1	1884
+chrUn_KI270429v1	1361
+chrUn_KI270442v1	392061
+chrUn_KI270466v1	1233
+chrUn_KI270465v1	1774
+chrUn_KI270467v1	3920
+chrUn_KI270435v1	92983
+chrUn_KI270438v1	112505
+chrUn_KI270468v1	4055
+chrUn_KI270510v1	2415
+chrUn_KI270509v1	2318
+chrUn_KI270518v1	2186
+chrUn_KI270508v1	1951
+chrUn_KI270516v1	1300
+chrUn_KI270512v1	22689
+chrUn_KI270519v1	138126
+chrUn_KI270522v1	5674
+chrUn_KI270511v1	8127
+chrUn_KI270515v1	6361
+chrUn_KI270507v1	5353
+chrUn_KI270517v1	3253
+chrUn_KI270529v1	1899
+chrUn_KI270528v1	2983
+chrUn_KI270530v1	2168
+chrUn_KI270539v1	993
+chrUn_KI270538v1	91309
+chrUn_KI270544v1	1202
+chrUn_KI270548v1	1599
+chrUn_KI270583v1	1400
+chrUn_KI270587v1	2969
+chrUn_KI270580v1	1553
+chrUn_KI270581v1	7046
+chrUn_KI270579v1	31033
+chrUn_KI270589v1	44474
+chrUn_KI270590v1	4685
+chrUn_KI270584v1	4513
+chrUn_KI270582v1	6504
+chrUn_KI270588v1	6158
+chrUn_KI270593v1	3041
+chrUn_KI270591v1	5796
+chrUn_KI270330v1	1652
+chrUn_KI270329v1	1040
+chrUn_KI270334v1	1368
+chrUn_KI270333v1	2699
+chrUn_KI270335v1	1048
+chrUn_KI270338v1	1428
+chrUn_KI270340v1	1428
+chrUn_KI270336v1	1026
+chrUn_KI270337v1	1121
+chrUn_KI270363v1	1803
+chrUn_KI270364v1	2855
+chrUn_KI270362v1	3530
+chrUn_KI270366v1	8320
+chrUn_KI270378v1	1048
+chrUn_KI270379v1	1045
+chrUn_KI270389v1	1298
+chrUn_KI270390v1	2387
+chrUn_KI270387v1	1537
+chrUn_KI270395v1	1143
+chrUn_KI270396v1	1880
+chrUn_KI270388v1	1216
+chrUn_KI270394v1	970
+chrUn_KI270386v1	1788
+chrUn_KI270391v1	1484
+chrUn_KI270383v1	1750
+chrUn_KI270393v1	1308
+chrUn_KI270384v1	1658
+chrUn_KI270392v1	971
+chrUn_KI270381v1	1930
+chrUn_KI270385v1	990
+chrUn_KI270382v1	4215
+chrUn_KI270376v1	1136
+chrUn_KI270374v1	2656
+chrUn_KI270372v1	1650
+chrUn_KI270373v1	1451
+chrUn_KI270375v1	2378
+chrUn_KI270371v1	2805
+chrUn_KI270448v1	7992
+chrUn_KI270521v1	7642
+chrUn_GL000195v1	182896
+chrUn_GL000219v1	179198
+chrUn_GL000220v1	161802
+chrUn_GL000224v1	179693
+chrUn_KI270741v1	157432
+chrUn_GL000226v1	15008
+chrUn_GL000213v1	164239
+chrUn_KI270743v1	210658
+chrUn_KI270744v1	168472
+chrUn_KI270745v1	41891
+chrUn_KI270746v1	66486
+chrUn_KI270747v1	198735
+chrUn_KI270748v1	93321
+chrUn_KI270749v1	158759
+chrUn_KI270750v1	148850
+chrUn_KI270751v1	150742
+chrUn_KI270752v1	27745
+chrUn_KI270753v1	62944
+chrUn_KI270754v1	40191
+chrUn_KI270755v1	36723
+chrUn_KI270756v1	79590
+chrUn_KI270757v1	71251
+chrUn_GL000214v1	137718
+chrUn_KI270742v1	186739
+chrUn_GL000216v2	176608
+chrUn_GL000218v1	161147
+chrEBV	171823
+Genome sequence total length = 3099922541
+Genome size with padding = 3138650112
+Sep 05 16:01:26 ..... processing annotations GTF
+
+Fatal INPUT FILE error, no exon lines in the GTF file: /data/vrc_his/douek_lab/reference_sets/hg38/Sequence/STAR/
+Solution: check the formatting of the GTF file, it must contain some lines with exon in the 3rd column.
+          Make sure the GTF file is unzipped.
+          If exons are marked with a different word, use --sjdbGTFfeatureExon .
+
+Sep 05 16:01:26 ...... FATAL ERROR, exiting
