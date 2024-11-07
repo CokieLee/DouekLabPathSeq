@@ -66,8 +66,16 @@ cd $trinity_folder
 correct_cur_Dir=$trinity_folder_name
 dir_check  $correct_cur_Dir
 
+fastp_output_file_name_for_trinity_left=$trinity_folder"/fastp_unalignedRead1AgainstPrimate_"$left_read_file_base_name".fq"
+fastp_output_file_name_for_trinity_right=$trinity_folder"/fastp_unalignedRead1AgainstPrimate_"$right_read_file_base_name".fq"
+
 echo "CHECKPOINT 2: FASTP COMMAND:"
-fastp -i $unalignedInputLeft -o $fastp_output_file_name_for_trinity_left -I $unalignedInputRight -O $fastp_output_file_name_for_trinity_right --dedup --thread 12
+fastpCmd="fastp -i $unalignedInputLeft -o $fastp_output_file_name_for_trinity_left -I $unalignedInputRight -O $fastp_output_file_name_for_trinity_right --dedup --thread 12"
+echo $fastpCmd
+
+echo "$fastpCmd" | bash
+
+echo "fastp command complete"
 
 trinityOutDirectory="myTrinity_Origin_"$origin"_Sample_"$left_read_file_base_name
 if [ -e $trinityOutDirectory ]
@@ -75,31 +83,56 @@ then
 	rm -r $trinityOutDirectory
 fi
 
-Trinity_fa_out_file_name=$trinityOutDirectory".Trinity.fasta"
-formatted_Trinity_fa_out_file_name="formatted_"$trinityOutDirectory".Trinity.fasta"
-trinityRunOutput="trinity_out_"$MIN_CONTIG_LENGTH"_"$left_read_file_base_name".txt"
-trinityRunError="trinity_err_"$left_read_file_base_name".txt"
+Trinity_fa_out_file_name="$trinity_folder/$trinityOutDirectory.Trinity.fasta"
+formatted_Trinity_fa_out_file_name="$trinity_folder/formatted_"$trinityOutDirectory".Trinity.fasta"
+trinityRunOutput="$trinity_folder/trinity_out_"$MIN_CONTIG_LENGTH"_"$left_read_file_base_name".txt"
+trinityRunError="$trinity_folder/trinity_err_"$left_read_file_base_name".txt"
 
+## TODO: using $trinityoutDirectory in trinityCmd below is confusing, fix
 echo "CHECKPOINT 3: TRINITY COMMAND: "
 
-Trinity --CPU 12 --output $trinityOutDirectory --min_contig_length $MIN_CONTIG_LENGTH --seqType fq --max_memory 175G  --min_kmer_cov 1 --left $unalignedInputLeft --right $unalignedInputRight --no_version_check 1>$trinityRunOutput 2>$trinityRunError
+trinityCmd="Trinity --CPU 8 --output $trinityOutDirectory --min_contig_length $MIN_CONTIG_LENGTH --seqType fq --max_memory 175G  --min_kmer_cov 1 --left $unalignedInputLeft --right $unalignedInputRight --no_version_check 1>$trinityRunOutput 2>$trinityRunError"
+echo $trinityCmd
+
+echo "$trinityCmd" | bash
 
 exitCode=$?
-
 
 readsPerFile=20000
 
 if [ $exitCode -eq 0 ]
 	then
 		echo "Trinity sample (" $left_read_file_base_name ") successful ("$exitCode")" >> "../finished_Trinity.txt"
+
+		if [ ! -f "$Trinity_fa_out_file_name" ];
+			then
+				echo "Error: Input file for fasta_formatter not found: $Trinity_fa_out_file_name"
+				exit 1
+			else
+				echo "Trinity output file present."
+		fi
+
+#TODO: add module load checking for all module loads
 		module purge
 		module load fastx-toolkit
+		which fastx-toolkit
 		##changes the width of sequences line in a FASTA file (all nucleotide sequences appear on a single line)
-		fasta_formatter -i $Trinity_fa_out_file_name > $formatted_Trinity_fa_out_file_name
+		format_cmd="fasta_formatter -i $Trinity_fa_out_file_name -o $formatted_Trinity_fa_out_file_name"
+		fasta_formatter -h
+		echo "Format command: $format_cmd"
+		echo "$format_cmd" | bash 2>fasta_formatter_error.log
+
+		format_exit_code=$? 
+		if [ $format_exit_code -ne 0 ];
+			then
+				echo "Fasta_formatter failed with exit code: $format_exit_code"
+				exit 1
+			else
+				echo "Fasta_formatter finished with successful exit code: $format_exit_code"
+		fi
 	else
 		echo "Trinity sample ("$left_read_file_base_name") failed ("$exitCode") retrying and STOPPING! You will need to resume the pipeline manually" > "../finished_Trinity.txt"
 		##Trinity --CPU 12 --FORCE --output $trinityOutDirectory --min_contig_length $MIN_CONTIG_LENGTH --seqType fq --max_memory 175G  --min_kmer_cov 1 --left fastp_unmapped_left.fq --right fastp_unmapped_right.fq --no_version_check 1>"trinity_retry_out_"$MIN_CONTIG_LENGTH".txt" 2>trinity_err.txt
-
 fi
 
 ## command for running next script

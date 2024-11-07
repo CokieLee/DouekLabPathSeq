@@ -1,5 +1,0 @@
-Building DAG of jobs...
-MissingInputException in rule all in file /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/RunTest0/Snakefile, line 20:
-Missing input files for rule all:
-    affected files:
-        /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/Sample_582760806_A5_S33_R1_001_short_test/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta

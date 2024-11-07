@@ -151,6 +151,7 @@ rule trinity:
         sampleNameRight="{sample}" + rightEnding,
         origin=config["origin"],
         minContigLen=config["minContigLen"]
+        fastp=config["program_fastp"] ##TODO: give this as a input to trinity, remove the hardcoded path
     output:
         ## following outputs are directly used by subsequent steps
         os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
@@ -271,16 +272,34 @@ rule kaiju:
         {params.codePath} {params.outPath}
         """
 
-## TODO: parse runs salmon, merge, and diversity for each taxonomic level output by kaiju.
-## I need to think about the best way to convert this to rules, whether it is possible to have
-## separate rules for each step and have snakemake manage the redundancies, or whether I should
-## leave it as is for now except for converting to slurm syntax
 # rule parseKaiju:
+rule parseKaiju:
+    input:
+    params:
+    output:
+    shell:
 
-# rule merge:
-
-# rule prepDiversity:
-
-# rule salmon:
-
-# rule palmScan:
+# rule palmscan
+rule palmScan:
+    input:
+        scriptPath=os.path.join(config["codepath"], "palm_scan.sh")
+        unclassifiedSeqs=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                                        config["origin"] + "_salmon_quant",
+                                        "unclassified_sequences.fa")
+    params:
+        program_palmscan=config["program_palmscan"],
+        scratchDir=config["scratchDir"],
+        salmonDataDir=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                                    "RNA_salmon_quant"),
+        origin=config["origin"],
+        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
+        codePath=config["codepath"]
+    output:
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "palmscan",
+                    config["origin"] + "Sample_{sample}" + leftEnding + "_palmscan.fa")
+    shell:
+        """
+        bash {input.scriptPath} {params.program_palmscan} {params.scratchDir} {params.salmonDataDir} \
+        {input.unclassifiedSeqs} {params.origin} {params.outPath} {params.codePath}
+        """

@@ -10,6 +10,7 @@ minContigLen: 300
 ## configurable parameters
 codepath: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/
 outputpath: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/
+scratchDir: /data/scratch/
 
 ## paths of necessary installs and references on system
 bowtieERCCIndex: /data/vrc_his/douek_lab/reference_sets/ERCC/ERCC92
@@ -24,6 +25,8 @@ program_PathSeqMergeQIIME2TaxAndSalmon: /data/vrc_his/douek_lab/projects/PathSeq
 program_PathSeqSplitOutputTableByTaxonomy: /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqSplitOutputTableByTaxonomy/dist/PathSeqSplitOutputTableByTaxonomy.jar
 program_prodigal: /data/vrc_his/douek_lab/projects/PathSeq/programs/prodigal/bin
 program_kaiju: /data/vrc_his/douek_lab/projects/PathSeq/programs/kaiju/kaiju-v1.9.0-linux-x86_64-static
+program_fastp: /data/vrc_his/douek_lab/projects/PathSeq/programs/fastp
+program_palmscan: /data/vrc_his/douek_lab/projects/PathSeq/programs/palmscan-main/bin
 blastDB_Mammalia: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20210716/Mammalia.fa
 kaiju_nodes: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp
 kaiju_fmi: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/kaiju_db_nr_euk.fmi

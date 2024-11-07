@@ -41,11 +41,6 @@ source $codePath"/dir_check.sh"
 
 ## Confirm that sample folder exists
 file_exist_check $outPath
-## Change into sample folder
-cd $outPath
-## Confirm that we are in sample folder
-correct_cur_Dir=$outPath
-dir_check  $correct_cur_Dir
 
 kaiju_output_folder=$outPath$origin"_kaiju_output"
 mkdir $kaiju_output_folder
@@ -99,7 +94,7 @@ formatted_non_host_proteins_nucleotide_sequences_file_fa="formatted_non_host_pro
 
 prodigal -a $non_host_proteins_translations_output_file_faa -o $coords_output_genbank_like_format -i $non_host_formatted_Trinity_file_name -s protein_scores.txt -p meta -d $non_host_proteins_nucleotide_sequences_file_fa
 
-## changes the width of sequences line in a FASTA  or FASTAA file
+## changes the width of sequences line in a FASTA  or FASTAA fil    e
 ## (all nucleotide/ amino acid sequences appear on a single line)
 
 fasta_formatter -i $non_host_proteins_translations_output_file_faa > $formatted_non_host_proteins_translations_output_file_faa

@@ -1,3 +1,0 @@
-TypeError in file /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/RunTest0/Snakefile, line 160:
-can only concatenate str (not "int") to str
-  File "/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/RunTest0/Snakefile", line 160, in <module>

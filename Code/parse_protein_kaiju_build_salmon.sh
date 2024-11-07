@@ -225,7 +225,7 @@ echo $holdID_1_trunc
 
 echo "merge script before call"
 echo $mergeScript
-holdID_2=$(qsub -hold_jid $holdID_1_trunc $mergeScript $projectID $left_read_file_base_name  $right_read_file_base_name $origin $mytaxLevel $PathSeqMergeQIIME2TaxAndSalmon_program | cut -d' ' -f3)
+holdID_2=$(qsub -hold_jid $holdID_1_trunc $mergeScript $projectID $left_read_file_base_name $right_read_file_base_name $origin $mytaxLevel $PathSeqMergeQIIME2TaxAndSalmon_program | cut -d' ' -f3)
 
 hold_jid_trunc=$holdID_2
 hold_jid=$holdID_2
