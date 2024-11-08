@@ -1,0 +1,5 @@
+[+] Loading snakemake  7.32.4 
+FileNotFoundError in file /spin1/home/linux/parkercol/PathSeq/Tests/RunTest0/Snakefile, line 6:
+[Errno 2] No such file or directory: '/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/TestInput/file_list'
+  File "/spin1/home/linux/parkercol/PathSeq/Tests/RunTest0/Snakefile", line 6, in <module>
+RAN SNAKEMAKE
