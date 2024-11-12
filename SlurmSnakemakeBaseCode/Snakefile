@@ -272,11 +272,18 @@ rule kaiju:
         {params.codePath} {params.outPath}
         """
 
-# rule parseKaiju:
+## TODO: This should probably be refactored in some way, so its not one script calling 4 scripts
+# rule parseKaijuDoSalmon:
 rule parseKaiju:
     input:
+        scriptPath=os.path.join(config["codepath"], "parse_protein_kaiju_build_salmon.sh")
     params:
+        sampleNameLeft="{sample}" + leftEnding,
+        sampleNameRight="{sample}" + rightEnding,
+        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
+        codePath=config["codepath"]
     output:
+        
     shell:
 
 # rule palmscan
