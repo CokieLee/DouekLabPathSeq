@@ -12,9 +12,10 @@ salmonDataDir=$4
 origin=$5 ## RNA, DNA or all
 outPath=$6
 codePath=$7
+scratchDir=$8
 
-export TMPDIR=/hpcdata/scratch/
-export _JAVA_OPTIONS="-Djava.io.tmpdir=/hpcdata/scratch"
+export TMPDIR=$scratchDir
+export _JAVA_OPTIONS="-Djava.io.tmpdir=$scratchDir"
 export PATH="$program_palmscan:$PATH"
 
 ## Source script for directory checking function

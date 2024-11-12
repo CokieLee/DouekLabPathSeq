@@ -20,9 +20,8 @@ bowtieUnmaskedGenomeIndex: /fdb/htgts/genomes/bowtie2_indexes/hg19/hg19   ## Bio
 
 bowtiePrimatePaths: /data/parkercol/bowtiePrimateIndex/primates  ## local 30G
 blastDB_Mammalia: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20210716/Mammalia.fa   ## TODO: update. if copied, local 65G. This is a problem
-kaiju_nodes: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp    ## TODO: update local. check size.
-kaiju_fmi: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/kaiju_db_nr_euk.fmi   ##TODO: update local. check size
-NCBI_nt_kaiju_ref_taxonomy: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/qiime2_formatted_taxonomy.tab    ## TODO: update local. check size
+kaiju_nodes: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp    ## TODO: update local. 159M
+kaiju_fmi: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/kaiju_db_nr_euk.fmi   ##TODO: update local. 149G
 
 hg38_starDB: /fdb/STAR_indices/2.7.11b/UCSC/hg38/ref    ## Biowulf hosted
 

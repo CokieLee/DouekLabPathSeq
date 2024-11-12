@@ -8,7 +8,7 @@
 
 ## load Locus modules
 module load java
-module load R/4.1.0
+module load R
 
 
 projectID=$1

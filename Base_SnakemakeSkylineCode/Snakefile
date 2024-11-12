@@ -293,7 +293,8 @@ rule palmScan:
                                     "RNA_salmon_quant"),
         origin=config["origin"],
         outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
-        codePath=config["codepath"]
+        codePath=config["codepath"],
+        scratchDir=config["scratchDir"]
     output:
         os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
                     "palmscan",
@@ -301,5 +302,5 @@ rule palmScan:
     shell:
         """
         bash {input.scriptPath} {params.program_palmscan} {params.scratchDir} {params.salmonDataDir} \
-        {input.unclassifiedSeqs} {params.origin} {params.outPath} {params.codePath}
+        {input.unclassifiedSeqs} {params.origin} {params.outPath} {params.codePath} {params.scratchDir}
         """
