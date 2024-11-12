@@ -3,30 +3,31 @@ cluster: sbatch
 jobs: 32
 
 ## parameters that must be changed for each different run
-inputpath: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/TestInput/
+inputpath: /home/parkercol/PathSeq/Tests/TestInput/
 origin: RNA
 minContigLen: 300
 
 ## configurable parameters
-codepath: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/
-outputpath: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/Output/
-scratchDir: /data/scratch/
+codepath: /home/parkercol/PathSeq/Base_SnakemakeSkylineCode/
+outputpath: /data/parkercol/PathseqOutput/
+scratchDir: /scratch/
 
 ## paths of necessary installs and references on system
 
 # reference sets and databases
-bowtieERCCIndex: /data/parkercol/bowtieERCCIndex/ERCC92
-bowtieUnmaskedGenomeIndex: /fdb/htgts/genomes/bowtie2_indexes/hg19/hg19
+bowtieERCCIndex: /data/parkercol/bowtieERCCIndex/ERCC92   ## local 9M
+bowtieUnmaskedGenomeIndex: /fdb/htgts/genomes/bowtie2_indexes/hg19/hg19   ## Biowulf hosted
 
-bowtiePrimatePaths: /data/parkercol/bowtiePrimateIndex/primates
-blastDB_Mammalia: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20210716/Mammalia.fa
-kaiju_nodes: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp
-kaiju_fmi: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/kaiju_db_nr_euk.fmi
-NCBI_nt_kaiju_ref_taxonomy: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/qiime2_formatted_taxonomy.tab
+bowtiePrimatePaths: /data/parkercol/bowtiePrimateIndex/primates  ## local 30G
+blastDB_Mammalia: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20210716/Mammalia.fa   ## TODO: update. if copied, local 65G. This is a problem
+kaiju_nodes: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp    ## TODO: update local. check size.
+kaiju_fmi: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/kaiju_db_nr_euk.fmi   ##TODO: update local. check size
+NCBI_nt_kaiju_ref_taxonomy: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/qiime2_formatted_taxonomy.tab    ## TODO: update local. check size
 
-hg38_starDB: /fdb/STAR_indices/2.7.11b/UCSC/hg38/ref
+hg38_starDB: /fdb/STAR_indices/2.7.11b/UCSC/hg38/ref    ## Biowulf hosted
 
-# external programs
+## external programs
+# all individual executable files have been copied to biowulf home directory
 program_picard: /home/parkercol/PathSeqDependencies/picard_2.18.14.jar
 program_RemoveHostForKaiju: /home/parkercol/PathSeqDependencies/PathSeqRemoveHostForKaiju.jar
 program_PathSeqKaijuConcensusSplitter2: /home/parkercol/PathSeqDependencies/PathSeqKaijuConcensusSplitter2.jar
