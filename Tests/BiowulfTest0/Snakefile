@@ -22,8 +22,8 @@ numContigFilterThreads=8
 rule all:
     input:
         expand(os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
-                    config["origin"] + "_trinity_filtered",
-                    "nonHost_trinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding + ".Trinity.fasta"),
+                    config["origin"] + "_trinity_output",
+                    "myTrinity_Origin_"+ config["origin"] + "_Sample_{sample}" + leftEnding + ".Trinity.fasta"),
                     sample=SAMPLES)
 
 # Basic rule for testing environment. Should take all input files,
@@ -48,7 +48,7 @@ rule bowtieUnmasked:
         scriptPath=os.path.join(config["codepath"], "bowtieUnmaskedGenome.sh"),
         leftReadFile=os.path.join(config["inputpath"], "{sample}" + leftEnding +".fastq.gz"),
         rightReadFile=os.path.join(config["inputpath"], "{sample}" + rightEnding +".fastq.gz"),
-        picard=config["picard"]
+        picard=config["program_picard"]
     params:
         outPath=config["outputpath"],
         codePath=config["codepath"],
@@ -77,8 +77,17 @@ rule bowtieUnmasked:
         cpus=12
     shell:
         """
-        bash {input.scriptPath} {params.sampleNameLeft} {params.sampleNameRight} {input.leftReadFile} \
-        {input.rightReadFile} {params.outPath} {params.codePath} {params.bowtieERCCIndex} \
+        module load java
+        which java
+        module load bowtie2
+        which bowtie2
+        module load samtools
+        which samtools
+        module load R
+        which R
+
+        bash {input.scriptPath} {params.codePath} {params.sampleNameLeft} {params.sampleNameRight} {input.leftReadFile} \
+        {input.rightReadFile} {params.outPath} {params.bowtieERCCIndex} \
         {params.bowtieUnmaskedGenomeIndex} {input.picard}
         """
 
@@ -106,8 +115,13 @@ rule starAfterBowtie:
                     "Generated_Data_Star_Alignment/{sample}" + leftEnding + "_star_alignment_stats.txt")
     shell:
         """
-        bash {input.scriptPath} {input.leftUnaligned} {input.rightUnaligned} \
-        {params.sampleNameLeft} {params.sampleNameRight} {params.codePath} {params.outPath} {params.hgStarDb}
+        module load STAR
+        which STAR
+        module load samtools
+        which samtools
+
+        bash {input.scriptPath} {params.codePath} {input.leftUnaligned} {input.rightUnaligned} \
+        {params.sampleNameLeft} {params.sampleNameRight} {params.outPath} {params.hgStarDb}
         """
 
 rule bowtiePrimate:
@@ -132,6 +146,11 @@ rule bowtiePrimate:
         ## following outputs are solely informational
     shell:
         """
+        module load bowtie2
+        which bowtie2
+        module load samtools
+        which samtools
+
         bash {input.scriptPath} {input.leftUnaligned} {input.rightUnaligned} {params.outPath} \
         {params.codePath} {params.sampleNameLeft} {params.sampleNameRight} {params.primateIndex}
         """
@@ -150,23 +169,39 @@ rule trinity:
         sampleNameLeft="{sample}" + leftEnding,
         sampleNameRight="{sample}" + rightEnding,
         origin=config["origin"],
-        minContigLen=config["minContigLen"]
+        minContigLen=config["minContigLen"],
+        numThreads="1",
+        maxMemory="175G",
+        fastp=config["program_fastp"],
+        scratchDir=config["scratchDir"]
     output:
         ## following outputs are directly used by subsequent steps
-        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
-                    config["origin"] + "_trinity_output",
-                    "formatted_myTrinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding + ".Trinity.fasta"),
+        # os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+        #             config["origin"] + "_trinity_output",
+        #             "formatted_myTrinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding + ".Trinity.fasta"),
         ## following outputs are solely informational
         os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
                     config["origin"] + "_trinity_output",
                     "trinity_out_" + str(config["minContigLen"]) + "_Sample_{sample}" + leftEnding + ".txt"),
         os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
                     config["origin"] + "_trinity_output",
-                    "trinity_err_Sample_{sample}" + leftEnding + ".txt")
-    shell:
+                    "trinity_err_" + str(config["minContigLen"]) + "_Sample_{sample}" + leftEnding + ".txt"),
+        ## following outputs are intermediate outputs
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    config["origin"] + "_trinity_output",
+                    "myTrinity_Origin_"+ config["origin"] + "_Sample_{sample}" + leftEnding + ".Trinity.fasta")
+    shell: ## does this really need py-setuptools? what even is that
         """
-        bash {input.scriptPath} {input.leftUnaligned} {input.rightUnaligned} {params.sampleNameLeft} \
-        {params.sampleNameRight} {params.origin} {params.minContigLen} {params.codePath} {params.outPath}
+        module load trinity
+        which Trinity
+        module load fastp
+        which fastp
+        module load fastxtoolkit
+        which fasta_formatter
+
+        bash {input.scriptPath} {params.codePath} {input.leftUnaligned} {input.rightUnaligned} {params.sampleNameLeft} \
+        {params.sampleNameRight} {params.origin} {params.minContigLen} {params.numThreads} \
+        {params.maxMemory} {params.outPath} {params.scratchDir}
         """
 
 rule splitContigsForFiltering:
@@ -252,7 +287,7 @@ rule kaiju:
         kaiju_fmi=config["kaiju_fmi"],
         nonHostContigs=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
                                     config["origin"] + "_trinity_filtered",
-                                    "unaligned_trinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding + ".Trinity.fasta")
+                                    "nonHost_trinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding + ".Trinity.fasta")
     params:
         sampleNameLeft="{sample}" + leftEnding,
         sampleNameRight="{sample}" + rightEnding,
@@ -271,16 +306,42 @@ rule kaiju:
         {params.codePath} {params.outPath}
         """
 
-## TODO: parse runs salmon, merge, and diversity for each taxonomic level output by kaiju.
-## I need to think about the best way to convert this to rules, whether it is possible to have
-## separate rules for each step and have snakemake manage the redundancies, or whether I should
-## leave it as is for now except for converting to slurm syntax
+# ## TODO: This should probably be refactored in some way, so its not one script calling 4 scripts
+# # rule parseKaijuDoSalmon:
 # rule parseKaiju:
+#     input:
+#         scriptPath=os.path.join(config["codepath"], "parse_protein_kaiju_build_salmon.sh")
+#     params:
+#         sampleNameLeft="{sample}" + leftEnding,
+#         sampleNameRight="{sample}" + rightEnding,
+#         outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
+#         codePath=config["codepath"]
+#     output:
+        
+#     shell:
 
-# rule merge:
-
-# rule prepDiversity:
-
-# rule salmon:
-
+# rule palmscan
 # rule palmScan:
+#     input:
+#         scriptPath=os.path.join(config["codepath"], "palm_scan.sh")
+#         unclassifiedSeqs=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+#                                         config["origin"] + "_salmon_quant",
+#                                         "unclassified_sequences.fa")
+#     params:
+#         program_palmscan=config["program_palmscan"],
+#         scratchDir=config["scratchDir"],
+#         salmonDataDir=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+#                                     "RNA_salmon_quant"),
+#         origin=config["origin"],
+#         outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
+#         codePath=config["codepath"],
+#         scratchDir=config["scratchDir"]
+#     output:
+#         os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+#                     "palmscan",
+#                     config["origin"] + "Sample_{sample}" + leftEnding + "_palmscan.fa")
+#     shell:
+#         """
+#         bash {input.scriptPath} {params.program_palmscan} {params.scratchDir} {params.salmonDataDir} \
+#         {input.unclassifiedSeqs} {params.origin} {params.outPath} {params.codePath} {params.scratchDir}
+#         """

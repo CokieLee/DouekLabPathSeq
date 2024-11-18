@@ -1,0 +1,23 @@
+CHECKPOINT 1: BOWTIE UNMASKED INPUTS
+1. codePath:
+/home/parkercol/PathSeq/SlurmSnakemakeBaseCode/
+Directory exists: /home/parkercol/PathSeq/SlurmSnakemakeBaseCode/
+dos2unix: converting file /home/parkercol/PathSeq/SlurmSnakemakeBaseCode/dir_check.sh to Unix format...
+2: sampleNameLeft: 
+582760806_A5_S33_R1_001_short_test
+Variable is not empty
+3. sampleNameRight:
+582760806_A5_S33_R2_001_short_test
+Variable is not empty
+4: left_read_file: 
+/data/parkercol/PathseqOutput/
+5: right_read_file: 
+/data/parkercol/PathseqDependencyData/bowtieERCCIndex/ERCC92
+File  
+/data/parkercol/PathseqDependencyData/bowtieERCCIndex/ERCC92
+was not found in directory  
+scripts
+File  
+/data/parkercol/PathseqDependencyData/bowtieERCCIndex/ERCC92
+was not found in directory  
+scripts

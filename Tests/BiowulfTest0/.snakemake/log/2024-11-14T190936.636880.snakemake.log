@@ -1,0 +1,42 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job        count
+-------  -------
+all            1
+trinity        1
+total          2
+
+Select jobs to execute...
+
+[Thu Nov 14 19:09:41 2024]
+rule trinity:
+    input: /home/parkercol/PathSeq/SlurmSnakemakeBaseCode/all_trinity.sh, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq
+    output: /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/trinity_out_300_Sample_582760806_A5_S33_R1_001_short_test.txt, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/trinity_err_Sample_582760806_A5_S33_R1_001_short_test.txt, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta
+    jobid: 1
+    reason: Missing output files: /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta
+    wildcards: sample=582760806_A5_S33
+    resources: tmpdir=/tmp
+
+
+        module load trinity
+        which Trinity
+        module load fastp
+        which fastp
+        module load fastxtoolkit
+        which fasta_formatter
+
+        bash /home/parkercol/PathSeq/SlurmSnakemakeBaseCode/all_trinity.sh /home/parkercol/PathSeq/SlurmSnakemakeBaseCode/ /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq 582760806_A5_S33_R1_001_short_test         582760806_A5_S33_R2_001_short_test RNA 300 /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test /lscratch/
+        
+Waiting at most 120 seconds for missing files.
+MissingOutputException in rule trinity in file /spin1/home/linux/parkercol/PathSeq/Tests/BiowulfTest0/Snakefile, line 159:
+Job 1  completed successfully, but some output files are missing. Missing files after 120 seconds. This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait:
+/data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/trinity_out_300_Sample_582760806_A5_S33_R1_001_short_test.txt
+/data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/trinity_err_Sample_582760806_A5_S33_R1_001_short_test.txt
+Removing output files of failed job trinity since they might be corrupted:
+/data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-11-14T190936.636880.snakemake.log

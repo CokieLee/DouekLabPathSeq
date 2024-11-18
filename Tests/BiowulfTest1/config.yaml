@@ -1,0 +1,39 @@
+## cluster settings
+cluster: sbatch
+jobs: 32
+
+## parameters that must be changed for each different run
+# inputpath: /data/parkercol/Input_Data/
+inputpath: /data/parkercol/Input_Data
+origin: RNA
+minContigLen: 300
+
+## configurable parameters
+codepath: /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/
+outputpath: /data/parkercol/PathseqOutput/
+scratchDir: /lscratch/
+
+## paths of necessary installs and references on system
+
+# reference sets and databases
+bowtieERCCIndex: /data/parkercol/PathseqDependencyData/bowtieERCCIndex/ERCC92   ## local 9M
+bowtieUnmaskedGenomeIndex: /fdb/htgts/genomes/bowtie2_indexes/hg19/hg19   ## Biowulf hosted
+
+bowtiePrimatePaths: /data/parkercol/PathseqDependencyData/bowtiePrimateIndex/primates  ## local 30G
+blastDB_Mammalia: /data/parkercol/blastDBMammalia/Mammalia.fa   ## local 65G
+kaiju_nodes: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp    ## TODO: update local. 159M
+kaiju_fmi: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/kaiju_db_nr_euk.fmi   ##TODO: update local. 149G
+
+hg38_starDB: /fdb/STAR_indices/2.7.11b/UCSC/hg38/ref    ## Biowulf hosted
+
+## external programs
+# all individual executable files have been copied to biowulf home directory
+program_picard: /home/parkercol/PathseqDependencyPrograms/picard.jar
+program_RemoveHostForKaiju: /home/parkercol/PathseqDependencyPrograms/PathSeqRemoveHostForKaiju.jar
+program_PathSeqKaijuConcensusSplitter2: /home/parkercol/PathseqDependencyPrograms/PathSeqKaijuConcensusSplitter2.jar
+program_PathSeqMergeQIIME2TaxAndSalmon: /home/parkercol/PathseqDependencyPrograms/PathSeqMergeQIIME2TaxAndSalmon.jar
+program_PathSeqSplitOutputTableByTaxonomy: /home/parkercol/PathseqDependencyPrograms/PathSeqSplitOutputTableByTaxonomy.jar
+program_prodigal: /home/parkercol/PathseqDependencyPrograms/prodigal/bin
+program_kaiju: /home/parkercol/PathseqDependencyPrograms/kaiju-v1.9.0-linux-x86_64-static
+program_fastp: /home/parkercol/PathseqDependencyPrograms/fastp
+program_palmscan: /home/parkercol/PathseqDependencyPrograms/palmscan-main/bin

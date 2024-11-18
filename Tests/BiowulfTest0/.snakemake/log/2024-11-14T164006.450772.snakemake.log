@@ -1,0 +1,51 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                count
+---------------  -------
+all                    1
+bowtiePrimate          1
+starAfterBowtie        1
+trinity                1
+total                  4
+
+Select jobs to execute...
+
+[Thu Nov 14 16:40:08 2024]
+rule starAfterBowtie:
+    input: /home/parkercol/PathSeq/SlurmSnakemakeBaseCode/starAfterBowtie.sh, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_582760806_A5_S33_R1_001_short_test.fq, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_582760806_A5_S33_R2_001_short_test.fq
+    output: /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_Star_Alignment/582760806_A5_S33_R1_001_short_test_unalignedRead1AgainstTranscriptome.fq, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_Star_Alignment/582760806_A5_S33_R2_001_short_test_unalignedRead2AgainstTranscriptome.fq, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_Star_Alignment/582760806_A5_S33_R1_001_short_test_star_alignment_stats.txt
+    jobid: 3
+    reason: Missing output files: /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_Star_Alignment/582760806_A5_S33_R2_001_short_test_unalignedRead2AgainstTranscriptome.fq, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_Star_Alignment/582760806_A5_S33_R1_001_short_test_unalignedRead1AgainstTranscriptome.fq
+    wildcards: sample=582760806_A5_S33
+    resources: tmpdir=/tmp
+
+
+        module load STAR
+        which STAR
+        module load samtools
+        which samtools
+
+        bash /home/parkercol/PathSeq/SlurmSnakemakeBaseCode/ /home/parkercol/PathSeq/SlurmSnakemakeBaseCode/starAfterBowtie.sh /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_582760806_A5_S33_R1_001_short_test.fq /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_582760806_A5_S33_R2_001_short_test.fq         582760806_A5_S33_R1_001_short_test 582760806_A5_S33_R2_001_short_test /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/ /fdb/STAR_indices/2.7.11b/UCSC/hg38/ref
+        
+[Thu Nov 14 16:40:08 2024]
+Error in rule starAfterBowtie:
+    jobid: 3
+    input: /home/parkercol/PathSeq/SlurmSnakemakeBaseCode/starAfterBowtie.sh, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_582760806_A5_S33_R1_001_short_test.fq, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_582760806_A5_S33_R2_001_short_test.fq
+    output: /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_Star_Alignment/582760806_A5_S33_R1_001_short_test_unalignedRead1AgainstTranscriptome.fq, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_Star_Alignment/582760806_A5_S33_R2_001_short_test_unalignedRead2AgainstTranscriptome.fq, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_Star_Alignment/582760806_A5_S33_R1_001_short_test_star_alignment_stats.txt
+    shell:
+        
+        module load STAR
+        which STAR
+        module load samtools
+        which samtools
+
+        bash /home/parkercol/PathSeq/SlurmSnakemakeBaseCode/ /home/parkercol/PathSeq/SlurmSnakemakeBaseCode/starAfterBowtie.sh /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_582760806_A5_S33_R1_001_short_test.fq /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_582760806_A5_S33_R2_001_short_test.fq         582760806_A5_S33_R1_001_short_test 582760806_A5_S33_R2_001_short_test /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/ /fdb/STAR_indices/2.7.11b/UCSC/hg38/ref
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-11-14T164006.450772.snakemake.log

@@ -1,0 +1,147 @@
+[+] Loading snakemake  7.32.4 
+7.32.4
+LANG=en_US.UTF-8
+LC_CTYPE="en_US.UTF-8"
+LC_NUMERIC="en_US.UTF-8"
+LC_TIME="en_US.UTF-8"
+LC_COLLATE="en_US.UTF-8"
+LC_MONETARY="en_US.UTF-8"
+LC_MESSAGES="en_US.UTF-8"
+LC_PAPER="en_US.UTF-8"
+LC_NAME="en_US.UTF-8"
+LC_ADDRESS="en_US.UTF-8"
+LC_TELEPHONE="en_US.UTF-8"
+LC_MEASUREMENT="en_US.UTF-8"
+LC_IDENTIFICATION="en_US.UTF-8"
+LC_ALL=
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job        count
+-------  -------
+all            1
+trinity        1
+total          2
+
+Select jobs to execute...
+
+[Fri Nov 15 14:22:24 2024]
+rule trinity:
+    input: /home/parkercol/PathSeq/SlurmSnakemakeBaseCode/all_trinity.sh, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq
+    output: /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/trinity_out_300_Sample_582760806_A5_S33_R1_001_short_test.txt, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/trinity_err_Sample_582760806_A5_S33_R1_001_short_test.txt, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta
+    jobid: 1
+    reason: Missing output files: /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta
+    wildcards: sample=582760806_A5_S33
+    resources: tmpdir=/tmp
+
+
+        module load trinity
+        which Trinity
+        module load fastp
+        which fastp
+        module load fastxtoolkit
+        which fasta_formatter
+
+        bash /home/parkercol/PathSeq/SlurmSnakemakeBaseCode/all_trinity.sh /home/parkercol/PathSeq/SlurmSnakemakeBaseCode/ /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq 582760806_A5_S33_R1_001_short_test         582760806_A5_S33_R2_001_short_test RNA 300 1         175G /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test /lscratch/
+        
+[+] Loading singularity  4.1.5  on cn4347 
+[+] Loading Trinity 2.15.2  ... 
+/usr/local/apps/trinity/trinityrnaseq-2.15.2/bin/Trinity
+[+] Loading fastp  0.24.0 
+/usr/local/apps/fastp/0.24.0/bin/fastp
+[+] Loading fastxtoolkit 0.0.14  ... 
+/usr/local/apps/fastxtoolkit/0.0.14/bin/fasta_formatter
+CHECKPOINT 1: ALL_TRINITY INPUTS:
+1. codePath:
+/home/parkercol/PathSeq/SlurmSnakemakeBaseCode/
+Directory exists: /home/parkercol/PathSeq/SlurmSnakemakeBaseCode/
+dos2unix: converting file /home/parkercol/PathSeq/SlurmSnakemakeBaseCode/dir_check.sh to Unix format...
+2. unalignedInputLeft:
+/data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq
+3. unalignedInputRight:
+/data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq
+4. left_read_file_base_name:
+582760806_A5_S33_R1_001_short_test
+Variable is not empty
+5. right_read_file_base_name:
+582760806_A5_S33_R2_001_short_test
+Variable is not empty
+6. origin:
+RNA
+Variable is not empty
+7. min_contig_length:
+300
+Variable is not empty
+8. numTrinityThreads:
+1
+Variable is not empty
+9. maxTrinityMemory:
+175G
+Variable is not empty
+10. outPath:
+/data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test
+Directory exists: /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test
+11. scratchDir:
+/lscratch/
+Directory exists: /lscratch/
+mkdir: cannot create directory ‘/data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output’: File exists
+CHECKPOINT 2: FASTP COMMAND:
+fastp -i /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq -o /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/fastp_unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq -I /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq -O /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/fastp_unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq --dedup --thread 12
+Read1 before filtering:
+total reads: 32
+total bases: 4832
+Q20 bases: 4473(92.5704%)
+Q30 bases: 4113(85.12%)
+
+Read2 before filtering:
+total reads: 32
+total bases: 4832
+Q20 bases: 4349(90.0041%)
+Q30 bases: 4037(83.5472%)
+
+Read1 after filtering:
+total reads: 28
+total bases: 3114
+Q20 bases: 2995(96.1785%)
+Q30 bases: 2836(91.0726%)
+
+Read2 after filtering:
+total reads: 28
+total bases: 3114
+Q20 bases: 3061(98.298%)
+Q30 bases: 2898(93.0636%)
+
+Filtering result:
+reads passed filter: 56
+reads failed due to low quality: 8
+reads failed due to too many N: 0
+reads failed due to too short: 0
+reads with adapter trimmed: 38
+bases trimmed due to adapters: 2012
+
+Duplication rate: 0%
+
+Insert size peak (evaluated by paired-end reads): 87
+
+JSON report: fastp.json
+HTML report: fastp.html
+
+fastp -i /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq -o /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/fastp_unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq -I /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq -O /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/fastp_unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq --dedup --thread 12 
+fastp v0.24.0, time used: 2 seconds
+fastp command complete
+CHECKPOINT 3: TRINITY COMMAND: 
+Trinity --CPU 1 --output myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test --min_contig_length 300 --seqType fq --max_memory 175G --min_kmer_cov 1 --left /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq --right /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq --no_version_check 1>/data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/trinity_out_300_582760806_A5_S33_R1_001_short_test.txt 2>/data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/trinity_err_582760806_A5_S33_R1_001_short_test.txt
+Trinity output file present.
+Waiting at most 120 seconds for missing files.
+MissingOutputException in rule trinity in file /spin1/home/linux/parkercol/PathSeq/Tests/BiowulfTest0/Snakefile, line 159:
+Job 1  completed successfully, but some output files are missing. Missing files after 120 seconds. This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait:
+/data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/trinity_out_300_Sample_582760806_A5_S33_R1_001_short_test.txt
+/data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/trinity_err_Sample_582760806_A5_S33_R1_001_short_test.txt
+Removing output files of failed job trinity since they might be corrupted:
+/data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-11-15T142223.263477.snakemake.log
+RAN SNAKEMAKE

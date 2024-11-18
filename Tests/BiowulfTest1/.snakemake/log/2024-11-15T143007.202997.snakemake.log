@@ -1,0 +1,116 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                count
+---------------  -------
+all                    1
+bowtiePrimate          2
+bowtieUnmasked         2
+starAfterBowtie        2
+trinity                2
+total                  9
+
+Select jobs to execute...
+
+[Fri Nov 15 14:30:07 2024]
+rule bowtieUnmasked:
+    input: /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/bowtieUnmaskedGenome.sh, /data/parkercol/Input_Data/582760806_A5_S33_R1_001.fastq.gz, /data/parkercol/Input_Data/582760806_A5_S33_R2_001.fastq.gz, /home/parkercol/PathseqDependencyPrograms/picard.jar
+    output: /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_582760806_A5_S33_R1_001.fq, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_582760806_A5_S33_R2_001.fq, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/ERCC_alignment_rates/ERCC_alignment_rate_582760806_A5_S33_R1_001.txt, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/picard_stderr_582760806_A5_S33_R1_001.txt, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/picard_stdout_582760806_A5_S33_R1_001.txt, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/finished_bowtieUnmaskedGenome.txt
+    jobid: 4
+    reason: Updated input files: /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/bowtieUnmaskedGenome.sh
+    wildcards: sample=582760806_A5_S33
+    resources: tmpdir=/tmp, cpus=12
+
+
+        module load java
+        which java
+        module load bowtie2
+        which bowtie2
+        module load samtools
+        which samtools
+        module load R
+        which R
+
+        bash /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/bowtieUnmaskedGenome.sh /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/ 582760806_A5_S33_R1_001 582760806_A5_S33_R2_001 /data/parkercol/Input_Data/582760806_A5_S33_R1_001.fastq.gz         /data/parkercol/Input_Data/582760806_A5_S33_R2_001.fastq.gz /data/parkercol/PathseqOutput/ /data/parkercol/PathseqDependencyData/bowtieERCCIndex/ERCC92         /fdb/htgts/genomes/bowtie2_indexes/hg19/hg19 /home/parkercol/PathseqDependencyPrograms/picard.jar
+        
+[Fri Nov 15 14:51:37 2024]
+Finished job 4.
+1 of 9 steps (11%) done
+Select jobs to execute...
+
+[Fri Nov 15 14:51:37 2024]
+rule starAfterBowtie:
+    input: /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/starAfterBowtie.sh, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_582760806_A5_S33_R1_001.fq, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_582760806_A5_S33_R2_001.fq
+    output: /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/Generated_Data_Star_Alignment/582760806_A5_S33_R1_001_unalignedRead1AgainstTranscriptome.fq, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/Generated_Data_Star_Alignment/582760806_A5_S33_R2_001_unalignedRead2AgainstTranscriptome.fq, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/Generated_Data_Star_Alignment/582760806_A5_S33_R1_001_star_alignment_stats.txt
+    jobid: 3
+    reason: Input files updated by another job: /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_582760806_A5_S33_R1_001.fq, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_582760806_A5_S33_R2_001.fq
+    wildcards: sample=582760806_A5_S33
+    resources: tmpdir=/tmp
+
+
+        module load STAR
+        which STAR
+        module load samtools
+        which samtools
+
+        bash /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/starAfterBowtie.sh /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/ /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_582760806_A5_S33_R1_001.fq /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_582760806_A5_S33_R2_001.fq         582760806_A5_S33_R1_001 582760806_A5_S33_R2_001 /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/ /fdb/STAR_indices/2.7.11b/UCSC/hg38/ref
+        
+[Fri Nov 15 15:25:27 2024]
+Finished job 3.
+2 of 9 steps (22%) done
+Select jobs to execute...
+
+[Fri Nov 15 15:25:27 2024]
+rule bowtiePrimate:
+    input: /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/bowtiePrimate.sh, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/Generated_Data_Star_Alignment/582760806_A5_S33_R1_001_unalignedRead1AgainstTranscriptome.fq, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/Generated_Data_Star_Alignment/582760806_A5_S33_R2_001_unalignedRead2AgainstTranscriptome.fq
+    output: /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001.fq, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001.fq
+    jobid: 2
+    reason: Input files updated by another job: /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/Generated_Data_Star_Alignment/582760806_A5_S33_R2_001_unalignedRead2AgainstTranscriptome.fq, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/Generated_Data_Star_Alignment/582760806_A5_S33_R1_001_unalignedRead1AgainstTranscriptome.fq
+    wildcards: sample=582760806_A5_S33
+    resources: tmpdir=/tmp
+
+
+        module load bowtie2
+        which bowtie2
+        module load samtools
+        which samtools
+
+        bash /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/bowtiePrimate.sh /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/Generated_Data_Star_Alignment/582760806_A5_S33_R1_001_unalignedRead1AgainstTranscriptome.fq /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/Generated_Data_Star_Alignment/582760806_A5_S33_R2_001_unalignedRead2AgainstTranscriptome.fq /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001         /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/ 582760806_A5_S33_R1_001 582760806_A5_S33_R2_001 /data/parkercol/PathseqDependencyData/bowtiePrimateIndex/primates
+        
+[Fri Nov 15 15:29:46 2024]
+Finished job 2.
+3 of 9 steps (33%) done
+Select jobs to execute...
+
+[Fri Nov 15 15:29:46 2024]
+rule trinity:
+    input: /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/all_trinity.sh, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001.fq, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001.fq
+    output: /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001.Trinity.fasta, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/RNA_trinity_output/trinity_out_300_Sample_582760806_A5_S33_R1_001.txt, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/RNA_trinity_output/trinity_err_Sample_582760806_A5_S33_R1_001.txt, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001.Trinity.fasta
+    jobid: 1
+    reason: Missing output files: /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001.Trinity.fasta; Input files updated by another job: /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001.fq, /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001.fq
+    wildcards: sample=582760806_A5_S33
+    resources: tmpdir=/tmp
+
+
+        module load trinity
+        which Trinity
+        module load fastp
+        which fastp
+        module load fastxtoolkit
+        which fasta_formatter
+
+        bash /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/all_trinity.sh /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/ /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001.fq /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001.fq 582760806_A5_S33_R1_001         582760806_A5_S33_R2_001 RNA 300 1         175G /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001 /lscratch/
+        
+Waiting at most 120 seconds for missing files.
+MissingOutputException in rule trinity in file /spin1/home/linux/parkercol/PathSeq/Tests/BiowulfTest1/Snakefile, line 159:
+Job 1  completed successfully, but some output files are missing. Missing files after 120 seconds. This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait:
+/data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001.Trinity.fasta
+/data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/RNA_trinity_output/trinity_out_300_Sample_582760806_A5_S33_R1_001.txt
+/data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/RNA_trinity_output/trinity_err_Sample_582760806_A5_S33_R1_001.txt
+Removing output files of failed job trinity since they might be corrupted:
+/data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001.Trinity.fasta
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-11-15T143007.202997.snakemake.log

@@ -1,12 +1,17 @@
 #!/bin/bash
+#SBATCH --partition=quick
 #SBATCH -J snakemakePathseq
 #SBATCH --output=snakemakePathseq.out
 #SBATCH --cpus-per-task=16
-#SBATCH --mem=100G
-#SBATCH -t 24:00:00
+#SBATCH --mem=175G
+#SBATCH -t 1:00:00
 
 module load snakemake
+snakemake --version
 
-snakemake -p -c1 --latency-wait 240
+# snakemake --cleanup-metadata
+locale
+
+snakemake -p -c1 --latency-wait 120
 
 echo "RAN SNAKEMAKE"
