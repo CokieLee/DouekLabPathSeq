@@ -1,0 +1,14 @@
+	STAR --runThreadN 16 --runMode genomeGenerate --genomeDir /data/vrc_his/douek_lab/reference_sets/hg38/Sequence/STAR/ --genomeFastaFiles /data/vrc_his/douek_lab/reference_sets/hg38/Sequence/WholeGenomeFasta/genome.fa --sjdbGTFfile /data/vrc_his/douek_lab/reference_sets/hg38/Sequence/STAR/ --sjdbOverhang 299
+	STAR version: 2.7.10b   compiled: 2023-12-20T15:44:32-05:00 ai-hpcgpu21.niaid.nih.gov:/data/home/svc_hpcinstaller/tmp/spack-stage/spack-stage-star-2.7.10b-djwbspg7savasevzsvc6diekfeeg2rwl/spack-src/source
+Sep 05 16:00:27 ..... started STAR run
+!!!!! WARNING: Could not move Log.out file from ./Log.out into /data/vrc_his/douek_lab/reference_sets/hg38/Sequence/STAR/Log.out. Will keep ./Log.out
+
+Sep 05 16:00:27 ... starting to generate Genome files
+Sep 05 16:01:26 ..... processing annotations GTF
+
+Fatal INPUT FILE error, no exon lines in the GTF file: /data/vrc_his/douek_lab/reference_sets/hg38/Sequence/STAR/
+Solution: check the formatting of the GTF file, it must contain some lines with exon in the 3rd column.
+          Make sure the GTF file is unzipped.
+          If exons are marked with a different word, use --sjdbGTFfeatureExon .
+
+Sep 05 16:01:26 ...... FATAL ERROR, exiting

@@ -1,0 +1,242 @@
+
+
+     ______  ____   ____  ____   ____  ______  __ __
+    |      ||    \ |    ||    \ |    ||      ||  |  |
+    |      ||  D  ) |  | |  _  | |  | |      ||  |  |
+    |_|  |_||    /  |  | |  |  | |  | |_|  |_||  ~  |
+      |  |  |    \  |  | |  |  | |  |   |  |  |___, |
+      |  |  |  .  \ |  | |  |  | |  |   |  |  |     |
+      |__|  |__|\_||____||__|__||____|  |__|  |____/
+
+    Trinity-v2.13.2
+
+
+
+Left read files: $VAR1 = [
+          '/home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq'
+        ];
+Right read files: $VAR1 = [
+          '/home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq'
+        ];
+Thursday, November 21, 2024: 17:23:38	CMD: java -Xmx64m -XX:ParallelGCThreads=2  -jar /usr/local/bin/util/support_scripts/ExitTester.jar 0
+Picked up _JAVA_OPTIONS: -Djava.io.tmpdir=/lscratch/41253394/
+Thursday, November 21, 2024: 17:23:39	CMD: java -Xmx4g -XX:ParallelGCThreads=2  -jar /usr/local/bin/util/support_scripts/ExitTester.jar 1
+Picked up _JAVA_OPTIONS: -Djava.io.tmpdir=/lscratch/41253394/
+Thursday, November 21, 2024: 17:23:39	CMD: mkdir -p /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test
+Thursday, November 21, 2024: 17:23:39	CMD: mkdir -p /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/chrysalis
+
+
+----------------------------------------------------------------------------------
+-------------- Trinity Phase 1: Clustering of RNA-Seq Reads  ---------------------
+----------------------------------------------------------------------------------
+
+---------------------------------------------------------------
+------------ In silico Read Normalization ---------------------
+-- (Removing Excess Reads Beyond 200 Coverage --
+---------------------------------------------------------------
+
+# running normalization on reads: $VAR1 = [
+          [
+            '/home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq'
+          ],
+          [
+            '/home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq'
+          ]
+        ];
+
+
+Thursday, November 21, 2024: 17:23:39	CMD: /usr/local/bin/util/insilico_read_normalization.pl --seqType fq --JM 175G  --max_cov 200 --min_cov 1 --CPU 1 --output /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/insilico_read_normalization --max_CV 10000  --left /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq --right /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq --pairs_together  --PARALLEL_STATS  
+-prepping seqs
+Converting input files. (both directions in parallel)CMD: seqtk-trinity seq -A -R 1  /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq >> left.fa
+CMD: seqtk-trinity seq -A -R 2  /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq >> right.fa
+CMD finished (0 seconds)
+CMD finished (0 seconds)
+CMD: touch left.fa.ok
+CMD finished (0 seconds)
+CMD: touch right.fa.ok
+CMD finished (0 seconds)
+Done converting input files.CMD: cat left.fa right.fa > both.fa
+CMD finished (0 seconds)
+CMD: touch both.fa.ok
+CMD finished (0 seconds)
+-kmer counting.
+-------------------------------------------
+----------- Jellyfish  --------------------
+-- (building a k-mer catalog from reads) --
+-------------------------------------------
+
+CMD: jellyfish count -t 1 -m 25 -s 100000000  --canonical  both.fa
+CMD finished (1 seconds)
+CMD: jellyfish histo -t 1 -o jellyfish.K25.min2.kmers.fa.histo mer_counts.jf
+CMD finished (0 seconds)
+CMD: jellyfish dump -L 2 mer_counts.jf > jellyfish.K25.min2.kmers.fa
+CMD finished (0 seconds)
+CMD: touch jellyfish.K25.min2.kmers.fa.success
+CMD finished (0 seconds)
+-generating stats files
+CMD: /usr/local/bin/util/..//Inchworm/bin/fastaToKmerCoverageStats --reads left.fa --kmers jellyfish.K25.min2.kmers.fa --kmer_size 25  --num_threads 1  --DS  > left.fa.K25.stats
+CMD: /usr/local/bin/util/..//Inchworm/bin/fastaToKmerCoverageStats --reads right.fa --kmers jellyfish.K25.min2.kmers.fa --kmer_size 25  --num_threads 1  --DS  > right.fa.K25.stats
+-reading Kmer occurrences...
+-reading Kmer occurrences...
+
+ done parsing 1982 Kmers, 1982 added, taking 0 seconds.
+
+ done parsing 1982 Kmers, 1982 added, taking 0 seconds.
+STATS_GENERATION_TIME: 0 seconds.
+STATS_GENERATION_TIME: 0 seconds.
+CMD finished (0 seconds)
+CMD finished (0 seconds)
+CMD: touch left.fa.K25.stats.ok
+CMD finished (0 seconds)
+CMD: touch right.fa.K25.stats.ok
+CMD finished (0 seconds)
+-sorting each stats file by read name.
+CMD: head -n1 left.fa.K25.stats > left.fa.K25.stats.sort && tail -n +2 left.fa.K25.stats | /usr/bin/sort --parallel=1 -k1,1 -T . -S 87G >> left.fa.K25.stats.sort
+CMD: head -n1 right.fa.K25.stats > right.fa.K25.stats.sort && tail -n +2 right.fa.K25.stats | /usr/bin/sort --parallel=1 -k1,1 -T . -S 87G >> right.fa.K25.stats.sort
+CMD finished (0 seconds)
+CMD finished (0 seconds)
+CMD: touch left.fa.K25.stats.sort.ok
+CMD finished (0 seconds)
+CMD: touch right.fa.K25.stats.sort.ok
+CMD finished (0 seconds)
+-defining normalized reads
+CMD: /usr/local/bin/util/..//util/support_scripts//nbkc_merge_left_right_stats.pl --left left.fa.K25.stats.sort --right right.fa.K25.stats.sort --sorted > pairs.K25.stats
+-opening left.fa.K25.stats.sort
+-opening right.fa.K25.stats.sort
+-done opening files.
+CMD finished (0 seconds)
+CMD: touch pairs.K25.stats.ok
+CMD finished (0 seconds)
+CMD: /usr/local/bin/util/..//util/support_scripts//nbkc_normalize.pl --stats_file pairs.K25.stats --max_cov 200  --min_cov 1 --max_CV 10000 > pairs.K25.stats.C200.maxCV10000.accs
+32 / 32 = 100.00% reads selected during normalization.
+0 / 32 = 0.00% reads discarded as likely aberrant based on coverage profiles.
+0 / 32 = 0.00% reads discarded as below minimum coverage threshold=1
+CMD finished (1 seconds)
+CMD: touch pairs.K25.stats.C200.maxCV10000.accs.ok
+CMD finished (0 seconds)
+-search and capture.
+-preparing to extract selected reads from: /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq ... done prepping, now search and capture.
+-capturing normalized reads from: /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq
+-preparing to extract selected reads from: /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq ... done prepping, now search and capture.
+-capturing normalized reads from: /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq
+CMD: touch /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/insilico_read_normalization/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq.normalized_K25_maxC200_minC1_maxCV10000.fq.ok
+CMD finished (0 seconds)
+CMD: touch /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/insilico_read_normalization/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq.normalized_K25_maxC200_minC1_maxCV10000.fq.ok
+CMD finished (0 seconds)
+CMD: ln -sf /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/insilico_read_normalization/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq.normalized_K25_maxC200_minC1_maxCV10000.fq left.norm.fq
+CMD finished (0 seconds)
+CMD: ln -sf /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/insilico_read_normalization/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq.normalized_K25_maxC200_minC1_maxCV10000.fq right.norm.fq
+CMD finished (0 seconds)
+-removing tmp dir /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/insilico_read_normalization/tmp_normalized_reads
+
+
+Normalization complete. See outputs: 
+	/home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/insilico_read_normalization/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq.normalized_K25_maxC200_minC1_maxCV10000.fq
+	/home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/insilico_read_normalization/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq.normalized_K25_maxC200_minC1_maxCV10000.fq
+Thursday, November 21, 2024: 17:23:41	CMD: touch /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/insilico_read_normalization/normalization.ok
+Converting input files. (in parallel)Thursday, November 21, 2024: 17:23:41	CMD: cat /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/insilico_read_normalization/left.norm.fq | seqtk-trinity seq -A -R 1 - >> left.fa
+Thursday, November 21, 2024: 17:23:41	CMD: touch left.fa.ok
+Thursday, November 21, 2024: 17:23:41	CMD: cat /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/insilico_read_normalization/right.norm.fq | seqtk-trinity seq -A -R 2 - >> right.fa
+Thursday, November 21, 2024: 17:23:41	CMD: touch right.fa.ok
+Thursday, November 21, 2024: 17:23:41	CMD: touch left.fa.ok right.fa.ok
+Thursday, November 21, 2024: 17:23:41	CMD: cat left.fa right.fa > /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/both.fa
+Thursday, November 21, 2024: 17:23:41	CMD: touch /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/both.fa.ok
+-------------------------------------------
+----------- Jellyfish  --------------------
+-- (building a k-mer (25) catalog from reads) --
+-------------------------------------------
+
+* [Thu Nov 21 17:23:41 2024] Running CMD: jellyfish count -t 1 -m 25 -s 100000000 -o mer_counts.25.asm.jf --canonical  /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/both.fa
+* [Thu Nov 21 17:23:42 2024] Running CMD: jellyfish dump -L 1 mer_counts.25.asm.jf > jellyfish.kmers.25.asm.fa
+* [Thu Nov 21 17:23:42 2024] Running CMD: jellyfish histo -t 1 -o jellyfish.kmers.25.asm.fa.histo mer_counts.25.asm.jf
+----------------------------------------------
+--------------- Inchworm (K=25, asm) ---------------------
+-- (Linear contig construction from k-mers) --
+----------------------------------------------
+
+* [Thu Nov 21 17:23:42 2024] Running CMD: /usr/local/bin/Inchworm/bin//inchworm --kmers jellyfish.kmers.25.asm.fa --run_inchworm -K 25 --monitor 1   --DS  --num_threads 1  --PARALLEL_IWORM   --min_any_entropy 1.0   -L 25  --no_prune_error_kmers  > /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/inchworm.DS.fa.tmp
+Kmer length set to: 25
+Min assembly length set to: 25
+Monitor turned on, set to: 1
+double stranded mode set
+min entropy set to: 1
+setting number of threads to: 1
+-setting parallel iworm mode.
+-reading Kmer occurrences...
+
+ done parsing 5110 Kmers, 5110 added, taking 0 seconds.
+
+TIMING KMER_DB_BUILDING 0 s.
+Pruning kmers (min_kmer_count=1 min_any_entropy=1 min_ratio_non_error=0.005)
+Pruned 231 kmers from catalog.
+	Pruning time: 0 seconds = 0 minutes.
+
+TIMING PRUNING 0 s.
+-populating the kmer seed candidate list.
+Kcounter hash size: 5110
+Processed 4879 non-zero abundance kmers in kcounter.
+-Not sorting list of kmers, given parallel mode in effect.
+-beginning inchworm contig assembly.
+Total kcounter hash size: 5110 vs. sorted list size: 4879
+num threads set to: 1
+Done opening file. tmp.iworm.fa.pid_1217070.thread_0
+
+	Iworm contig assembly time: 0 seconds = 0 minutes.
+
+TIMING CONTIG_BUILDING 0 s.
+
+TIMING PROG_RUNTIME 0 s.
+* [Thu Nov 21 17:23:42 2024] Running CMD: mv /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/inchworm.DS.fa.tmp /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/inchworm.DS.fa
+Thursday, November 21, 2024: 17:23:42	CMD: touch /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/inchworm.DS.fa.finished
+--------------------------------------------------------
+-------------------- Chrysalis -------------------------
+-- (Contig Clustering & de Bruijn Graph Construction) --
+--------------------------------------------------------
+
+inchworm_target: /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/both.fa
+bowtie_reads_fa: /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/both.fa
+chrysalis_reads_fa: /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/both.fa
+* [Thu Nov 21 17:23:42 2024] Running CMD: /usr/local/bin/util/support_scripts/filter_iworm_by_min_length_or_cov.pl /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/inchworm.DS.fa 100 10 > /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/chrysalis/inchworm.DS.fa.min100
+* [Thu Nov 21 17:23:42 2024] Running CMD: /usr/local/bin/bowtie2-build --threads 1 -o 3 /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/chrysalis/inchworm.DS.fa.min100 /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/chrysalis/inchworm.DS.fa.min100 1>/dev/null
+* [Thu Nov 21 17:23:43 2024] Running CMD: bash -c " set -o pipefail;/usr/local/bin/bowtie2 --local -k 2 --no-unal --threads 1 -f --score-min G,20,8 -x /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/chrysalis/inchworm.DS.fa.min100 /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/both.fa  | samtools view -@ 1 -F4 -Sb - | samtools sort -m 93952409600 -@ 1 -no - - > /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/chrysalis/iworm.bowtie.nameSorted.bam" 
+* [Thu Nov 21 17:23:43 2024] Running CMD: /usr/local/bin/util/support_scripts/scaffold_iworm_contigs.pl /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/chrysalis/iworm.bowtie.nameSorted.bam /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/chrysalis/inchworm.DS.fa.min100 > /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/chrysalis/iworm_scaffolds.txt
+* [Thu Nov 21 17:23:43 2024] Running CMD: /usr/local/bin/Chrysalis/bin/GraphFromFasta -i /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/chrysalis/inchworm.DS.fa.min100 -r /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/both.fa -min_contig_length 300 -min_glue 2 -glue_factor 0.05 -min_iso_ratio 0.05 -t 1 -k 24 -kk 48  -scaffolding /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/chrysalis/iworm_scaffolds.txt  > /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/chrysalis/iworm_cluster_welds_graph.txt
+* [Thu Nov 21 17:23:43 2024] Running CMD: /usr/bin/sort --parallel=1 -T . -S 175G  -k9,9gr /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/chrysalis/iworm_cluster_welds_graph.txt > /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/chrysalis/iworm_cluster_welds_graph.txt.sorted
+* [Thu Nov 21 17:23:43 2024] Running CMD: /usr/local/bin/util/support_scripts/annotate_chrysalis_welds_with_iworm_names.pl /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/chrysalis/inchworm.DS.fa.min100 /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/chrysalis/iworm_cluster_welds_graph.txt.sorted > /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/chrysalis/iworm_cluster_welds_graph.txt.sorted.wIwormNames
+* [Thu Nov 21 17:23:43 2024] Running CMD: /usr/local/bin/Chrysalis/bin/BubbleUpClustering -i /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/chrysalis/inchworm.DS.fa.min100  -weld_graph /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/chrysalis/iworm_cluster_welds_graph.txt.sorted -min_contig_length 300 -max_cluster_size 25  > /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/chrysalis/GraphFromIwormFasta.out
+* [Thu Nov 21 17:23:43 2024] Running CMD: /usr/local/bin/Chrysalis/bin/CreateIwormFastaBundle -i /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/chrysalis/GraphFromIwormFasta.out -o /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/chrysalis/bundled_iworm_contigs.fasta -min 300
+* [Thu Nov 21 17:23:43 2024] Running CMD: /usr/local/bin/Chrysalis/bin/ReadsToTranscripts -i /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/both.fa -f /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/chrysalis/bundled_iworm_contigs.fasta -o /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/chrysalis/readsToComponents.out -t 1 -max_mem_reads 50000000  -p 10 
+* [Thu Nov 21 17:23:43 2024] Running CMD: /usr/bin/sort --parallel=1 -T . -S 175G -k 1,1n -k3,3nr -k2,2 /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/chrysalis/readsToComponents.out > /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/chrysalis/readsToComponents.out.sort
+Thursday, November 21, 2024: 17:23:43	CMD: mkdir -p /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/read_partitions/Fb_0/CBin_0
+Thursday, November 21, 2024: 17:23:43	CMD: touch /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/partitioned_reads.files.list.ok
+Thursday, November 21, 2024: 17:23:43	CMD: /usr/local/bin/util/support_scripts/write_partitioned_trinity_cmds.pl --reads_list_file /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/partitioned_reads.files.list --CPU 1 --max_memory 1G  --run_as_paired  --seqType fa --trinity_complete --full_cleanup  --min_contig_length  300  --min_kmer_cov  1  --no_version_check  --no_salmon  > recursive_trinity.cmds
+Thursday, November 21, 2024: 17:23:43	CMD: touch recursive_trinity.cmds.ok
+Thursday, November 21, 2024: 17:23:43	CMD: touch recursive_trinity.cmds.ok
+
+
+--------------------------------------------------------------------------------
+------------ Trinity Phase 2: Assembling Clusters of Reads ---------------------
+------- (involving the Inchworm, Chrysalis, Butterfly trifecta ) ---------------
+--------------------------------------------------------------------------------
+
+Thursday, November 21, 2024: 17:23:43	CMD: /usr/local/bin/trinity-plugins/BIN/ParaFly -c recursive_trinity.cmds -CPU 1 -v -shuffle 
+Number of Commands: 3
+succeeded(1)   33.3333% completed.    succeeded(2)   66.6667% completed.    succeeded(3)   100% completed.    
+
+All commands completed successfully. :-)
+
+
+
+** Harvesting all assembled transcripts into a single multi-fasta file...
+
+Thursday, November 21, 2024: 17:23:48	CMD: find /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/read_partitions/ -name '*inity.fasta'  | /usr/local/bin/util/support_scripts/partitioned_trinity_aggregator.pl --token_prefix TRINITY_DN --output_prefix /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/Trinity.tmp
+* [Thu Nov 21 17:23:48 2024] Running CMD: /usr/local/bin/util/support_scripts/salmon_runner.pl Trinity.tmp.fasta /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/both.fa 1
+* [Thu Nov 21 17:23:48 2024] Running CMD: /usr/local/bin/util/support_scripts/filter_transcripts_require_min_cov.pl Trinity.tmp.fasta /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/both.fa salmon_outdir/quant.sf 2 > /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta
+Thursday, November 21, 2024: 17:23:48	CMD: /usr/local/bin/util/support_scripts/get_Trinity_gene_to_trans_map.pl /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta > /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta.gene_trans_map
+
+
+#############################################################################
+Finished.  Final Trinity assemblies are written to /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta
+#############################################################################
+
+

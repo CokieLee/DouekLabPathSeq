@@ -33,3 +33,14 @@ rule trinity:
 
         bash /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/all_trinity.sh /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/ /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001.fq /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001.fq 582760806_A5_S33_R1_001         582760806_A5_S33_R2_001 RNA 300 1         175G /data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001 /lscratch/
         
+Waiting at most 120 seconds for missing files.
+MissingOutputException in rule trinity in file /spin1/home/linux/parkercol/PathSeq/Tests/BiowulfTest1/Snakefile, line 159:
+Job 1  completed successfully, but some output files are missing. Missing files after 120 seconds. This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait:
+/data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001.Trinity.fasta
+/data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/RNA_trinity_output/trinity_out_300_Sample_582760806_A5_S33_R1_001.txt
+/data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/RNA_trinity_output/trinity_err_300_Sample_582760806_A5_S33_R1_001.txt
+Removing output files of failed job trinity since they might be corrupted:
+/data/parkercol/PathseqOutput/Sample_582760806_A5_S33_R1_001/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001.Trinity.fasta
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-11-18T120630.706098.snakemake.log

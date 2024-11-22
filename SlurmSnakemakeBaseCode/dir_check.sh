@@ -49,8 +49,6 @@ function variable_is_empty {
   if [[ -z "$var" ]]; then
     echo "Variable is empty"
     exit 1
-  else
-    echo "Variable is not empty"
   fi
 }
 

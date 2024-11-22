@@ -1,0 +1,6 @@
+[+] Loading snakemake  7.32.4 
+7.32.4
+NameError in file /spin1/home/linux/parkercol/PathSeq/Tests/BiowulfTest3/Snakefile, line 12:
+name 'FULLSAMPLES' is not defined
+  File "/spin1/home/linux/parkercol/PathSeq/Tests/BiowulfTest3/Snakefile", line 12, in <module>
+RAN SNAKEMAKE

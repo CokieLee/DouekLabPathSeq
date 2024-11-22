@@ -5,29 +5,63 @@
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=cokie.parker@nih.gov
 
-module load blast-plus
-module load openjdk
+module load blast
+module load java
 
-trinityContigFile=$1
-splitNumber=$2
-codePath=$3
-outPath=$4
-origin=$5  ## RNA, DNA or all
-Prog_RemoveHostForKaiju=$6
-blastDB_Mammalia=$7
+codePath=$1
+trinityContigFile=$2
+outPath=$3
+origin=$4  ## RNA, DNA or all
+Prog_RemoveHostForKaiju=$5
+blastDB_Mammalia=$6
+
+## print input args
+## check that all input args exist and are non-zero
+#####################################################
+echo "CHECKPOINT 1: ALL_TRINITY INPUTS:"
+
+echo "1. codePath:"
+echo $codePath
+if [[ -d "$codePath" ]]; then
+    echo "Directory exists: $codePath"
+  else
+    echo "Directory does not exist: $codePath. FAILED. QUITTING."
+    exit 1
+fi
+## Source script for directory checking function
+dos2unix $codePath"dir_check.sh"
+source $codePath"/dir_check.sh"
+
+echo "2. trinityContigFile:"
+echo $trinityContigFile
+file_exist_check $trinityContigFile
+
+echo "3. outPath:"
+echo $outPath
+directory_exists $outPath
+echo "4. origin:"
+echo $origin
+variable_is_empty $origin
+
+echo "5. Prog_RemoveHostForKaiju"
+variable_is_empty $Prog_RemoveHostForKaiju
+echo $Prog_RemoveHostForKaiju
+file_exist_check $Prog_RemoveHostForKaiju
+echo "6. blastDB_Mammalia"
+variable_is_empty $blastDB_Mammalia
+echo $blastDB_Mammalia
+file_exist_check $blastDB_Mammalia
+#####################################################
 
 ## Source script for directory checking function
 dos2unix $codePath/dir_check.sh
 source $codePath/dir_check.sh
 
-## Define sample specific trinity split output folder
-trinitySplitDirectory="splitTrinity_"$left_read_file_base_name
-
 ## Confirm that the split trinity output file exists
 file_exist_check $trinityContigFile
 
 ##Make name for .tab output file for blast search
-trinity_contig_query_mammal_blast_HSPs=$outPath"/trinity_"$origin"_Sample_"$left_read_file_base_name"_split_"$splitNumber".tab"
+trinity_contig_query_mammal_blast_HSPs=$outPath"/trinity_"$origin"_Sample_"$left_read_file_base_name".tab"
 
 ## Run a command line blast query (for user manual see https://www.ncbi.nlm.nih.gov/books/NBK569856/,
 ## also see https://open.oregonstate.education/computationalbiology/chapter/command-line-blast/)

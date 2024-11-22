@@ -1,0 +1,8 @@
+	STAR --genomeDir /fdb/STAR_indices/2.7.11b/UCSC/hg38/ref --readFilesIn /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_582760806_A5_S33_R1_001_short_test.fq /home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_582760806_A5_S33_R2_001_short_test.fq --outFileNamePrefix ./582760806_A5_S33_R1_001_short_test --outReadsUnmapped Fastx --outSAMtype BAM SortedByCoordinate --outSAMstrandField intronMotif
+	STAR version: 2.7.11b   compiled: 2024-03-14T10:52:43-04:00 cn1168:/usr/local/apps/STAR/DOWNLOADS/STAR-2.7.11b/source
+Nov 18 17:45:31 ..... started STAR run
+Nov 18 17:45:31 ..... loading genome
+Nov 18 17:46:14 ..... started mapping
+Nov 18 17:46:14 ..... finished mapping
+Nov 18 17:46:16 ..... started sorting BAM
+Nov 18 17:46:16 ..... finished successfully

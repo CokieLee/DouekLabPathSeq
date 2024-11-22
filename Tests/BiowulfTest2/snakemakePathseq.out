@@ -1,0 +1,340 @@
+[+] Loading snakemake  7.32.4 
+7.32.4
+Unlocking working directory.
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                count
+---------------  -------
+all                    1
+bowtiePrimate          1
+bowtieUnmasked         1
+starAfterBowtie        1
+trinity                1
+total                  5
+
+Select jobs to execute...
+
+[Mon Nov 18 13:16:48 2024]
+rule bowtieUnmasked:
+    input: /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/bowtieUnmaskedGenome.sh, /data/parkercol/Input_Data/NC-LIB-Virome_S299/NC-LIB-Virome_S299_L002_R1_001.fastq.gz, /data/parkercol/Input_Data/NC-LIB-Virome_S299/NC-LIB-Virome_S299_L002_R2_001.fastq.gz, /home/parkercol/PathseqDependencyPrograms/picard.jar
+    output: /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_NC-LIB-Virome_S299_L002_R1_001.fq, /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_NC-LIB-Virome_S299_L002_R2_001.fq, /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/ERCC_alignment_rates/ERCC_alignment_rate_NC-LIB-Virome_S299_L002_R1_001.txt, /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/picard_stderr_NC-LIB-Virome_S299_L002_R1_001.txt, /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/picard_stdout_NC-LIB-Virome_S299_L002_R1_001.txt, /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/finished_bowtieUnmaskedGenome.txt
+    jobid: 4
+    reason: Missing output files: /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_NC-LIB-Virome_S299_L002_R1_001.fq, /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_NC-LIB-Virome_S299_L002_R2_001.fq
+    wildcards: sample=NC-LIB-Virome_S299_L002
+    resources: tmpdir=/tmp, cpus=12
+
+
+        module load java
+        which java
+        module load bowtie2
+        which bowtie2
+        module load samtools
+        which samtools
+        module load R
+        which R
+
+        bash /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/bowtieUnmaskedGenome.sh /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/ NC-LIB-Virome_S299_L002_R1_001 NC-LIB-Virome_S299_L002_R2_001 /data/parkercol/Input_Data/NC-LIB-Virome_S299/NC-LIB-Virome_S299_L002_R1_001.fastq.gz         /data/parkercol/Input_Data/NC-LIB-Virome_S299/NC-LIB-Virome_S299_L002_R2_001.fastq.gz /data/parkercol/PathseqOutput/ /data/parkercol/PathseqDependencyData/bowtieERCCIndex/ERCC92         /fdb/htgts/genomes/bowtie2_indexes/hg19/hg19 /home/parkercol/PathseqDependencyPrograms/picard.jar
+        
+[+] Loading java 17.0.3.1  ... 
+/usr/local/java/jdk-17.0.3.1/bin/java
+[+] Loading bowtie  2-2.5.3 
+/usr/local/apps/bowtie/2-2.5.3/bin/bowtie2
+[+] Loading samtools 1.21  ... 
+/usr/local/apps/samtools/1.21/bin/samtools
+[+] Loading gcc  11.3.0  ... 
+[+] Loading HDF5  1.12.2 
+[+] Loading netcdf  4.9.0 
+[-] Unloading gcc  11.3.0  ... 
+[+] Loading gcc  11.3.0  ... 
+[+] Loading openmpi/4.1.3/gcc-11.3.0  ... 
+[+] Loading pandoc  2.18  on cn0024 
+[+] Loading TeX 2024 
+[+] Loading pcre2  10.40 
+[+] Loading libtiff libraries v4.6.0  ... 
+[+] Loading R 4.4.2 
+/usr/local/apps/R/4.4/4.4.2/bin/R
+CHECKPOINT 1: BOWTIE UNMASKED INPUTS
+codePath:
+/home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/
+Directory exists: /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/
+dos2unix: converting file /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/dir_check.sh to Unix format...
+1: sampleNameLeft: 
+NC-LIB-Virome_S299_L002_R1_001
+Variable is not empty
+sampleNameRight:
+NC-LIB-Virome_S299_L002_R2_001
+Variable is not empty
+2: left_read_file: 
+/data/parkercol/Input_Data/NC-LIB-Virome_S299/NC-LIB-Virome_S299_L002_R1_001.fastq.gz
+3: right_read_file: 
+/data/parkercol/Input_Data/NC-LIB-Virome_S299/NC-LIB-Virome_S299_L002_R2_001.fastq.gz
+5: outPath: 
+/data/parkercol/PathseqOutput/
+Directory exists: /data/parkercol/PathseqOutput/
+7: bowtie ercc index: 
+/data/parkercol/PathseqDependencyData/bowtieERCCIndex/ERCC92
+8: bowtie unmasked genome index: 
+/fdb/htgts/genomes/bowtie2_indexes/hg19/hg19
+9: picard: 
+/home/parkercol/PathseqDependencyPrograms/picard.jar
+mkdir: cannot create directory ‘/data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001’: File exists
+mkdir: cannot create directory ‘/data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/’: File exists
+mkdir: cannot create directory ‘/data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/ERCC_alignment_rates/’: File exists
+CHECKPOINT 2: Currently inside: /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_1st_Bowtie_Alignment_ERCC/
+CHECKPOINT 3: first bowtie test command:
+bowtie2 --no-mixed --no-discordant -p 4 -x /data/parkercol/PathseqDependencyData/bowtieERCCIndex/ERCC92 -1 /data/parkercol/Input_Data/NC-LIB-Virome_S299/NC-LIB-Virome_S299_L002_R1_001.fastq.gz -2 /data/parkercol/Input_Data/NC-LIB-Virome_S299/NC-LIB-Virome_S299_L002_R2_001.fastq.gz 1>genome_alignment_ERCC_NC-LIB-Virome_S299_L002_R1_001.sam 2>/data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/ERCC_alignment_rates/ERCC_alignment_rate_NC-LIB-Virome_S299_L002_R1_001.txt
+FINISHED running first bowtie
+Generated_Data_1st_Bowtie_Alignment_ERCC
+genome_alignment_ERCC_NC-LIB-Virome_S299_L002_R1_001.sam
+genome_alignment_ERCC_NC-LIB-Virome_S299_L002_R1_001.sam
+Test line 245
+Generated_Data_1st_Bowtie_Alignment_ERCC
+genome_alignment_ERCC_NC-LIB-Virome_S299_L002_R1_001.sam
+samtools 1.21 Using htslib 1.21 Copyright (C) 2024 Genome Research Ltd. Samtools compilation details: Features: build=configure curses=yes CC: /usr/local/GCC/11.3.0/bin/gcc CPPFLAGS: CFLAGS: -Wall -O2 -g -march=haswell -mtune=generic LDFLAGS: HTSDIR: htslib-1.21 LIBS: CURSES_LIB: -lncursesw HTSlib compilation details: Features: build=configure libcurl=yes S3=yes GCS=yes libdeflate=no lzma=yes bzip2=yes plugins=yes plugin-path=/usr/local/apps/samtools/1.21/libexec/htslib: htscodecs=1.6.1 CC: /usr/local/GCC/11.3.0/bin/gcc CPPFLAGS: CFLAGS: -Wall -O2 -g -march=haswell -mtune=generic -fvisibility=hidden LDFLAGS: -fvisibility=hidden -rdynamic HTSlib URL scheme handlers present: built-in: file, preload, data S3 Multipart Upload: s3w+https, s3w+http, s3w Amazon S3: s3+https, s3, s3+http Google Cloud Storage: gs+http, gs+https, gs libcurl: smtp, ldaps, smb, rtsp, tftp, pop3, smbs, imaps, pop3s, ftps, https, http, ftp, gopher, imap, sftp, ldap, smtps, dict, scp, telnet crypt4gh-needed: crypt4gh mem: mem
+Before samtools view call
+After samtools view call
+FINISHED extracting unaligned reads from first bowtie
+CHECKPOINT 4: second bowtie test command:
+bowtie2 -p 12 --no-mixed --no-discordant -x /fdb/htgts/genomes/bowtie2_indexes/hg19/hg19 -1 /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_1st_Bowtie_Alignment_ERCC/unalignedRead1AgainstERCC_NC-LIB-Virome_S299_L002_R1_001.fq -2 /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_1st_Bowtie_Alignment_ERCC/unalignedRead2AgainstERCC_NC-LIB-Virome_S299_L002_R2_001.fq 1>genome_alignment_unmasked_genome_NC-LIB-Virome_S299_L002_R1_001.sam 2>genome_alignment_rate_NC-LIB-Virome_S299_L002_R1_001.txt
+Current working directory: 
+/data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome
+FINISHED running second bowtie
+alignments were sent to: 
+genome_alignment_unmasked_genome_NC-LIB-Virome_S299_L002_R1_001.sam
+FINISHED extracting unaligned reads from second bowtie
+CHECKPOINT 5: run picard CollectInsertSizeMetrics command:
+java -Xmx6G -jar /home/parkercol/PathseqDependencyPrograms/picard.jar CollectInsertSizeMetrics I=tempSortedAlignments_NC-LIB-Virome_S299_L002_R1_001.bam O=insert_size_metrics_NC-LIB-Virome_S299_L002_R1_001.txt H=insert_size_histogram_NC-LIB-Virome_S299_L002_R1_001.pdf M=0.5 1>picard_stdout_NC-LIB-Virome_S299_L002_R1_001.txt 2>picard_stderr_NC-LIB-Virome_S299_L002_R1_001.txt
+Current working directory: 
+/data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome
+FINISHED running picard CollectInsertSizeMetrics command
+/home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/bowtieUnmaskedGenome.sh: line 246: cd: pwd: No such file or directory
+REACHED END OF BOWTIEUNMASKED
+[Mon Nov 18 13:17:01 2024]
+Finished job 4.
+1 of 5 steps (20%) done
+Select jobs to execute...
+
+[Mon Nov 18 13:17:01 2024]
+rule starAfterBowtie:
+    input: /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/starAfterBowtie.sh, /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_NC-LIB-Virome_S299_L002_R1_001.fq, /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_NC-LIB-Virome_S299_L002_R2_001.fq
+    output: /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_Star_Alignment/NC-LIB-Virome_S299_L002_R1_001_unalignedRead1AgainstTranscriptome.fq, /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_Star_Alignment/NC-LIB-Virome_S299_L002_R2_001_unalignedRead2AgainstTranscriptome.fq, /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_Star_Alignment/NC-LIB-Virome_S299_L002_R1_001_star_alignment_stats.txt
+    jobid: 3
+    reason: Missing output files: /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_Star_Alignment/NC-LIB-Virome_S299_L002_R1_001_unalignedRead1AgainstTranscriptome.fq, /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_Star_Alignment/NC-LIB-Virome_S299_L002_R2_001_unalignedRead2AgainstTranscriptome.fq; Input files updated by another job: /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_NC-LIB-Virome_S299_L002_R1_001.fq, /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_NC-LIB-Virome_S299_L002_R2_001.fq
+    wildcards: sample=NC-LIB-Virome_S299_L002
+    resources: tmpdir=/tmp
+
+
+        module load STAR
+        which STAR
+        module load samtools
+        which samtools
+
+        bash /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/starAfterBowtie.sh /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/ /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_NC-LIB-Virome_S299_L002_R1_001.fq /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_NC-LIB-Virome_S299_L002_R2_001.fq         NC-LIB-Virome_S299_L002_R1_001 NC-LIB-Virome_S299_L002_R2_001 /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/ /fdb/STAR_indices/2.7.11b/UCSC/hg38/ref
+        
+[+] Loading STAR  2.7.11b 
+/usr/local/apps/STAR/2.7.11b/bin/STAR
+[+] Loading samtools 1.21  ... 
+/usr/local/apps/samtools/1.21/bin/samtools
+STAR AFTER BOWTIE INPUTS:
+codePath:
+/home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/
+Directory exists: /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/
+dos2unix: converting file /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/dir_check.sh to Unix format...
+leftUnalignedFile:
+/data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_NC-LIB-Virome_S299_L002_R1_001.fq
+rightUnalignedFile:
+/data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_NC-LIB-Virome_S299_L002_R2_001.fq
+output_base_name:
+NC-LIB-Virome_S299_L002_R1_001
+Variable is not empty
+NC-LIB-Virome_S299_L002_R2_001
+Variable is not empty
+hg38_starDB:
+/fdb/STAR_indices/2.7.11b/UCSC/hg38/ref
+outputPath:
+/data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/
+Directory exists: /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/
+mkdir: cannot create directory ‘/data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_Star_Alignment’: File exists
+Generated_Data_Star_Alignment
+CHECKPOINT 1: star command:
+starCmd
+BAM out file name:
+NC-LIB-Virome_S299_L002_R1_001Aligned.sortedByCoord.out.bam
+Log.out file name:
+NC-LIB-Virome_S299_L002_R1_001Log.final.out
+FINISHED star command
+END OF STAR FILE
+[Mon Nov 18 13:17:55 2024]
+Finished job 3.
+2 of 5 steps (40%) done
+Select jobs to execute...
+
+[Mon Nov 18 13:17:55 2024]
+rule bowtiePrimate:
+    input: /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/bowtiePrimate.sh, /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_Star_Alignment/NC-LIB-Virome_S299_L002_R1_001_unalignedRead1AgainstTranscriptome.fq, /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_Star_Alignment/NC-LIB-Virome_S299_L002_R2_001_unalignedRead2AgainstTranscriptome.fq
+    output: /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NC-LIB-Virome_S299_L002_R1_001.fq, /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NC-LIB-Virome_S299_L002_R2_001.fq
+    jobid: 2
+    reason: Missing output files: /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NC-LIB-Virome_S299_L002_R2_001.fq, /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NC-LIB-Virome_S299_L002_R1_001.fq; Input files updated by another job: /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_Star_Alignment/NC-LIB-Virome_S299_L002_R1_001_unalignedRead1AgainstTranscriptome.fq, /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_Star_Alignment/NC-LIB-Virome_S299_L002_R2_001_unalignedRead2AgainstTranscriptome.fq
+    wildcards: sample=NC-LIB-Virome_S299_L002
+    resources: tmpdir=/tmp
+
+
+        module load bowtie2
+        which bowtie2
+        module load samtools
+        which samtools
+
+        bash /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/bowtiePrimate.sh /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_Star_Alignment/NC-LIB-Virome_S299_L002_R1_001_unalignedRead1AgainstTranscriptome.fq /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_Star_Alignment/NC-LIB-Virome_S299_L002_R2_001_unalignedRead2AgainstTranscriptome.fq /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001         /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/ NC-LIB-Virome_S299_L002_R1_001 NC-LIB-Virome_S299_L002_R2_001 /data/parkercol/PathseqDependencyData/bowtiePrimateIndex/primates
+        
+[+] Loading bowtie  2-2.5.3 
+/usr/local/apps/bowtie/2-2.5.3/bin/bowtie2
+[+] Loading samtools 1.21  ... 
+/usr/local/apps/samtools/1.21/bin/samtools
+CHECKPOINT 1: BOWTIE PRIMATE INPUTS
+1: unalignedLeftFile: 
+/data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_Star_Alignment/NC-LIB-Virome_S299_L002_R1_001_unalignedRead1AgainstTranscriptome.fq
+2: unalignedRightFile:
+/data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/Generated_Data_Star_Alignment/NC-LIB-Virome_S299_L002_R2_001_unalignedRead2AgainstTranscriptome.fq
+3: outPath: 
+/data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001
+4: scriptsPath: 
+/home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/
+5: left_read_file_base_name: 
+NC-LIB-Virome_S299_L002_R1_001
+6: right_read_file_base_name: 
+NC-LIB-Virome_S299_L002_R2_001
+7: bowtiePrimateIndex: 
+/data/parkercol/PathseqDependencyData/bowtiePrimateIndex/primates
+dos2unix: converting file /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/dir_check.sh to Unix format...
+mkdir: cannot create directory ‘/data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/primate_alignment_rates/’: File exists
+Current Directory:
+/data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/primate_alignment_rates
+CHECKPOINT 2: RUN BOWTIE COMMAND
+BOWTIE PRIMATE COMPLETE
+[Mon Nov 18 13:18:34 2024]
+Finished job 2.
+3 of 5 steps (60%) done
+Select jobs to execute...
+
+[Mon Nov 18 13:18:34 2024]
+rule trinity:
+    input: /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/all_trinity.sh, /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NC-LIB-Virome_S299_L002_R1_001.fq, /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NC-LIB-Virome_S299_L002_R2_001.fq
+    output: /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_NC-LIB-Virome_S299_L002_R1_001.Trinity.fasta, /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_trinity_output/trinity_out_300_Sample_NC-LIB-Virome_S299_L002_R1_001.txt, /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_trinity_output/trinity_err_300_Sample_NC-LIB-Virome_S299_L002_R1_001.txt, /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_trinity_output/myTrinity_Origin_RNA_Sample_NC-LIB-Virome_S299_L002_R1_001.Trinity.fasta
+    jobid: 1
+    reason: Missing output files: /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_NC-LIB-Virome_S299_L002_R1_001.Trinity.fasta; Input files updated by another job: /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NC-LIB-Virome_S299_L002_R2_001.fq, /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NC-LIB-Virome_S299_L002_R1_001.fq
+    wildcards: sample=NC-LIB-Virome_S299_L002
+    resources: tmpdir=/tmp
+
+
+        module load trinity
+        which Trinity
+        module load fastp
+        which fastp
+        module load fastxtoolkit
+        which fasta_formatter
+
+        bash /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/all_trinity.sh /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/ /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NC-LIB-Virome_S299_L002_R1_001.fq /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NC-LIB-Virome_S299_L002_R2_001.fq NC-LIB-Virome_S299_L002_R1_001         NC-LIB-Virome_S299_L002_R2_001 RNA 300 1         175G /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001 /lscratch/
+        
+[+] Loading singularity  4.1.5  on cn0024 
+[+] Loading Trinity 2.15.2  ... 
+/usr/local/apps/trinity/trinityrnaseq-2.15.2/bin/Trinity
+[+] Loading fastp  0.24.0 
+/usr/local/apps/fastp/0.24.0/bin/fastp
+[+] Loading fastxtoolkit 0.0.14  ... 
+/usr/local/apps/fastxtoolkit/0.0.14/bin/fasta_formatter
+CHECKPOINT 1: ALL_TRINITY INPUTS:
+1. codePath:
+/home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/
+Directory exists: /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/
+dos2unix: converting file /home/parkercol/PathSeq/Tests/BiowulfTest1/tempCodeCopy/dir_check.sh to Unix format...
+2. unalignedInputLeft:
+/data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NC-LIB-Virome_S299_L002_R1_001.fq
+3. unalignedInputRight:
+/data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NC-LIB-Virome_S299_L002_R2_001.fq
+4. left_read_file_base_name:
+NC-LIB-Virome_S299_L002_R1_001
+Variable is not empty
+5. right_read_file_base_name:
+NC-LIB-Virome_S299_L002_R2_001
+Variable is not empty
+6. origin:
+RNA
+Variable is not empty
+7. min_contig_length:
+300
+Variable is not empty
+8. numTrinityThreads:
+1
+Variable is not empty
+9. maxTrinityMemory:
+175G
+Variable is not empty
+10. outPath:
+/data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001
+Directory exists: /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001
+11. scratchDir:
+/lscratch/
+Directory exists: /lscratch/
+mkdir: cannot create directory ‘/data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_trinity_output’: File exists
+CHECKPOINT 2: FASTP COMMAND:
+fastp -i /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NC-LIB-Virome_S299_L002_R1_001.fq -o /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_trinity_output/fastp_unalignedRead1AgainstPrimate_NC-LIB-Virome_S299_L002_R1_001.fq -I /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NC-LIB-Virome_S299_L002_R2_001.fq -O /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_trinity_output/fastp_unalignedRead1AgainstPrimate_NC-LIB-Virome_S299_L002_R2_001.fq --dedup --thread 12
+Read1 before filtering:
+total reads: 5112
+total bases: 663234
+Q20 bases: 599973(90.4617%)
+Q30 bases: 560031(84.4394%)
+
+Read2 before filtering:
+total reads: 5112
+total bases: 662733
+Q20 bases: 647694(97.7308%)
+Q30 bases: 628211(94.791%)
+
+Read1 after filtering:
+total reads: 1209
+total bases: 149749
+Q20 bases: 143713(95.9693%)
+Q30 bases: 134712(89.9585%)
+
+Read2 after filtering:
+total reads: 1209
+total bases: 149260
+Q20 bases: 145857(97.7201%)
+Q30 bases: 139426(93.4115%)
+
+Filtering result:
+reads passed filter: 4814
+reads failed due to low quality: 544
+reads failed due to too many N: 0
+reads failed due to too short: 4866
+reads with adapter trimmed: 12
+bases trimmed due to adapters: 290
+
+Duplication rate: 36.2089%
+
+Insert size peak (evaluated by paired-end reads): 0
+
+JSON report: fastp.json
+HTML report: fastp.html
+
+fastp -i /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NC-LIB-Virome_S299_L002_R1_001.fq -o /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_trinity_output/fastp_unalignedRead1AgainstPrimate_NC-LIB-Virome_S299_L002_R1_001.fq -I /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NC-LIB-Virome_S299_L002_R2_001.fq -O /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_trinity_output/fastp_unalignedRead1AgainstPrimate_NC-LIB-Virome_S299_L002_R2_001.fq --dedup --thread 12 
+fastp v0.24.0, time used: 1 seconds
+fastp command complete
+CHECKPOINT 3: TRINITY COMMAND: 
+Trinity --CPU 1 --output myTrinity_Origin_RNA_Sample_NC-LIB-Virome_S299_L002_R1_001 --min_contig_length 300 --seqType fq --max_memory 175G --min_kmer_cov 1 --left /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NC-LIB-Virome_S299_L002_R1_001.fq --right /data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NC-LIB-Virome_S299_L002_R2_001.fq --no_version_check 1>/data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_trinity_output/trinity_out_300_NC-LIB-Virome_S299_L002_R1_001.txt 2>/data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_trinity_output/trinity_err_300_NC-LIB-Virome_S299_L002_R1_001.txt
+Trinity output file present.
+Waiting at most 120 seconds for missing files.
+MissingOutputException in rule trinity in file /spin1/home/linux/parkercol/PathSeq/Tests/BiowulfTest2/Snakefile, line 159:
+Job 1  completed successfully, but some output files are missing. Missing files after 120 seconds. This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait:
+/data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_NC-LIB-Virome_S299_L002_R1_001.Trinity.fasta
+/data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_trinity_output/trinity_out_300_Sample_NC-LIB-Virome_S299_L002_R1_001.txt
+/data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_trinity_output/trinity_err_300_Sample_NC-LIB-Virome_S299_L002_R1_001.txt
+Removing output files of failed job trinity since they might be corrupted:
+/data/parkercol/PathseqOutput/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_trinity_output/myTrinity_Origin_RNA_Sample_NC-LIB-Virome_S299_L002_R1_001.Trinity.fasta
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-11-18T131648.156519.snakemake.log
+RAN SNAKEMAKE

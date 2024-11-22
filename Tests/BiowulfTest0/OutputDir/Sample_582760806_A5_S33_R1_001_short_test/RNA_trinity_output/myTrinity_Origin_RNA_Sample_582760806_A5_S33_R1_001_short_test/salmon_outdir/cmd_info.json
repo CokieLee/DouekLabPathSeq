@@ -1,0 +1,11 @@
+{
+    "salmon_version": "1.5.2",
+    "index": "Trinity.tmp.fasta.salmon.idx",
+    "libType": "U",
+    "unmatedReads": "/home/parkercol/PathSeq/Tests/BiowulfTest0/OutputDir/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test/both.fa",
+    "output": "salmon_outdir",
+    "threads": "1",
+    "minAssignedFrags": "1",
+    "validateMappings": [],
+    "auxDir": "aux_info"
+}

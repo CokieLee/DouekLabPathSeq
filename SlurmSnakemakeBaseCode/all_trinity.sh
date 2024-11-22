@@ -121,8 +121,8 @@ fi
 
 Trinity_fa_out_file_name="$trinity_folder/$trinityOutDirectory.Trinity.fasta"
 formatted_Trinity_fa_out_file_name="$trinity_folder/formatted_"$trinityOutDirectory".Trinity.fasta"
-trinityRunOutput="$trinity_folder/trinity_out_"$MIN_CONTIG_LENGTH"_"$left_read_file_base_name".txt"
-trinityRunError="$trinity_folder/trinity_err_"$MIN_CONTIG_LENGTH"_"$left_read_file_base_name".txt"
+trinityRunOutput="$trinity_folder/trinity_out_"$MIN_CONTIG_LENGTH"_Sample_"$left_read_file_base_name".txt"
+trinityRunError="$trinity_folder/trinity_err_"$MIN_CONTIG_LENGTH"_Sample_"$left_read_file_base_name".txt"
 
 ## TODO: using $trinityoutDirectory in trinityCmd below is confusing, fix
 echo "CHECKPOINT 3: TRINITY COMMAND: "
@@ -153,27 +153,22 @@ if [ $exitCode -eq 0 ]
 			else
 				echo "Trinity output file present."
 		fi
-
-		# #changes the width of sequences line in a FASTA file (all nucleotide sequences appear on a single line)
-		# format_cmd="fasta_formatter -i $Trinity_fa_out_file_name -o $formatted_Trinity_fa_out_file_name"
-		# echo "Format command: $format_cmd"
-		# echo "$format_cmd" | bash > fasta_formatter_error.log 2>&1
-
-		# ## Debugging
-		# cp $formatted_Trinity_fa_out_file_name "$trinity_folder/$trinityOutDirectory.temp.Trinity.fasta"
-
-		# format_exit_code=$?
-		# if [ $format_exit_code -ne 0 ];
-		# 	then
-		# 		echo "Fasta_formatter failed with exit code: $format_exit_code"
-		# 		exit 1
-		# 	else
-		# 		echo "Fasta_formatter finished with successful exit code: $format_exit_code"
-		# fi
 	else
 		echo "Trinity sample ("$left_read_file_base_name") failed ("$exitCode") retrying and STOPPING! You will need to resume the pipeline manually" > "../finished_Trinity.txt"
-		##Trinity --CPU 12 --FORCE --output $trinityOutDirectory --min_contig_length $MIN_CONTIG_LENGTH --seqType fq --max_memory 175G  --min_kmer_cov 1 --left fastp_unmapped_left.fq --right fastp_unmapped_right.fq --no_version_check 1>"trinity_retry_out_"$MIN_CONTIG_LENGTH".txt" 2>trinity_err.txt
 fi
 
-## command for running next script
-# qsub $full_path_to_start_filter_script $projectID $left_read_file_base_name $right_read_file_base_name $MIN_CONTIG_LENGTH $origin $readsPerFile $program_PathSeqRemoveHostForKaiju $blastDB_Mammalia $filterScript $kaiju_nodes $kaiju_fmi $kaijuScript $parseKaijuScript $PathSeqKaijuConcensusSplitter2_program $NCBI_nt_kaiju_ref_taxonomy $mergeScript $prepDiversityScript $salmonQuantScript $left_read_file  $right_read_file $PathSeqMergeQIIME2TaxAndSalmon_program $PathSeqSplitOutputTableByTaxonomy_program $palmScanScript $rScriptDiv
+#changes the width of sequences line in a FASTA file (all nucleotide sequences appear on a single line)
+		format_cmd="fasta_formatter -i $Trinity_fa_out_file_name -o $formatted_Trinity_fa_out_file_name -e"
+		echo "Format command: $format_cmd"
+		echo "$format_cmd" | bash > fasta_formatter_error.log 2>&1
+
+		format_exit_code=$?
+		if [ $format_exit_code -ne 0 ];
+			then
+				echo "Fasta_formatter failed with exit code: $format_exit_code"
+				exit 1
+			else
+				echo "Fasta_formatter finished with successful exit code: $format_exit_code"
+		fi
+
+echo "END OF TRINITY SCRIPT"

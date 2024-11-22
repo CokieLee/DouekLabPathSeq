@@ -1,0 +1,22 @@
+{
+    "index_version": 4,
+    "reference_gfa": [
+        "Trinity.tmp.fasta.salmon.idx"
+    ],
+    "sampling_type": "dense",
+    "k": 25,
+    "num_kmers": 605,
+    "num_contigs": 5,
+    "seq_length": 725,
+    "have_ref_seq": true,
+    "have_edge_vec": false,
+    "SeqHash": "b4c36cdf1cc5bcdd07033e31cb68da4f65d4e6e944d7d67d86a7639fc15e7c31",
+    "NameHash": "5dd7a6f6d818f6cc07dbabf7ba18cb07f82e45f5442ade8619abb5f7b1163173",
+    "SeqHash512": "a3bafbf89f9890dc0ba7f3a5d132fe51eef7cf81e7ddb06d8eb63d08f76faae730e36de1c82292a89ff14b76c188cdec050714b9f080e7420a1b505cd74ee246",
+    "NameHash512": "2e88b5e4c13fb932398de9c480e1cc955e5e9943e9ec9b2a324f4fd570bcc9be60ab6037a04a3d27a46a56407e99bf87727e4f7aad816aac7e397d187173d24b",
+    "DecoySeqHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "DecoyNameHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "num_decoys": 0,
+    "first_decoy_index": 18446744073709551615,
+    "keep_duplicates": false
+}
