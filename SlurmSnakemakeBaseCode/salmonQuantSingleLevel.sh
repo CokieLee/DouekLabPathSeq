@@ -63,7 +63,7 @@ echo $taxLevel
 
 echo "7. salmon index:"
 variable_is_empty $salmon_index
-file_exist_check $salmon_index
+directory_exists $salmon_index
 echo $salmon_index
 echo "8. outPath:"
 variable_is_empty $outPath
@@ -97,7 +97,12 @@ salmon_quantification() {
   ## The -p option specifies the number of threads to be used, in this case 1. 
   ## The validateMappings option enables selective alignment
   ## The -o option specifies the output file
-  salmon quant -i $salmon_index -l A -1 $path_to_left_read_file -2 $path_to_right_read_file -p 1 --validateMappings -o $salmon_output_dir
+  salmonQuantCmd="salmon quant -i $salmon_index -l A -1 $path_to_left_read_file -2 $path_to_right_read_file \
+    -p 1 --validateMappings -o $salmon_output_dir"
+
+  echo "salmonQuant cmd:"
+  echo $salmonQuantCmd
+  eval $salmonQuantCmd
 
   #Confirm that output file was created
   file_exist_check $salmon_output_dir 
@@ -110,7 +115,7 @@ salmon_quantification() {
 
 echo "CHECKPOINT 2: CALL SALMON QUANTIFICATION"
 
-salmon_output_dir=$outPath"/"$taxLevel"_quant_"$baseName
+salmon_output_dir=$outPath"/RNA_salmon_quant/"$taxLevel"_quant_"$baseName
 echo "salmon quant output dir:"
 echo $salmon_output_dir
 mkdir $salmon_output_dir
@@ -123,7 +128,7 @@ salmonQuantCmd="salmon_quantification $taxLevel \
                 $salmon_output_dir \
                 $salmon_index"
 
-echo "Salmon quant call:"
+echo "Salmon quant function call:"
 echo $salmonQuantCmd
 eval "$salmonQuantCmd"
 process_fail_check "Salmon quantfication call failed. QUITTING."

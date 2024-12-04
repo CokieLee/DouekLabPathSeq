@@ -1,0 +1,51 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job              count
+-------------  -------
+all                  1
+collectSalmon        5
+salmonQuant          5
+total               11
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Dec  4 14:14:59 2024]
+localrule salmonQuant:
+    input: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/salmonQuantSingleLevel.sh, /data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/NC-LIB-Virome_S299_L002_R1_001.fastq.gz, /data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/NC-LIB-Virome_S299_L002_R2_001.fastq.gz, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/phylum_sequences.fa
+    output: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/phylum_quant/NC-LIB-Virome_S299_L002_R1_001_quant.sf
+    jobid: 10
+    reason: Missing output files: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/phylum_quant/NC-LIB-Virome_S299_L002_R1_001_quant.sf
+    wildcards: sample=NC-LIB-Virome_S299_L002, taxlevel=phylum
+    resources: tmpdir=/data/scratch/parkercol/ai-hpcsubmit2
+
+
+        module purge
+        module load salmon
+        which salmon
+
+        bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/salmonQuantSingleLevel.sh /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/             /data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/NC-LIB-Virome_S299_L002_R1_001.fastq.gz /data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/NC-LIB-Virome_S299_L002_R2_001.fastq.gz             NC-LIB-Virome_S299_L002_R1_001 RNA phylum             /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/phylum_sequences.fa /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001
+        
+[Wed Dec  4 14:15:02 2024]
+Error in rule salmonQuant:
+    jobid: 10
+    input: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/salmonQuantSingleLevel.sh, /data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/NC-LIB-Virome_S299_L002_R1_001.fastq.gz, /data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/NC-LIB-Virome_S299_L002_R2_001.fastq.gz, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/phylum_sequences.fa
+    output: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/phylum_quant/NC-LIB-Virome_S299_L002_R1_001_quant.sf
+    shell:
+        
+        module purge
+        module load salmon
+        which salmon
+
+        bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/salmonQuantSingleLevel.sh /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/             /data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/NC-LIB-Virome_S299_L002_R1_001.fastq.gz /data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/NC-LIB-Virome_S299_L002_R2_001.fastq.gz             NC-LIB-Virome_S299_L002_R1_001 RNA phylum             /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/phylum_sequences.fa /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-12-04T141459.340653.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

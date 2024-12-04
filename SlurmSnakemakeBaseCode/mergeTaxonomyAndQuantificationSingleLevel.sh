@@ -1,110 +1,102 @@
 #!/bin/sh
-#$ -N mergeTaxonomyAndQuantificationSingleLevel
-#$ -S /bin/bash
-#$ -M rahul.subramanian@nih.gov
-#$ -m n
-#$ -l h_vmem=25G
-#$ -cwd
+#SBATCH -J buildSalmon
+#SBATCH --mem=100G
+#SBATCH --cpus-per-task=1
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=cokie.parker@nih.gov
 
-## load Locus modules
-module load java
+## REQUIREMENTS
+##########################
+## programs ##
+# java
+##########################
 
+codePath=$1
+taxInputFile=$2		##("$origin"_trinity_output/salmon/"$taxLevel"_table.csv")
+salmonQuantInputFile=$3		##($baseName_quant.sf)
+baseName=$4
+origin=$5 ## RNA, DNA or all
+taxLevel=$6
+PathSeqMergeQIIME2TaxAndSalmon_program=$7
+outPath=$8
 
-COUNTER=$SGE_TASK_ID
-projectID=$1
-left_read_file_base_name=$2
-right_read_file_base_name=$3
-origin=$4 ## RNA, DNA or all
-mytaxLevel=$5
-PathSeqMergeQIIME2TaxAndSalmon_program=$6
+## print input args
+## check that all input args exist and are non-zero
+#####################################################
+echo "CHECKPOINT 1: SALMON INPUTS:"
 
-salmonQuantBase="/hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/"$projectID"/"$origin"_salmon_quant/"
-
-echo $projectID
-echo $left_read_file_base_name
-echo $right_read_file_base_name
-echo $origin
-echo $taxLevel
+echo "1. codePath:"
+if [[ -d "$codePath" ]]; then
+    echo "Directory exists: $codePath"
+  else
+    echo "Directory does not exist: $codePath. FAILED. QUITTING."
+    exit 1
+fi
+echo $codePath
 
 ## Source script for directory checking function
-dos2unix dir_check.sh
-source ./dir_check.sh 
+dos2unix $codePath"dir_check.sh"
+source $codePath"dir_check.sh"
 
-## Confirm that we are in the scripts directory
-correct_cur_Dir="scripts"
-dir_check  $correct_cur_Dir
+echo "2. taxonomy input file:"
+variable_is_empty $taxInputFile
+file_exist_check $taxInputFile
+echo $taxInputFile
+echo "3. salmon quantification input file:"
+variable_is_empty $salmonQuantInputFile
+file_exist_check $salmonQuantInputFile
+echo $salmonQuantInputFile
 
-##Change directories to project folder
-cd "../"
+echo "4. baseName:"
+variable_is_empty $baseName
+echo $baseName
+echo "5. origin:"
+variable_is_empty $origin
+echo $origin
+echo "6. taxLevel:"
+variable_is_empty $taxLevel
+echo $taxLevel
 
-##Confirm that we are in project folder
-correct_cur_Dir=$projectID
-dir_check  $correct_cur_Dir
+echo "7. pathseq merge program:"
+variable_is_empty $PathSeqMergeQIIME2TaxAndSalmon_program
+file_exist_check $PathSeqMergeQIIME2TaxAndSalmon_program
+echo $PathSeqMergeQIIME2TaxAndSalmon_program
+echo "8. outPath:"
+variable_is_empty $outPath
+directory_exists $outPath
+echo $outPath
+##########################################
 
-sample_folder_name="Sample_"$left_read_file_base_name
-
-## Confirm that sample folder exists
-file_exist_check $sample_folder_name
-
-## Change into sample folder
-cd $sample_folder_name
-
-## Confirm that we are in sample folder
-correct_cur_Dir=$sample_folder_name
-dir_check  $correct_cur_Dir
-
-salmon_quant_folder_name=$origin"_salmon_quant"
-## Confirm that folder exists a
-file_exist_check $salmon_quant_folder_name
-## Change into salmon quant folder 
-cd $salmon_quant_folder_name
-
-origin_sample_unique_id_tag=$origin"_Sample_"$left_read_file_base_name
 
 ## part1 is repetitive so let's define and use a function 
 salmon_merge() {
-	
-	taxLevel=$1
-	origin_sample_unique_id_tag=$2
+	taxFile=$1
+	salmonQuantFile=$2
+	taxLevel=$3
+	baseName=$4
+	outPath=$5
 
-	##Confirm folder exists
-	file_exist_check $taxLevel"_quant_"$origin_sample_unique_id_tag
-
-	##Change into it
-	cd $taxLevel"_quant_"$origin_sample_unique_id_tag
-
-	##Verify current directory
-	correct_cur_Dir=$taxLevel"_quant_"$origin_sample_unique_id_tag
-	dir_check  $correct_cur_Dir
-	
-	taxFile="../../"$origin"_trinity_output/salmon/"$taxLevel"_table.csv"
-	## Confirm that the file exists
-	file_exist_check $taxFile
-
-	finalFile=$origin_sample_unique_id_tag"_quant.sf"
-	
-	## Confirm that the file exists
-	file_exist_check $finalFile
+	outputBaseName=$origin"_"$taxLevel"_"$baseName
 
 	## Merge salmon output (which uses Trinity contig labels and Salmon counts) with Kaiju output (which has taxonomic classifications
 	## for each Trinity contig)
-	java -Xmx20G -jar $PathSeqMergeQIIME2TaxAndSalmon_program $finalFile $origin_sample_unique_id_tag $taxFile $origin"_"$taxLevel"_"$origin_sample_unique_id_tag 2> $taxLevel"_merge_stderr.txt"
+	java -Xmx20G -jar $PathSeqMergeQIIME2TaxAndSalmon_program $salmonQuantFile $baseName $taxFile $outputBaseName 2> $outPath"/"$taxLevel"_merge_stderr.txt"
 	
 	##Confirm that output files were created
-	file_exist_check $origin"_"$taxLevel"_"$origin_sample_unique_id_tag"_pseudocounts.csv"
-	file_exist_check $origin"_"$taxLevel"_"$origin_sample_unique_id_tag"_tpm.csv"
+	file_exist_check $origin"_"$taxLevel"_"$baseName"_pseudocounts.csv"
+	file_exist_check $origin"_"$taxLevel"_"$baseName"_tpm.csv"
 
-	mv $origin"_"$taxLevel"_"$origin_sample_unique_id_tag"_pseudocounts.csv" ../
-	mv $origin"_"$taxLevel"_"$origin_sample_unique_id_tag"_tpm.csv" ../
+	mv $origin"_"$taxLevel"_"$baseName"_pseudocounts.csv" $outPath
+	mv $origin"_"$taxLevel"_"$baseName"_tpm.csv" $outPath
 }
 
-salmon_merge $mytaxLevel $origin_sample_unique_id_tag
+echo "CHECKPOINT 2: CALL MERGE FUNCTION"
 
-## Return to scripts folder at end of script
-cd ../../../scripts/
+mergeOutputDir=$outPath"/"$origin"_merge_TaxAndQuant/"
 
-## Confirm that we are in fact in the scripts folder
-cur_Dir=$(basename $(pwd))
-#echo $cur_Dir
-correct_cur_Dir="scripts"
-dir_check  $correct_cur_Dir
+mergeFuncCmd="salmon_merge $taxInputFile $salmonQuantInputFile $taxLevel $baseName $mergeOutputDir"
+echo $mergeFuncCmd
+eval $mergeFuncCmd
+
+
+echo "FINISHED MERGE SCRIPT"

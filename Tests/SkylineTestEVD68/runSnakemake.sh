@@ -8,6 +8,6 @@
 module load snakemake
 which snakemake
 
-snakemake -p -c $SLURM_CPUS_PER_TASK --latency-wait 120
+snakemake -p -c $SLURM_CPUS_PER_TASK --latency-wait 240
 
 echo "RAN SNAKEMAKE"

@@ -12,8 +12,8 @@ SAMPLES = [sample.split("_R1_")[0] for sample in FULLSAMPLES]
 leftEnding = "_R1_" + FULLSAMPLES[0].split("_R1_")[1]
 rightEnding = leftEnding.replace("R1", "R2")
 
-# TAXLEVELS = ["kingdom", "phylum", "order", "class", "family", "genus", "species"]
-TAXLEVELS = ["kingdom", "phylum", "order", "class", "family"]
+TAXLEVELS = ["kingdom", "phylum", "order", "class", "family", "genus", "species"]
+# TAXLEVELS = ["kingdom", "phylum", "order", "class", "family"]
 
 numContigFilterThreads=8
 
@@ -26,8 +26,8 @@ rule all:
     input:
         expand(os.path.join(config["outputpath"],
                     "Sample_{sample}" + leftEnding,
-                    config["origin"] + "_merge_TaxAndQuant",
-                    config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_tpm.csv"),
+                    config["origin"] + "_salmon_quant", "{taxlevel}_quant",
+                    "salmon_allTaxLevels_finished.txt"),
                 sample=SAMPLES, taxlevel=TAXLEVELS)
 
 # Basic rule for testing environment. Should take all input files,
@@ -344,33 +344,12 @@ rule buildSalmon:
         os.path.join(config["outputpath"], 
                             "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
                             "family_sequences.fa"),
-        # os.path.join(config["outputpath"], 
-        #                     "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
-        #                     "genus_sequences.fa"),
-        # os.path.join(config["outputpath"], 
-        #                     "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
-        #                     "species_sequences.fa")
         os.path.join(config["outputpath"], 
                             "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
-                            "kingdom_table.csv"),
+                            "genus_sequences.fa"),
         os.path.join(config["outputpath"], 
                             "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
-                            "phylum_table.csv"),
-        os.path.join(config["outputpath"], 
-                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
-                            "order_table.csv"),
-        os.path.join(config["outputpath"], 
-                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
-                            "class_table.csv"),
-        os.path.join(config["outputpath"], 
-                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
-                            "family_table.csv")
-        # os.path.join(config["outputpath"], 
-        #                     "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
-        #                     "genus_table.csv"),
-        # os.path.join(config["outputpath"], 
-        #                     "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
-        #                     "species_table.csv")
+                            "species_sequences.fa")
     shell:
         """
         module purge
@@ -385,17 +364,15 @@ rule buildSalmon:
             {input.kaijuTax} {input.kaiju_nodes} {params.outPath}
         """
 
-## TODO: make it so that the output of build salmon is the index dir taken by salmon
-
 ## rule salmonQuant:
 rule salmonQuant:
     input:
         scriptPath=os.path.join(config["codepath"], "salmonQuantSingleLevel.sh"),
         leftReadFile=os.path.join(config["inputpath"], "{sample}" + leftEnding +".fastq.gz"),
         rightReadFile=os.path.join(config["inputpath"], "{sample}" + rightEnding +".fastq.gz"),
-        salmonIndex=os.path.join(config["outputpath"],
+        salmonIndex=os.path.join(config["outputpath"], 
                             "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
-                            "{taxlevel}_salmon/")
+                            "{taxlevel}_sequences.fa")
     params:
         sampleNameLeft="{sample}" + leftEnding,
         outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
@@ -403,10 +380,9 @@ rule salmonQuant:
         origin=config["origin"]
     output:
         os.path.join(config["outputpath"], 
-                    "Sample_{sample}" + leftEnding,
-                    config["origin"] + "_salmon_quant",
-                    "{taxlevel}_quant_{sample}" + leftEnding,
-                    "{sample}" + leftEnding + "_quant.sf")
+                            "Sample_{sample}" + leftEnding,
+                            config["origin"] + "_salmon_quant", "{taxlevel}_quant",
+                            "{sample}" + leftEnding + "_quant.sf")
     shell:
         """
         module purge
@@ -419,45 +395,35 @@ rule salmonQuant:
             {input.salmonIndex} {params.outPath}
         """
 
-
-## rule mergeTaxAndQuant:
-rule mergeTaxAndQuant:
+## checkpoint to gather salmon output for all tax levels
+checkpoint collectSalmon:
     input:
-        scriptPath=os.path.join(config["codepath"], "mergeTaxonomyAndQuantificationSingleLevel.sh"),
-        taxInputFile=os.path.join(config["outputpath"], 
-                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
-                            "{taxlevel}_table.csv"),
-        salmonQuantInputFile=os.path.join(config["outputpath"], 
-                                            "Sample_{sample}" + leftEnding,
-                                            config["origin"] + "_salmon_quant",
-                                            "{taxlevel}_quant_{sample}" + leftEnding,
-                                            "{sample}" + leftEnding + "_quant.sf"),
-        program_MergeQIIME2TaxAndSalmon=config["program_PathSeqMergeQIIME2TaxAndSalmon"]
-    params:
-        sampleNameLeft="{sample}" + leftEnding,
-        taxLevel="{taxlevel}",
-        origin=config["origin"],
-        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
-        codePath=config["codepath"]
+        expand(os.path.join(config["outputpath"], 
+                            "Sample_{sample}" + leftEnding,
+                            config["origin"] + "_salmon_quant", "{taxlevel}_quant",
+                            "{sample}" + leftEnding + "_quant.sf"),
+                sample=SAMPLES, taxlevel=TAXLEVELS)
     output:
         os.path.join(config["outputpath"],
                     "Sample_{sample}" + leftEnding,
-                    config["origin"] + "_merge_TaxAndQuant",
-                    config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_pseudocounts.csv"),
-        os.path.join(config["outputpath"],
-                    "Sample_{sample}" + leftEnding,
-                    config["origin"] + "_merge_TaxAndQuant",
-                    config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_tpm.csv")
+                    config["origin"] + "_salmon_quant", "{taxlevel}_quant",
+                    "salmon_allTaxLevels_finished.txt")
     shell:
         """
-        module purge
-        module load openjdk
-        which java
-
-        bash {input.scriptPath} {params.codePath} {input.taxInputFile} \
-            {input.salmonQuantInputFile} {params.sampleNameLeft} {params.origin} \
-            {params.taxLevel} {input.program_MergeQIIME2TaxAndSalmon} {params.outPath}
+        echo "salmon all tax levels done" > {output}
         """
+
+# ## rule mergeTaxAndQuant:
+# rule mergeTaxAndQuant:
+#     input:
+#         scriptPath=os.path.join(config["codepath"], "mergeTaxonomyAndQuantificationSingleLevel.sh")
+#     params:
+#         sampleNameLeft="{sample}" + leftEnding,
+#         sampleNameRight="{sample}" + rightEnding,
+#         outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
+#         codePath=config["codepath"]
+#     output:
+#     shell:
 
 # ## rule prepForDiversity:
 # rule parseKaiju:

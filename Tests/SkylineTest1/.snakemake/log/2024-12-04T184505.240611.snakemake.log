@@ -1,5 +1,3 @@
-/data/apps/software/spack/linux-rocky9-x86_64_v3/gcc-11.3.1/snakemake-8.5.2-x277myxx4tkm7rfknc6kwjp535p5gktf/bin/snakemake
-Assuming unrestricted shared filesystem usage for local execution.
 Building DAG of jobs...
 Using shell: /usr/bin/bash
 Provided cores: 1 (use --cores to define parallelism)
@@ -30,30 +28,6 @@ localrule mergeTaxAndQuant:
 
         bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/mergeTaxonomyAndQuantificationSingleLevel.sh /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/ /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/family_table.csv             /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/family_quant_NC-LIB-Virome_S299_L002_R1_001/NC-LIB-Virome_S299_L002_R1_001_quant.sf NC-LIB-Virome_S299_L002_R1_001 RNA             family /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001
         
-/data/apps/software/spack/linux-rocky9-x86_64_v3/gcc-11.3.1/openjdk-17.0.11_9-mcbjre6ftmfq4pieucpfccnvrm6tnnxk/bin/java
-CHECKPOINT 1: SALMON INPUTS:
-1. codePath:
-Directory exists: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/
-dos2unix: converting file /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/dir_check.sh to Unix format...
-2. taxonomy input file:
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/family_table.csv
-3. salmon quantification input file:
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/family_quant_NC-LIB-Virome_S299_L002_R1_001/NC-LIB-Virome_S299_L002_R1_001_quant.sf
-4. baseName:
-NC-LIB-Virome_S299_L002_R1_001
-5. origin:
-RNA
-6. taxLevel:
-family
-7. pathseq merge program:
-/data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar
-8. outPath:
-Directory exists: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001
-CHECKPOINT 2: CALL MERGE FUNCTION
-salmon_merge /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/family_table.csv /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/family_quant_NC-LIB-Virome_S299_L002_R1_001/NC-LIB-Virome_S299_L002_R1_001_quant.sf family NC-LIB-Virome_S299_L002_R1_001 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_merge_TaxAndQuant/
-FINISHED MERGE SCRIPT
 [Wed Dec  4 18:45:10 2024]
 Finished job 16.
 1 of 6 steps (17%) done
@@ -76,30 +50,6 @@ localrule mergeTaxAndQuant:
 
         bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/mergeTaxonomyAndQuantificationSingleLevel.sh /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/ /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/class_table.csv             /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/class_quant_NC-LIB-Virome_S299_L002_R1_001/NC-LIB-Virome_S299_L002_R1_001_quant.sf NC-LIB-Virome_S299_L002_R1_001 RNA             class /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001
         
-/data/apps/software/spack/linux-rocky9-x86_64_v3/gcc-11.3.1/openjdk-17.0.11_9-mcbjre6ftmfq4pieucpfccnvrm6tnnxk/bin/java
-CHECKPOINT 1: SALMON INPUTS:
-1. codePath:
-Directory exists: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/
-dos2unix: converting file /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/dir_check.sh to Unix format...
-2. taxonomy input file:
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/class_table.csv
-3. salmon quantification input file:
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/class_quant_NC-LIB-Virome_S299_L002_R1_001/NC-LIB-Virome_S299_L002_R1_001_quant.sf
-4. baseName:
-NC-LIB-Virome_S299_L002_R1_001
-5. origin:
-RNA
-6. taxLevel:
-class
-7. pathseq merge program:
-/data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar
-8. outPath:
-Directory exists: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001
-CHECKPOINT 2: CALL MERGE FUNCTION
-salmon_merge /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/class_table.csv /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/class_quant_NC-LIB-Virome_S299_L002_R1_001/NC-LIB-Virome_S299_L002_R1_001_quant.sf class NC-LIB-Virome_S299_L002_R1_001 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_merge_TaxAndQuant/
-FINISHED MERGE SCRIPT
 [Wed Dec  4 18:45:12 2024]
 Finished job 14.
 2 of 6 steps (33%) done
@@ -122,30 +72,6 @@ localrule mergeTaxAndQuant:
 
         bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/mergeTaxonomyAndQuantificationSingleLevel.sh /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/ /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/order_table.csv             /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/order_quant_NC-LIB-Virome_S299_L002_R1_001/NC-LIB-Virome_S299_L002_R1_001_quant.sf NC-LIB-Virome_S299_L002_R1_001 RNA             order /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001
         
-/data/apps/software/spack/linux-rocky9-x86_64_v3/gcc-11.3.1/openjdk-17.0.11_9-mcbjre6ftmfq4pieucpfccnvrm6tnnxk/bin/java
-CHECKPOINT 1: SALMON INPUTS:
-1. codePath:
-Directory exists: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/
-dos2unix: converting file /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/dir_check.sh to Unix format...
-2. taxonomy input file:
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/order_table.csv
-3. salmon quantification input file:
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/order_quant_NC-LIB-Virome_S299_L002_R1_001/NC-LIB-Virome_S299_L002_R1_001_quant.sf
-4. baseName:
-NC-LIB-Virome_S299_L002_R1_001
-5. origin:
-RNA
-6. taxLevel:
-order
-7. pathseq merge program:
-/data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar
-8. outPath:
-Directory exists: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001
-CHECKPOINT 2: CALL MERGE FUNCTION
-salmon_merge /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/order_table.csv /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/order_quant_NC-LIB-Virome_S299_L002_R1_001/NC-LIB-Virome_S299_L002_R1_001_quant.sf order NC-LIB-Virome_S299_L002_R1_001 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_merge_TaxAndQuant/
-FINISHED MERGE SCRIPT
 [Wed Dec  4 18:45:15 2024]
 Finished job 12.
 3 of 6 steps (50%) done
@@ -168,30 +94,6 @@ localrule mergeTaxAndQuant:
 
         bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/mergeTaxonomyAndQuantificationSingleLevel.sh /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/ /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/phylum_table.csv             /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/phylum_quant_NC-LIB-Virome_S299_L002_R1_001/NC-LIB-Virome_S299_L002_R1_001_quant.sf NC-LIB-Virome_S299_L002_R1_001 RNA             phylum /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001
         
-/data/apps/software/spack/linux-rocky9-x86_64_v3/gcc-11.3.1/openjdk-17.0.11_9-mcbjre6ftmfq4pieucpfccnvrm6tnnxk/bin/java
-CHECKPOINT 1: SALMON INPUTS:
-1. codePath:
-Directory exists: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/
-dos2unix: converting file /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/dir_check.sh to Unix format...
-2. taxonomy input file:
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/phylum_table.csv
-3. salmon quantification input file:
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/phylum_quant_NC-LIB-Virome_S299_L002_R1_001/NC-LIB-Virome_S299_L002_R1_001_quant.sf
-4. baseName:
-NC-LIB-Virome_S299_L002_R1_001
-5. origin:
-RNA
-6. taxLevel:
-phylum
-7. pathseq merge program:
-/data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar
-8. outPath:
-Directory exists: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001
-CHECKPOINT 2: CALL MERGE FUNCTION
-salmon_merge /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/phylum_table.csv /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/phylum_quant_NC-LIB-Virome_S299_L002_R1_001/NC-LIB-Virome_S299_L002_R1_001_quant.sf phylum NC-LIB-Virome_S299_L002_R1_001 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_merge_TaxAndQuant/
-FINISHED MERGE SCRIPT
 [Wed Dec  4 18:45:17 2024]
 Finished job 10.
 4 of 6 steps (67%) done
@@ -214,30 +116,6 @@ localrule mergeTaxAndQuant:
 
         bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/mergeTaxonomyAndQuantificationSingleLevel.sh /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/ /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/kingdom_table.csv             /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/kingdom_quant_NC-LIB-Virome_S299_L002_R1_001/NC-LIB-Virome_S299_L002_R1_001_quant.sf NC-LIB-Virome_S299_L002_R1_001 RNA             kingdom /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001
         
-/data/apps/software/spack/linux-rocky9-x86_64_v3/gcc-11.3.1/openjdk-17.0.11_9-mcbjre6ftmfq4pieucpfccnvrm6tnnxk/bin/java
-CHECKPOINT 1: SALMON INPUTS:
-1. codePath:
-Directory exists: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/
-dos2unix: converting file /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/dir_check.sh to Unix format...
-2. taxonomy input file:
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/kingdom_table.csv
-3. salmon quantification input file:
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/kingdom_quant_NC-LIB-Virome_S299_L002_R1_001/NC-LIB-Virome_S299_L002_R1_001_quant.sf
-4. baseName:
-NC-LIB-Virome_S299_L002_R1_001
-5. origin:
-RNA
-6. taxLevel:
-kingdom
-7. pathseq merge program:
-/data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar
-8. outPath:
-Directory exists: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001
-CHECKPOINT 2: CALL MERGE FUNCTION
-salmon_merge /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/kingdom_table.csv /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/kingdom_quant_NC-LIB-Virome_S299_L002_R1_001/NC-LIB-Virome_S299_L002_R1_001_quant.sf kingdom NC-LIB-Virome_S299_L002_R1_001 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_merge_TaxAndQuant/
-FINISHED MERGE SCRIPT
 [Wed Dec  4 18:45:19 2024]
 Finished job 1.
 5 of 6 steps (83%) done
@@ -255,4 +133,3 @@ localrule all:
 Finished job 0.
 6 of 6 steps (100%) done
 Complete log: .snakemake/log/2024-12-04T184505.240611.snakemake.log
-RAN SNAKEMAKE

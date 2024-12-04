@@ -1,0 +1,32 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                 count
+----------------  -------
+all                     1
+mergeTaxAndQuant        5
+total                   6
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Dec  4 18:40:44 2024]
+localrule mergeTaxAndQuant:
+    input: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/mergeTaxonomyAndQuantificationSingleLevel.sh, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/family_table.csv, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/family_quant_NC-LIB-Virome_S299_L002_R1_001/NC-LIB-Virome_S299_L002_R1_001_quant.sf
+    output: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_merge_TaxAndQuant/RNA_family_NC-LIB-Virome_S299_L002_R1_001_pseudocounts.csv, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_merge_TaxAndQuant/RNA_family_NC-LIB-Virome_S299_L002_R1_001_tpm.csv
+    jobid: 16
+    reason: Missing output files: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_merge_TaxAndQuant/RNA_family_NC-LIB-Virome_S299_L002_R1_001_tpm.csv
+    wildcards: sample=NC-LIB-Virome_S299_L002, taxlevel=family
+    resources: tmpdir=/data/scratch/parkercol/ai-hpcsubmit2
+
+RuleException in rule mergeTaxAndQuant in file /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/Tests/SkylineTest1/Snakefile, line 424:
+AttributeError: 'InputFiles' object has no attribute 'program_MergeQIIME2TaxAndSalmon', when formatting the following:
+
+        module purge
+        module load openjdk
+        which java
+
+        bash {input.scriptPath} {params.codePath} {input.taxInputFile}             {input.salmonQuantInputFile} {params.sampleNameLeft} {params.origin}             {params.taxLevel} {input.program_MergeQIIME2TaxAndSalmon} {params.outPath}
+        
