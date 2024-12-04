@@ -1,123 +1,93 @@
 #!/bin/sh
-#$ -N salmonQuantSingleLevel
-#$ -S /bin/bash
-#$ -M rahul.subramanian@nih.gov
-#$ -m n
-#$ -l h_vmem=100G
-#$ -cwd
+#SBATCH -J buildSalmon
+#SBATCH --mem=100G
+#SBATCH --cpus-per-task=1
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=cokie.parker@nih.gov
 
+## REQUIREMENTS
+##########################
+## programs ##
+# java
+# salmon
 
-## load Locus modules
-module load salmon
+## indices ##
+# kaiju indices (what reference?)
+##########################
 
-COUNTER=$SGE_TASK_ID
-projectID=$1
-left_read_file_base_name=$2
-right_read_file_base_name=$3
-origin=$4 ## RNA, DNA or all
-taxLevel=$5
-left_read_file=$6
-right_read_file=$7
+codePath=$1
+left_read_file=$2
+right_read_file=$3
+baseName=$4
+origin=$5 ## RNA, DNA or all
+taxLevel=$6
+salmon_index=$7
+outPath=$8
 
-echo $projectID
-echo $left_read_file_base_name
-echo $right_read_file_base_name
-echo $origin
-echo $taxLevel
-echo $left_read_file
-echo $right_read_file
+## print input args
+## check that all input args exist and are non-zero
+#####################################################
+echo "CHECKPOINT 1: SALMON INPUTS:"
 
-##########################################
-
-## Get relative paths to original base reads
-rel_path_to_proj_dir="../"
-
-left_read_file_rel_path_from_salmon=$left_read_file
-right_read_file_rel_path_from_salmon=$right_read_file
-
-echo "Read path relative to salmon folder"
+echo "1. codePath:"
+if [[ -d "$codePath" ]]; then
+    echo "Directory exists: $codePath"
+  else
+    echo "Directory does not exist: $codePath. FAILED. QUITTING."
+    exit 1
+fi
+echo $codePath
 
 ## Source script for directory checking function
-dos2unix dir_check.sh
-source ./dir_check.sh 
+dos2unix $codePath"dir_check.sh"
+source $codePath"dir_check.sh"
 
-## Confirm that we are in the scripts directory
-correct_cur_Dir="scripts"
-dir_check  $correct_cur_Dir
+echo "2. left read file:"
+variable_is_empty $left_read_file
+file_exist_check $left_read_file
+echo $left_read_file
+echo "3. right read file:"
+variable_is_empty $right_read_file
+file_exist_check $right_read_file
+echo $right_read_file
+echo "4. baseName:"
+variable_is_empty $baseName
+echo $baseName
 
-##Change directories to project folder
-cd "../"
+echo "5. origin:"
+variable_is_empty $origin
+echo $origin
+echo "6. taxLevel:"
+variable_is_empty $taxLevel
+echo $taxLevel
 
-##Confirm that we are in project folder
-correct_cur_Dir=$projectID
-dir_check  $correct_cur_Dir
-
-sample_folder_name="Sample_"$left_read_file_base_name
-
-## Confirm that sample folder exists
-file_exist_check $sample_folder_name
-
-## Change into sample folder
-cd $sample_folder_name
-
-## Confirm that we are in sample folder
-correct_cur_Dir=$sample_folder_name
-dir_check  $correct_cur_Dir
-
-## Make salmon quant folder if it doesn't already exist
-salmon_quant_folder_name=$origin"_salmon_quant"
-mkdir $salmon_quant_folder_name
-
-## Confirm that the directory exists (will cd into it later on)
-file_exist_check $salmon_quant_folder_name
-
-trinity_output_folder=$origin"_trinity_output"
-## Confirm that the trinity output folder exists
-file_exist_check $trinity_output_folder
-
-## Change directories into that folder
-cd $trinity_output_folder
-
-## Confirm that we are in that folder
-correct_cur_Dir=$trinity_output_folder
-dir_check  $correct_cur_Dir
-
-## Confirm that salmon folder exists
-file_exist_check salmon
-
-## Change into salmon folder
-cd salmon
-
-## Confirm that we are in that folder
-correct_cur_Dir=salmon
-dir_check  $correct_cur_Dir
-
-origin_sample_unique_id_tag=$origin"_Sample_"$left_read_file_base_name
+echo "7. salmon index:"
+variable_is_empty $salmon_index
+file_exist_check $salmon_index
+echo $salmon_index
+echo "8. outPath:"
+variable_is_empty $outPath
+directory_exists $outPath
+echo $outPath
+##########################################
 
 ## part1 is repetitive so let's define and use a function 
 salmon_quantification() {
   my_taxonomy_level=$1
   path_to_left_read_file=$2
   path_to_right_read_file=$3
-  origin_sample_unique_id_tag=$4
-  salmon_quant_folder_name_in_func=$5
-  salmon_index=$my_taxonomy_level"_salmon/"
+  baseName=$4
+  salmon_output_dir=$5
+  salmon_index=$6
   ####################################
-  ## Just in case you need to resubmit
-  rm -r $my_taxonomy_level"_quant"
-
-  echo "Path to left read file inside function"
+  echo "Path to left read file inside function:"
   echo $path_to_left_read_file
 
-  echo "Path to right read file inside function"
+  echo "Path to right read file inside function:"
   echo $path_to_right_read_file
 
-  #Confirm that we can get to Salmon quant folder from where we are
-  ## Confirm that the directory exists (will cd into it later on)
-  path_to_salmon_quant_folder="../../"$salmon_quant_folder_name_in_func"/"
-  file_exist_check $path_to_salmon_quant_folder 
-
-  salmon_output_file_name_and_path=$path_to_salmon_quant_folder$my_taxonomy_level"_quant_"$origin_sample_unique_id_tag
+  #Confirm that we can get to Salmon quant folder
+  file_exist_check $salmon_output_dir
 
   ####################################
   ### The quant command quantifies transcripts, with the index provided by the -i option, -1 and -2 denote the left
@@ -127,25 +97,35 @@ salmon_quantification() {
   ## The -p option specifies the number of threads to be used, in this case 1. 
   ## The validateMappings option enables selective alignment
   ## The -o option specifies the output file
-  salmon quant -i $salmon_index -l A -1 $path_to_left_read_file -2 $path_to_right_read_file -p 1 --validateMappings -o $salmon_output_file_name_and_path
+  salmon quant -i $salmon_index -l A -1 $path_to_left_read_file -2 $path_to_right_read_file -p 1 --validateMappings -o $salmon_output_dir
 
   #Confirm that output file was created
-  file_exist_check $salmon_output_file_name_and_path 
-  file_exist_check $salmon_output_file_name_and_path"/"quant.sf
+  file_exist_check $salmon_output_dir 
+  file_exist_check $salmon_output_dir"/"quant.sf
 
-  mv $salmon_output_file_name_and_path"/"quant.sf $salmon_output_file_name_and_path"/"$origin_sample_unique_id_tag"_quant.sf"
+  mv $salmon_output_dir"/"quant.sf $salmon_output_dir"/"$baseName"_quant.sf"
 
-  file_exist_check $salmon_output_file_name_and_path"/"$origin_sample_unique_id_tag"_quant.sf"
-
-  ## Return to scripts folder at end of script
-  cd ../../../scripts/
-
-  ## Confirm that we are in fact in the scripts folder
-  cur_Dir=$(basename $(pwd))
-  #echo $cur_Dir
-  correct_cur_Dir="scripts"
-  dir_check  $correct_cur_Dir
-  
+  file_exist_check $salmon_output_dir"/"$baseName"_quant.sf"
 }
 
-salmon_quantification $taxLevel $left_read_file_rel_path_from_salmon $right_read_file_rel_path_from_salmon $origin_sample_unique_id_tag $salmon_quant_folder_name
+echo "CHECKPOINT 2: CALL SALMON QUANTIFICATION"
+
+salmon_output_dir=$outPath"/"$taxLevel"_quant_"$baseName
+echo "salmon quant output dir:"
+echo $salmon_output_dir
+mkdir $salmon_output_dir
+directory_exists $salmon_output_dir
+
+salmonQuantCmd="salmon_quantification $taxLevel \
+                $left_read_file \
+                $right_read_file \
+                $baseName \
+                $salmon_output_dir \
+                $salmon_index"
+
+echo "Salmon quant call:"
+echo $salmonQuantCmd
+eval "$salmonQuantCmd"
+process_fail_check "Salmon quantfication call failed. QUITTING."
+
+echo "END OF SALMON"

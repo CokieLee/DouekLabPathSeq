@@ -1,0 +1,107 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 16
+Rules claiming more threads will be scaled down.
+Job stats:
+job                count
+---------------  -------
+all                    1
+bowtiePrimate          1
+filterHostBlast        1
+starAfterBowtie        1
+trinity                1
+total                  5
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Fri Nov 22 12:03:03 2024]
+localrule starAfterBowtie:
+    input: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/starAfterBowtie.sh, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_582760806_A5_S33_R1_001_short_test.fq, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_582760806_A5_S33_R2_001_short_test.fq
+    output: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_Star_Alignment/582760806_A5_S33_R1_001_short_test_unalignedRead1AgainstTranscriptome.fq, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_Star_Alignment/582760806_A5_S33_R2_001_short_test_unalignedRead2AgainstTranscriptome.fq, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_Star_Alignment/582760806_A5_S33_R1_001_short_test_star_alignment_stats.txt
+    jobid: 4
+    reason: Missing output files: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_Star_Alignment/582760806_A5_S33_R1_001_short_test_unalignedRead1AgainstTranscriptome.fq, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_Star_Alignment/582760806_A5_S33_R2_001_short_test_unalignedRead2AgainstTranscriptome.fq
+    wildcards: sample=582760806_A5_S33
+    resources: tmpdir=/data/scratch/parkercol/ai-hpcsubmit2
+
+
+        module purge
+        module load star
+        which STAR
+        module load samtools
+        which samtools
+
+        bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/starAfterBowtie.sh /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/ /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_582760806_A5_S33_R1_001_short_test.fq /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_582760806_A5_S33_R2_001_short_test.fq         582760806_A5_S33_R1_001_short_test 582760806_A5_S33_R2_001_short_test /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/ /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/StarReindex/
+        
+[Fri Nov 22 12:03:20 2024]
+Finished job 4.
+1 of 5 steps (20%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Fri Nov 22 12:03:20 2024]
+localrule bowtiePrimate:
+    input: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/bowtiePrimate.sh, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_Star_Alignment/582760806_A5_S33_R1_001_short_test_unalignedRead1AgainstTranscriptome.fq, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_Star_Alignment/582760806_A5_S33_R2_001_short_test_unalignedRead2AgainstTranscriptome.fq
+    output: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq
+    jobid: 3
+    reason: Missing output files: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq; Input files updated by another job: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_Star_Alignment/582760806_A5_S33_R2_001_short_test_unalignedRead2AgainstTranscriptome.fq, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_Star_Alignment/582760806_A5_S33_R1_001_short_test_unalignedRead1AgainstTranscriptome.fq
+    wildcards: sample=582760806_A5_S33
+    resources: tmpdir=/data/scratch/parkercol/ai-hpcsubmit2
+
+
+        module purge
+        module load bowtie2
+        which bowtie2
+        module load samtools
+        which samtools
+
+        bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/bowtiePrimate.sh /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_Star_Alignment/582760806_A5_S33_R1_001_short_test_unalignedRead1AgainstTranscriptome.fq /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_Star_Alignment/582760806_A5_S33_R2_001_short_test_unalignedRead2AgainstTranscriptome.fq /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test         /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/ 582760806_A5_S33_R1_001_short_test 582760806_A5_S33_R2_001_short_test /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20210302/primates
+        
+[Fri Nov 22 12:04:16 2024]
+Finished job 3.
+2 of 5 steps (40%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Fri Nov 22 12:04:16 2024]
+localrule trinity:
+    input: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/all_trinity.sh, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq
+    output: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/trinity_out_300_Sample_582760806_A5_S33_R1_001_short_test.txt, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/trinity_err_300_Sample_582760806_A5_S33_R1_001_short_test.txt, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta
+    jobid: 2
+    reason: Missing output files: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta; Input files updated by another job: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq
+    wildcards: sample=582760806_A5_S33
+    resources: tmpdir=/data/scratch/parkercol/ai-hpcsubmit2
+
+
+        module load trinity
+        which Trinity
+        module load fastp
+        which fastp
+        module load fastx-toolkit
+        which fasta_formatter
+
+        bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/all_trinity.sh /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/ /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq 582760806_A5_S33_R1_001_short_test         582760806_A5_S33_R2_001_short_test RNA 300 1         175G /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test /data/scratch/
+        
+[Fri Nov 22 12:04:25 2024]
+Error in rule trinity:
+    jobid: 2
+    input: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/all_trinity.sh, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq
+    output: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/trinity_out_300_Sample_582760806_A5_S33_R1_001_short_test.txt, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/trinity_err_300_Sample_582760806_A5_S33_R1_001_short_test.txt, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta
+    shell:
+        
+        module load trinity
+        which Trinity
+        module load fastp
+        which fastp
+        module load fastx-toolkit
+        which fasta_formatter
+
+        bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/all_trinity.sh /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/ /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq 582760806_A5_S33_R1_001_short_test         582760806_A5_S33_R2_001_short_test RNA 300 1         175G /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test /data/scratch/
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-11-22T120259.430501.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

@@ -5,8 +5,15 @@
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=cokie.parker@nih.gov
 
-module load blast
-module load java
+## REQUIREMENTS
+##########################
+## programs ##
+# blast
+# java
+
+## databases/indices ##
+# Mammalian blast database
+##########################
 
 codePath=$1
 trinityContigFile=$2
@@ -18,7 +25,7 @@ blastDB_Mammalia=$6
 ## print input args
 ## check that all input args exist and are non-zero
 #####################################################
-echo "CHECKPOINT 1: ALL_TRINITY INPUTS:"
+echo "CHECKPOINT 1: FILTER_HOST INPUTS:"
 
 echo "1. codePath:"
 echo $codePath
@@ -53,15 +60,9 @@ echo $blastDB_Mammalia
 file_exist_check $blastDB_Mammalia
 #####################################################
 
-## Source script for directory checking function
-dos2unix $codePath/dir_check.sh
-source $codePath/dir_check.sh
-
-## Confirm that the split trinity output file exists
-file_exist_check $trinityContigFile
-
 ##Make name for .tab output file for blast search
-trinity_contig_query_mammal_blast_HSPs=$outPath"/trinity_"$origin"_Sample_"$left_read_file_base_name".tab"
+trinity_contig_query_mammal_blast_HSPs=$outPath"/trinity_"$origin"_blast_search.tab"
+echo "Blast search output file: $trinity_contig_query_mammal_blast_HSPs"
 
 ## Run a command line blast query (for user manual see https://www.ncbi.nlm.nih.gov/books/NBK569856/,
 ## also see https://open.oregonstate.education/computationalbiology/chapter/command-line-blast/)
@@ -82,8 +83,9 @@ trinity_contig_query_mammal_blast_HSPs=$outPath"/trinity_"$origin"_Sample_"$left
 ## The output from the blast search for that split Trinity output is stored in a .tab format in the file nametab_file_out_name.
 blastn -query $trinityContigFile -db $blastDB_Mammalia -outfmt 6 -evalue 0.000000000001 -perc_identity 60 -qcov_hsp_perc 60 -max_target_seqs 1 -num_threads 4 1> $trinity_contig_query_mammal_blast_HSPs
 
-trinity_contigs_not_aligned_to_mammal_BLAST=$outPath"/unaligned_"$trinityContigFile
+trinity_contigs_not_aligned_to_mammal_BLAST=$outPath"/nonMammal_trinity_Origin_"$origin".fasta"
+echo "Output file name: $trinity_contigs_not_aligned_to_mammal_BLAST"
 
 ## This tab file is then fed into the program PathSeqRemoveHostForKaiju.jar along with the split Trininity output file.
 ## The program filters out matching host contigs, and outputs contigs that could not be aligned to the mammallian reference database. 
-java -Xmx5G -jar $Prog_PathSeqRemoveHostForKaiju $trinity_contig_query_mammal_blast_HSPs $trinityContigFile 1> $trinity_contigs_not_aligned_to_mammal_BLAST
+java -Xmx5G -jar $echo $Prog_RemoveHostForKaiju $trinity_contig_query_mammal_blast_HSPs $trinityContigFile 1> $trinity_contigs_not_aligned_to_mammal_BLAST

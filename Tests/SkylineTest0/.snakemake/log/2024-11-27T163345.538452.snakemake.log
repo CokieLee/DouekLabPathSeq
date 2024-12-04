@@ -1,4 +1,3 @@
-Assuming unrestricted shared filesystem usage for local execution.
 Building DAG of jobs...
 Using shell: /usr/bin/bash
 Provided cores: 1 (use --cores to define parallelism)
@@ -13,7 +12,7 @@ total              2
 Select jobs to execute...
 Execute 1 jobs...
 
-[Tue Dec  3 11:20:43 2024]
+[Wed Nov 27 16:33:49 2024]
 localrule buildSalmon:
     input: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/buildSalmon.sh, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/sorted_protein_kaiju_RNA.tab, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/formatted_non_host_proteins_nucleotide_RNA.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/formatted_non_host_proteins_RNA.faa, /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqKaijuConcensusSplitter2/dist/PathSeqKaijuConcensusSplitter2.jar, /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp, /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/qiime2_formatted_taxonomy.tab
     output: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/kingdom_sequences.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/phylum_sequences.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/order_sequences.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/class_sequences.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/family_sequences.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/genus_sequences.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/species_sequences.fa
@@ -31,49 +30,6 @@ localrule buildSalmon:
 
         bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/buildSalmon.sh /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/ /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/sorted_protein_kaiju_RNA.tab             /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/formatted_non_host_proteins_nucleotide_RNA.fa /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/formatted_non_host_proteins_RNA.faa             /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqKaijuConcensusSplitter2/dist/PathSeqKaijuConcensusSplitter2.jar RNA             /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/qiime2_formatted_taxonomy.tab /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/
         
-/data/apps/software/spack/linux-rocky9-x86_64_v3/gcc-11.3.1/openjdk-17.0.11_9-mcbjre6ftmfq4pieucpfccnvrm6tnnxk/bin/java
-/data/apps/software/spack/linux-rocky9-x86_64_v3/gcc-11.3.1/salmon-1.10.2-5pqf3j63zsfujxxfa4qmnj3eqy6g7x5u/bin/salmon
-CHECKPOINT 1: PROTEIN_KAIJU INPUTS:
-1. codePath:
-Directory exists: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/
-dos2unix: converting file /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/dir_check.sh to Unix format...
-2. kaiju protein tab output:
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/sorted_protein_kaiju_RNA.tab
-3. kaiju protein nucleotide output:
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/formatted_non_host_proteins_nucleotide_RNA.fa
-4. kaiju protein translations output:
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/formatted_non_host_proteins_RNA.faa
-5. kaiju consensus splitter program:
-/data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqKaijuConcensusSplitter2/dist/PathSeqKaijuConcensusSplitter2.jar
-6. origin:
-RNA
-7. kaiju taxonomy:
-/data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/qiime2_formatted_taxonomy.tab
-8. kaiju nodes:
-/data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp
-10. output path:
-Directory exists: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/
-/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/
-CHECKPOINT 1: CREATE REFERENCE FASTA FILES FROM KAIJU NONHOST OUTPUT
-mkdir: cannot create directory ‘/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon’: File exists
-Directory exists: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon
-Changing directory to: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon
-Consensus splitter command:
-java -Xmx90G -jar /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqKaijuConcensusSplitter2/dist/PathSeqKaijuConcensusSplitter2.jar /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/sorted_protein_kaiju_RNA.tab /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/formatted_non_host_proteins_nucleotide_RNA.fa /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/formatted_non_host_proteins_RNA.faa /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/qiime2_formatted_taxonomy.tab /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp 2>stderr.txt
-Finished kaiju concensus splitter.
-CHECKPOINT 2: CREATE SALMON INDEX FROM FASTA FILES
-Version Server Response: Not Found
-The file [kingdom_sequences.fa] provided for the transcriptome does not appear to exist./data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/buildSalmon.sh: line 113: om_sequences.fa: command not found
-Version Server Response: Not Found
-The file [phylum_sequences.fa] provided for the transcriptome does not appear to exist.Version Server Response: Not Found
-The file [class_sequences.fa] provided for the transcriptome does not appear to exist.Version Server Response: Not Found
-The file [order_sequences.fa] provided for the transcriptome does not appear to exist.Version Server Response: Not Found
-The file [family_sequences.fa] provided for the transcriptome does not appear to exist.Version Server Response: Not Found
-The file [genus_sequences.fa] provided for the transcriptome does not appear to exist.Version Server Response: Not Found
-The file [species_sequences.fa] provided for the transcriptome does not appear to exist./data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/buildSalmon.sh: line 128: cd: pwd: No such file or directory
-returned to /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon
-END OF BUILD SALMON INDEX
 Waiting at most 240 seconds for missing files.
 MissingOutputException in rule buildSalmon in file /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/Tests/SkylineTest0/Snakefile, line 310:
 Job 1  completed successfully, but some output files are missing. Missing files after 240 seconds. This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait:
@@ -86,7 +42,6 @@ Job 1  completed successfully, but some output files are missing. Missing files 
 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/species_sequences.fa
 Shutting down, this might take some time.
 Exiting because a job execution failed. Look above for error message
-Complete log: .snakemake/log/2024-12-03T112039.403570.snakemake.log
+Complete log: .snakemake/log/2024-11-27T163345.538452.snakemake.log
 WorkflowError:
 At least one job did not complete successfully.
-RAN SNAKEMAKE

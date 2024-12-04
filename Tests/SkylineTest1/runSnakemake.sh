@@ -3,9 +3,10 @@
 #SBATCH --output=snakemakePathseq.out
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=200G
-#SBATCH -t 4:00:00
+#SBATCH -t 24:00:00
 
 module load snakemake
+which snakemake
 
 snakemake -p -c $SLURM_CPUS_PER_TASK --latency-wait 240
 

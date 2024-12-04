@@ -1,0 +1,77 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 16
+Rules claiming more threads will be scaled down.
+Job stats:
+job                count
+---------------  -------
+all                    1
+filterHostBlast        1
+trinity                1
+total                  3
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Fri Nov 22 12:25:03 2024]
+localrule trinity:
+    input: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/all_trinity.sh, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq
+    output: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/trinity_out_300_Sample_582760806_A5_S33_R1_001_short_test.txt, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/trinity_err_300_Sample_582760806_A5_S33_R1_001_short_test.txt, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta
+    jobid: 2
+    reason: Missing output files: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta
+    wildcards: sample=582760806_A5_S33
+    resources: tmpdir=/data/scratch/parkercol/ai-hpcsubmit2
+
+
+        module purge
+        module load py-setuptools
+        echo "loaded py-setuptools"
+        module load trinity
+        which Trinity
+        module load fastp
+        which fastp
+        module load fastx-toolkit
+        which fasta_formatter
+
+        bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/all_trinity.sh /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/ /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq 582760806_A5_S33_R1_001_short_test         582760806_A5_S33_R2_001_short_test RNA 300 1         175G /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test /data/scratch/
+        
+[Fri Nov 22 12:26:10 2024]
+Finished job 2.
+1 of 3 steps (33%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Fri Nov 22 12:26:10 2024]
+localrule filterHostBlast:
+    input: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/array_filter_host.sh, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta, /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqRemoveHostForKaiju/dist/PathSeqRemoveHostForKaiju.jar, /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20210716/Mammalia.fa
+    output: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_filtered/nonHost_trinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta
+    jobid: 1
+    reason: Missing output files: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_filtered/nonHost_trinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta; Input files updated by another job: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta
+    wildcards: sample=582760806_A5_S33
+    resources: tmpdir=/data/scratch/parkercol/ai-hpcsubmit2
+
+
+        module load blast-plus
+        module load openjkd
+
+        bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/array_filter_host.sh /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/ /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_filtered RNA         /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqRemoveHostForKaiju/dist/PathSeqRemoveHostForKaiju.jar /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20210716/Mammalia.fa
+        
+[Fri Nov 22 12:26:18 2024]
+Error in rule filterHostBlast:
+    jobid: 1
+    input: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/array_filter_host.sh, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta, /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqRemoveHostForKaiju/dist/PathSeqRemoveHostForKaiju.jar, /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20210716/Mammalia.fa
+    output: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_filtered/nonHost_trinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta
+    shell:
+        
+        module load blast-plus
+        module load openjkd
+
+        bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/array_filter_host.sh /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/ /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_filtered RNA         /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqRemoveHostForKaiju/dist/PathSeqRemoveHostForKaiju.jar /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20210716/Mammalia.fa
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-11-22T122458.161708.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

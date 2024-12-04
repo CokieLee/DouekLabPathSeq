@@ -1,0 +1,109 @@
+/data/apps/software/spack/linux-rocky9-x86_64_v3/gcc-11.3.1/snakemake-8.5.2-x277myxx4tkm7rfknc6kwjp535p5gktf/bin/snakemake
+Assuming unrestricted shared filesystem usage for local execution.
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job              count
+-------------  -------
+all                  1
+collectSalmon        5
+salmonQuant          5
+total               11
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Dec  4 11:28:38 2024]
+localrule salmonQuant:
+    input: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/salmonQuantSingleLevel.sh, /data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/NC-LIB-Virome_S299_L002_R1_001.fastq.gz, /data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/NC-LIB-Virome_S299_L002_R2_001.fastq.gz, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/kingdom_sequences.fa
+    output: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/kingdom_quant/NC-LIB-Virome_S299_L002_R1_001_quant.sf
+    jobid: 2
+    reason: Missing output files: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/kingdom_quant/NC-LIB-Virome_S299_L002_R1_001_quant.sf
+    wildcards: sample=NC-LIB-Virome_S299_L002, taxlevel=kingdom
+    resources: tmpdir=/data/scratch/parkercol/ai-hpcsubmit2
+
+
+        module purge
+        module load salmon
+        which salmon
+
+        bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/salmonQuantSingleLevel.sh /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/             /data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/NC-LIB-Virome_S299_L002_R1_001.fastq.gz /data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/NC-LIB-Virome_S299_L002_R2_001.fastq.gz             NC-LIB-Virome_S299_L002_R1_001 RNA kingdom             /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/kingdom_sequences.fa /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001
+        
+/data/apps/software/spack/linux-rocky9-x86_64_v3/gcc-11.3.1/salmon-1.10.2-5pqf3j63zsfujxxfa4qmnj3eqy6g7x5u/bin/salmon
+CHECKPOINT 1: SALMON INPUTS:
+1. codePath:
+Directory exists: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/
+/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/
+dos2unix: converting file /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/dir_check.sh to Unix format...
+2. left read file:
+/data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/NC-LIB-Virome_S299_L002_R1_001.fastq.gz
+3. right read file:
+/data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/NC-LIB-Virome_S299_L002_R2_001.fastq.gz
+4. baseName:
+NC-LIB-Virome_S299_L002_R1_001
+5. origin:
+RNA
+6. taxLevel:
+kingdom
+7. salmon index:
+/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/kingdom_sequences.fa
+8. outPath:
+Directory exists: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001
+/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001
+CHECKPOINT 2: CALL SALMON QUANTIFICATION
+salmon quant output dir:
+/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/kingdom_quant_NC-LIB-Virome_S299_L002_R1_001
+Directory exists: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/kingdom_quant_NC-LIB-Virome_S299_L002_R1_001
+Salmon quant call:
+salmon_quantification kingdom /data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/NC-LIB-Virome_S299_L002_R1_001.fastq.gz /data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/NC-LIB-Virome_S299_L002_R2_001.fastq.gz NC-LIB-Virome_S299_L002_R1_001 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/kingdom_quant_NC-LIB-Virome_S299_L002_R1_001 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/kingdom_sequences.fa
+Path to left read file inside function:
+/data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/NC-LIB-Virome_S299_L002_R1_001.fastq.gz
+Path to right read file inside function:
+/data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/NC-LIB-Virome_S299_L002_R2_001.fastq.gz
+Version Server Response: Not Found
+### salmon (selective-alignment-based) v1.10.2
+### [ program ] => salmon 
+### [ command ] => quant 
+### [ index ] => { /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/kingdom_sequences.fa }
+### [ libType ] => { A }
+### [ mates1 ] => { /data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/NC-LIB-Virome_S299_L002_R1_001.fastq.gz }
+### [ mates2 ] => { /data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/NC-LIB-Virome_S299_L002_R2_001.fastq.gz }
+### [ threads ] => { 1 }
+### [ validateMappings ] => { }
+### [ output ] => { /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/kingdom_quant_NC-LIB-Virome_S299_L002_R1_001 }
+Logs will be written to /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/kingdom_quant_NC-LIB-Virome_S299_L002_R1_001/logs
+Exception : [Error: The index version file /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/kingdom_sequences.fa/versionInfo.json doesn't seem to exist.  Please try re-building the salmon index.]
+salmon quant was invoked improperly.
+For usage information, try salmon quant --help
+Exiting.
+File  
+/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/kingdom_quant_NC-LIB-Virome_S299_L002_R1_001/quant.sf
+was not found in directory  
+SkylineTest1
+File  
+/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/kingdom_quant_NC-LIB-Virome_S299_L002_R1_001/quant.sf
+was not found in directory  
+SkylineTest1
+[Wed Dec  4 11:28:41 2024]
+Error in rule salmonQuant:
+    jobid: 2
+    input: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/salmonQuantSingleLevel.sh, /data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/NC-LIB-Virome_S299_L002_R1_001.fastq.gz, /data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/NC-LIB-Virome_S299_L002_R2_001.fastq.gz, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/kingdom_sequences.fa
+    output: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/kingdom_quant/NC-LIB-Virome_S299_L002_R1_001_quant.sf
+    shell:
+        
+        module purge
+        module load salmon
+        which salmon
+
+        bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/salmonQuantSingleLevel.sh /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/             /data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/NC-LIB-Virome_S299_L002_R1_001.fastq.gz /data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/NC-LIB-Virome_S299_L002_R2_001.fastq.gz             NC-LIB-Virome_S299_L002_R1_001 RNA kingdom             /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/salmon/kingdom_sequences.fa /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-12-04T112834.957559.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.
+RAN SNAKEMAKE

@@ -5,56 +5,92 @@
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --mail-user=cokie.parker@nih.gov
 
-## Load FASTX module
-module load fastx-toolkit
+## REQUIREMENTS
+##########################
+## programs ##
+# fastx-toolkit (fasta_formatter)
 
-left_read_file_base_name=$1
-right_read_file_base_name=$2
-nonHostContigs=$3
-origin=$4  ## RNA, DNA or all            
-program_prodigal=$5
-program_kaiju=$6
-kaiju_nodes=$7
-kaiju_fmi=$8
-codePath=$9
+## indices ##
+# kaiju indices (what reference?)
+##########################
+
+codePath=$1
+left_read_file_base_name=$2
+right_read_file_base_name=$3
+nonMammalContigs=$4
+origin=$5  ## RNA, DNA or all            
+program_prodigal=$6
+program_kaiju=$7
+kaiju_nodes=$8
+kaiju_fmi=$9
 outPath=${10}
 
+## print input args
+## check that all input args exist and are non-zero
+#####################################################
 echo "CHECKPOINT 1: PROTEIN_KAIJU INPUTS:"
-echo "1. left_read_file_base_name:"
+
+echo "1. codePath:"
+if [[ -d "$codePath" ]]; then
+    echo "Directory exists: $codePath"
+  else
+    echo "Directory does not exist: $codePath. FAILED. QUITTING."
+    exit 1
+fi
+echo $codePath
+
+## Source script for directory checking function
+dos2unix $codePath"dir_check.sh"
+source $codePath"dir_check.sh"
+
+echo "2. left_read_file_base_name:"
+variable_is_empty $left_read_file_base_name
 echo $left_read_file_base_name
-echo "2. right_read_file_base_name:"
+echo "3. right_read_file_base_name:"
+variable_is_empty $left_read_file_base_name
 echo $right_read_file_base_name
 
-file_exist_check $nonHostContigs
-
-echo "origin"
+echo "4. nonMammalContigs:"
+variable_is_empty $nonMammalContigs
+file_exist_check $nonMammalContigs
+echo $nonMammalContigs
+echo "5. origin:"
 echo $origin
 
+echo "6. program_prodigal:"
+variable_is_empty $program_prodigal
+file_exist_check $program_prodigal
+echo $program_prodigal
+echo "7. program_kaiju"
+variable_is_empty $program_kaiju
+file_exist_check $program_kaiju
+echo $program_kaiju
 ## Export paths to prodigal and kaiju programs
 export PATH="$program_prodigal:$PATH"
 export PATH="$program_kaiju:$PATH"
 
+echo "8. kaiju_nodes:"
+variable_is_empty $kaiju_nodes
+file_exist_check $kaiju_nodes
+echo $kaiju_nodes
+echo "9. kaiju_fmi:"
+variable_is_empty $kaiju_fmi
+file_exist_check $kaiju_fmi
+echo $kaiju_fmi
 
-## Source script for directory checking function
-dos2unix $codePath"dir_check.sh"
-source $codePath"/dir_check.sh"
+echo "10. outPath:"
+variable_is_empty $outPath
+directory_exists $outPath
+echo $outPath
 
-## Confirm that sample folder exists
-file_exist_check $outPath
-
-kaiju_output_folder=$outPath$origin"_kaiju_output"
+kaiju_output_folder=$outPath/$origin"_kaiju_output/"
 mkdir $kaiju_output_folder
-## Confirm that the trinity output folder exists
-file_exist_check $kaiju_output_folder
-
-## Change directories into that folder
-cd $kaiju_output_folder
-
-## Confirm that we are in that folder
-correct_cur_Dir=$trinity_output_folder
-dir_check  $correct_cur_Dir
+directory_exists $kaiju_output_folder
+echo "kaiju output folder: $kaiju_output_folder"
+#####################################################
 
 
+echo "CHECKPOINT 2: RUN PRODIGAL:"
 ## Prodigal is a program that predicts protein coding regions in bacterial and acrchael genomes,
 ## specifically identifying potential translation initiation sites with confidence scores and RBS
 ## motifs. 
@@ -84,25 +120,45 @@ dir_check  $correct_cur_Dir
 ### https://github.com/hyattpd/prodigal/wiki/gene-prediction-modes
 
 ### The -d argument specifies the nucleotide sequence file, which is non_host_proteins_nucleotide.fa
-origin_sample_unique_id_tag=$origin"_Sample_"$left_read_file_base_name
-non_host_proteins_translations_output_file_faa="non_host_proteins_"$origin_sample_unique_id_tag".faa"
-protein_scores_starts_file_txt="protein_scores_"$origin_sample_unique_id_tag".txt"
-non_host_proteins_nucleotide_sequences_file_fa="non_host_proteins_nucleotide_"$origin_sample_unique_id_tag".fa"
-coords_output_genbank_like_format="coords_"$origin_sample_unique_id_tag".gbk"
-formatted_non_host_proteins_translations_output_file_faa="formatted_non_host_proteins_"$origin_sample_unique_id_tag".faa"
-formatted_non_host_proteins_nucleotide_sequences_file_fa="formatted_non_host_proteins_nucleotide_"$origin_sample_unique_id_tag".fa"
 
-prodigal -a $non_host_proteins_translations_output_file_faa -o $coords_output_genbank_like_format -i $non_host_formatted_Trinity_file_name -s protein_scores.txt -p meta -d $non_host_proteins_nucleotide_sequences_file_fa
+echo "Prodigal output files:"
+non_host_proteins_translations_output_file_faa=$kaiju_output_folder"non_host_proteins_"$origin".faa"
+protein_scores_starts_file_txt=$kaiju_output_folder"protein_scores_"$origin".txt"
+non_host_proteins_nucleotide_sequences_file_fa=$kaiju_output_folder"non_host_proteins_nucleotide_"$origin".fa"
+coords_output_genbank_like_format=$kaiju_output_folder"coords_"$origin".gbk"
 
-## changes the width of sequences line in a FASTA  or FASTAA fil    e
+echo "non_host_proteins_translations_output_file: $non_host_proteins_translations_output_file_faa"
+echo "protein_scores_starts_file_txt: $protein_scores_starts_file_txt"
+echo "non_host_proteins_nucleotide_sequences_file_fa: $non_host_proteins_nucleotide_sequences_file_fa"
+echo "coords_output_genbank_like_format: $coords_output_genbank_like_format"
+
+prodigal -a $non_host_proteins_translations_output_file_faa -o $coords_output_genbank_like_format -i $nonMammalContigs -s $protein_scores_starts_file_txt -p meta -d $non_host_proteins_nucleotide_sequences_file_fa
+process_fail_check "Prodigal run FAILED. QUITTING"
+
+echo "Prodigal run complete."
+
+
+echo "CHECKPOINT 3: FORMAT INPUTS:"
+formatted_non_host_proteins_translations_output_file_faa=$kaiju_output_folder"formatted_non_host_proteins_"$origin".faa"
+formatted_non_host_proteins_nucleotide_sequences_file_fa=$kaiju_output_folder"formatted_non_host_proteins_nucleotide_"$origin".fa"
+echo "formatted protein translations output file: $formatted_non_host_proteins_translations_output_file_faa"
+echo "formatted protein nucleotide output file: $formatted_non_host_proteins_nucleotide_sequences_file_fa"
+
+## changes the width of sequences line in a FASTA  or FASTAA file
 ## (all nucleotide/ amino acid sequences appear on a single line)
-
 fasta_formatter -i $non_host_proteins_translations_output_file_faa > $formatted_non_host_proteins_translations_output_file_faa
+process_fail_check "Formatting for protein translations output FAILED. QUITTING."
+
 fasta_formatter -i $non_host_proteins_nucleotide_sequences_file_fa > $formatted_non_host_proteins_nucleotide_sequences_file_fa
+process_fail_check "Formatting for protein nucleotide output FAILED. QUITTING."
 
-protein_kaiju_output_file_tab="protein_kaiju_"$origin_sample_unique_id_tag".tab"
+echo "Formatting prodigal outputs complete."
 
-sorted_protein_kaiju_output_file_tab="sorted_protein_kaiju_"$origin_sample_unique_id_tag".tab"
+
+echo "CHECKPOINT 4: RUN KAIJU"
+
+protein_kaiju_output_file_tab=$kaiju_output_folder"protein_kaiju_"$origin".tab"
+sorted_protein_kaiju_output_file_tab=$kaiju_output_folder"sorted_protein_kaiju_"$origin".tab"
 
 #query="formatted_non_host_proteins.faa"
 ## Runs kaiju, which performs taxonomic classification.
@@ -135,8 +191,11 @@ sorted_protein_kaiju_output_file_tab="sorted_protein_kaiju_"$origin_sample_uniqu
 ## and matching fragment sequences.
 
 ## Kaiju output is stored in a tab file ($protein_kaiju_output_file_tab). 
-kaiju -t $kaiju_nodes -f $kaiju_fmi -i $formatted_non_host_proteins_translations_output_file_faa -X -e 5 -E 0.01 -p -z 4 -v 1> $protein_kaiju_output_file_tab
+kaiju -t $kaiju_nodes -f $kaiju_fmi -i $formatted_non_host_proteins_translations_output_file_faa -X -e 5 -E 0.01 -p -z 1 -v 1> $protein_kaiju_output_file_tab
+process_fail_check "kaiju run FAILED. QUITTING"
 
 ## Sort kaiju output
 ## The -k option denotes sorting via a key, the 2 denotes sorting on field 2 (confirm)
 sort -k 2 $protein_kaiju_output_file_tab > $sorted_protein_kaiju_output_file_tab
+
+echo "END OF PROTEIN_KAIJU"

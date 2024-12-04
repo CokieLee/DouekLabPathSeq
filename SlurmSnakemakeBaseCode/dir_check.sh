@@ -64,7 +64,7 @@ function directory_exists {
 }
 
 ##Return truncated job id
-get_trunc_hold_jid() {
+get_trunc_hold_jid () {
     hold_jid=$1
     hold_jid_trunc=$2
     OLD_IFS=$IFS
@@ -72,4 +72,14 @@ get_trunc_hold_jid() {
     newArray_1=($hold_jid)
     hold_jid_trunc=${newArray_1[0]}
     IFS=$OLD_IFS
+}
+
+process_fail_check () {
+  fail_msg=$1
+  exitCode=$?
+
+  if [ $exitCode -ne 0 ]; then
+      echo $fail_msg
+      exit 1
+  fi
 }

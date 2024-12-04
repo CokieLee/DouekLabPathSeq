@@ -12,7 +12,8 @@ SAMPLES = [sample.split("_R1_")[0] for sample in FULLSAMPLES]
 leftEnding = "_R1_" + FULLSAMPLES[0].split("_R1_")[1]
 rightEnding = leftEnding.replace("R1", "R2")
 
-TAXLEVELS = ["kingdom", "phylum", "order", "class", "family", "genus", "species"]
+# TAXLEVELS = ["kingdom", "phylum", "order", "class", "family", "genus", "species"]
+TAXLEVELS = ["kingdom", "phylum", "order", "class", "family"]
 
 numContigFilterThreads=8
 
@@ -23,26 +24,27 @@ numContigFilterThreads=8
 
 rule all:
     input:
-        expand(os.path.join(config["outputpath"], 
-                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
-                            "kingdom_sequences.fa"),
-                    sample=SAMPLES)
+        expand(os.path.join(config["outputpath"],
+                    "Sample_{sample}" + leftEnding,
+                    config["origin"] + "_salmon_quant", "{taxlevel}_quant",
+                    "salmon_allTaxLevels_finished.txt"),
+                sample=SAMPLES, taxlevel=TAXLEVELS)
 
 # Basic rule for testing environment. Should take all input files,
 # and print them each to a file of the same base name.
-rule testRuleAll:
-    input:
-        expand(os.path.join(config["outputpath"], "{sample}.txt"), sample=FULLSAMPLES)
+# rule testRuleAll:
+#     input:
+#         expand(os.path.join(config["outputpath"], "{sample}.txt"), sample=FULLSAMPLES)
 
-rule testRuleHelper:
-    params:
-        "this file corresponds to {sample}"
-    output:
-        os.path.join(config["outputpath"], "{sample}.txt")
-    shell:
-        """
-        echo {params} > {output}
-       """
+# rule testRuleHelper:
+#     params:
+#         "this file corresponds to {sample}"
+#     output:
+#         os.path.join(config["outputpath"], "{sample}.txt")
+#     shell:
+#         """
+#         echo {params} > {output}
+#        """
 
 # run bowtie unmasked on samples
 rule bowtieUnmasked:
@@ -341,13 +343,13 @@ rule buildSalmon:
                             "class_sequences.fa"),
         os.path.join(config["outputpath"], 
                             "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
-                            "family_sequences.fa"),
-        os.path.join(config["outputpath"], 
-                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
-                            "genus_sequences.fa"),
-        os.path.join(config["outputpath"], 
-                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
-                            "species_sequences.fa")
+                            "family_sequences.fa")
+        # os.path.join(config["outputpath"], 
+        #                     "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+        #                     "genus_sequences.fa"),
+        # os.path.join(config["outputpath"], 
+        #                     "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+        #                     "species_sequences.fa")
     shell:
         """
         module purge
@@ -362,49 +364,54 @@ rule buildSalmon:
             {input.kaijuTax} {input.kaiju_nodes} {params.outPath}
         """
 
-# ## rule salmonQuant:
-# rule salmonQuant:
-#     input:
-#         scriptPath=os.path.join(config["codepath"], "salmonQuantSingleLevel.sh"),
-#         leftReadFile=os.path.join(config["inputpath"], "{sample}" + leftEnding +".fastq.gz"),
-#         rightReadFile=os.path.join(config["inputpath"], "{sample}" + rightEnding +".fastq.gz"),
-#         salmonIndex=rules.buildSalmon.output[lambda wildcards: f"{wildcards.taxlevel}_sequences.fa"]
-#     params:
-#         sampleNameLeft="{sample}" + leftEnding,
-#         outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
-#         codePath=config["codepath"],
-#         origin=config["origin"]
-#     output:
-#         os.path.join(config["outputpath"], 
-#                             "Sample_{sample}" + leftEnding,
-#                             config["origin"] + "salmon_quant", "{taxlevel}_quant",
-#                             "{sample}" + leftEnding + "quant.sf")
-#     shell:
-#         """
-#         module purge
-#         module load salmon
-#         which salmon
+## rule salmonQuant:
+rule salmonQuant:
+    input:
+        scriptPath=os.path.join(config["codepath"], "salmonQuantSingleLevel.sh"),
+        leftReadFile=os.path.join(config["inputpath"], "{sample}" + leftEnding +".fastq.gz"),
+        rightReadFile=os.path.join(config["inputpath"], "{sample}" + rightEnding +".fastq.gz"),
+        salmonIndex=os.path.join(config["outputpath"], 
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "{taxlevel}_sequences.fa")
+    params:
+        sampleNameLeft="{sample}" + leftEnding,
+        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
+        codePath=config["codepath"],
+        origin=config["origin"]
+    output:
+        os.path.join(config["outputpath"], 
+                            "Sample_{sample}" + leftEnding,
+                            config["origin"] + "_salmon_quant", "{taxlevel}_quant",
+                            "{sample}" + leftEnding + "_quant.sf")
+    shell:
+        """
+        module purge
+        module load salmon
+        which salmon
 
-#         bash {input.scriptPath} {params.codePath} \
-#             {input.leftReadFile} {input.rightReadFile} \
-#             {params.sampleNameLeft} {params.origin} {wildcard.taxlevel} \
-#             {input.salmonIndex} {params.outPath}
-#         """
+        bash {input.scriptPath} {params.codePath} \
+            {input.leftReadFile} {input.rightReadFile} \
+            {params.sampleNameLeft} {params.origin} {wildcards.taxlevel} \
+            {input.salmonIndex} {params.outPath}
+        """
 
-# ## checkpoint to gather salmon output for all tax levels
-# checkpoint collectSalmon:
-#     input:
-#         expand(os.path.join(config["outputpath"], 
-#                             "Sample_{sample}" + leftEnding,
-#                             config["origin"] + "salmon_quant", "{taxlevel}_quant",
-#                             "{sample}" + leftEnding + "quant.sf"),
-#                 sample=SAMPLES, taxlevel=TAXLEVELS)
-#     output:
-#         expand(os.path.join(config["outputpath"], 
-#                             "Sample_{sample}" + leftEnding,
-#                             config["origin"] + "salmon_quant", "{taxlevel}_quant",
-#                             "{sample}" + leftEnding + "quant.sf"),
-#                 sample=SAMPLES, taxlevel=TAXLEVELS)
+## checkpoint to gather salmon output for all tax levels
+checkpoint collectSalmon:
+    input:
+        expand(os.path.join(config["outputpath"], 
+                            "Sample_{sample}" + leftEnding,
+                            config["origin"] + "_salmon_quant", "{taxlevel}_quant",
+                            "{sample}" + leftEnding + "_quant.sf"),
+                sample=SAMPLES, taxlevel=TAXLEVELS)
+    output:
+        os.path.join(config["outputpath"],
+                    "Sample_{sample}" + leftEnding,
+                    config["origin"] + "_salmon_quant", "{taxlevel}_quant",
+                    "salmon_allTaxLevels_finished.txt")
+    shell:
+        """
+        echo "salmon all tax levels done" > {output}
+        """
 
 # ## rule mergeTaxAndQuant:
 # rule mergeTaxAndQuant:
@@ -430,28 +437,28 @@ rule buildSalmon:
 #     output:
 #     shell:
 
-# ## rule palmscan looks for RNA virus palmprints from still
-# ## unclassified outputs of salmon
-# rule palmScan:
-#     input:
-#         scriptPath=os.path.join(config["codepath"], "palm_scan.sh"),
-#         unclassifiedSeqs=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
-#                                         config["origin"] + "_salmon_quant",
-#                                         "unclassified_sequences.fa")
-#     params:
-#         program_palmscan=config["program_palmscan"],
-#         scratchDir=config["scratchDir"],
-#         salmonDataDir=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
-#                                     "RNA_salmon_quant"),
-#         origin=config["origin"],
-#         outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
-#         codePath=config["codepath"]
-#     output:
-#         os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
-#                     "palmscan",
-#                     config["origin"] + "Sample_{sample}" + leftEnding + "_palmscan.fa")
-#     shell:
-#         """
-#         bash {input.scriptPath} {params.program_palmscan} {params.scratchDir} {params.salmonDataDir} \
-#         {input.unclassifiedSeqs} {params.origin} {params.outPath} {params.codePath} {params.scratchDir}
-#         """
+## rule palmscan looks for RNA virus palmprints from still
+## unclassified outputs of salmon
+rule palmScan:
+    input:
+        scriptPath=os.path.join(config["codepath"], "palm_scan.sh"),
+        unclassifiedSeqs=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                                        config["origin"] + "_salmon_quant",
+                                        "unclassified_sequences.fa")
+    params:
+        program_palmscan=config["program_palmscan"],
+        scratchDir=config["scratchDir"],
+        salmonDataDir=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                                    "RNA_salmon_quant"),
+        origin=config["origin"],
+        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
+        codePath=config["codepath"]
+    output:
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "palmscan",
+                    config["origin"] + "Sample_{sample}" + leftEnding + "_palmscan.fa")
+    shell:
+        """
+        bash {input.scriptPath} {params.program_palmscan} {params.scratchDir} {params.salmonDataDir} \
+        {input.unclassifiedSeqs} {params.origin} {params.outPath} {params.codePath} {params.scratchDir}
+        """

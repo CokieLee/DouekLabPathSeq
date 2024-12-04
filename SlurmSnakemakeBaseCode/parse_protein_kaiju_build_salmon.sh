@@ -207,7 +207,7 @@ file_exist_check $prepDiversityScript
 file_exist_check $salmonQuantScript
 
 mytaxLevel=kingdom
-holdID_1=$(qsub -t 1-1 -tc 100 $salmonQuantScript $projectID $left_read_file_base_name  $right_read_file_base_name  $origin $mytaxLevel $left_read_file_rel_path_from_salmon $right_read_file_rel_path_from_salmon | cut -d' ' -f3)
+holdID_1=$(qsub -t 1-1 -tc 100 $salmonQuantScript $projectID $left_read_file_base_name $right_read_file_base_name  $origin $mytaxLevel $left_read_file_rel_path_from_salmon $right_read_file_rel_path_from_salmon | cut -d' ' -f3)
 echo "holdID post 207"
 echo $holdID_1
 #tempJobsHoldID=$(getShortHoldID $holdID)
