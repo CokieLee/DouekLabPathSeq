@@ -1,9 +1,0 @@
-Building DAG of jobs...
-MissingInputException in rule all in file /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/Tests/SkylineTest1/Snakefile, line 25:
-Missing input files for rule all:
-    affected files:
-        /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/family_quant/salmon_allTaxLevels_finished.txt
-        /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/kingdom_quant/salmon_allTaxLevels_finished.txt
-        /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/order_quant/salmon_allTaxLevels_finished.txt
-        /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/phylum_quant/salmon_allTaxLevels_finished.txt
-        /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_NC-LIB-Virome_S299_L002_R1_001/RNA_salmon_quant/class_quant/salmon_allTaxLevels_finished.txt

@@ -116,3 +116,114 @@ localrule trinity:
 
         bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/all_trinity.sh /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/ /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001.fq /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001.fq 582760806_A5_S33_R1_001         582760806_A5_S33_R2_001 RNA 300 1         175G /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001 /data/scratch/
         
+[Thu Dec  5 11:25:21 2024]
+Finished job 6.
+4 of 22 steps (18%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Dec  5 11:25:21 2024]
+localrule filterHostBlast:
+    input: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/array_filter_host.sh, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001.Trinity.fasta, /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqRemoveHostForKaiju/dist/PathSeqRemoveHostForKaiju.jar, /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20210716/Mammalia.fa
+    output: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_trinity_filtered/nonMammal_trinity_Origin_RNA.fasta
+    jobid: 5
+    reason: Missing output files: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_trinity_filtered/nonMammal_trinity_Origin_RNA.fasta; Input files updated by another job: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001.Trinity.fasta
+    wildcards: sample=582760806_A5_S33
+    resources: tmpdir=/data/scratch/parkercol/ai-hpcsubmit2
+
+
+        module purge
+        module load blast-plus
+        which blastn
+        module load openjdk
+        which java
+
+        bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/array_filter_host.sh /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/ /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001.Trinity.fasta /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_trinity_filtered RNA         /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqRemoveHostForKaiju/dist/PathSeqRemoveHostForKaiju.jar /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20210716/Mammalia.fa
+        
+[Thu Dec  5 12:00:09 2024]
+Finished job 5.
+5 of 22 steps (23%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Dec  5 12:00:09 2024]
+localrule kaiju:
+    input: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/protein_kaiju.sh, /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp, /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/kaiju_db_nr_euk.fmi, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_trinity_filtered/nonMammal_trinity_Origin_RNA.fasta
+    output: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_kaiju_output/sorted_protein_kaiju_RNA.tab, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_kaiju_output/formatted_non_host_proteins_nucleotide_RNA.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_kaiju_output/formatted_non_host_proteins_RNA.faa
+    jobid: 4
+    reason: Missing output files: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_kaiju_output/formatted_non_host_proteins_nucleotide_RNA.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_kaiju_output/sorted_protein_kaiju_RNA.tab, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_kaiju_output/formatted_non_host_proteins_RNA.faa; Input files updated by another job: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_trinity_filtered/nonMammal_trinity_Origin_RNA.fasta
+    wildcards: sample=582760806_A5_S33
+    resources: tmpdir=/data/scratch/parkercol/ai-hpcsubmit2
+
+
+        module purge
+        module load fastx-toolkit
+
+        bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/protein_kaiju.sh /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/ 582760806_A5_S33_R1_001 582760806_A5_S33_R2_001 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_trinity_filtered/nonMammal_trinity_Origin_RNA.fasta         RNA /data/vrc_his/douek_lab/projects/PathSeq/programs/prodigal/bin /data/vrc_his/douek_lab/projects/PathSeq/programs/kaiju/kaiju-v1.9.0-linux-x86_64-static /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/kaiju_db_nr_euk.fmi         /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001
+        
+[Thu Dec  5 12:02:07 2024]
+Finished job 4.
+6 of 22 steps (27%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Dec  5 12:02:07 2024]
+localrule buildSalmon:
+    input: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/buildSalmon.sh, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_kaiju_output/sorted_protein_kaiju_RNA.tab, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_kaiju_output/formatted_non_host_proteins_nucleotide_RNA.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_kaiju_output/formatted_non_host_proteins_RNA.faa, /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqKaijuConcensusSplitter2/dist/PathSeqKaijuConcensusSplitter2.jar, /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp, /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/qiime2_formatted_taxonomy.tab
+    output: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_salmon_quant/salmon/kingdom_sequences.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_salmon_quant/salmon/phylum_sequences.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_salmon_quant/salmon/order_sequences.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_salmon_quant/salmon/class_sequences.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_salmon_quant/salmon/family_sequences.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_salmon_quant/salmon/genus_sequences.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_salmon_quant/salmon/species_sequences.fa
+    jobid: 3
+    reason: Missing output files: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_salmon_quant/salmon/genus_sequences.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_salmon_quant/salmon/species_sequences.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_salmon_quant/salmon/class_sequences.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_salmon_quant/salmon/family_sequences.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_salmon_quant/salmon/order_sequences.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_salmon_quant/salmon/phylum_sequences.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_salmon_quant/salmon/kingdom_sequences.fa; Input files updated by another job: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_kaiju_output/formatted_non_host_proteins_nucleotide_RNA.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_kaiju_output/sorted_protein_kaiju_RNA.tab, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_kaiju_output/formatted_non_host_proteins_RNA.faa
+    wildcards: sample=582760806_A5_S33
+    resources: tmpdir=/data/scratch/parkercol/ai-hpcsubmit2
+
+
+        module purge
+        module load openjdk
+        which java
+        module load salmon
+        which salmon
+
+        bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/buildSalmon.sh /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/ /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_kaiju_output/sorted_protein_kaiju_RNA.tab             /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_kaiju_output/formatted_non_host_proteins_nucleotide_RNA.fa /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_kaiju_output/formatted_non_host_proteins_RNA.faa             /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqKaijuConcensusSplitter2/dist/PathSeqKaijuConcensusSplitter2.jar RNA             /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/qiime2_formatted_taxonomy.tab /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/
+        
+[Thu Dec  5 12:23:12 2024]
+Finished job 3.
+7 of 22 steps (32%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Dec  5 12:23:13 2024]
+localrule salmonQuant:
+    input: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/salmonQuantSingleLevel.sh, /data/vrc_his/douek_lab/projects/PathSeq/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R1_001.fastq.gz, /data/vrc_his/douek_lab/projects/PathSeq/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R2_001.fastq.gz, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_salmon_quant/salmon/kingdom_sequences.fa
+    output: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_salmon_quant/kingdom_quant/582760806_A5_S33_R1_001_quant.sf
+    jobid: 2
+    reason: Missing output files: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_salmon_quant/kingdom_quant/582760806_A5_S33_R1_001_quant.sf; Input files updated by another job: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_salmon_quant/salmon/kingdom_sequences.fa
+    wildcards: sample=582760806_A5_S33, taxlevel=kingdom
+    resources: tmpdir=/data/scratch/parkercol/ai-hpcsubmit2
+
+
+        module purge
+        module load salmon
+        which salmon
+
+        bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/salmonQuantSingleLevel.sh /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/             /data/vrc_his/douek_lab/projects/PathSeq/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R1_001.fastq.gz /data/vrc_his/douek_lab/projects/PathSeq/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R2_001.fastq.gz             582760806_A5_S33_R1_001 RNA kingdom             /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_salmon_quant/salmon/kingdom_sequences.fa /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001
+        
+[Thu Dec  5 12:23:16 2024]
+Error in rule salmonQuant:
+    jobid: 2
+    input: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/salmonQuantSingleLevel.sh, /data/vrc_his/douek_lab/projects/PathSeq/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R1_001.fastq.gz, /data/vrc_his/douek_lab/projects/PathSeq/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R2_001.fastq.gz, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_salmon_quant/salmon/kingdom_sequences.fa
+    output: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_salmon_quant/kingdom_quant/582760806_A5_S33_R1_001_quant.sf
+    shell:
+        
+        module purge
+        module load salmon
+        which salmon
+
+        bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/salmonQuantSingleLevel.sh /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/             /data/vrc_his/douek_lab/projects/PathSeq/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R1_001.fastq.gz /data/vrc_his/douek_lab/projects/PathSeq/2023020_EVD68_NS/Input_Data/582760806_A5_S33_R2_001.fastq.gz             582760806_A5_S33_R1_001 RNA kingdom             /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001/RNA_salmon_quant/salmon/kingdom_sequences.fa /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-12-04T142246.124227.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

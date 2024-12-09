@@ -26,9 +26,13 @@ rule all:
     input:
         expand(os.path.join(config["outputpath"],
                     "Sample_{sample}" + leftEnding,
-                    config["origin"] + "_merge_TaxAndQuant",
-                    config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_tpm.csv"),
+                    config["origin"] + "_diversity",
+                    "Bacteria_" + config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_diversity.csv"),
                 sample=SAMPLES, taxlevel=TAXLEVELS)
+        # expand(os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+        #             "palmscan",
+        #             config["origin"] + "_Sample_{sample}" + leftEnding + "_palmscan.fa"),
+        #         sample=SAMPLES)
 
 # Basic rule for testing environment. Should take all input files,
 # and print them each to a file of the same base name.
@@ -344,12 +348,12 @@ rule buildSalmon:
         os.path.join(config["outputpath"], 
                             "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
                             "family_sequences.fa"),
-        # os.path.join(config["outputpath"], 
-        #                     "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
-        #                     "genus_sequences.fa"),
-        # os.path.join(config["outputpath"], 
-        #                     "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
-        #                     "species_sequences.fa")
+        os.path.join(config["outputpath"], 
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "genus_sequences.fa"),
+        os.path.join(config["outputpath"], 
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "species_sequences.fa")
         os.path.join(config["outputpath"], 
                             "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
                             "kingdom_table.csv"),
@@ -364,13 +368,13 @@ rule buildSalmon:
                             "class_table.csv"),
         os.path.join(config["outputpath"], 
                             "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
-                            "family_table.csv")
-        # os.path.join(config["outputpath"], 
-        #                     "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
-        #                     "genus_table.csv"),
-        # os.path.join(config["outputpath"], 
-        #                     "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
-        #                     "species_table.csv")
+                            "family_table.csv"),
+        os.path.join(config["outputpath"], 
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "genus_table.csv"),
+        os.path.join(config["outputpath"], 
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "species_table.csv")
     shell:
         """
         module purge
@@ -459,17 +463,57 @@ rule mergeTaxAndQuant:
             {params.taxLevel} {input.program_MergeQIIME2TaxAndSalmon} {params.outPath}
         """
 
-# ## rule prepForDiversity:
-# rule parseKaiju:
-#     input:
-#         scriptPath=os.path.join(config["codepath"], "parse_protein_kaiju_build_salmon.sh")
-#     params:
-#         sampleNameLeft="{sample}" + leftEnding,
-#         sampleNameRight="{sample}" + rightEnding,
-#         outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
-#         codePath=config["codepath"]
-#     output:
-#     shell:
+## TODO: sometimes not all of the following kingdoms will be found.
+## make pipeline flexible to this.
+## TODO: pathDiv.R uses a hardcoded path to find R library locations
+## rule prepForDiversity
+rule calculateDiversitiy:
+    input:
+        scriptPath=os.path.join(config["codepath"], "prepForDiversity.sh"),
+        mergedPseudocounts=os.path.join(config["outputpath"],
+                                        "Sample_{sample}" + leftEnding,
+                                        config["origin"] + "_merge_TaxAndQuant",
+                                        config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_pseudocounts.csv"),
+        mergedTPM=os.path.join(config["outputpath"],
+                                "Sample_{sample}" + leftEnding,
+                                config["origin"] + "_merge_TaxAndQuant",
+                                config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_tpm.csv"),
+        program_PathSeqSplitOutputTableByTaxonomy=config["program_PathSeqSplitOutputTableByTaxonomy"],
+        program_RDivScript=os.path.join(config["codepath"], "pathDiv.R")
+    params:
+        baseName="{sample}" + leftEnding,
+        origin=config["origin"],
+        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
+        codePath=config["codepath"]
+    output:
+        os.path.join(config["outputpath"],
+                    "Sample_{sample}" + leftEnding,
+                    config["origin"] + "_diversity",
+                    "Eukaryota_" + config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_diversity.csv"),
+        os.path.join(config["outputpath"],
+                    "Sample_{sample}" + leftEnding,
+                    config["origin"] + "_diversity",
+                    "Bacteria_" + config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_diversity.csv"),
+        os.path.join(config["outputpath"],
+                    "Sample_{sample}" + leftEnding,
+                    config["origin"] + "_diversity",
+                    "Viruses_" + config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_diversity.csv"),
+        os.path.join(config["outputpath"],
+                    "Sample_{sample}" + leftEnding,
+                    config["origin"] + "_diversity",
+                    "Archaea_" + config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_diversity.csv")
+    shell:
+        """
+        module purge
+        module load openjdk
+        which java
+        module load r
+        which Rscript
+
+        bash {input.scriptPath} {params.codePath} {input.mergedPseudocounts} \
+            {input.mergedTPM} {params.baseName} {params.origin} {wildcards.taxlevel} \
+            {input.program_PathSeqSplitOutputTableByTaxonomy} {input.program_RDivScript} {params.outPath}
+        """
 
 ## rule palmscan looks for RNA virus palmprints from still
 ## unclassified outputs of salmon
@@ -477,22 +521,22 @@ rule palmScan:
     input:
         scriptPath=os.path.join(config["codepath"], "palm_scan.sh"),
         unclassifiedSeqs=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
-                                        config["origin"] + "_salmon_quant",
+                                        config["origin"] + "_salmon_quant", "salmon",
                                         "unclassified_sequences.fa")
     params:
+        baseName="{sample}" + leftEnding,
         program_palmscan=config["program_palmscan"],
         scratchDir=config["scratchDir"],
-        salmonDataDir=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
-                                    "RNA_salmon_quant"),
         origin=config["origin"],
         outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
         codePath=config["codepath"]
     output:
         os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
                     "palmscan",
-                    config["origin"] + "Sample_{sample}" + leftEnding + "_palmscan.fa")
+                    config["origin"] + "_Sample_{sample}" + leftEnding + "_palmscan.fa")
     shell:
         """
-        bash {input.scriptPath} {params.program_palmscan} {params.scratchDir} {params.salmonDataDir} \
-        {input.unclassifiedSeqs} {params.origin} {params.outPath} {params.codePath} {params.scratchDir}
+        bash {input.scriptPath} {params.codePath} {input.unclassifiedSeqs} \
+        {params.program_palmscan} {params.scratchDir} {params.baseName} \
+        {params.origin} {params.outPath}
         """

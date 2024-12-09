@@ -12,8 +12,10 @@ pathdiv=function(a,b,c,d,e)
 	#d is tree output name.pdf
 	#e is heatmap distance output name.pdf
 	
-	library(vegan, lib.loc="/hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/current_scripts/rlib/")
-	library(gplots, lib.loc="/hpcdata/vrc/vrc1_data/douek_lab/projects/PathSeq/current_scripts/rlib/")
+	Sys.setenv(libopen = "/data/vrc_his/douek_lab/projects/PathSeq/current_scripts/rlib/vegan/libs/libopenblas.so.0")
+
+	library(vegan, lib.loc="/data/vrc_his/douek_lab/projects/PathSeq/current_scripts/rlib/")
+	library(gplots, lib.loc="/data/vrc_his/douek_lab/projects/PathSeq/current_scripts/rlib/")
 	hmcols<-colorRampPalette(c("white","green","green4","violet"))(100)
 	
 	getwd()
