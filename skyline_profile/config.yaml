@@ -1,0 +1,10 @@
+cluster: bw_submit.py
+cluster-cancel: scancel
+restart-times: 1
+max-jobs-per-second: 1
+max-status-checks-per-second: 1
+local-cores: 4
+latency-wait: 240
+jobs: 50
+keep-going: True
+rerun-incomplete: True

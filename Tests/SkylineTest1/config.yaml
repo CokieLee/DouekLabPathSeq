@@ -3,7 +3,8 @@ cluster: sbatch
 jobs: 32
 
 ## parameters that must be changed for each different run
-inputpath: /data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/
+inputlist: /data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/file_list
+inputdir: /data/vrc_his/douek_lab/projects/PathSeq/2024005_Hajj_SPRI/Input_Data/
 origin: RNA
 minContigLen: 300
 

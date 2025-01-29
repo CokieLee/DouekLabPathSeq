@@ -1,0 +1,598 @@
+configfile: "config.yaml"
+
+wildcard_constraints:
+    filename = ".+"  # Use 'filename' to represent the entire filename
+
+with open(os.path.join(config["inputlist"]), "r") as file:
+    FULLSAMPLES = [line.strip().split(".")[0] for line in file]
+
+
+SAMPLES = [sample.split("_R1_")[0] for sample in FULLSAMPLES]
+
+leftEnding = "_R1_" + FULLSAMPLES[0].split("_R1_")[1]
+rightEnding = leftEnding.replace("R1", "R2")
+
+TAXLEVELS = ["kingdom", "phylum", "order", "class", "family", "genus", "species"]
+# TAXLEVELS = ["kingdom", "phylum", "order", "class", "family"]
+
+numContigFilterThreads=8
+
+# print("sample name, left ending, right ending, respectively: ")
+# print(SAMPLES[0])
+# print(leftEnding)
+# print(rightEnding)
+
+## TODO: it would probably be nice if I could just pass in
+## the input files as full paths which did not all have to be located in
+## inputdir. But that raises the question of what naming convention
+## to use for intermediate and output files. Think about this.
+
+rule all:
+    input:
+        expand(os.path.join(config["outputpath"],
+                            "Sample_{sample}" + leftEnding + "_finished.txt"),
+                sample=SAMPLES)
+
+rule markSampleCompleted:
+    input:
+        expand(os.path.join(config["outputpath"],
+                            "Sample_{sample}" + leftEnding,
+                            config["origin"] + "_merge_TaxAndQuant",
+                            config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_pseudocounts.csv"),
+                taxlevel=TAXLEVELS, sample=SAMPLES)
+    output:
+        os.path.join(config["outputpath"],
+                    "Sample_{sample}" + leftEnding + "_finished.txt")
+    resources:
+        runtime=10, mem_mb=256
+    shell:
+        """
+        touch {output}
+        echo "Finished running all rules." > {output}
+        """
+
+# Basic rule for testing environment. Should take all input files,
+# and print them each to a file of the same base name.
+# rule testRuleAll:
+#     input:
+#         expand(os.path.join(config["outputpath"], "{sample}.txt"), sample=FULLSAMPLES)
+
+# rule testRuleHelper:
+#     params:
+#         "this file corresponds to {sample}"
+#     output:
+#         os.path.join(config["outputpath"], "{sample}.txt")
+#     shell:
+#         """
+#         echo {params} > {output}
+#        """
+
+# run bowtie unmasked on samples
+rule bowtieUnmasked:
+    input:
+        scriptPath=os.path.join(config["codepath"], "bowtieUnmaskedGenome.sh"),
+        leftReadFile=os.path.join(config["inputdir"], "{sample}" + leftEnding +".fastq.gz"),
+        rightReadFile=os.path.join(config["inputdir"], "{sample}" + rightEnding +".fastq.gz"),
+        picard=config["program_picard"]
+    params:
+        outPath=config["outputpath"],
+        codePath=config["codepath"],
+        sampleNameLeft="{sample}" + leftEnding,
+        sampleNameRight="{sample}" + rightEnding,
+        bowtieERCCIndex=config["bowtieERCCIndex"],
+        bowtieUnmaskedGenomeIndex=config["bowtieUnmaskedGenomeIndex"]
+    output:
+        ## following outputs are directly used by subsequent steps:
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_{sample}" + leftEnding + ".fq"),
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_{sample}" + rightEnding + ".fq"),
+        ## following outputs are solely informational:
+        # first bowtie alignment:
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "ERCC_alignment_rates/ERCC_alignment_rate_{sample}"+ leftEnding +".txt"),
+        # second bowtie alignment:
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding, 
+                    "Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/picard_stderr_{sample}"+ leftEnding +".txt"),
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/picard_stdout_{sample}"+ leftEnding +".txt"),
+        # post-processing
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding, "finished_bowtieUnmaskedGenome.txt")
+    resources:
+        runtime=300, mem_mb=65536
+    shell:
+        """
+        module purge
+        module load openjdk
+        which java
+        module load bowtie2
+        which bowtie2
+        module load samtools
+        which samtools
+        module load r
+        which R
+
+        bash {input.scriptPath} {params.codePath} {params.sampleNameLeft} {params.sampleNameRight} {input.leftReadFile} \
+        {input.rightReadFile} {params.outPath} {params.bowtieERCCIndex} \
+        {params.bowtieUnmaskedGenomeIndex} {input.picard}
+        """
+        ## Biowulf dependencies
+        # module purge
+        # module load java
+        # which java
+        # module load bowtie2
+        # which bowtie2
+        # module load samtools
+        # which samtools
+        # module load R
+        # which R
+
+rule starAfterBowtie:
+    input:
+        scriptPath=os.path.join(config["codepath"], "starAfterBowtie.sh"),
+        leftUnaligned=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_{sample}" + leftEnding + ".fq"),
+        rightUnaligned=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_{sample}" + rightEnding + ".fq"),
+    params:
+        sampleNameLeft="{sample}" + leftEnding,
+        sampleNameRight="{sample}" + rightEnding,
+        codePath=config["codepath"],
+        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding + "/"),
+        hgStarDb=config["hg38_starDB"]
+    output:
+        ## following outputs are directly used by subsequent steps
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "Generated_Data_Star_Alignment/{sample}" + leftEnding + "_unalignedRead1AgainstTranscriptome.fq"),
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "Generated_Data_Star_Alignment/{sample}" + rightEnding + "_unalignedRead2AgainstTranscriptome.fq"),
+        ## following outputs are solely informational
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "Generated_Data_Star_Alignment/{sample}" + leftEnding + "_star_alignment_stats.txt")
+    resources:
+        runtime=300, mem_mb=65536
+    shell:
+        """
+        module purge
+        module load star
+        which STAR
+        module load samtools
+        which samtools
+
+        bash {input.scriptPath} {params.codePath} {input.leftUnaligned} {input.rightUnaligned} \
+        {params.sampleNameLeft} {params.sampleNameRight} {params.outPath} {params.hgStarDb}
+        """
+        ## Biowulf dependencies:
+        # module purge
+        # module load STAR
+        # which STAR
+        # module load samtools
+        # which samtools
+
+rule bowtiePrimate:
+    input:
+        scriptPath=os.path.join(config["codepath"], "bowtiePrimate.sh"),
+        leftUnaligned=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "Generated_Data_Star_Alignment/{sample}" + leftEnding + "_unalignedRead1AgainstTranscriptome.fq"),
+        rightUnaligned=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "Generated_Data_Star_Alignment/{sample}" + rightEnding + "_unalignedRead2AgainstTranscriptome.fq"),
+    params:
+        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
+        codePath=config["codepath"],
+        sampleNameLeft="{sample}" + leftEnding,
+        sampleNameRight="{sample}" + rightEnding,
+        primateIndex=config["bowtiePrimatePaths"]
+    output:
+        ## following outputs are directly used by subsequent steps
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "primate_alignment_rates/unalignedRead1AgainstPrimate_{sample}" + leftEnding + ".fq"),
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "primate_alignment_rates/unalignedRead1AgainstPrimate_{sample}" + rightEnding + ".fq")
+        ## following outputs are solely informational
+    resources:
+        runtime=300, mem_mb=65536
+    shell:
+        """
+        module purge
+        module load bowtie2
+        which bowtie2
+        module load samtools
+        which samtools
+
+        bash {input.scriptPath} {input.leftUnaligned} {input.rightUnaligned} {params.outPath} \
+        {params.codePath} {params.sampleNameLeft} {params.sampleNameRight} {params.primateIndex}
+        """
+        ## Biowulf and Skyline dependencies (same)
+
+## assembly remaining unaligned reads into contigs
+rule trinity:
+    input:
+        scriptPath=os.path.join(config["codepath"], "all_trinity.sh"),
+        leftUnaligned=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "primate_alignment_rates/unalignedRead1AgainstPrimate_{sample}" + leftEnding + ".fq"),
+        rightUnaligned=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "primate_alignment_rates/unalignedRead1AgainstPrimate_{sample}" + rightEnding + ".fq")
+    params:
+        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
+        codePath=config["codepath"],
+        sampleNameLeft="{sample}" + leftEnding,
+        sampleNameRight="{sample}" + rightEnding,
+        origin=config["origin"],
+        minContigLen=config["minContigLen"],
+        numThreads="1",
+        maxMemory="175G",
+        fastp=config["program_fastp"],
+        scratchDir=config["scratchDir"]
+    output:
+        ## following outputs are directly used by subsequent steps
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    config["origin"] + "_trinity_output",
+                    "formatted_myTrinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding + ".Trinity.fasta"),
+        ## following outputs are solely informational
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    config["origin"] + "_trinity_output",
+                    "trinity_out_" + str(config["minContigLen"]) + "_Sample_{sample}" + leftEnding + ".txt"),
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    config["origin"] + "_trinity_output",
+                    "trinity_err_" + str(config["minContigLen"]) + "_Sample_{sample}" + leftEnding + ".txt"),
+        # following outputs are intermediate outputs
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    config["origin"] + "_trinity_output",
+                    "myTrinity_Origin_"+ config["origin"] + "_Sample_{sample}" + leftEnding + ".Trinity.fasta")
+    resources:
+        runtime=600, mem_mb=262144
+    shell:
+        """
+        module purge
+        module load trinity
+        which Trinity
+        module load fastp
+        which fastp
+        module load fastx-toolkit
+        which fasta_formatter
+
+        bash {input.scriptPath} {params.codePath} {input.leftUnaligned} {input.rightUnaligned} {params.sampleNameLeft} \
+        {params.sampleNameRight} {params.origin} {params.minContigLen} {params.numThreads} \
+        {params.maxMemory} {params.outPath} {params.scratchDir}
+        """
+        ## does this really need py-setuptools? what even is that
+        ## Biowulf dependencies
+        # module load trinity
+        # which Trinity
+        # module load fastp
+        # which fastp
+        # module load fastxtoolkit
+        # which fasta_formatter
+
+## blast trinity assembled contigs for mammalian contamination
+rule filterHostBlast:
+    input:
+        scriptPath=os.path.join(config["codepath"], "array_filter_host.sh"),
+        contigs=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                            config["origin"] + "_trinity_output",
+                            "formatted_myTrinity_Origin_" + config["origin"] + "_Sample_{sample}" + leftEnding + ".Trinity.fasta"),
+        program_RemoveHostForKaiju=config["program_RemoveHostForKaiju"],
+        blastDB_Mammalia=config["blastDB_Mammalia"]
+    params:
+        sampleNameLeft="{sample}" + leftEnding,
+        sampleNameRight="{sample}" + rightEnding,
+        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding, config["origin"] + "_trinity_filtered"),
+        codePath=config["codepath"],
+        origin=config["origin"]
+    output:
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    config["origin"] + "_trinity_filtered",
+                    "nonMammal_trinity_Origin_" + config["origin"] + ".fasta")
+    resources:
+        runtime=600, mem_mb=131072
+    shell:
+        """
+        module purge
+        module load blast-plus
+        which blastn
+        module load openjdk
+        which java
+
+        bash {input.scriptPath} {params.codePath} {input.contigs} {params.outPath} {params.origin} \
+        {input.program_RemoveHostForKaiju} {input.blastDB_Mammalia}
+        """
+        ## Biowulf dependencies
+        # module load blast
+        # which blastn
+        # module load java
+        # which java
+
+## Kaiju performs protein level taxonomic classification for remaining reads
+rule kaiju:
+    input:
+        scriptPath=os.path.join(config["codepath"], "protein_kaiju.sh"),
+        kaiju_nodes=config["kaiju_nodes"],
+        kaiju_fmi=config["kaiju_fmi"],
+        nonHostContigs=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                                    config["origin"] + "_trinity_filtered",
+                                    "nonMammal_trinity_Origin_" + config["origin"] + ".fasta")
+    params:
+        sampleNameLeft="{sample}" + leftEnding,
+        sampleNameRight="{sample}" + rightEnding,
+        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
+        codePath=config["codepath"],
+        origin=config["origin"],
+        program_prodigal=config["program_prodigal"],
+        program_kaiju=config["program_kaiju"]
+    output:
+        ## following outputs are directly used by subsequent steps
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding, config["origin"] + "_kaiju_output",
+                    "sorted_protein_kaiju_"+ config["origin"] + ".tab"),
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding, config["origin"] + "_kaiju_output",
+                    "formatted_non_host_proteins_nucleotide_" + config["origin"] + ".fa"),
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding, config["origin"] + "_kaiju_output",
+                    "formatted_non_host_proteins_" + config["origin"] + ".faa")
+    resources:
+        runtime=600, mem_mb=131072
+    shell:
+        """
+        module purge
+        module load fastx-toolkit
+
+        bash {input.scriptPath} {params.codePath} {params.sampleNameLeft} {params.sampleNameRight} {input.nonHostContigs} \
+        {params.origin} {params.program_prodigal} {params.program_kaiju} {input.kaiju_nodes} {input.kaiju_fmi} \
+        {params.outPath}
+        """
+        ## Biowulf dependencies
+        # module load fastxtoolkit
+
+## rule buildSalmon builds salmon references from kaiju nodes
+rule buildSalmon:
+    input:
+        scriptPath=os.path.join(config["codepath"], "buildSalmon.sh"),
+        kaijuSortedTab=os.path.join(config["outputpath"],
+                                        "Sample_{sample}" + leftEnding, config["origin"] + "_kaiju_output",
+                                        "sorted_protein_kaiju_" + config["origin"] + ".tab"),
+        kaijuNonHostNucleotide=os.path.join(config["outputpath"],
+                                            "Sample_{sample}" + leftEnding, config["origin"] + "_kaiju_output",
+                                            "formatted_non_host_proteins_nucleotide_" + config["origin"] + ".fa"),
+        kaijuNonHostProtein=os.path.join(config["outputpath"],
+                                        "Sample_{sample}" + leftEnding, config["origin"] + "_kaiju_output",
+                                        "formatted_non_host_proteins_" + config["origin"] + ".faa"),
+        program_PathSeqKaijuConcensusSplitter2=config["program_PathSeqKaijuConcensusSplitter2"],
+        kaiju_nodes=config["kaiju_nodes"],
+        kaijuTax=config["NCBI_nt_kaiju_ref_taxonomy"]
+    params:
+        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding + "/"),
+        codePath=config["codepath"],
+        origin=config["origin"]
+    output:
+        os.path.join(config["outputpath"], 
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "kingdom_sequences.fa"),
+        os.path.join(config["outputpath"], 
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "phylum_sequences.fa"),
+        os.path.join(config["outputpath"], 
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "order_sequences.fa"),
+        os.path.join(config["outputpath"], 
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "class_sequences.fa"),
+        os.path.join(config["outputpath"], 
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "family_sequences.fa"),
+        os.path.join(config["outputpath"], 
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "genus_sequences.fa"),
+        os.path.join(config["outputpath"], 
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "species_sequences.fa"),
+        os.path.join(config["outputpath"], 
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "kingdom_table.csv"),
+        os.path.join(config["outputpath"], 
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "phylum_table.csv"),
+        os.path.join(config["outputpath"], 
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "order_table.csv"),
+        os.path.join(config["outputpath"], 
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "class_table.csv"),
+        os.path.join(config["outputpath"], 
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "family_table.csv"),
+        os.path.join(config["outputpath"], 
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "genus_table.csv"),
+        os.path.join(config["outputpath"], 
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "species_table.csv"),
+        directory(os.path.join(config["outputpath"],
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "kingdom_salmon/")),
+        directory(os.path.join(config["outputpath"],
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "phylum_salmon/")),
+        directory(os.path.join(config["outputpath"],
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "order_salmon/")),
+        directory(os.path.join(config["outputpath"],
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "class_salmon/")),
+        directory(os.path.join(config["outputpath"],
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "family_salmon/")),
+        directory(os.path.join(config["outputpath"],
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "genus_salmon/")),
+        directory(os.path.join(config["outputpath"],
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "species_salmon/"))
+    resources:
+        runtime=600, mem_mb=131072
+    shell:
+        """
+        module purge
+        module load openjdk
+        which java
+        module load salmon
+        which salmon
+
+        bash {input.scriptPath} {params.codePath} {input.kaijuSortedTab} \
+            {input.kaijuNonHostNucleotide} {input.kaijuNonHostProtein} \
+            {input.program_PathSeqKaijuConcensusSplitter2} {params.origin} \
+            {input.kaijuTax} {input.kaiju_nodes} {params.outPath}
+        """
+
+## TODO: make it so that the output of build salmon is the index dir taken by salmon
+
+## rule salmonQuant:
+rule salmonQuant:
+    input:
+        scriptPath=os.path.join(config["codepath"], "salmonQuantSingleLevel.sh"),
+        leftReadFile=os.path.join(config["inputdir"], "{sample}" + leftEnding +".fastq.gz"),
+        rightReadFile=os.path.join(config["inputdir"], "{sample}" + rightEnding +".fastq.gz"),
+        salmonIndex=directory(os.path.join(config["outputpath"],
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "{taxlevel}_salmon/"))
+    params:
+        sampleNameLeft="{sample}" + leftEnding,
+        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
+        codePath=config["codepath"],
+        origin=config["origin"]
+    output:
+        os.path.join(config["outputpath"], 
+                    "Sample_{sample}" + leftEnding,
+                    config["origin"] + "_salmon_quant",
+                    "{taxlevel}_quant_{sample}" + leftEnding,
+                    "{sample}" + leftEnding + "_quant.sf")
+    resources:
+        runtime=600, mem_mb=131072
+    shell:
+        """
+        module purge
+        module load salmon
+        which salmon
+
+        bash {input.scriptPath} {params.codePath} \
+            {input.leftReadFile} {input.rightReadFile} \
+            {params.sampleNameLeft} {params.origin} {wildcards.taxlevel} \
+            {input.salmonIndex} {params.outPath}
+        """
+
+
+## rule mergeTaxAndQuant:
+rule mergeTaxAndQuant:
+    input:
+        scriptPath=os.path.join(config["codepath"], "mergeTaxonomyAndQuantificationSingleLevel.sh"),
+        taxInputFile=os.path.join(config["outputpath"], 
+                            "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
+                            "{taxlevel}_table.csv"),
+        salmonQuantInputFile=os.path.join(config["outputpath"], 
+                                            "Sample_{sample}" + leftEnding,
+                                            config["origin"] + "_salmon_quant",
+                                            "{taxlevel}_quant_{sample}" + leftEnding,
+                                            "{sample}" + leftEnding + "_quant.sf"),
+        program_MergeQIIME2TaxAndSalmon=config["program_PathSeqMergeQIIME2TaxAndSalmon"]
+    params:
+        sampleNameLeft="{sample}" + leftEnding,
+        taxLevel="{taxlevel}",
+        origin=config["origin"],
+        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
+        codePath=config["codepath"]
+    output:
+        os.path.join(config["outputpath"],
+                    "Sample_{sample}" + leftEnding,
+                    config["origin"] + "_merge_TaxAndQuant",
+                    config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_pseudocounts.csv"),
+        os.path.join(config["outputpath"],
+                    "Sample_{sample}" + leftEnding,
+                    config["origin"] + "_merge_TaxAndQuant",
+                    config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_tpm.csv")
+    resources:
+        runtime=600, mem_mb=131072
+    shell:
+        """
+        module purge
+        module load openjdk
+        which java
+
+        bash {input.scriptPath} {params.codePath} {input.taxInputFile} \
+            {input.salmonQuantInputFile} {params.sampleNameLeft} {params.origin} \
+            {params.taxLevel} {input.program_MergeQIIME2TaxAndSalmon} {params.outPath}
+        """
+
+## TODO: sometimes not all of the following kingdoms will be found.
+## make pipeline flexible to this.
+## TODO: pathDiv.R uses a hardcoded path to find R library locations
+## rule prepForDiversity
+rule calculateDiversity:
+    input:
+        scriptPath=os.path.join(config["codepath"], "prepForDiversity.sh"),
+        mergedPseudocounts=os.path.join(config["outputpath"],
+                                        "Sample_{sample}" + leftEnding,
+                                        config["origin"] + "_merge_TaxAndQuant",
+                                        config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_pseudocounts.csv"),
+        mergedTPM=os.path.join(config["outputpath"],
+                                "Sample_{sample}" + leftEnding,
+                                config["origin"] + "_merge_TaxAndQuant",
+                                config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_tpm.csv"),
+        program_PathSeqSplitOutputTableByTaxonomy=config["program_PathSeqSplitOutputTableByTaxonomy"],
+        program_RDivScript=os.path.join(config["codepath"], "pathDiv.R")
+    params:
+        baseName="{sample}" + leftEnding,
+        origin=config["origin"],
+        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
+        codePath=config["codepath"]
+    output:
+        os.path.join(config["outputpath"],
+                    "Sample_{sample}" + leftEnding,
+                    config["origin"] + "_diversity",
+                    "Eukaryota_" + config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_diversity.csv"),
+        os.path.join(config["outputpath"],
+                    "Sample_{sample}" + leftEnding,
+                    config["origin"] + "_diversity",
+                    "Bacteria_" + config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_diversity.csv"),
+        os.path.join(config["outputpath"],
+                    "Sample_{sample}" + leftEnding,
+                    config["origin"] + "_diversity",
+                    "Viruses_" + config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_diversity.csv"),
+        os.path.join(config["outputpath"],
+                    "Sample_{sample}" + leftEnding,
+                    config["origin"] + "_diversity",
+                    "Archaea_" + config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_diversity.csv")
+    shell:
+        """
+        module purge
+        module load openjdk
+        which java
+        module load r
+        which Rscript
+
+        bash {input.scriptPath} {params.codePath} {input.mergedPseudocounts} \
+            {input.mergedTPM} {params.baseName} {params.origin} {wildcards.taxlevel} \
+            {input.program_PathSeqSplitOutputTableByTaxonomy} {input.program_RDivScript} {params.outPath}
+        """
+
+## rule palmscan looks for RNA virus palmprints from still
+## unclassified outputs of salmon
+rule palmScan:
+    input:
+        scriptPath=os.path.join(config["codepath"], "palm_scan.sh"),
+        unclassifiedSeqs=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                                        config["origin"] + "_salmon_quant", "salmon",
+                                        "unclassified_sequences.fa")
+    params:
+        baseName="{sample}" + leftEnding,
+        program_palmscan=config["program_palmscan"],
+        scratchDir=config["scratchDir"],
+        origin=config["origin"],
+        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
+        codePath=config["codepath"]
+    output:
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+                    "palmscan",
+                    config["origin"] + "_Sample_{sample}" + leftEnding + "_palmscan.fa")
+    shell:
+        """
+        bash {input.scriptPath} {params.codePath} {input.unclassifiedSeqs} \
+        {params.program_palmscan} {params.scratchDir} {params.baseName} \
+        {params.origin} {params.outPath}
+        """

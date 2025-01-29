@@ -1,3 +1,0 @@
-WorkflowError in file /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/Snakefile, line 127:
-Duplicate output file pattern in rule bowtiePrimate. First two duplicate for entries 0 and 1.
-  File "/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqRepoTempSkyline/PathSeq/Code/Snakefile", line 127, in <module>

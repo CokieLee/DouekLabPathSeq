@@ -94,7 +94,7 @@ dir_check  $correct_cur_Dir
 
 origin_sample_unique_id_tag=$origin"_Sample_"$left_read_file_base_name
 
-## part1 is repetitive so let's define and use a function 
+## part1 is repetitive so let's define and use a function
 salmon_quantification() {
   my_taxonomy_level=$1
   path_to_left_read_file=$2
