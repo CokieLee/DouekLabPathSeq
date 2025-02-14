@@ -15,6 +15,7 @@
 
 library(dplyr)
 library(tidyr)
+library(ggplot2)
 
 # file path to directory containing input files
 inputDir <- "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/CZID_Results/"
@@ -37,7 +38,6 @@ extract_data <- function(file) {
   speciesOnlyData <- data[data$'tax_level' == "1", ]
   speciesOnlyData <- speciesOnlyData[, c("category", "name", "nt_count", "nr_count")]
   speciesOnlyData$"Sample" <- sampleName
-  View(speciesOnlyData)
   return(speciesOnlyData)
 }
 extracted_data <- lapply(file_paths, extract_data)
@@ -47,16 +47,48 @@ combined_data[is.na(combined_data)] <- 0
 # separate into 2 dataframes with new name (combined from category and name),
 # and either nr_counts or nt_counts as data, and the appropriate row and column headers
 pathogenNames <- paste0("k__", combined_data$category, ";-s__", combined_data$name)
-nr_data <- data.frame(species = pathogenNames, Sample = combined_data$Sample, nr_count = combined_data$nr_count)
-nt_data <- data.frame(species = pathogenNames, Sample = combined_data$Sample, nt_count = combined_data$nr_count)
+nr_data <- data.frame(species = pathogenNames, Sample = combined_data$Sample, count = combined_data$nr_count)
+nt_data <- data.frame(species = pathogenNames, Sample = combined_data$Sample, count = combined_data$nt_count)
 
+# make histograms showing counts for nr and nt to show equivalent comparisons
+countsHistogram <- function(data) {
+  plot <- ggplot(data, aes(x=count)) +
+    geom_histogram(binwidth = 100000, fill = "blue") +
+    labs(title = "Histogram of all counts from CZID",
+         x = "counts of pathogen found",
+         y = "number of sample-pathogen pairs with this count")
+  
+  return(plot)
+}
+
+nr_hist <- countsHistogram(nr_data)
+nt_hist <- countsHistogram(nt_data)
+
+# make CDF showing counts for nr and nt
+countsCDF <- function( data ) {
+  plot <- ggplot( data , aes(x=rowNum, y=count )) +
+    geom_point() +
+    labs(title = "CDF of pathogens found from Krystelle's microbiome data from CZID",
+         x = "sample-pathogen combination",
+         y = "counts found")
+  
+  return(plot)
+}
+
+nr_ordered <- nr_data[order(nr_data$count), ]
+nr_ordered$rowNum <- as.numeric(rownames(nr_data))
+nr_cdf_zeros <- countsCDF(nr_ordered)
+nr_ordered_noZeros <- subset(nr_ordered, count !=0)
+nr_cdf <- countsCDF(nr_ordered)
+
+# condense into final format with cutoff informed by histogram
 nr_formatted <- nr_data %>%
   pivot_wider(names_from = Sample,
-              values_from = nr_count,
+              values_from = count,
               values_fill = 0)
 nt_formatted <- nt_data %>%
   pivot_wider(names_from = Sample,
-              values_from = nt_count,
+              values_from = count,
               values_fill = 0)
 
 # print 2 output files

@@ -5,13 +5,13 @@ library("ggplot2")
 library("purrr")
 
 # import csv file with species counts
-old_wd <- getwd()
-filePath <- "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/"
+pathseqPath <- "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/diversityMetrics/"
 # filePath <- "/data/vrc_his/douek_lab/cokie/TestFiles/"
-setwd(filePath)
-PathogenCounts1 <- read.csv("RNA_species_tpm.csv")
+czidPath <- "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/CZID_Results/diversityMetrics/"
+
+PathogenCounts1 <- read.csv(paste0(pathseqPath, "RNA_species_tpm.csv") )
 PathogenCounts1 <- PathogenCounts1 %>% replace(is.na(.), 0)
-PathogenCounts2 <- read.csv("RNA_species_tpm.csv")
+PathogenCounts2 <- read.csv(paste0(czidPath, "CZID_nr_species_counts.csv") )
 PathogenCounts2 <- PathogenCounts2 %>% replace(is.na(.), 0)
 
 # file naming information
