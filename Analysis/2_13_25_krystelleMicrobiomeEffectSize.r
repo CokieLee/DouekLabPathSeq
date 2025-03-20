@@ -5,13 +5,13 @@ library(vegan)
 
 ## read in sample sheet and pathseq and czid counts
 pathseqPath <- "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/diversityMetrics/pathseq_genus_tpm_filtered.csv"
-czidPath <- "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/CZID_Results/diversityMetrics/czid_nr_species_counts_filtered.csv"
-sampleSheetPath <- "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/"
+czidPath <- "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/CZID_Results/diversityMetrics/czid_nr_genus_counts_filtered.csv"
+sampleSheetPath <- "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/Moritz_Sample_sheet_infection_status.txt"
 
 ##############################################################################
 ## define data to run on
 sampleSheet <-
-  read.csv(paste0(sampleSheetPath, "Moritz_Sample_sheet_infection_status.txt"), sep="\t") %>%
+  read.csv(sampleSheetPath, sep="\t") %>%
   subset(select=c(Sample.name, HIV.status))
 sampleSheet <- sampleSheet[order(sampleSheet$Sample.name), ]
 sampleSheet <- head(sampleSheet, -2)
@@ -48,6 +48,8 @@ pathseqCounts$Sample.name <- unlist(
 )
 pathseqCounts <- pathseqCounts[order(pathseqCounts$Sample.name), ]
 pathseqCounts <- head(pathseqCounts, -2)
+pathseqBacteriaCols <- grepl("Bacteria", names(pathseqCounts)) | (names(pathseqCounts) == "Sample.name")
+pathseqCounts <- pathseqCounts[, pathseqBacteriaCols]
 
 czidCounts <-
   read.csv(czidPath) %>%
@@ -61,21 +63,14 @@ czidCounts$Sample.name <- unlist(
 )
 czidCounts <- czidCounts[order(czidCounts$Sample.name), ]
 czidCounts <- head(czidCounts, -2)
+czidBacteriaCols <- grepl("bacteria", names(czidCounts)) | (names(czidCounts) == "Sample.name")
+czidCounts <- czidCounts[, czidBacteriaCols]
 
 # define pathseq positive vs uninfected (all samples) split
-if(identical(sort(pathseqCounts$Sample.name), sort(infectionSplitSheet$Sample.name))) {
-  pathseqInfectionMerged <- merge(pathseqCounts, infectionSplitSheet, by = "Sample.name")
-} else {
-  stop("sample name columns not identical")
-}
+pathseqInfectionMerged <- merge(pathseqCounts, infectionSplitSheet, by = "Sample.name", all.x = FALSE, all.y = FALSE)
 
 # define czid positive vs uninfected (all samples) split
-if(identical(sort(czidCounts$Sample.name), sort(infectionSplitSheet$Sample.name))) {
-  czidInfectionMerged <- merge(czidCounts, infectionSplitSheet, by = "Sample.name")
-} else {
-  print("Sample name columns not identical")
-  czidInfectionMerged <- merge(czidCounts, infectionSplitSheet, by = "Sample.name", all.x = FALSE, all.y = FALSE)
-}
+czidInfectionMerged <- merge(czidCounts, infectionSplitSheet, by = "Sample.name", all.x = FALSE, all.y = FALSE)
 
 # define czid counts with adult infection split
 czidAdultMerged <- merge(czidCounts, adultPosNegSplit, by = "Sample.name", all.x = FALSE, all.y = FALSE)
@@ -190,6 +185,7 @@ pathseq_wilcox_summarized_a <- data.frame(
   hochberg = pathseq_wilcox_hochberg_a$pVals) %>%
   merge(pathseq_wilcox_effectSize_a, by = "pathogenNames", x.all = FALSE, y.all = FALSE) %>%
   arrange(unadjusted)
+View(pathseq_wilcox_summarized_a)
 
 czid_wilcox_pVals_a <- runWilcoxTest(czidInfectionMerged, czidPathNames)
 czid_wilcox_effectSize_a <- getMeanDiff(czidInfectionMerged, czidPathNames, "Positive", "Uninfected")
@@ -202,10 +198,11 @@ czid_wilcox_summarized_a <- data.frame(
   hochberg = czid_wilcox_hochberg_a$pVals) %>%
   merge(czid_wilcox_effectSize_a, by = "pathogenNames", x.all = FALSE, y.all = FALSE) %>%
   arrange(unadjusted)
+View(czid_wilcox_summarized_a)
 
 # Adult disease status (pos/neg) wilcox test
 pathseq_wilcox_pVals_b <- runWilcoxTest(pathseqAdultMerged, pathseqPathNames)
-pathseq_wilcox_effectSize_b <- getMeanDiff(pathseqAdultMerged, pathseqPathNames, "Positive", "Uninfected")
+pathseq_wilcox_effectSize_b <- getMeanDiff(pathseqAdultMerged, pathseqPathNames, "Positive", "Negative")
 pathseq_wilcox_bonferroni_b <- pathseq_wilcox_pVals_b %>% mutate(pVals = p.adjust(pVals, method = "bonferroni"))
 pathseq_wilcox_hochberg_b <- pathseq_wilcox_pVals_b %>% mutate(pVals = p.adjust(pVals, method = "hochberg"))
 pathseq_wilcox_summarized_b <- data.frame(
@@ -215,9 +212,10 @@ pathseq_wilcox_summarized_b <- data.frame(
   hochberg = pathseq_wilcox_hochberg_b$pVals) %>%
   merge(pathseq_wilcox_effectSize_b, by = "pathogenNames", x.all = FALSE, y.all = FALSE) %>%
   arrange(unadjusted)
+View(pathseq_wilcox_summarized_b)
 
 czid_wilcox_pVals_b <- runWilcoxTest(czidAdultMerged, czidPathNames)
-czid_wilcox_effectSize_b <- getMeanDiff(czidAdultMerged, czidPathNames, "Positive", "Uninfected")
+czid_wilcox_effectSize_b <- getMeanDiff(czidAdultMerged, czidPathNames, "Positive", "Negative")
 czid_wilcox_bonferroni_b <- czid_wilcox_pVals_b %>% mutate(pVals = p.adjust(pVals, method = "bonferroni"))
 czid_wilcox_hochberg_b <- czid_wilcox_pVals_b %>% mutate(pVals = p.adjust(pVals, method = "hochberg"))
 czid_wilcox_summarized_b <- data.frame(
@@ -227,6 +225,7 @@ czid_wilcox_summarized_b <- data.frame(
   hochberg = czid_wilcox_hochberg_b$pVals) %>%
   merge(czid_wilcox_effectSize_b, by = "pathogenNames", x.all = FALSE, y.all = FALSE) %>%
   arrange(unadjusted)
+View(czid_wilcox_summarized_b)
 
 # Child disease exposure status (HEU vs HUU) wilcox test
 pathseq_wilcox_pVals_c <- runWilcoxTest(pathseqChildMerged, pathseqPathNames)
@@ -240,9 +239,10 @@ pathseq_wilcox_summarized_c <- data.frame(
   hochberg = pathseq_wilcox_hochberg_c$pVals) %>%
   merge(pathseq_wilcox_effectSize_c, by = "pathogenNames", x.all = FALSE, y.all = FALSE) %>%
   arrange(unadjusted)
+View(pathseq_wilcox_summarized_c)
 
 czid_wilcox_pVals_c <- runWilcoxTest(czidChildMerged, czidPathNames)
-czid_wilcox_effectSize_c <- getMeanDiff(czidChildMerged, czidPathNames, "Positive", "Uninfected")
+czid_wilcox_effectSize_c <- getMeanDiff(czidChildMerged, czidPathNames, "HEU", "HUU")
 czid_wilcox_bonferroni_c <- czid_wilcox_pVals_c %>% mutate(pVals = p.adjust(pVals, method = "bonferroni"))
 czid_wilcox_hochberg_c <- czid_wilcox_pVals_c %>% mutate(pVals = p.adjust(pVals, method = "hochberg"))
 czid_wilcox_summarized_c <- data.frame(
@@ -252,4 +252,5 @@ czid_wilcox_summarized_c <- data.frame(
   hochberg = czid_wilcox_hochberg_c$pVals) %>%
   merge(czid_wilcox_effectSize_c, by = "pathogenNames", x.all = FALSE, y.all = FALSE) %>%
   arrange(unadjusted)
+View(czid_wilcox_summarized_c)
 
