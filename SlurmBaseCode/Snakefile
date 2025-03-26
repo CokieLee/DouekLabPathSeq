@@ -240,7 +240,7 @@ rule trinity:
                     config["origin"] + "_trinity_output",
                     "myTrinity_Origin_"+ config["origin"] + "_Sample_{sample}" + leftEnding + ".Trinity.fasta")
     resources:
-        runtime=4320, mem_mb=262144
+        runtime=21600, mem_mb=262144
     shell:
         """
         module purge
