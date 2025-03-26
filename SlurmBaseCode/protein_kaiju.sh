@@ -192,10 +192,18 @@ sorted_protein_kaiju_output_file_tab=$kaiju_output_folder"sorted_protein_kaiju_"
 
 ## Kaiju output is stored in a tab file ($protein_kaiju_output_file_tab). 
 kaiju -t $kaiju_nodes -f $kaiju_fmi -i $formatted_non_host_proteins_translations_output_file_faa -X -e 5 -E 0.01 -p -z 1 -v 1> $protein_kaiju_output_file_tab
+
+## check if process worked
 process_fail_check "kaiju run FAILED. QUITTING"
 
 ## Sort kaiju output
 ## The -k option denotes sorting via a key, the 2 denotes sorting on field 2 (confirm)
-sort -k 2 $protein_kaiju_output_file_tab > $sorted_protein_kaiju_output_file_tab
+if [ -s $protein_kaiju_output_file_tab ]
+then
+  sort -k 2 $protein_kaiju_output_file_tab > $sorted_protein_kaiju_output_file_tab
+else
+  print "FAILED. $protein_kaiju_output_file_tab was not created by 'kaiju' command"
+  exit 1
+fi
 
 echo "END OF PROTEIN_KAIJU"

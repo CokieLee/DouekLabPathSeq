@@ -44,7 +44,7 @@ rule markSampleCompleted:
         os.path.join(config["outputpath"],
                     "Sample_{sample}" + leftEnding + "_finished.txt")
     resources:
-        runtime=10, mem_mb=256
+        runtime=100, mem_mb=256
     shell:
         """
         touch {output}
@@ -99,7 +99,7 @@ rule bowtieUnmasked:
         # post-processing
         os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding, "finished_bowtieUnmaskedGenome.txt")
     resources:
-        runtime=300, mem_mb=65536
+        runtime=2880, mem_mb=65536
     shell:
         """
         module purge
@@ -150,7 +150,7 @@ rule starAfterBowtie:
         os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
                     "Generated_Data_Star_Alignment/{sample}" + leftEnding + "_star_alignment_stats.txt")
     resources:
-        runtime=300, mem_mb=65536
+        runtime=2880, mem_mb=65536
     shell:
         """
         module purge
@@ -190,7 +190,7 @@ rule bowtiePrimate:
                     "primate_alignment_rates/unalignedRead1AgainstPrimate_{sample}" + rightEnding + ".fq")
         ## following outputs are solely informational
     resources:
-        runtime=300, mem_mb=65536
+        runtime=2880, mem_mb=65536
     shell:
         """
         module purge
@@ -240,7 +240,7 @@ rule trinity:
                     config["origin"] + "_trinity_output",
                     "myTrinity_Origin_"+ config["origin"] + "_Sample_{sample}" + leftEnding + ".Trinity.fasta")
     resources:
-        runtime=600, mem_mb=262144
+        runtime=4320, mem_mb=262144
     shell:
         """
         module purge
@@ -284,7 +284,7 @@ rule filterHostBlast:
                     config["origin"] + "_trinity_filtered",
                     "nonMammal_trinity_Origin_" + config["origin"] + ".fasta")
     resources:
-        runtime=600, mem_mb=131072
+        runtime=4320, mem_mb=131072
     shell:
         """
         module purge
@@ -328,7 +328,7 @@ rule kaiju:
         os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding, config["origin"] + "_kaiju_output",
                     "formatted_non_host_proteins_" + config["origin"] + ".faa")
     resources:
-        runtime=600, mem_mb=131072
+        runtime=2880, mem_mb=524288    # was 131072
     shell:
         """
         module purge
@@ -426,7 +426,7 @@ rule buildSalmon:
                             "Sample_{sample}" + leftEnding, config["origin"] + "_salmon_quant", "salmon",
                             "species_salmon/"))
     resources:
-        runtime=600, mem_mb=131072
+        runtime=2880, mem_mb=131072
     shell:
         """
         module purge
@@ -464,7 +464,7 @@ rule salmonQuant:
                     "{taxlevel}_quant_{sample}" + leftEnding,
                     "{sample}" + leftEnding + "_quant.sf")
     resources:
-        runtime=600, mem_mb=131072
+        runtime=2880, mem_mb=131072
     shell:
         """
         module purge
@@ -507,7 +507,7 @@ rule mergeTaxAndQuant:
                     config["origin"] + "_merge_TaxAndQuant",
                     config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_tpm.csv")
     resources:
-        runtime=600, mem_mb=131072
+        runtime=2880, mem_mb=131072
     shell:
         """
         module purge
