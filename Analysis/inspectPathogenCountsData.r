@@ -1,14 +1,16 @@
 library("tidyr")
 library("dplyr")
+library("stringr")
+library("ggplot2")
 
 ## Define variable paths
 
 # import csv file with genus counts
-pathseqPath <- "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/diversityMetrics/RNA_genus_tpm.csv"
-czidPath <- "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/CZID_Results/diversityMetrics/CZID_nr_genus_counts.csv"
+pathseqPath <- "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/pathseqTaxonomicSummaries/RNA_genus_tpm.csv"
+czidPath <- "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/CZID_Results/summarizedData/CZID_nr_genus_counts.csv"
 # define paths for writing filtered files
-pathseqFilteredPath <- "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/diversityMetrics/pathseq_genus_tpm_filtered.csv"
-czidFilteredPath <- "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/CZID_Results/diversityMetrics/czid_nr_genus_counts_filtered.csv"
+pathseqFilteredPath <- "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/summaryFormatData/pathseq_genus_tpm_filtered.csv"
+czidFilteredPath <- "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/CZID_Results/summarizedData/czid_nr_genus_counts_filtered.csv"
 sampleSheetPath <- "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/Moritz_Sample_sheet_infection_status.txt"
 
 taxLevel = "genus"
@@ -26,7 +28,8 @@ pathseqCounts <- read.csv(pathseqPath) %>%
 czidCounts <- read.csv(czidPath) %>%
   mutate(across(-1, as.numeric)) %>%
   replace(is.na(.), 0) %>%
-  rename_with(~str_split(., "_", simplify = TRUE)[, 2], -1)
+  rename_with(~str_split(., "_", simplify = TRUE)[, 2], -1) %>%
+  rename(genus = Pathogens)
 
 # define sample sheet with treatment information
 sampleSheet <-
@@ -156,6 +159,41 @@ pathseqHIVPosPooled <- pathseqHIVPosPooled[order(pathseqHIVPosPooled$count), ]
 pathseqHIVPosPooled$rowNum <- as.numeric(rownames(pathseqHIVPosPooled))
 ################################################################################
 ## define graphs
+pathseqPooled$count <- as.numeric(pathseqPooled$count)
+pathseq_ordered <- pathseqPooled[order(pathseqPooled$count), ]
+pathseq_ordered$rowNum <- as.numeric(rownames(pathseq_ordered)) %>% replace(is.na(.), 0)
+czidPooled$count <- as.numeric(czidPooled$count)
+czid_ordered <- czidPooled[order(czidPooled$count), ]
+czid_ordered$rowNum <- as.numeric(rownames(czid_ordered)) %>% replace(is.na(.), 0)
+
+pathseq_cdf_zeros <-
+  ggplot() +
+  geom_point(data = pathseq_ordered, aes(x=rowNum, y=count ), color='green') +
+  geom_point(data = czid_ordered, aes(x=rowNum, y=count), color='orange') +
+  labs(title = "CDF of pathogens found from Krystelle's microbiome data",
+       x = "sample-pathogen combination",
+       y = "counts found") +
+  theme_bw()
+pathseq_cdf_zeros
+
+pathseq_ordered_noZeros <- subset(pathseq_ordered, count !=0)
+czid_ordered_noZeros$rowNum <- as.numeric(rownames(czid_ordered_noZeros)) %>% replace(is.na(.), 0)
+czid_ordered_noZeros <- subset(czid_ordered, count !=0)
+czid_ordered_noZeros$rowNum <- as.numeric(rownames(czid_ordered_noZeros)) %>% replace(is.na(.), 0)
+
+pathseq_cdf <-
+  ggplot() +
+  geom_point(data = pathseq_ordered_noZeros, aes(x=rowNum, y=count ), color='green') +
+  geom_point(data = czid_ordered_noZeros, aes(x=rowNum, y=count), color='orange') +
+  labs(title = "Pathogens found by Pathseq vs CZID",
+       x = "sample-pathogen combination",
+       y = "amount of pathogen found (tpm)") +
+  theme_bw()
+pathseq_cdf
+
+
+
+################################################################################
 # plot pathseq graphs
 pathseqPooled$count <- as.numeric(pathseqPooled$count)
 pathseq_ordered <- pathseqPooled[order(pathseqPooled$count), ]
@@ -174,8 +212,8 @@ czid_cdf_zeros <- countsCDF(czid_ordered)
 czid_ordered_noZeros <- subset(czid_ordered, count !=0)
 czid_cdf <- countsCDF(czid_ordered_noZeros)
 
-filteredType1 <- Path1_filteredByMean
-filteredType2 <- Path2_filteredByMean
+filteredType1 <- pathseq_filteredByMean
+filteredType2 <- czid_filteredByMean
 
 ## plot filtered pathseq and CZID cdf of counts
 pathseqPooledFiltered <- pivot_longer(filteredType1,
@@ -191,11 +229,13 @@ pathseqPooledFiltered_ordered <- pathseqPooledFiltered[order(pathseqPooledFilter
 pathseqPooledFiltered_ordered$rowNum <- as.numeric(rownames(pathseqPooledFiltered_ordered))
 pathseqPooledFiltered_ordered <- subset(pathseqPooledFiltered_ordered, count != 0)
 pathseqPooledFiltered_cdf <- countsCDF(pathseqPooledFiltered_ordered)
+pathseqPooledFiltered_cdf
 
 czidPooledFiltered_ordered <- czidPooledFiltered[order(czidPooledFiltered$count), ]
 czidPooledFiltered_ordered$rowNum <- as.numeric(rownames(czidPooledFiltered_ordered))
 czidPooledFiltered_ordered <- subset(czidPooledFiltered_ordered, count != 0)
 czidPooledFiltered_cdf <- countsCDF(czidPooledFiltered_ordered)
+czidPooledFiltered_cdf
 
 # plot HIV positive CDF
 pathseqHIVPosCDF <- countsCDF(pathseqHIVPosPooled)
@@ -227,13 +267,14 @@ pathseqHIVAdult_CDF <-
              aes(x=percentile, y=count, color="HIVpositive")) +
   geom_point(data = cbind(pathseqHIVNegGardnerella_format, percentile = scaledPercentile(pathseqHIVNegGardnerella$rowNum)),
              aes(x=percentile, y=count, color="HIVnegative")) +
-  labs(x = "samples (mothers, by percentile)", y = "counts found") +
+  labs(x = "samples (mothers, by percentile)", y = "Pathseq bacterial counts (tpm)") +
   scale_color_manual(values = c("HIVpositive" = "red", "HIVnegative" = "blue")) +
-  labs(title = "CDF of pathseq counts of Gardnerella bacteria")
+  labs(title = "Distribution of Gardnerella found by PathSeq") +
+  theme_bw()
 pathseqHIVAdult_CDF
 # Gardnerella HIV Pos + Neg log overlay
 pathseqHIVAdultLog_CDF <- pathseqHIVAdult_CDF + scale_y_log10() +
-  labs(title = "CDF of pathseq counts of Gardnerella bacteria (log scale)")
+  labs(title = "(Log Scale) Distribution of Gardnerella by Pathseq")
 pathseqHIVAdultLog_CDF
 
 # czid plot HIV positive Gardnerella CDF
