@@ -100,7 +100,7 @@ def visualizeProportions(readsA, readsB, threshold, title="Proportion above thre
     ci_errors = [[abs(proportions[i] - ci_lower[i]), abs(ci_upper[i] - proportions[i])] for i in range(2)]
 
     plt.figure()
-    plt.bar(groups, proportions, color=['skyblue', 'salmon'], yerr=np.array(ci_errors).T, capsize=5)
+    plt.bar(groups, proportions, color=['red', 'blue'], yerr=np.array(ci_errors).T, capsize=5)
     plt.ylabel("Proportion above threshold (95% CI)")
     plt.title(title)
     
@@ -143,5 +143,8 @@ reject, pvals_benjamini, _, _ = smt.multipletests(raw_p_values, alpha=0.05, meth
 visualizeProportions(
     gardnerella_A, gardnerella_B,
     gardnerellaThresh,
-    "Proportion above threshold " + str(gardnerellaThresh), "HIV+", "HIV-",
+    "Proportion of samples with Gardnerella above threshold " + str(gardnerellaThresh), "HIV+", "HIV-",
     propPlotPathUnfiltertered)
+
+print(raw_p_values)
+print(pvals_benjamini)
