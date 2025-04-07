@@ -36,6 +36,7 @@ foreach $type(@types)
       if(!-e "$sample_path"){print "$sample_path files don't exist\n"}
       if(-e "$sample_path")
       {
+        # loop through all tpm files, then all pseudocount files
         $file1= `ls -1 $sample_path/RNA_$type\_$baseName\_tpm.csv`;
         $file2= `ls -1 $sample_path/RNA_$type\_$baseName\_pseudocounts.csv`;
         open(FILE1,$file1);
@@ -43,8 +44,11 @@ foreach $type(@types)
         {
           chomp($_);
           ($descript,$number)=split(/\,/,$_);
-          #print "$number\t$descript\n";
-          $tpms{$descript}{$sample}=$number;
+          # store line if it is a valid taxonomy-count pair (starts with k__)
+          $validEntry = rindex $descript, "k__", 0;
+          if($validEntry == 0){
+            $tpms{$descript}{$sample}=$number;
+          }
         }
         close FILE1;
         open(FILE2,$file2);
@@ -52,16 +56,20 @@ foreach $type(@types)
         {
           chomp($_);
           ($descript,$number)=split(/\,/,$_);
-          #print "$number\t$descript\n";
-          $pseudocounts{$descript}{$sample}=$number;
+          # store line if it is a valid taxonomy-count pair (descriptor starts with k__)
+          $validEntry = rindex $descript, "k__", 0;
+          if($validEntry == 0) {
+            $pseudocounts{$descript}{$sample}=$number;
+          }
         }
         close FILE2;
       }
     }
   }
     ## output stored pseudocounts and tpm data to files
+    # output for tpm files
     open(TYPE1,">RNA_$type\_tpm.csv");
-    print TYPE1 "$type$string\n";
+    print TYPE1 "taxID$string\n";
     foreach $key (keys %tpms)
     {
           print TYPE1 $key;
@@ -74,9 +82,10 @@ foreach $type(@types)
           print TYPE1 "\n";
     }
 
+    # output for pseudocounts files
     close TYPE1;
     open(TYPE2,">RNA_$type\_pseudocounts.csv");
-    print TYPE2 "$type$string\n";
+    print TYPE2 "taxID$string\n";
     foreach $key (keys %pseudocounts)
     {
           print TYPE2 $key;
