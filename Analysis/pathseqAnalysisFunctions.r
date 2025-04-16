@@ -19,4 +19,3 @@ basePlot <- function(title, xaxis, yaxis) {
   
   return(plot)
 }
-

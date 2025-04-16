@@ -19,7 +19,7 @@ library(ggplot2)
 
 # file path to directory containing input files
 inputDir <- "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/CZID_Results/"
-outputDir <- "./"
+outputDir <- "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/CZID_Results/summarizedData/"
 taxLevel <- "genus"    # can do species or genus level
 
 if(taxLevel == "genus") {
@@ -71,8 +71,8 @@ combined_data <- combined_data %>%
 # separate into 2 dataframes with new name (combined from category and name),
 # and either nr_counts or nt_counts as data, and the appropriate row and column headers
 pathogenNames <- paste0("k__", combined_data$category, ";-", taxSym, "__", combined_data$name)
-nr_data <- data.frame(Pathogens = pathogenNames, Sample = combined_data$Sample, count = combined_data$nr_count)
-nt_data <- data.frame(Pathogens = pathogenNames, Sample = combined_data$Sample, count = combined_data$nt_count)
+nr_data <- data.frame(taxID = pathogenNames, Sample = combined_data$Sample, count = combined_data$nr_count)
+nt_data <- data.frame(taxID = pathogenNames, Sample = combined_data$Sample, count = combined_data$nt_count)
 
 # condense into final format
 nr_formatted <- nr_data %>%

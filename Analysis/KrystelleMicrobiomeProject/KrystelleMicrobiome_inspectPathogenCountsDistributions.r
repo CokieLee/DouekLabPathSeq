@@ -3,9 +3,9 @@ library("dplyr")
 library("stringr")
 library("ggplot2")
 source("/data/home/parkercol/PathSeq/Analysis/pathseqDataReformattingFunctions.r")
+source("/data/home/parkercol/PathSeq/Analysis/pathseqAnalysisFunctions.r")
 
 ## Define variable paths
-
 # import csv file with genus counts
 pathseqPath <- "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/pathseqTaxonomicSummaries/RNA_genus_tpm.csv"
 czidPath <- "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/CZID_Results/summarizedData/CZID_nr_genus_counts.csv"
@@ -15,98 +15,191 @@ czidFilteredPath <- "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/CZID_Res
 sampleSheetPath <- "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/Moritz_Sample_sheet_infection_status.txt"
 
 taxLevel = "genus"
+taxAbbrev = 'g'
 ###############################################################################
 ## Define data
 
 # define pathseq all
-pathseqCounts <- loadCountsData(pathseqPath)
-czidCounts <- loadCountsData(czidPath)
+pathseqCounts <- loadCountsData(pathseqPath, taxAbbrev)
+
+# define czid all
+# TODO: czid all currently has duplicate pathogen names (combined here). investigate why.
+czidCounts <- (loadCountsData(czidPath, taxAbbrev)) %>%
+  group_by(taxID) %>%
+  summarise(across(where(is.numeric), sum)) %>%
+  ungroup()
 
 # define sample sheet with treatment information
 sampleSheet <-
-  read.csv(sampleSheetPath, sep="\t") %>%
-  subset(select=c(SampleName, Treatment)) %>%
-  filter(!str_detect(tolower(SampleName), tolower("positive")) &
-           !str_detect(tolower(SampleName), tolower("water")))
+  read.csv(sampleSheetPath, sep="\t")
 
+treatmentSheet <-
+  sampleSheet %>%
+  subset(select=c(Sample.name, HIV.status)) %>%
+  rename(!!!setNames(names(.), c("SampleName", "Treatment"))) %>%
+  filter(Treatment != "")
+
+# TODO: finish fixing filtering functions and calling
 # define datasets filtered by everything below 3std above negative control mean
-pathseqMeanFilterInfo <- filterMean(pathseqCounts)
-pathseqFilteredByStd <- pathseqMeanFilterInfo[3]
-czidMeanFilterInfo <- filterMean(czidCounts)
-czidFilteredByStd <- czidMeanFilterInfo[3]
-
+pathseqFilteredByStd <- filterMean(pathseqCounts, "Water", 3)
+czidFilteredByStd <- filterMean(czidCounts, "Water", 3)
 # define datasets filtered of everything below 99th percentile of negative control
-pathseqPercFilterInfo <- filterMedian(pathseqCounts)
-pathseqFilteredByPerc <- pathseqPercFilterInfo[3]
-czidPercFilterInfo <- filterMedian(czidCounts)
-czidFilteredByPerc <- czidPercFilterInfo[3]
+pathseqFilteredByPerc <- filterMedian(pathseqCounts, "Water", percentThreshold = 0.99)
+czidFilteredByPerc <- filterMedian(czidCounts, "Water", 0.99)
 
 # define pathseq merged with treatment information
-pathseqMergeTreat <- countsWithMetadata(pathseqCounts, sampleSheet)
-czidMergeTreat <- countsWithMetadata(czidCounts, sampleSheet)
+pathseqMergeTreat <- countsMergeMetadata(pathseqCounts, treatmentSheet)
+czidMergeTreat <- countsMergeMetadata(czidCounts, treatmentSheet)
 
 ## define data groups by treatment labels
 pathseqHIVPos <- pathseqMergeTreat %>% filter(Treatment == "Positive") %>%
   select(-Treatment)
 pathseqHIVNeg <- pathseqMergeTreat %>% filter(Treatment == "Negative") %>%
   select(-Treatment)
-pathseqChild <- pathseqMergeTreat %>% filter(Treatment == "HEU") %>%
-  filter(Treatment == "HUU") %>%
-  select(-Treatment)
+pathseqAdult <- pathseqMergeTreat %>%
+  filter(Treatment == "Positive" | Treatment == "Negative")
+pathseqChild <- pathseqMergeTreat %>%
+  filter(Treatment == "HEU" | Treatment == "HUU")
 
 czidHIVPos <- czidMergeTreat %>% filter(Treatment == "Positive") %>%
   select(-Treatment)
 czidHIVNeg <- czidMergeTreat %>% filter(Treatment == "Negative") %>%
   select(-Treatment)
+czidAdult <- czidMergeTreat %>%
+  filter(Treatment == "Positive" | Treatment == "Negative")
+czidChild <- czidMergeTreat %>%
+  filter(Treatment == "HEU" | Treatment == "HUU")
 
 ################################################################################
 ## look at counts distribution and compare CZID to pathseq, filtering to non-filtering
 
-## get pooled pathseq and CZID plots before filtering
-pathseqPooled <- pivot_longer(pathseqCounts,
-                              cols = !genus,
-                              names_to = "Sample",
-                              values_to = "count")
-czidPooled <- pivot_longer(czidCounts,
-                           cols = !genus,
-                           names_to = "Sample",
-                           values_to = "count")
-
-# plot pathseq HIV positive for filtering
-pathseqHIVPosPooled <- pivot_longer(pathseqHIVPos,
-                                    cols = starts_with("k_"),
-                                    names_to = "Pathogen",
-                                    values_to = "count")
-pathseqHIVPosPooled$count <- as.numeric(pathseqHIVPosPooled$count)
-pathseqHIVPosPooled <- pathseqHIVPosPooled[order(pathseqHIVPosPooled$count), ]
-pathseqHIVPosPooled$rowNum <- as.numeric(rownames(pathseqHIVPosPooled))
-
-pathseqPooled$count <- as.numeric(pathseqPooled$count)
-pathseq_ordered <- pathseqPooled[order(pathseqPooled$count), ]
-pathseq_ordered$rowNum <- as.numeric(rownames(pathseq_ordered)) %>% replace(is.na(.), 0)
-czidPooled$count <- as.numeric(czidPooled$count)
-czid_ordered <- czidPooled[order(czidPooled$count), ]
-czid_ordered$rowNum <- as.numeric(rownames(czid_ordered)) %>% replace(is.na(.), 0)
-
+## get overall pathseq and czid results distribution before filtering
+pathseqPooled <- poolAllCounts(pathseqCounts)
+czidPooled <- poolAllCounts(czidCounts)
 cdf_zeros <-
-  basePlot("CDF of pathogens found from Krystelle's microbiome data", "sample-pathogen combination", "counts found") +
-  geom_point(data = pathseq_ordered, aes(x=rowNum, y=count ), color='green') +
-  geom_point(data = czid_ordered, aes(x=rowNum, y=count), color='orange')
+  basePlot("Distribution of pipeline results (All results, including 0 values for \"not found\")",
+           "All pipeline results (one dot for each microbial genus found across all samples)", "Amount of microbe found (tpm)") +
+  geom_point(data = pathseqPooled, aes(x=rowNum, y=count), color='green') +
+  geom_point(data = czidPooled, aes(x=rowNum, y=count), color='orange') +
+  scale_x_continuous(limits = c(0, 750000))
 cdf_zeros
 
-pathseq_ordered_noZeros <- subset(pathseq_ordered, count !=0)
-czid_ordered_noZeros$rowNum <- as.numeric(rownames(czid_ordered_noZeros)) %>% replace(is.na(.), 0)
-czid_ordered_noZeros <- subset(czid_ordered, count !=0)
-czid_ordered_noZeros$rowNum <- as.numeric(rownames(czid_ordered_noZeros)) %>% replace(is.na(.), 0)
-
+pathseqPooledPositive <- poolAllCounts(pathseqCounts, removeZerosNas = TRUE)
+czidPooledPositive <- poolAllCounts(czidCounts, removeZerosNas = TRUE)
 cdf <-
-  basePlot("Pathogens found by Pathseq vs CZID", "sample-pathogen combination", "amount of pathogen found (tpm)") +
-  geom_point(data = pathseq_ordered_noZeros, aes(x=rowNum, y=count ), color='green') +
-  geom_point(data = czid_ordered_noZeros, aes(x=rowNum, y=count), color='orange')
+  basePlot("Distribution of pipeline results (Excluding 0 values for \"not found\")",
+           "All pipeline results (one dot for each microbial genus found across all samples)", "Amount of microbe found (tpm)") +
+  geom_point(data = pathseqPooledPositive, aes(x=rowNum, y=count ), color='green') +
+  geom_point(data = czidPooledPositive, aes(x=rowNum, y=count), color='orange') +
+  scale_x_continuous(limits = c(0, 750000))
 cdf
+
+# get overall pathseq and czid results distribution after mean filtering
+pathseqPooledMeanFiltered <- poolAllCounts(pathseqFilteredByStd, removeZerosNas = TRUE)
+czidPooledMeanFiltered <- poolAllCounts(czidFilteredByStd, removeZerosNas = TRUE)
+cdf_meanFiltered <-
+  basePlot("Distribution of pipeline results (Excluding all values below 3 std above negative control's mean)",
+           "All pipeline results (one dot for each microbial genus found across all samples)", "Amount of microbe found (tpm)") +
+  geom_point(data = pathseqPooledMeanFiltered, aes(x=rowNum, y=count ), color='green') +
+  geom_point(data = czidPooledMeanFiltered, aes(x=rowNum, y=count), color='orange')
+cdf_meanFiltered
+
+# get overall pathseq and czid results distribution after median filtering
+pathseqMedianFiltered <- poolAllCounts(pathseqFilteredByPerc, removeZerosNas = TRUE)
+czidMedianFiltered <- poolAllCounts(czidFilteredByPerc, removeZerosNas = TRUE)
+cdf_medianFiltered <-
+  basePlot("Distribution of pipeline results (Excluding all values below 99th percentile of negative control values)",
+           "All pipeline results (one dot for each microbial genus found across all samples)", "Amount of microbe found (tpm)") +
+  geom_point(data = pathseqMedianFiltered, aes(x=rowNum, y=count ), color='green') +
+  geom_point(data = czidMedianFiltered, aes(x=rowNum, y=count), color='orange')
+cdf_medianFiltered
 
 ################################################################################
 ## Examine the overlap between adults and children
+pathseqAdultPooled <- poolCountsAcrossSamples(countsUnmergeMetaData(pathseqAdult), removeZeros = TRUE)
+pathseqChildPooled <- poolCountsAcrossSamples(countsUnmergeMetaData(pathseqChild), removeZeros = TRUE)
+
+pathseqAdultTop10Microbes <- poolCountsAcrossSamples(countsUnmergeMetaData(pathseqAdult), removeZeros = TRUE, 10)
+pathseqChildTop10Microbes <- poolCountsAcrossSamples(countsUnmergeMetaData(pathseqChild), removeZeros = TRUE, 10)
+
+# make dataframe where for every overlapping bacteria between child and adult,
+# have a column of child counts and adult counts (both summed across samples)
+adultChildOverallOverlap <-
+  inner_join(pathseqAdultPooled, pathseqChildPooled, by="taxID")
+adultChildTop10Overlap <-
+  inner_join(pathseqAdultTop10Microbes, pathseqChildTop10Microbes, by="taxID")
+
+adultChildPairwiseOverlap <- function(inputCountsDf) {
+  inputCountsDf %>%
+  transposeForward() %>%
+  filter(SampleName != "Positive" & SampleName != "Water") %>%
+  mutate(Group = substr(SampleName, start=3, stop=5)) %>%
+  select(SampleName, Group, everything()) %>%
+  group_by(Group) %>%
+  summarize(
+    across(
+      -c("SampleName"),
+      ~ if (all(. != 0)) list(1) else list(0),
+      .names="overlapping_{.col}"),
+    .groups = "keep") %>%
+  rowwise() %>%
+  mutate(NumOverlapped = sum(c_across(everything()) == 1) ) %>%
+  ungroup() %>%
+  select(Group, NumOverlapped, everything())
+}
+
+pathseqAdultChildPairwise <- adultChildPairwiseOverlap(pathseqCounts)
+czidAdultChildPairwise <- adultChildPairwiseOverlap(czidCounts)
+
+czidadultChildPairwiseOverlap <-
+  czidCounts %>%
+    transposeForward() %>%
+    filter(SampleName != "Positive" & SampleName != "Water") %>%
+    mutate(Group = substr(SampleName, start=3, stop=5)) %>%
+    select(SampleName, Group, everything()) %>%
+    group_by(Group) %>%
+    summarize(
+      across(
+        -c("SampleName"),
+        ~ if (all(. != 0)) list(1) else list(0),
+        .names="overlapping_{.col}"),
+      .groups = "keep") %>%
+    rowwise() %>%
+    mutate(NumOverlapped = sum(c_across(everything()) == 1) ) %>%
+    ungroup() %>%
+    select(Group, NumOverlapped, everything())
+
+childMicrobeNum <- function(childCountsDf, overlapDf) {
+  childCountsDf %>%
+  select(-c(Treatment)) %>%
+  rowwise() %>%
+  mutate(SumBacteriaInChild = sum(c_across(-SampleName) != 0), na.rm = TRUE ) %>%
+  ungroup() %>%
+  mutate(Group = substr(SampleName, start=3, stop=5)) %>%
+  left_join(select(overlapDf, c(Group, NumOverlapped)), by="Group") %>%
+  mutate(PercentInherited = (NumOverlapped / SumBacteriaInChild)) %>%
+  select(SampleName, Group, SumBacteriaInChild, NumOverlapped, PercentInherited, everything()) %>%
+  arrange(PercentInherited)
+}
+
+pathseqChildMicrobeNum <- childMicrobeNum(pathseqChild)
+czidChildMicrobeNum <- childMicrobeNum(czidChild)
+
+childInheritenceCDF <- function(pathseqInheritance, czidInheritance) {
+  basePlot("Percentage of childrens' microbes existing in their mother",
+            "Child", "Percentage of microbes that also existed in mother") +
+  geom_point(data = mutate(pathseqInheritance, RowNum = as.numeric(row.names(pathseqInheritance))),
+             aes(x=RowNum, y=PercentInherited), color='green') +
+  geom_point(data = mutate(czidInheritance, RowNum = as.numeric(row.names(czidInheritance))),
+             aes(x=RowNum, y=PercentInherited), color='orange')
+}
+childInheritenceUnfiltered <- childInheritenceCDF(pathseqChildMicrobeNum, czidChildMicrobeNum)
+
+pathseqChildFilterMean <- countsMergeMetadata(pathseqFilteredByStd, treatmentSheet) %>%
+  filter(Treatment == "HEU" | Treatment == "HUU")
+czidChildFilterMean <- countsMergeMetadata(czidFilteredByStd, treatmentSheet) %>%
+  filter(Treatment == "HEU" | Treatment == "HUU")
+pathseqChildMicrobeFilterMean <- childMicrobeNum(pathseqChildFilterMean)
 
 
 ################################################################################
