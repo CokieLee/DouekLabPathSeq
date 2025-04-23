@@ -56,18 +56,34 @@ pathseqHIVPos <- pathseqMergeTreat %>% filter(Treatment == "Positive") %>%
   select(-Treatment)
 pathseqHIVNeg <- pathseqMergeTreat %>% filter(Treatment == "Negative") %>%
   select(-Treatment)
+pathseqHUU <- pathseqMergeTreat %>% filter(Treatment == "HUU") %>%
+  select(-Treatment)
+pathseqHEU <- pathseqMergeTreat %>% filter(Treatment == "HEU") %>%
+  select(-Treatment)
 pathseqAdult <- pathseqMergeTreat %>%
   filter(Treatment == "Positive" | Treatment == "Negative")
 pathseqChild <- pathseqMergeTreat %>%
+  filter(Treatment == "HEU" | Treatment == "HUU")
+pathseqChildMeanFiltered <- pathseqMergeTreat %>%
+  filter(Treatment == "HEU" | Treatment == "HUU")
+pathseqChildMedianFiltered <- pathseqMergeTreat %>%
   filter(Treatment == "HEU" | Treatment == "HUU")
 
 czidHIVPos <- czidMergeTreat %>% filter(Treatment == "Positive") %>%
   select(-Treatment)
 czidHIVNeg <- czidMergeTreat %>% filter(Treatment == "Negative") %>%
   select(-Treatment)
+czidHUU <- czidMergeTreat %>% filter(Treatment == "HUU") %>%
+  select(-Treatment)
+czidHEU <- czidMergeTreat %>% filter(Treatment == "HEU") %>%
+  select(-Treatment)
 czidAdult <- czidMergeTreat %>%
   filter(Treatment == "Positive" | Treatment == "Negative")
 czidChild <- czidMergeTreat %>%
+  filter(Treatment == "HEU" | Treatment == "HUU")
+czidChildMeanFiltered <- czidMergeTreat %>%
+  filter(Treatment == "HEU" | Treatment == "HUU")
+czidChildMedianFiltered <- czidMergeTreat %>%
   filter(Treatment == "HEU" | Treatment == "HUU")
 
 ################################################################################
@@ -101,7 +117,8 @@ cdf_meanFiltered <-
   basePlot("Distribution of pipeline results (Excluding all values below 3 std above negative control's mean)",
            "All pipeline results (one dot for each microbial genus found across all samples)", "Amount of microbe found (tpm)") +
   geom_point(data = pathseqPooledMeanFiltered, aes(x=rowNum, y=count ), color='green') +
-  geom_point(data = czidPooledMeanFiltered, aes(x=rowNum, y=count), color='orange')
+  geom_point(data = czidPooledMeanFiltered, aes(x=rowNum, y=count), color='orange') +
+  scale_x_continuous(limits = c(0, 7000))
 cdf_meanFiltered
 
 # get overall pathseq and czid results distribution after median filtering
@@ -111,7 +128,8 @@ cdf_medianFiltered <-
   basePlot("Distribution of pipeline results (Excluding all values below 99th percentile of negative control values)",
            "All pipeline results (one dot for each microbial genus found across all samples)", "Amount of microbe found (tpm)") +
   geom_point(data = pathseqMedianFiltered, aes(x=rowNum, y=count ), color='green') +
-  geom_point(data = czidMedianFiltered, aes(x=rowNum, y=count), color='orange')
+  geom_point(data = czidMedianFiltered, aes(x=rowNum, y=count), color='orange') +
+  scale_x_continuous(limits = c(0, 7000))
 cdf_medianFiltered
 
 ################################################################################
@@ -129,6 +147,7 @@ adultChildOverallOverlap <-
 adultChildTop10Overlap <-
   inner_join(pathseqAdultTop10Microbes, pathseqChildTop10Microbes, by="taxID")
 
+## function 
 adultChildPairwiseOverlap <- function(inputCountsDf) {
   inputCountsDf %>%
   transposeForward() %>%
@@ -148,9 +167,7 @@ adultChildPairwiseOverlap <- function(inputCountsDf) {
   select(Group, NumOverlapped, everything())
 }
 
-pathseqAdultChildPairwise <- adultChildPairwiseOverlap(pathseqCounts)
-czidAdultChildPairwise <- adultChildPairwiseOverlap(czidCounts)
-
+## TODO: remove
 czidadultChildPairwiseOverlap <-
   czidCounts %>%
     transposeForward() %>%
@@ -169,6 +186,7 @@ czidadultChildPairwiseOverlap <-
     ungroup() %>%
     select(Group, NumOverlapped, everything())
 
+## function
 childMicrobeNum <- function(childCountsDf, overlapDf) {
   childCountsDf %>%
   select(-c(Treatment)) %>%
@@ -182,101 +200,178 @@ childMicrobeNum <- function(childCountsDf, overlapDf) {
   arrange(PercentInherited)
 }
 
-pathseqChildMicrobeNum <- childMicrobeNum(pathseqChild)
-czidChildMicrobeNum <- childMicrobeNum(czidChild)
-
-childInheritenceCDF <- function(pathseqInheritance, czidInheritance) {
-  basePlot("Percentage of childrens' microbes existing in their mother",
-            "Child", "Percentage of microbes that also existed in mother") +
+## graphing function
+childInheritenceCDF <- function(pathseqInheritance, czidInheritance, title) {
+  basePlot(title,
+            "Child", "Proportion of microbes that also existed in mother") +
   geom_point(data = mutate(pathseqInheritance, RowNum = as.numeric(row.names(pathseqInheritance))),
              aes(x=RowNum, y=PercentInherited), color='green') +
   geom_point(data = mutate(czidInheritance, RowNum = as.numeric(row.names(czidInheritance))),
              aes(x=RowNum, y=PercentInherited), color='orange')
 }
-childInheritenceUnfiltered <- childInheritenceCDF(pathseqChildMicrobeNum, czidChildMicrobeNum)
 
-pathseqChildFilterMean <- countsMergeMetadata(pathseqFilteredByStd, treatmentSheet) %>%
-  filter(Treatment == "HEU" | Treatment == "HUU")
-czidChildFilterMean <- countsMergeMetadata(czidFilteredByStd, treatmentSheet) %>%
-  filter(Treatment == "HEU" | Treatment == "HUU")
-pathseqChildMicrobeFilterMean <- childMicrobeNum(pathseqChildFilterMean)
+## get mother-child overlap percentage (of total child microbes) for each child, unfiltered
+# get a dataframe of how many microbes have non-zero values for both the mother and child in each pair
+pathseqAdultChildPairwise <- adultChildPairwiseOverlap(pathseqCounts)
+czidAdultChildPairwise <- adultChildPairwiseOverlap(czidCounts)
+# get the number of non-zero pathogens for each child
+pathseqChildMicrobeNum <- childMicrobeNum(pathseqChild, pathseqAdultChildPairwise)
+czidChildMicrobeNum <- childMicrobeNum(czidChild, czidAdultChildPairwise)
+# plot the percentage of microbes found in each child, which were also found in child's mother
+childInheritenceUnfiltered <- childInheritenceCDF(pathseqChildMicrobeNum, czidChildMicrobeNum,
+                                                  "Proportion of microbes in each child inherited from mother")
+childInheritenceUnfiltered
 
+## get mother-child overlap percentage (of total child microbes) for each child, filtered by mean
+# get dataframes showing how many microbes have non-zero values for both the mother and child in each pair
+pathseqPairwiseMeanFiltered <- adultChildPairwiseOverlap(pathseqFilteredByStd)
+czidPairwiseMeanFiltered <- adultChildPairwiseOverlap(czidFilteredByStd)
+# get the number of non-zero pathogens for each mean filtered child
+pathseqChildMicrobeFilterMean <- childMicrobeNum(pathseqChildMeanFiltered, pathseqPairwiseMeanFiltered)
+czidChildMicrobeFilterMean <- childMicrobeNum(czidChildMeanFiltered, czidPairwiseMeanFiltered)
+# plot the percentage of microbes found in each child, which are also found in child's mother
+childInheritenceMeanFilt <- childInheritenceCDF(pathseqChildMicrobeFilterMean, czidChildMicrobeFilterMean,
+                                                "Proportion of microbes in each child inherited from mother\n(filtered vals under 3std above mean of negative controls)")
+childInheritenceMeanFilt
+
+## get mother-child overlap percentage (of total child microbes) for each child, filtered by mean
+# get dataframes showing how many microbes have non-zero values for both the mother and child in each pair
+pathseqPairwiseMedianFiltered <- adultChildPairwiseOverlap(pathseqFilteredByPerc)
+czidPairwiseMedianFiltered <- adultChildPairwiseOverlap(czidFilteredByPerc)
+# get the number of non-zero pathogens for each mean filtered child
+pathseqChildMicrobeFilterMedian <- childMicrobeNum(pathseqChildMedianFiltered, pathseqPairwiseMedianFiltered)
+czidChildMicrobeFilterMedian <- childMicrobeNum(czidChildMedianFiltered, czidPairwiseMedianFiltered)
+# plot the percentage of microbes found in each child, which are also found in child's mother
+childInheritenceMedianFilt <- childInheritenceCDF(pathseqChildMicrobeFilterMedian, czidChildMicrobeFilterMedian,
+                                                "Proportion of microbes in each child inherited from mother\n(filtered under 99th percentile of negative controls)")
+childInheritenceMedianFilt
 
 ################################################################################
 ## Examine the distributions of particular microbes
 
-# pathseq plot HIV positive Gardnerella CDF
-pathseqHIVPosGardnerella <- pathseqHIVPos %>%
-  select(c(SampleName, `k__Bacteria;-p__Actinobacteria;-c__Actinomycetia;-o__Bifidobacteriales;-f__Bifidobacteriaceae;-g__Gardnerella`))
-colnames(pathseqHIVPosGardnerella) <- c("SampleName", "count")
-pathseqHIVPosGardnerella$count <- as.numeric(pathseqHIVPosGardnerella$count)
-pathseqHIVPosGardnerella <- pathseqHIVPosGardnerella[order(pathseqHIVPosGardnerella$count), ]
-pathseqHIVPosGardnerella$rowNum <- sort( as.numeric( rownames(pathseqHIVPosGardnerella) ) )
+compareMicrobeCDFByTreat <- function(treat1Counts, treat2Counts, microbeName, title, labelA, labelB) {
+  # Counts for treatment 1
+  treat1Microbe <- treat1Counts %>%
+    select(all_of(c("SampleName", microbeName))) %>%
+    rename(count = microbeName) %>%
+    mutate(count = as.numeric(count)) %>%
+    arrange(count) %>%
+    mutate(rowNum = sort(as.numeric(rownames(.)))) %>%
+    mutate(count = ifelse(count == 0, min(count[count > 0]) / 1000, count) ) %>%
+    mutate(percentile = scaledPercentile(rowNum))
 
-# pathseq plot HIV negative Gardnerella CDF
-pathseqHIVNegGardnerella <- pathseqHIVNeg %>%
-  select(c(SampleName, `k__Bacteria;-p__Actinobacteria;-c__Actinomycetia;-o__Bifidobacteriales;-f__Bifidobacteriaceae;-g__Gardnerella`))
-colnames(pathseqHIVNegGardnerella) <- c("SampleName", "count")
-pathseqHIVNegGardnerella$count <- as.numeric(pathseqHIVNegGardnerella$count)
-pathseqHIVNegGardnerella <- pathseqHIVNegGardnerella[order(pathseqHIVNegGardnerella$count), ]
-pathseqHIVNegGardnerella$rowNum <- sort( as.numeric( rownames(pathseqHIVNegGardnerella) ) )
+  # Counts for treatment 2
+  treat2Microbe <- treat2Counts %>%
+    select(all_of(c("SampleName", microbeName))) %>%
+    rename(count = microbeName) %>%
+    mutate(count = as.numeric(count)) %>%
+    arrange(count) %>%
+    mutate(rowNum = sort(as.numeric(rownames(.)))) %>%
+    mutate(count = ifelse(count == 0, min(count[count > 0]) / 1000, count) ) %>%
+    mutate(percentile = scaledPercentile(rowNum))
 
-# pathseq Gardnerella HIV Pos + Neg overlay
-pathseqHIVPosGardnerella_format <- pathseqHIVPosGardnerella %>%
-  mutate(count = ifelse(count == 0, min(count[count > 0]) / 1000, count) )
-pathseqHIVNegGardnerella_format <- pathseqHIVNegGardnerella %>%
-  mutate(count = ifelse(count == 0, min(count[count > 0]) / 1000, count) )
-pathseqHIVAdult_CDF <-
-  ggplot() +
-  geom_point(data = cbind(pathseqHIVPosGardnerella_format, percentile = scaledPercentile(pathseqHIVPosGardnerella$rowNum)),
-             aes(x=percentile, y=count, color="HIVpositive")) +
-  geom_point(data = cbind(pathseqHIVNegGardnerella_format, percentile = scaledPercentile(pathseqHIVNegGardnerella$rowNum)),
-             aes(x=percentile, y=count, color="HIVnegative")) +
-  labs(x = "samples (mothers, by percentile)", y = "Pathseq bacterial counts (tpm)") +
-  scale_color_manual(values = c("HIVpositive" = "red", "HIVnegative" = "blue")) +
-  labs(title = "Distribution of Gardnerella found by PathSeq") +
-  theme_bw()
-pathseqHIVAdult_CDF
-# Gardnerella HIV Pos + Neg log overlay
-pathseqHIVAdultLog_CDF <- pathseqHIVAdult_CDF + scale_y_log10() +
+  CDF <-
+    ggplot() +
+    geom_point(data = treat1Microbe, aes(x=percentile, y=count, color=labelA)) +
+    geom_point(data = treat2Microbe, aes(x=percentile, y=count, color=labelB)) +
+    labs(x = "samples (by percentile of microbe content in each individual)", y = "Pathseq bacterial counts (tpm)") +
+    scale_color_manual(values = c(labelA = "red", labelB = "blue")) +
+    labs(title = title) +
+    theme_bw()
+  return(CDF)
+}
+
+## Examine Gardnerella (in adults) results from pathseq
+pathseqAdultCDF_Gardnerella <- compareMicrobeCDFByTreat(pathseqHIVPos, pathseqHIVNeg, "Gardnerella")
+pathseqAdultCDF_Gardnerella
+# Gardnerella HIV Pos vs Neg in log scale
+pathseqAdultCDF_Gardnerella_log <- pathseqAdultCDF_Gardnerella + scale_y_log10() +
   labs(title = "(Log Scale) Distribution of Gardnerella by Pathseq")
-pathseqHIVAdultLog_CDF
+pathseqAdultCDF_Gardnerella_log
+## Examine Gardnerella (in adults) results from pathseq
+czidAdultCDF_Gardnerella <- compareMicrobeCDFByTreat(czidHIVPos, czidHIVNeg, "Gardnerella")
+czidAdultCDF_Gardnerella
+# Gardnerella HIV Pos vs Neg in log scale
+czidAdultCDF_Gardnerella_log <- czidAdultCDF_Gardnerella + scale_y_log10() +
+  labs(title = "(Log Scale) Distribution of Gardnerella by Pathseq")
+czidAdultCDF_Gardnerella_log
 
-# czid plot HIV positive Gardnerella CDF
-czidHIVPosGardnerella <- czidHIVPos %>%
-  select(c(SampleName, `k__bacteria;-g__Gardnerella`))
-colnames(czidHIVPosGardnerella) <- c("SampleName", "count")
-czidHIVPosGardnerella$count <- as.numeric(czidHIVPosGardnerella$count)
-czidHIVPosGardnerella <- czidHIVPosGardnerella[order(czidHIVPosGardnerella$count), ]
-czidHIVPosGardnerella$rowNum <- sort( as.numeric( rownames(czidHIVPosGardnerella) ) )
+## Examine Lactobacillus (in adults) results from pathseq
+pathseqAdultCDF_Lactobacillus <- compareMicrobeCDFByTreat(pathseqHIVPos, pathseqHIVNeg, "Lactobacillus")
+pathseqAdultCDF_Lactobacillus
+# Lactobacillus HIV Pos vs Neg in log scale
+pathseqAdultCDF_Lactobacillus_log <- pathseqAdultCDF_Lactobacillus + scale_y_log10() +
+  labs(title = "(Log Scale) Distribution of Lactobacillus by Pathseq")
+pathseqAdultCDF_Lactobacillus_log
+## Examine Lactobacillus (in adults) results from pathseq
+czidAdultCDF_Lactobacillus <- compareMicrobeCDFByTreat(czidHIVPos, czidHIVNeg, "Lactobacillus")
+czidAdultCDF_Lactobacillus
+# Lactobacillus HIV Pos vs Neg in log scale
+czidAdultCDF_Lactobacillus_log <- czidAdultCDF_Lactobacillus + scale_y_log10() +
+  labs(title = "(Log Scale) Distribution of Lactobacillus by Pathseq")
+czidAdultCDF_Lactobacillus_log
 
-# czid plot HIV negative Gardnerella CDF
-czidHIVNegGardnerella <- czidHIVNeg %>%
-  select(c(SampleName, `k__bacteria;-g__Gardnerella`))
-colnames(czidHIVNegGardnerella) <- c("SampleName", "count")
-czidHIVNegGardnerella$count <- as.numeric(czidHIVNegGardnerella$count)
-czidHIVNegGardnerella <- czidHIVNegGardnerella[order(czidHIVNegGardnerella$count), ]
-czidHIVNegGardnerella$rowNum <- sort( as.numeric( rownames(czidHIVNegGardnerella) ) )
+## Examine streptococcus (in adults) results from pathseq
+pathseqAdultCDF_Streptococcus <- compareMicrobeCDFByTreat(pathseqHIVPos, pathseqHIVNeg, "Streptococcus")
+pathseqAdultCDF_Streptococcus
+# Streptococcus HIV Pos vs Neg in log scale
+pathseqAdultCDF_Streptococcus_log <- pathseqAdultCDF_Streptococcus + scale_y_log10() +
+  labs(title = "(Log Scale) Distribution of Streptococcus by Pathseq")
+pathseqAdultCDF_Streptococcus_log
+## Examine Streptococcus (in adults) results from pathseq
+czidAdultCDF_Streptococcus <- compareMicrobeCDFByTreat(czidHIVPos, czidHIVNeg, "Streptococcus")
+czidAdultCDF_Streptococcus
+# Streptococcus HIV Pos vs Neg in log scale
+czidAdultCDF_Streptococcus_log <- czidAdultCDF_Streptococcus + scale_y_log10() +
+  labs(title = "(Log Scale) Distribution of Streptococcus by Pathseq")
+czidAdultCDF_Streptococcus_log
 
-# czid Gardnerella HIV Pos + Neg overlay
-czidHIVPosGardnerella_format <- czidHIVPosGardnerella %>%
-  mutate(count = ifelse(count == 0, min(count[count > 0]) / 1000, count) )
-czidHIVNegGardnerella_format <- czidHIVNegGardnerella %>%
-  mutate(count = ifelse(count == 0, min(count[count > 0]) / 1000, count) )
-czidHIVAdult_CDF <-
-  ggplot() +
-  geom_point(data = cbind(czidHIVPosGardnerella_format, percentile = scaledPercentile(czidHIVPosGardnerella$rowNum)),
-             aes(x=percentile, y=count, color="HIVpositive")) +
-  geom_point(data = cbind(czidHIVNegGardnerella_format, percentile = scaledPercentile(czidHIVNegGardnerella$rowNum)),
-             aes(x=percentile, y=count, color="HIVnegative")) +
-  labs(x = "samples (mothers, by percentile)", y = "counts found") +
-  scale_color_manual(values = c("HIVpositive" = "red", "HIVnegative" = "blue")) +
-  labs(title = "CDF of CZID counts of Gardnerella bacteria")
-czidHIVAdult_CDF
-# Gardnerella HIV Pos + Neg log overlay
-czidHIVAdultLog_CDF <- czidHIVAdult_CDF + scale_y_log10() +
-  labs(title = "CDF of CZID counts of Gardnerella bacteria (log scale)")
-czidHIVAdultLog_CDF
+## Examine Lactobacillus (in children) results from pathseq
+pathseqChildCDF_Lactobacillus <-
+  compareMicrobeCDFByTreat(pathseqHUU, pathseqHEU, "Lactobacillus",
+                           "Distribution of Lactobacillus by Pathseq on Children", "HUU", "HEU")
+pathseqChildCDF_Lactobacillus
+# HUU vs HEU in log scale
+pathseqChildCDF_Lactobacillus_log <- pathseqChildCDF_Lactobacillus + scale_y_log10() +
+  labs(title = "(Log Scale) Distribution of Lactobacillus by Pathseq")
+pathseqChildCDF_Lactobacillus_log
+## Examine Lactobacillus (in children) results from pathseq
+czidChildCDF_Lactobacillus <- compareMicrobeCDFByTreat(czidHIVPos, czidHIVNeg, "Lactobacillus")
+czidChildCDF_Lactobacillus
+# HUU vs HEU in log scale
+czidChildCDF_Lactobacillus_log <- czidChildCDF_Lactobacillus + scale_y_log10() +
+  labs(title = "(Log Scale) Distribution of Lactobacillus by Pathseq")
+czidChildCDF_Lactobacillus_log
+
+## Examine Lactobacillus (in adults) results from pathseq
+pathseqAdultCDF_Lactobacillus <- compareMicrobeCDFByTreat(pathseqHIVPos, pathseqHIVNeg, "Lactobacillus")
+pathseqAdultCDF_Lactobacillus
+# Lactobacillus HIV Pos vs Neg in log scale
+pathseqAdultCDF_Lactobacillus_log <- pathseqAdultCDF_Lactobacillus + scale_y_log10() +
+  labs(title = "(Log Scale) Distribution of Lactobacillus by Pathseq")
+pathseqAdultCDF_Lactobacillus_log
+## Examine Lactobacillus (in adults) results from pathseq
+czidAdultCDF_Lactobacillus <- compareMicrobeCDFByTreat(czidHIVPos, czidHIVNeg, "Lactobacillus")
+czidAdultCDF_Lactobacillus
+# Lactobacillus HIV Pos vs Neg in log scale
+czidAdultCDF_Lactobacillus_log <- czidAdultCDF_Lactobacillus + scale_y_log10() +
+  labs(title = "(Log Scale) Distribution of Lactobacillus by Pathseq")
+czidAdultCDF_Lactobacillus_log
+
+## Examine streptococcus (in adults) results from pathseq
+pathseqAdultCDF_Streptococcus <- compareMicrobeCDFByTreat(pathseqHIVPos, pathseqHIVNeg, "Streptococcus")
+pathseqAdultCDF_Streptococcus
+# Streptococcus HIV Pos vs Neg in log scale
+pathseqAdultCDF_Streptococcus_log <- pathseqAdultCDF_Streptococcus + scale_y_log10() +
+  labs(title = "(Log Scale) Distribution of Streptococcus by Pathseq")
+pathseqAdultCDF_Streptococcus_log
+## Examine Streptococcus (in adults) results from pathseq
+czidAdultCDF_Streptococcus <- compareMicrobeCDFByTreat(czidHIVPos, czidHIVNeg, "Streptococcus")
+czidAdultCDF_Streptococcus
+# Streptococcus HIV Pos vs Neg in log scale
+czidAdultCDF_Streptococcus_log <- czidAdultCDF_Streptococcus + scale_y_log10() +
+  labs(title = "(Log Scale) Distribution of Streptococcus by Pathseq")
+czidAdultCDF_Streptococcus_log
 
 ##################################################################################
 ## write filtered data back to file

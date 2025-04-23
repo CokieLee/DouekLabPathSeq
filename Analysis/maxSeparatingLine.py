@@ -5,16 +5,8 @@ import matplotlib.pyplot as plt
 from scipy.stats import norm
 import statsmodels.stats.multitest as smt
 
-## variable names
-countsPathFiltered = "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/summaryFormatData/Top10Genus_CountsAndTreatment.csv"
-countsPathUnfiltered = "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/summaryFormatData/Top10Genus_CountsAndTreatment_unfiltered.csv"
-CDFPlotPathUnfiltered = "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/Visualizations/Analysis/Gardnerella_unfiltered_threshold.png"
-propPlotPathUnfiltertered = "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/Visualizations/Analysis/Gardnerella_unfiltered_proportions.png"
-
-countsPath = countsPathUnfiltered
-plotOutPath = CDFPlotPathUnfiltered
-
-def plotCDFThreshold(threshold, readsA, quantA, readsB, quantB, labelA, labelB, title="Cumulative distribution of pathogen counts"):
+def plotCDFThreshold(threshold, readsA, quantA, readsB, quantB, 
+                     labelA, labelB, plotOutPath, title="Cumulative distribution of pathogen counts",):
     plt.figure()
     plt.scatter(quantA, readsA, color='red', label=labelA)
     plt.scatter(quantB, readsB, color='blue', label=labelB)
@@ -105,46 +97,3 @@ def visualizeProportions(readsA, readsB, threshold, title="Proportion above thre
     plt.title(title)
     
     plt.savefig(pltPath)
-
-## read in counts table (of top 30 bacteria, with HIV status information)
-counts = pd.read_csv(countsPath)
-gardnerellaCounts = counts[ ['g_Gardnerella', 'HIV.status'] ]
-gardnerella_A = gardnerellaCounts[gardnerellaCounts['HIV.status'] == "Positive"]['g_Gardnerella'].to_list()
-gardnerella_B = gardnerellaCounts[gardnerellaCounts['HIV.status'] == "Negative"]['g_Gardnerella'].to_list()
-
-## get best threshold for separating positive and negative
-gardnerellaThresh = bestThreshold(gardnerella_A, gardnerella_B, True, "Cumulative distributions of Gardnerella found by Pathseq")
-print("Threshold: " + str(gardnerellaThresh))
-
-## find the proportions of HIV + and - above and below the threshold
-p_value = propSignificance(gardnerella_A, gardnerella_B, gardnerellaThresh)
-p_value_bonferroni = bonferroni_correction(p_value, 10)
-
-print("Gardnerella raw p-value: " + str(p_value))
-print("Gardnerella bonferroni p-value: " + str(p_value_bonferroni))
-
-## do significance test for all bacteria
-raw_p_values = []
-for col in counts.columns:
-    if col.startswith("g_"):
-        bacteriaCounts = counts[ [col, 'HIV.status'] ]
-        readsA = bacteriaCounts[bacteriaCounts['HIV.status'] == "Positive"][col].to_list()
-        readsB = bacteriaCounts[bacteriaCounts['HIV.status'] == "Negative"][col].to_list()
-        
-        if (any(readsA) or any(readsB)):
-            threshold = bestThreshold(readsA, readsB)
-            p_value = propSignificance(readsA, readsB, threshold)
-
-            raw_p_values.append(p_value)
-
-reject, pvals_benjamini, _, _ = smt.multipletests(raw_p_values, alpha=0.05, method='fdr_bh')
-
-## plot the proportions as barcharts with confidence intervals
-visualizeProportions(
-    gardnerella_A, gardnerella_B,
-    gardnerellaThresh,
-    "Proportion of samples with Gardnerella above threshold " + str(gardnerellaThresh), "HIV+", "HIV-",
-    propPlotPathUnfiltertered)
-
-print(raw_p_values)
-print(pvals_benjamini)
