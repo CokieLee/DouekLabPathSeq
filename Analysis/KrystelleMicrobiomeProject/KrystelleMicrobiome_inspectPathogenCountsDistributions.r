@@ -258,7 +258,8 @@ compareMicrobeCDFByTreat <- function(treat1Counts, treat2Counts, microbeName, ti
     arrange(count) %>%
     mutate(rowNum = sort(as.numeric(rownames(.)))) %>%
     mutate(count = ifelse(count == 0, min(count[count > 0]) / 1000, count) ) %>%
-    mutate(percentile = scaledPercentile(rowNum))
+    mutate(percentile = scaledPercentile(rowNum)) %>%
+    mutate(label = labelA)
 
   # Counts for treatment 2
   treat2Microbe <- treat2Counts %>%
@@ -268,110 +269,138 @@ compareMicrobeCDFByTreat <- function(treat1Counts, treat2Counts, microbeName, ti
     arrange(count) %>%
     mutate(rowNum = sort(as.numeric(rownames(.)))) %>%
     mutate(count = ifelse(count == 0, min(count[count > 0]) / 1000, count) ) %>%
-    mutate(percentile = scaledPercentile(rowNum))
+    mutate(percentile = scaledPercentile(rowNum)) %>%
+    mutate(label = labelB)
+
+  combinedDf <- rbind(treat1Microbe, treat2Microbe)
 
   CDF <-
     ggplot() +
-    geom_point(data = treat1Microbe, aes(x=percentile, y=count, color=labelA)) +
-    geom_point(data = treat2Microbe, aes(x=percentile, y=count, color=labelB)) +
-    labs(x = "samples (by percentile of microbe content in each individual)", y = "Pathseq bacterial counts (tpm)") +
-    scale_color_manual(values = c(labelA = "red", labelB = "blue")) +
+    geom_point(data = combinedDf, aes(x=percentile, y=count, color=label)) +
+    labs(x = "Each dot is an individual (arranged by percentile of microbe content)", y = "Transcripts per million found") +
+    scale_color_manual(values = setNames( c("red", "blue"), c(as.character(labelA), as.character(labelB))) ) +
     labs(title = title) +
     theme_bw()
   return(CDF)
 }
 
+# define treatment labels for adults and children (for display on graphs, and for marking in dataframe)
+
 ## Examine Gardnerella (in adults) results from pathseq
-pathseqAdultCDF_Gardnerella <- compareMicrobeCDFByTreat(pathseqHIVPos, pathseqHIVNeg, "Gardnerella")
+pathseqAdultCDF_Gardnerella <-
+  compareMicrobeCDFByTreat(pathseqHIVPos, pathseqHIVNeg, "Gardnerella",
+                           "Distribution of Gardnerella reported in adults by Pathseq", "HIV Positive", "HIV Negative")
 pathseqAdultCDF_Gardnerella
 # Gardnerella HIV Pos vs Neg in log scale
 pathseqAdultCDF_Gardnerella_log <- pathseqAdultCDF_Gardnerella + scale_y_log10() +
-  labs(title = "(Log Scale) Distribution of Gardnerella by Pathseq")
+  labs(title = "Distribution of Gardnerella reported in adults by Pathseq", y="Transcripts per million found (LOG SCALE**)")
 pathseqAdultCDF_Gardnerella_log
 ## Examine Gardnerella (in adults) results from pathseq
-czidAdultCDF_Gardnerella <- compareMicrobeCDFByTreat(czidHIVPos, czidHIVNeg, "Gardnerella")
+czidAdultCDF_Gardnerella <-
+  compareMicrobeCDFByTreat(czidHIVPos, czidHIVNeg, "Gardnerella",
+                           "Distribution of Gardnerella reported in adults by CZID", "HIV Positive", "HIV negative")
 czidAdultCDF_Gardnerella
 # Gardnerella HIV Pos vs Neg in log scale
 czidAdultCDF_Gardnerella_log <- czidAdultCDF_Gardnerella + scale_y_log10() +
-  labs(title = "(Log Scale) Distribution of Gardnerella by Pathseq")
+  labs(title = "Distribution of Gardnerella reported in adults by CZID", y="Transcripts per million found (LOG SCALE**)")
 czidAdultCDF_Gardnerella_log
 
 ## Examine Lactobacillus (in adults) results from pathseq
-pathseqAdultCDF_Lactobacillus <- compareMicrobeCDFByTreat(pathseqHIVPos, pathseqHIVNeg, "Lactobacillus")
+pathseqAdultCDF_Lactobacillus <-
+  compareMicrobeCDFByTreat(pathseqHIVPos, pathseqHIVNeg, "Lactobacillus",
+                           "Distribution of Lactobacillus reported in adults by Pathseq", "HIV Positive", "HIV Negative")
 pathseqAdultCDF_Lactobacillus
 # Lactobacillus HIV Pos vs Neg in log scale
 pathseqAdultCDF_Lactobacillus_log <- pathseqAdultCDF_Lactobacillus + scale_y_log10() +
-  labs(title = "(Log Scale) Distribution of Lactobacillus by Pathseq")
+  labs(title = "Distribution of Lactobacillus reported in adults by Pathseq", y="Transcripts per million found (LOG SCALE**)")
 pathseqAdultCDF_Lactobacillus_log
 ## Examine Lactobacillus (in adults) results from pathseq
-czidAdultCDF_Lactobacillus <- compareMicrobeCDFByTreat(czidHIVPos, czidHIVNeg, "Lactobacillus")
+czidAdultCDF_Lactobacillus <-
+  compareMicrobeCDFByTreat(czidHIVPos, czidHIVNeg, "Lactobacillus",
+                           "Distribution of Lactobacillus reported in adults by CZID", "HIV Positive", "HIV negative")
 czidAdultCDF_Lactobacillus
 # Lactobacillus HIV Pos vs Neg in log scale
 czidAdultCDF_Lactobacillus_log <- czidAdultCDF_Lactobacillus + scale_y_log10() +
-  labs(title = "(Log Scale) Distribution of Lactobacillus by Pathseq")
+  labs(title = "Distribution of Lactobacillus reported in adults by CZID", y="Transcripts per million found (LOG SCALE**)")
 czidAdultCDF_Lactobacillus_log
 
 ## Examine streptococcus (in adults) results from pathseq
-pathseqAdultCDF_Streptococcus <- compareMicrobeCDFByTreat(pathseqHIVPos, pathseqHIVNeg, "Streptococcus")
+pathseqAdultCDF_Streptococcus <-
+  compareMicrobeCDFByTreat(pathseqHIVPos, pathseqHIVNeg, "Streptococcus",
+                           "Distribution of Streptococcus reported in adults by Pathseq", "HIV Positive", "HIV Negative")
 pathseqAdultCDF_Streptococcus
 # Streptococcus HIV Pos vs Neg in log scale
 pathseqAdultCDF_Streptococcus_log <- pathseqAdultCDF_Streptococcus + scale_y_log10() +
-  labs(title = "(Log Scale) Distribution of Streptococcus by Pathseq")
+  labs(title = "Distribution of Streptococcus reported in adults by Pathseq", y="Transcripts per million found (LOG SCALE**)")
 pathseqAdultCDF_Streptococcus_log
 ## Examine Streptococcus (in adults) results from pathseq
-czidAdultCDF_Streptococcus <- compareMicrobeCDFByTreat(czidHIVPos, czidHIVNeg, "Streptococcus")
+czidAdultCDF_Streptococcus <-
+  compareMicrobeCDFByTreat(czidHIVPos, czidHIVNeg, "Streptococcus",
+                           "Distribution of Streptococcus reported in adults by CZID", "HIV Positive", "HIV negative")
 czidAdultCDF_Streptococcus
 # Streptococcus HIV Pos vs Neg in log scale
 czidAdultCDF_Streptococcus_log <- czidAdultCDF_Streptococcus + scale_y_log10() +
-  labs(title = "(Log Scale) Distribution of Streptococcus by Pathseq")
+  labs(title = "Distribution of Streptococcus reported in adults by CZID", y="Transcripts per million found (LOG SCALE**)")
 czidAdultCDF_Streptococcus_log
+##############################################################################
+## Chilren
 
 ## Examine Lactobacillus (in children) results from pathseq
 pathseqChildCDF_Lactobacillus <-
-  compareMicrobeCDFByTreat(pathseqHUU, pathseqHEU, "Lactobacillus",
-                           "Distribution of Lactobacillus by Pathseq on Children", "HUU", "HEU")
+  compareMicrobeCDFByTreat(pathseqHEU, pathseqHUU, "Lactobacillus",
+                           "Distribution of Lactobacillus reported in babies by Pathseq", "HIV Exposed\n(Uninfected, mothers on ART)", "HIV Unexposed")
 pathseqChildCDF_Lactobacillus
-# HUU vs HEU in log scale
+# Lactobacillus HIV Pos vs Neg in log scale
 pathseqChildCDF_Lactobacillus_log <- pathseqChildCDF_Lactobacillus + scale_y_log10() +
-  labs(title = "(Log Scale) Distribution of Lactobacillus by Pathseq")
+  labs(title = "Distribution of Lactobacillus reported in babies by Pathseq", y="Transcripts per million found (LOG SCALE**)")
 pathseqChildCDF_Lactobacillus_log
-## Examine Lactobacillus (in children) results from pathseq
-czidChildCDF_Lactobacillus <- compareMicrobeCDFByTreat(czidHIVPos, czidHIVNeg, "Lactobacillus")
+## Examine Lactobacillus (in Childs) results from pathseq
+czidChildCDF_Lactobacillus <-
+  compareMicrobeCDFByTreat(czidHIVPos, czidHIVNeg, "Lactobacillus",
+                           "Distribution of Lactobacillus reported in babies by CZID", "HIV Exposed\n(Uninfected, mothers on ART)", "HIV Unexposed")
 czidChildCDF_Lactobacillus
-# HUU vs HEU in log scale
+# Lactobacillus HIV Pos vs Neg in log scale
 czidChildCDF_Lactobacillus_log <- czidChildCDF_Lactobacillus + scale_y_log10() +
-  labs(title = "(Log Scale) Distribution of Lactobacillus by Pathseq")
+  labs(title = "Distribution of Lactobacillus reported in babies by CZID", y="Transcripts per million found (LOG SCALE**)")
 czidChildCDF_Lactobacillus_log
 
-## Examine Lactobacillus (in adults) results from pathseq
-pathseqAdultCDF_Lactobacillus <- compareMicrobeCDFByTreat(pathseqHIVPos, pathseqHIVNeg, "Lactobacillus")
-pathseqAdultCDF_Lactobacillus
-# Lactobacillus HIV Pos vs Neg in log scale
-pathseqAdultCDF_Lactobacillus_log <- pathseqAdultCDF_Lactobacillus + scale_y_log10() +
-  labs(title = "(Log Scale) Distribution of Lactobacillus by Pathseq")
-pathseqAdultCDF_Lactobacillus_log
-## Examine Lactobacillus (in adults) results from pathseq
-czidAdultCDF_Lactobacillus <- compareMicrobeCDFByTreat(czidHIVPos, czidHIVNeg, "Lactobacillus")
-czidAdultCDF_Lactobacillus
-# Lactobacillus HIV Pos vs Neg in log scale
-czidAdultCDF_Lactobacillus_log <- czidAdultCDF_Lactobacillus + scale_y_log10() +
-  labs(title = "(Log Scale) Distribution of Lactobacillus by Pathseq")
-czidAdultCDF_Lactobacillus_log
+## Examine Bifidobacterium (in children) results from pathseq
+pathseqChildCDF_Bifidobacterium <-
+  compareMicrobeCDFByTreat(pathseqHEU, pathseqHUU, "Bifidobacterium",
+                           "Distribution of Bifidobacterium reported in babies by Pathseq", "HIV Exposed\n(Uninfected, mothers on ART)", "HIV Unexposed")
+pathseqChildCDF_Bifidobacterium
+# Bifidobacterium HIV Pos vs Neg in log scale
+pathseqChildCDF_Bifidobacterium_log <- pathseqChildCDF_Bifidobacterium + scale_y_log10() +
+  labs(title = "Distribution of Bifidobacterium reported in babies by Pathseq", y="Transcripts per million found (LOG SCALE**)")
+pathseqChildCDF_Bifidobacterium_log
+## Examine Bifidobacterium (in Childs) results from pathseq
+czidChildCDF_Bifidobacterium <-
+  compareMicrobeCDFByTreat(czidHIVPos, czidHIVNeg, "Bifidobacterium",
+                           "Distribution of Bifidobacterium reported in babies by CZID", "HIV Exposed\n(Uninfected, mothers on ART)", "HIV Unexposed")
+czidChildCDF_Bifidobacterium
+# Bifidobacterium HIV Pos vs Neg in log scale
+czidChildCDF_Bifidobacterium_log <- czidChildCDF_Bifidobacterium + scale_y_log10() +
+  labs(title = "Distribution of Bifidobacterium reported in babies by CZID", y="Transcripts per million found (LOG SCALE**)")
+czidChildCDF_Bifidobacterium_log
 
-## Examine streptococcus (in adults) results from pathseq
-pathseqAdultCDF_Streptococcus <- compareMicrobeCDFByTreat(pathseqHIVPos, pathseqHIVNeg, "Streptococcus")
-pathseqAdultCDF_Streptococcus
-# Streptococcus HIV Pos vs Neg in log scale
-pathseqAdultCDF_Streptococcus_log <- pathseqAdultCDF_Streptococcus + scale_y_log10() +
-  labs(title = "(Log Scale) Distribution of Streptococcus by Pathseq")
-pathseqAdultCDF_Streptococcus_log
-## Examine Streptococcus (in adults) results from pathseq
-czidAdultCDF_Streptococcus <- compareMicrobeCDFByTreat(czidHIVPos, czidHIVNeg, "Streptococcus")
-czidAdultCDF_Streptococcus
-# Streptococcus HIV Pos vs Neg in log scale
-czidAdultCDF_Streptococcus_log <- czidAdultCDF_Streptococcus + scale_y_log10() +
-  labs(title = "(Log Scale) Distribution of Streptococcus by Pathseq")
-czidAdultCDF_Streptococcus_log
+## Examine blautia (in children) results from pathseq
+pathseqChildCDF_Blautia <-
+  compareMicrobeCDFByTreat(pathseqHEU, pathseqHUU, "Blautia",
+                           "Distribution of Blautia reported in babies by Pathseq", "HIV Exposed\n(Uninfected, mothers on ART)", "HIV Unexposed")
+pathseqChildCDF_Blautia
+# Blautia HIV Pos vs Neg in log scale
+pathseqChildCDF_Blautia_log <- pathseqChildCDF_Blautia + scale_y_log10() +
+  labs(title = "Distribution of Blautia reported in babies by Pathseq", y="Transcripts per million found (LOG SCALE**)")
+pathseqChildCDF_Blautia_log
+## Examine Blautia (in Childs) results from pathseq
+czidChildCDF_Blautia <-
+  compareMicrobeCDFByTreat(czidHIVPos, czidHIVNeg, "Blautia",
+                           "Distribution of Blautia reported in babies by CZID", "HIV Exposed\n(Uninfected, mothers on ART)", "HIV Unexposed")
+czidChildCDF_Blautia
+# Blautia HIV Pos vs Neg in log scale
+czidChildCDF_Blautia_log <- czidChildCDF_Blautia + scale_y_log10() +
+  labs(title = "Distribution of Blautia reported in babies by CZID", y="Transcripts per million found (LOG SCALE**)")
+czidChildCDF_Blautia_log
 
 ##################################################################################
 ## write filtered data back to file
