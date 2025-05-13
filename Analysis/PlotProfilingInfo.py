@@ -8,6 +8,21 @@ import os
 infoFile = open("/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/InputFilesInfo.txt")
 outputDir = "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/Visualizations/Profiling/"
 
+####################################################################
+## This code is for producing plots which visualize various performance
+# aspects of the pathseq snakemake pipeline, across muliple input sample runs.
+# It produces visualizations of the memory and compute time performance for each rule,
+# and visualizes the relationship between performance and traits of the input data of each rule
+# (including input size, and in some cases, input structure).
+
+## Assumptions about input data and directory structures
+
+# Snakemake log files
+# Sacct file
+
+####################################################################
+
+
 sizes = []
 
 for line in infoFile.readlines()[1:]:
@@ -22,45 +37,8 @@ plt.ylabel("Number of files")
 plt.title("Krystelle's microbiome data (1Gb ~= 15M reads)")
 
 plt.savefig("InputSizeHistogram.jpg")
+
 ####################################################################
-## plot input size of bowtieUnmasked
-
-# sacctFile = open("/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/bowtieUnmaskedSacct.txt")
-
-# times = []
-# mems = []
-
-# for line in sacctFile.readlines()[2:]:
-#     if "batch" in line:
-#         entries = line.split()
-
-#         if len(entries) >= 4:
-#             time = entries[2]
-#             mem = entries[3]
-#             times.append(time)
-#             mems.append(mem)
-
-# def clockToSeconds(clockString):
-#     totalSecs = 0
-#     h,m,s = clockString.split(":")
-#     totalSecs = totalSecs + (int(h) * 60 * 60)
-#     totalSecs = totalSecs + (int(m) * 60)
-#     totalSecs = totalSecs + int(s)
-
-#     return totalSecs
-
-# timeInSecs = list(map(clockToSeconds, times))
-
-# counts, edges = np.histogram(timeInSecs, bins=100)
-# plt.stairs(counts, edges)
-
-# plt.xlabel("Time to run bowtieUnmasked.sh (in Secs)")
-# plt.ylabel("Number of files")
-# plt.title("Krystelle's microbiome data")
-
-# plt.savefig("BowtieUnmaskedRunTimeHistogram.jpg")
-
-##################################################################
 # concatenate sacct files
 logsPath = "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/logs_successful_2_3_25/"
 bowtieSacctPath = "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/logs_successful_2_3_25/bowtieUnmaskedSacct.txt"
@@ -95,6 +73,8 @@ sacctPath = "/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/logs_successful_
 sacct = pd.read_csv(sacctPath, sep='\t')
 
 ##################################################################
+## function for getting the full path of the input file used by a snakemake rule
+# given a snakemake rule output log
 def getInputFile(filename, inputNumber):
     with open(filename, "r") as file:
         line = file.readline()
@@ -105,7 +85,10 @@ def getInputFile(filename, inputNumber):
             else:
                 line = file.readline()
 
-# lookup the cputime and memory usage for batch job with each ID, store into 2 more columns
+## function for finding the CPU time (in hours) for a batch job, given the job's jobID, and a sacct file.
+#   The sacct file is a dataframe, which much contain at least the columns "JobID" (a column with a number,
+#   and an optional suffix. the ".bat+" suffix indicates entry for the batch job (rather than the job launching overhead)),
+#   "JobIDBase" (job id number, without any suffix), and "CPUTime" (time spent computing for the job).
 def getCPUTime(sacctSummary, jobID):
     filterForJobs = sacctSummary[sacctSummary['JobIDBase'] == jobID]
     batchEntry = filterForJobs[filterForJobs['JobID'].str.endswith(".bat+")]
@@ -124,6 +107,10 @@ def getCPUTime(sacctSummary, jobID):
         cpuHours = (float(cpuSeconds) / float(3600))
         return(cpuHours)
 
+## function for finding the maxRSS (max memory usage) for a batch job, given the job's jobID, and a sacct file.
+#   The sacct file is a dataframe, which much contain at least the columns "JobID" (a column with a number,
+#   and an optional suffix. the ".bat+" suffix indicates entry for the batch job (rather than the job launching overhead)),
+#   "JobIDBase" (job id number, without any suffix), and "MaxRSS" (maximum memory used by the job entry).
 def getMaxRSS(sacctSummary, jobID):
     filterForJobs = sacctSummary[sacctSummary['JobIDBase'] == jobID]
     batchEntry = filterForJobs[filterForJobs['JobID'].str.endswith(".bat+")]
@@ -133,11 +120,18 @@ def getMaxRSS(sacctSummary, jobID):
         maxRSS = (float("nan") if isinstance(batchEntry.iloc[0, 3], float) else (batchEntry.iloc[0, 3])[:-1])
     return(maxRSS)
 
+## function for gathering resource usage information from sacct file for particular job name. 
+# INPUT: sacct (df with columns: JobID, JobName, CPUTime, MaxRSS, State, NTasks, JobIDBase),
+#   logsPath (path string to directory containing directories (named for each job/rule name),
+#       containing snakemake-style rule log files for each job, and whose filenames are of the form [rule name].[job ID].out),
+#   ruleName (job name from sacct's "JobName" column)
+# OUTPUT: csv file of resource usage information for one particular job name
+#   (columns: jobID, inputSize, CPUTime, maxRSS)
 def compileRuleInfo(sacct, logsPath, ruleName):
-    ruleOut = [ f for f in os.listdir(os.path.join(logsPath, ruleName)) if f.endswith(".out")]
-    ruleJobID = [ (f.split("-")[-1]).split(".")[0] for f in ruleOut ]
-    ruleInfo = pd.DataFrame({'jobID': ruleJobID})
-    ruleInput = [ getInputFile( os.path.join(logsPath, ruleName, f), 1 ) for f in ruleOut ]
+    ruleOuts = [ f for f in os.listdir(os.path.join(logsPath, ruleName)) if f.endswith(".out")]
+    ruleJobIDs = [ (f.split("-")[-1]).split(".")[0] for f in ruleOuts ]
+    ruleInfo = pd.DataFrame({'jobID': ruleJobIDs})
+    ruleInput = [ getInputFile( os.path.join(logsPath, ruleName, f), 1 ) for f in ruleOuts ]
 
     # get file size for each input file, populate into a column of dataframe
     ruleInfo['inputSize'] = [ os.path.getsize(f) for f in ruleInput ]
@@ -147,6 +141,9 @@ def compileRuleInfo(sacct, logsPath, ruleName):
 
     return(ruleInfo)
 
+## function to make 2 scatter plots: one of file's size (x-axis) against the max memory usage
+#   of a program which used the file as an input. one of file's size against program time.
+# Input: dataframe with at least columns "inputSize", "CPUTime", and "maxRSS"
 def plotTimeAndMem(ruleInfo, ruleName):
     ruleInfoTime = ruleInfo.dropna(subset=['CPUTime'])
     TimeFig, TimeAx = plt.subplots()
@@ -166,6 +163,9 @@ def plotTimeAndMem(ruleInfo, ruleName):
     MemAx.set_ylabel("Max memory used in kb")
     MemFig.savefig(os.path.join(outputDir, ruleName + "_inputSize_vs_maxRSS.png"))
 
+## function which takes in a list of unsorted numbers (input sizes for a particular rule),
+# and produces a distribution plot (scatter plot of list, sorted).
+# ruleName is a string, used to title the plot
 def plotCDF(unsortedNumbers, ruleName):
     sortedList = np.sort(unsortedNumbers)
     n = len(sortedList)
@@ -206,9 +206,15 @@ plotCDF(trinityInfo['inputSize'].to_numpy(), "trinity")
 # add averge and largest contig size to trinity info, and plot against this
 
 
-## plot the time taken for filterHost against input size and contig size
+## plot the time taken for filterHost against input size
+filterHostInfo = compileRuleInfo(sacct, logsPath, "filterHost")
+plotTimeAndMem(filterHostInfo, "filterHost")
+# TODO: plot the time taken for filterHost against contig size of inputs
+# plot CDF of all input files for filterHost
+plotCDF(filterHostInfo['inputSize'].to_numpy(), "filterHost")
 
 ## plot the time taken for kaiju against input size and contig size
+## TODO: modify the kaiju rule so that the .fasta input comes immediately after the script input
 
 ## plot the time taken for buildSalmon against input size and contig size
 
