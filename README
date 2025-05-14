@@ -1,8 +1,12 @@
-Pathseq pipeline, rewritten using snakemake pipeline manager
-to remove file structure dependencies, and add checkpointing, tests, and errorchecking.
+# Pathseq
+    Pathseq is a pipeline for identifying microbial content (bacteria or viruses) from metagenomic sequencing reads.
+    Specifically, pathseq takes paired-end shotgun sequencing reads ->
+        
 
-Software versions used:
-    - bowtie2/2.5.1
-    - star/2.7.10
+## How to run pathseq
+#### System requirements
+#### Data input requirements and output format
+#### Testing your installation
 
-To run a test:
+## Software dependency details
+#### Programs contained within conda environment:
