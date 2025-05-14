@@ -1,6 +1,6 @@
 # Pathseq
-    Pathseq is a pipeline for identifying microbial content (bacteria or viruses) from metagenomic sequencing reads.
-    Specifically, pathseq takes paired-end shotgun sequencing reads ->
+Pathseq is a pipeline for identifying microbial content (bacteria or viruses) from metagenomic sequencing reads.
+Specifically, pathseq takes paired-end shotgun sequencing reads ->
         
 
 ## How to run pathseq
