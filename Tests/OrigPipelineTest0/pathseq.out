@@ -1,3 +1,0 @@
-dos2unix: dir_check.sh: No such file or directory
-dos2unix: Skipping dir_check.sh, not a regular file.
-./PathSeqSubmitter.sh: line 64: ./dir_check.sh: No such file or directory
