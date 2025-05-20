@@ -1,4 +1,1 @@
-PathSeq/Tests/2023020_EVD68_NS_Test/*.e*
-PathSeq/Tests/2023020_EVD68_NS_Test/*.o*
-Tests/2023020_EVD68_NS_Test/InputData/*.fastq.gz
-Tests/2023020_EVD68_NS_Test/TestRun_GeneratedData/*
+*logs/*
