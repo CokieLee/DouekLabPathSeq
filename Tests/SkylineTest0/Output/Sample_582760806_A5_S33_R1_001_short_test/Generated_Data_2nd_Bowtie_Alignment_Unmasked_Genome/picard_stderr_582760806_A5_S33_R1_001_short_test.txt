@@ -1,0 +1,25 @@
+INFO	2025-05-20 17:35:36	CollectInsertSizeMetrics	
+
+********** NOTE: Picard's command line syntax is changing.
+**********
+********** For more information, please see:
+********** https://github.com/broadinstitute/picard/wiki/Command-Line-Syntax-Transition-For-Users-(Pre-Transition)
+**********
+********** The command line looks like this in the new syntax:
+**********
+**********    CollectInsertSizeMetrics -I tempSortedAlignments_582760806_A5_S33_R1_001_short_test.bam -O insert_size_metrics_582760806_A5_S33_R1_001_short_test.txt -H insert_size_histogram_582760806_A5_S33_R1_001_short_test.pdf -M 0.5
+**********
+
+
+17:35:37.978 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/data/vrc_his/douek_lab/projects/PathSeq/programs/picard/2.18.14/picard.jar!/com/intel/gkl/native/libgkl_compression.so
+17:35:38.032 WARN  NativeLibraryLoader - Unable to load libgkl_compression.so from native/libgkl_compression.so (/tmp/parkercol/libgkl_compression12638926909804958295.so: /tmp/parkercol/libgkl_compression12638926909804958295.so: failed to map segment from shared object)
+17:35:38.033 INFO  NativeLibraryLoader - Loading libgkl_compression.so from jar:file:/data/vrc_his/douek_lab/projects/PathSeq/programs/picard/2.18.14/picard.jar!/com/intel/gkl/native/libgkl_compression.so
+17:35:38.048 WARN  NativeLibraryLoader - Unable to load libgkl_compression.so from native/libgkl_compression.so (/tmp/parkercol/libgkl_compression18010721189465706366.so: /tmp/parkercol/libgkl_compression18010721189465706366.so: failed to map segment from shared object)
+[Tue May 20 17:35:38 EDT 2025] CollectInsertSizeMetrics HISTOGRAM_FILE=insert_size_histogram_582760806_A5_S33_R1_001_short_test.pdf MINIMUM_PCT=0.5 INPUT=tempSortedAlignments_582760806_A5_S33_R1_001_short_test.bam OUTPUT=insert_size_metrics_582760806_A5_S33_R1_001_short_test.txt    DEVIATIONS=10.0 METRIC_ACCUMULATION_LEVEL=[ALL_READS] INCLUDE_DUPLICATES=false ASSUME_SORTED=true STOP_AFTER=0 VERBOSITY=INFO QUIET=false VALIDATION_STRINGENCY=STRICT COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_INDEX=false CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json USE_JDK_DEFLATER=false USE_JDK_INFLATER=false
+[Tue May 20 17:35:38 EDT 2025] Executing as parkercol@ai-hpcn201.niaid.nih.gov on Linux 5.14.0-284.30.1.el9_2.x86_64 amd64; OpenJDK 64-Bit Server VM 11.0.17+8; Deflater: Jdk; Inflater: Jdk; Provider GCS is not available; Picard version: 2.18.14-SNAPSHOT
+17:35:38.065 WARN  IntelDeflaterFactory - IntelInflater is not supported, using Java.util.zip.Inflater
+INFO	2025-05-20 17:35:38	RExecutor	Executing R script via command: Rscript /tmp/parkercol/script4716808204738311571.R /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/insert_size_metrics_582760806_A5_S33_R1_001_short_test.txt /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/insert_size_histogram_582760806_A5_S33_R1_001_short_test.pdf tempSortedAlignments_582760806_A5_S33_R1_001_short_test.bam
+INFO	2025-05-20 17:35:39	ProcessExecutor	null device 
+INFO	2025-05-20 17:35:39	ProcessExecutor	          1 
+[Tue May 20 17:35:39 EDT 2025] picard.analysis.CollectInsertSizeMetrics done. Elapsed time: 0.03 minutes.
+Runtime.totalMemory()=2076049408

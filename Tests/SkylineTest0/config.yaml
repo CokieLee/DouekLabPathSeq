@@ -3,20 +3,20 @@ cluster: sbatch
 jobs: 32
 
 ## parameters that must be changed for each different run
-inputlist: /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/inputlist
-inputdir: /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/InputFiles/
+inputlist: /data/home/parkercol/PathSeq/Tests/TestInput/file_list
+inputdir: /data/home/parkercol/PathSeq/Tests/TestInput/
 origin: RNA
 minContigLen: 300
 
 ## configurable parameters
-codepath: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmBaseCode/
-outputpath: /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/
+codepath: /data/home/parkercol/PathSeq/SlurmBaseCode/
+outputpath: /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/
 scratchDir: /data/scratch/
 
 ## paths of necessary installs and references on system
 bowtieERCCIndex: /data/vrc_his/douek_lab/reference_sets/ERCC/ERCC92
 bowtieUnmaskedGenomeIndex: /data/vrc_his/douek_lab/reference_sets/hg19/unmasked/genome
-hg38_starDB: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/StarReindex/
+hg38_starDB: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/StarReindex/
 bowtiePrimatePaths: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20210302/primates
 blastDB_Mammalia: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20210716/Mammalia.fa
 kaiju_nodes: /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp
