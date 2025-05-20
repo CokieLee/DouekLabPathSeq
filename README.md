@@ -28,19 +28,26 @@ TODO:
 Pathseq must also be given a configuration file to run. This file specifies all other arguments, including the input and output directory full paths, the sequencing origin (RNA or DNA), the mininum contig length (ordinarily set to the read length), path to the rule scripts (in SlurmBaseCode), other external programs used, reference databases, and a scratch directory (directory used to store temporary data while computing).\
 More details about arguments required are below:\
 Pathseq takes its metagnomics sequencing data as paired-end reads in fastq.gz format (gzipped fastq).\
-\
+
 #### Input data
 The config file's "inputpath" parameter specifies the path to a directory containing any such fastq.gz files. This directory must also contain a text file "file_list", which lists the file names of each fastq.gz file you wish to input to Pathseq. Pathseq treats all fastq.gz files listed on "file_list" as separate samples, and will run the complete pipeline for each sample separately, and output information related to each sample into separate output subdirectories, within a main output subdirectory. \
-\
+
 #### Output
 The config file's "outputpath" specifies the full path to the directory where the user wishes for output data to be written. For each separate sample, a separate subdirectory within the output directory will be created. Within each subdirectory, a directory for each rule is created. More detail on the outputs of each rule can be foudn below in the Software details section.\
-\
+
 #### Other arguments needed
 TODO: reference databases, external software.
 
-## Testing your installation
-1. Install 
-2. There is a folder, "Tests/CondaEnvTest", which contains a test config file
+## Testing your installation on Skyline
+1. After installing Pathseq
+2. In the folder "Tests/TestInput/", there is a set of left and right paired-end fastq files, containing about 125 reads.
+3. There is a folder, "Tests/SkylineTest0/". This folder contains:
+     a. A "config.yaml" file. This file already contains all input arguments required to run pathseq on the "Tests/TestInput/" input data.
+     b. A "runSnakemake.sh" bash script. This bash script uses the "config.yaml" file in the "SkylineTest0" directory, and runs Pathseq on it, by running snakemake with "SlurmBaseCode/Snakefile" (the central snakefile).
+4. Run the following command from within the SkylineTest0 directory to start the pipeline on your current compute node:
+   ./runSnakemake.sh
+Or, run it as a batch job on your cluster however you normally submit bash scripts as batch jobs (you may need to change the resource allocation comments at the top to match your system).
+5. Check your outputs
 
 ## Running Pathseq on your own data
 To summarize, there are two files which may be customized in order to run on your own data.
