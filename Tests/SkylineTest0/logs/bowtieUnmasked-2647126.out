@@ -1,0 +1,98 @@
+The flag 'directory' used in rule salmonQuant is only valid for outputs, not inputs.
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Provided resources: mem_mb=65536, mem_mib=62500, disk_mb=5303, disk_mib=5058
+Select jobs to execute...
+
+[Fri May 16 17:49:12 2025]
+rule bowtieUnmasked:
+    input: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmBaseCode/bowtieUnmaskedGenome.sh, /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/InputFiles/CB024_S74_L002_R1_001.fastq.gz, /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/InputFiles/CB024_S74_L002_R2_001.fastq.gz, /data/vrc_his/douek_lab/projects/PathSeq/programs/picard/2.18.14/picard.jar
+    output: /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/Sample_CB024_S74_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_CB024_S74_L002_R1_001.fq, /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/Sample_CB024_S74_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_CB024_S74_L002_R2_001.fq, /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/Sample_CB024_S74_L002_R1_001/ERCC_alignment_rates/ERCC_alignment_rate_CB024_S74_L002_R1_001.txt, /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/Sample_CB024_S74_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/picard_stderr_CB024_S74_L002_R1_001.txt, /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/Sample_CB024_S74_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/picard_stdout_CB024_S74_L002_R1_001.txt, /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/Sample_CB024_S74_L002_R1_001/finished_bowtieUnmaskedGenome.txt
+    jobid: 0
+    reason: Missing output files: /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/Sample_CB024_S74_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/picard_stdout_CB024_S74_L002_R1_001.txt, /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/Sample_CB024_S74_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_CB024_S74_L002_R1_001.fq, /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/Sample_CB024_S74_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/picard_stderr_CB024_S74_L002_R1_001.txt, /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/Sample_CB024_S74_L002_R1_001/finished_bowtieUnmaskedGenome.txt, /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/Sample_CB024_S74_L002_R1_001/ERCC_alignment_rates/ERCC_alignment_rate_CB024_S74_L002_R1_001.txt, /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/Sample_CB024_S74_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_CB024_S74_L002_R2_001.fq
+    wildcards: sample=CB024_S74_L002
+    resources: mem_mb=65536, mem_mib=62500, disk_mb=5303, disk_mib=5058, tmpdir=/data/scratch/parkercol/ai-hpcsubmit2, runtime=2880
+
+
+        module purge
+        module load openjdk
+        which java
+        module load bowtie2
+        which bowtie2
+        module load samtools
+        which samtools
+        module load r
+        which R
+
+        bash /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmBaseCode/bowtieUnmaskedGenome.sh /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmBaseCode/ CB024_S74_L002_R1_001 CB024_S74_L002_R2_001 /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/InputFiles/CB024_S74_L002_R1_001.fastq.gz         /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/InputFiles/CB024_S74_L002_R2_001.fastq.gz /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/ /data/vrc_his/douek_lab/reference_sets/ERCC/ERCC92         /data/vrc_his/douek_lab/reference_sets/hg19/unmasked/genome /data/vrc_his/douek_lab/projects/PathSeq/programs/picard/2.18.14/picard.jar
+        
+/data/apps/software/spack/linux-rocky9-x86_64_v3/gcc-11.3.1/openjdk-17.0.11_9-mcbjre6ftmfq4pieucpfccnvrm6tnnxk/bin/java
+/data/apps/software/spack/linux-rocky9-x86_64_v3/gcc-11.3.1/bowtie2-2.5.1-bfbrd2r2e7l5au5unpauywehfhiefy6b/bin/bowtie2
+/data/apps/software/spack/linux-rocky9-x86_64_v3/gcc-11.3.1/samtools-1.21-57fumi7zpuewerxzvu2r3bwkgsuat2gj/bin/samtools
+
+The following have been reloaded with a version change:
+  1) openjdk/17.0.11_9-mcbjre6 => openjdk/11.0.17_8-kzgd7of
+
+/data/apps/software/spack/linux-rocky9-x86_64_v3/gcc-11.3.1/r-4.3.0-a22xr47ree4bcdwtihjx4sa6zt2hgs2n/bin/R
+CHECKPOINT 1: BOWTIE UNMASKED INPUTS
+codePath:
+/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmBaseCode/
+Directory exists: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmBaseCode/
+dos2unix: converting file /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmBaseCode/dir_check.sh to Unix format...
+1: sampleNameLeft: 
+CB024_S74_L002_R1_001
+sampleNameRight:
+CB024_S74_L002_R2_001
+2: left_read_file: 
+/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/InputFiles/CB024_S74_L002_R1_001.fastq.gz
+3: right_read_file: 
+/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/InputFiles/CB024_S74_L002_R2_001.fastq.gz
+5: outPath: 
+/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/
+Directory exists: /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/
+7: bowtie ercc index: 
+/data/vrc_his/douek_lab/reference_sets/ERCC/ERCC92
+8: bowtie unmasked genome index: 
+/data/vrc_his/douek_lab/reference_sets/hg19/unmasked/genome
+9: picard: 
+/data/vrc_his/douek_lab/projects/PathSeq/programs/picard/2.18.14/picard.jar
+mkdir: cannot create directory ‘/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/Sample_CB024_S74_L002_R1_001’: File exists
+mkdir: cannot create directory ‘/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/Sample_CB024_S74_L002_R1_001/Generated_Data_1st_Bowtie_Alignment_ERCC/’: File exists
+mkdir: cannot create directory ‘/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/Sample_CB024_S74_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/’: File exists
+mkdir: cannot create directory ‘/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/Sample_CB024_S74_L002_R1_001/ERCC_alignment_rates/’: File exists
+mkdir: cannot create directory ‘/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/Sample_CB024_S74_L002_R1_001/ERCC_alignment_counts/’: File exists
+mkdir: cannot create directory ‘/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/Sample_CB024_S74_L002_R1_001/insert_size_metrics/’: File exists
+CHECKPOINT 2: Currently inside: /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/Sample_CB024_S74_L002_R1_001/Generated_Data_1st_Bowtie_Alignment_ERCC/
+CHECKPOINT 3: first bowtie test command:
+bowtie2 --no-mixed --no-discordant -p 4 -x /data/vrc_his/douek_lab/reference_sets/ERCC/ERCC92 -1 /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/InputFiles/CB024_S74_L002_R1_001.fastq.gz -2 /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/InputFiles/CB024_S74_L002_R2_001.fastq.gz 1>genome_alignment_ERCC_CB024_S74_L002_R1_001.sam 2>/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/Sample_CB024_S74_L002_R1_001/ERCC_alignment_rates/ERCC_alignment_rate_CB024_S74_L002_R1_001.txt
+FINISHED running first bowtie
+Generated_Data_1st_Bowtie_Alignment_ERCC
+genome_alignment_ERCC_CB024_S74_L002_R1_001.sam
+genome_alignment_ERCC_CB024_S74_L002_R1_001.sam
+Test line 245
+Generated_Data_1st_Bowtie_Alignment_ERCC
+genome_alignment_ERCC_CB024_S74_L002_R1_001.sam
+samtools 1.21 Using htslib 1.21 Copyright (C) 2024 Genome Research Ltd. Samtools compilation details: Features: build=configure curses=yes CC: /data/apps/install/tools/spack/lib/spack/env/gcc/gcc CPPFLAGS: CFLAGS: -Wall -g -O2 LDFLAGS: HTSDIR: htslib-1.21 LIBS: CURSES_LIB: -lncursesw HTSlib compilation details: Features: build=configure libcurl=yes S3=yes GCS=yes libdeflate=no lzma=yes bzip2=yes plugins=no htscodecs=1.6.1 CC: /data/apps/install/tools/spack/lib/spack/env/gcc/gcc CPPFLAGS: CFLAGS: -Wall -g -O2 -fvisibility=hidden LDFLAGS: -fvisibility=hidden HTSlib URL scheme handlers present: built-in: file, preload, data S3 Multipart Upload: s3w+https, s3w+http, s3w Amazon S3: s3+https, s3, s3+http Google Cloud Storage: gs+http, gs+https, gs libcurl: gophers, smtp, ldaps, smb, rtsp, tftp, pop3, smbs, imaps, pop3s, ftps, https, http, ftp, gopher, imap, sftp, ldap, smtps, scp, dict, mqtt, telnet crypt4gh-needed: crypt4gh mem: mem
+Before samtools view call
+After samtools view call
+FINISHED extracting unaligned reads from first bowtie
+CHECKPOINT 4: second bowtie test command:
+bowtie2 -p 12 --no-mixed --no-discordant -x /data/vrc_his/douek_lab/reference_sets/hg19/unmasked/genome -1 /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/Sample_CB024_S74_L002_R1_001/Generated_Data_1st_Bowtie_Alignment_ERCC/unalignedRead1AgainstERCC_CB024_S74_L002_R1_001.fq -2 /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/Sample_CB024_S74_L002_R1_001/Generated_Data_1st_Bowtie_Alignment_ERCC/unalignedRead2AgainstERCC_CB024_S74_L002_R2_001.fq 1>genome_alignment_unmasked_genome_CB024_S74_L002_R1_001.sam 2>genome_alignment_rate_CB024_S74_L002_R1_001.txt
+Current working directory: 
+/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/Sample_CB024_S74_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome
+FINISHED running second bowtie
+alignments were sent to: 
+genome_alignment_unmasked_genome_CB024_S74_L002_R1_001.sam
+FINISHED extracting unaligned reads from second bowtie
+CHECKPOINT 5: run picard CollectInsertSizeMetrics command:
+java -Xmx6G -jar /data/vrc_his/douek_lab/projects/PathSeq/programs/picard/2.18.14/picard.jar CollectInsertSizeMetrics I=tempSortedAlignments_CB024_S74_L002_R1_001.bam O=insert_size_metrics_CB024_S74_L002_R1_001.txt H=insert_size_histogram_CB024_S74_L002_R1_001.pdf M=0.5 1>picard_stdout_CB024_S74_L002_R1_001.txt 2>picard_stderr_CB024_S74_L002_R1_001.txt
+Current working directory: 
+/data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/Sample_CB024_S74_L002_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome
+FINISHED running picard CollectInsertSizeMetrics command
+/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmBaseCode/bowtieUnmaskedGenome.sh: line 246: cd: pwd: No such file or directory
+REACHED END OF BOWTIEUNMASKED
+[Fri May 16 22:25:08 2025]
+Finished job 0.
+1 of 1 steps (100%) done

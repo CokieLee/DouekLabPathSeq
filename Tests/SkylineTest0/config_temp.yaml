@@ -1,0 +1,37 @@
+## cluster settings
+cluster: sbatch
+jobs: 32
+
+## parameters that must be changed for each different run
+inputpath: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/Tests/TestInput/file_list
+inputdir: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/Tests/TestInput/
+origin: RNA
+minContigLen: 300
+
+## configurable parameters
+codepath: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmBaseCode/
+outputpath: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/Tests/Skyline0/Output/
+scratchDir: /data/scratch/
+
+## paths of necessary installs and references on system
+bowtieERCCIndex: /data/vrc_his/douek_lab/reference_sets/ERCC/ERCC92
+bowtieUnmaskedGenomeIndex: /data/vrc_his/douek_lab/reference_sets/hg19/unmasked/genome
+# bowtieERCCIndex: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/ERCC92
+# bowtieUnmaskedGenomeIndex: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/bowtie_Hg19Unmasked_2021_Ref/genome
+hg38_starDB: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/StarReindex/
+bowtiePrimatePaths: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/bowtieNCBIntPrimate_2021_Ref/primates
+blastDB_Mammalia: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/blast_Mammalia_2021_DB/Mammalia.fa
+kaiju_nodes: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/kaiju_NCBInt_2022_Ref/nodes.dmp
+kaiju_fmi: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/kaiju_NCBInt_2022_Ref/nr_euk/kaiju_db_nr_euk.fmi
+NCBI_nt_kaiju_ref_taxonomy: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/kaiju_NCBInt_2022_Ref/nr_euk/qiime2_formatted_taxonomy.tab
+
+# external programs
+program_picard: /data/vrc_his/douek_lab/projects/PathSeq/programs/picard/2.18.14/picard.jar
+program_RemoveHostForKaiju: /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqRemoveHostForKaiju/dist/PathSeqRemoveHostForKaiju.jar
+program_PathSeqKaijuConcensusSplitter2: /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqKaijuConcensusSplitter2/dist/PathSeqKaijuConcensusSplitter2.jar
+program_PathSeqMergeQIIME2TaxAndSalmon: /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar
+program_PathSeqSplitOutputTableByTaxonomy: /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqSplitOutputTableByTaxonomy/dist/PathSeqSplitOutputTableByTaxonomy.jar
+program_prodigal: /data/vrc_his/douek_lab/projects/PathSeq/programs/prodigal/bin
+program_kaiju: /data/vrc_his/douek_lab/projects/PathSeq/programs/kaiju/kaiju-v1.9.0-linux-x86_64-static
+program_fastp: /data/vrc_his/douek_lab/projects/PathSeq/programs/fastp
+program_palmscan: /data/vrc_his/douek_lab/projects/PathSeq/programs/palmscan-main/bin

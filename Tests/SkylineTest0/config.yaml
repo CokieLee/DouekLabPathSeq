@@ -3,13 +3,14 @@ cluster: sbatch
 jobs: 32
 
 ## parameters that must be changed for each different run
-inputpath: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/Tests/TestInput/
+inputlist: /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/inputlist
+inputdir: /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/InputFiles/
 origin: RNA
 minContigLen: 300
 
 ## configurable parameters
-codepath: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmSnakemakeBaseCode/
-outputpath: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/
+codepath: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/SlurmBaseCode/
+outputpath: /data/vrc_his/douek_lab/projects/PathSeq/Krystelle/pathseqResults/
 scratchDir: /data/scratch/
 
 ## paths of necessary installs and references on system
