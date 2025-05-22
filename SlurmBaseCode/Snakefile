@@ -220,7 +220,7 @@ rule trinity:
         origin=config["origin"],
         minContigLen=config["minContigLen"],
         numThreads="1",
-        maxMemory="175G",
+        maxMemory="32G",
         fastp=config["program_fastp"],
         scratchDir=config["scratchDir"]
     output:
@@ -240,7 +240,8 @@ rule trinity:
                     config["origin"] + "_trinity_output",
                     "myTrinity_Origin_"+ config["origin"] + "_Sample_{sample}" + leftEnding + ".Trinity.fasta")
     resources:
-        runtime=21600, mem_mb=262144
+        #runtime=21600, mem_mb=32768
+        runtime=2880, mem_mb=32768
     shell:
         """
         module purge

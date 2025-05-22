@@ -1,0 +1,21 @@
+Statistics:
+===========
+Trinity Version:      Trinity-v2.15.1
+Compiler:             GCC
+Trinity Parameters:   --CPU 1 --output myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test --min_contig_length 300 --seqType fq --max_memory 32G --min_kmer_cov 1 --left /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq --right /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq --no_version_check
+Paired mode
+ Input data
+  Left.fasta    0 MByte
+  Right.fasta   0 MByte
+  Number of unique KMERs: 5110
+  Number of reads:        64 Output data
+  Trinity.fasta 0 MByte
+
+Runtime
+=======
+Start:       Wed May 21 10:46:54 EDT 2025
+End:         Wed May 21 10:47:23 EDT 2025
+Trinity   29 seconds
+  Inchworm (phase 1 - read clustering)  8 seconds
+  Chrysalis (phase 1 - read clustering) 11 seconds
+  Rest (phase 2 - parallel assembly)       10 seconds

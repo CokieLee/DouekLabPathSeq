@@ -1,3 +1,0 @@
-KeyError in file /data/home/parkercol/PathSeq/SlurmBaseCode/Snakefile, line 6:
-'inputlist'
-  File "/data/home/parkercol/PathSeq/SlurmBaseCode/Snakefile", line 6, in <module>

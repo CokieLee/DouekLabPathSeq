@@ -1,0 +1,33 @@
+# Sequence Data: seqnum=1;seqlen=400;seqhdr="TRINITY_DN2_c0_g1_i1 len=400 path=[0:0-399]"
+# Run Data: version=Prodigal.v2.6.3;run_type=Metagenomic;model="45|Treponema_pallidum_Nichols|B|52.8|11|1";gc_cont=52.80;transl_table=11;uses_sd=1
+
+Beg	End	Std	Total	CodPot	StrtSc	Codon	RBSMot	Spacer	RBSScr	UpsScr	TypeScr	GCCont
+
+2	70	+	-5.44	-8.65	3.22	Edge	None	None	0.00	0.00	3.22	0.420
+
+106	240	-	-15.85	-15.51	-0.34	GTG	AGxAGG/AGGxGG	5-10bp	3.24	0.14	-3.21	0.444
+106	258	-	-33.32	-17.17	-16.14	GTG	None	None	-9.69	-3.12	-2.83	0.458
+
+1	123	+	-6.22	-6.22	0.00	Edge	None	None	0.00	0.00	3.22	0.463
+
+152	253	-	-39.55	-16.28	-23.26	GTG	None	None	-14.69	-3.79	-4.28	0.471
+
+265	378	-	-50.51	-21.29	-29.21	ATG	None	None	-13.10	-17.39	1.77	0.526
+265	399	-	-15.22	-15.22	0.00	Edge	None	None	0.00	0.00	3.22	0.570
+
+278	400	-	-10.95	-10.95	0.00	Edge	None	None	0.00	0.00	3.22	0.561
+
+36	299	+	3.18	-3.80	6.98	ATG	AGGA/GGAG/GAGG	11-12bp	2.33	1.15	4.00	0.492
+120	299	+	-27.02	-8.61	-18.41	TTG	GGA/GAG/AGG	5-10bp	0.64	-3.12	-15.43	0.489
+123	299	+	-8.15	-8.50	0.36	ATG	GGA/GAG/AGG	5-10bp	0.63	-2.56	2.78	0.492
+147	299	+	-22.55	-12.17	-10.38	ATG	None	None	-9.69	-2.59	2.40	0.490
+201	299	+	-34.18	-14.22	-19.96	GTG	None	None	-15.15	0.10	-4.42	0.545
+204	299	+	-61.72	-15.73	-45.99	TTG	None	None	-15.63	-0.50	-29.36	0.542
+
+166	381	+	-42.42	-24.70	-17.71	TTG	None	None	-6.83	2.43	-12.82	0.505
+199	381	+	-46.51	-22.72	-23.80	TTG	None	None	-8.08	-0.05	-15.17	0.530
+208	381	+	-47.17	-21.97	-25.20	TTG	None	None	-8.50	-0.22	-15.97	0.534
+247	381	+	-53.01	-20.94	-32.07	TTG	None	None	-11.02	0.13	-20.69	0.541
+
+341	400	+	-5.38	1.81	-7.19	GTG	GGA/GAG/AGG	5-10bp	0.91	-2.06	-1.70	0.617
+

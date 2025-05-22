@@ -1,0 +1,18 @@
+1 predicted proteins stored
+Reading /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp
+Done reading /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp
+2420930
+2420930
+Reading /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/qiime2_formatted_taxonomy.tab
+Done reading /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/qiime2_formatted_taxonomy.tab
+284030982
+Reading /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/sorted_protein_kaiju_RNA.tab
+TRINITY_DN2_c0_g1_i1_1
+1587550
+species
+Is a valid taxLevel
+Settled on: species
+0.2988505747126437
+Done reading /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/sorted_protein_kaiju_RNA.tab
+unclassified : 1
+All contigs with taxonomy: 0

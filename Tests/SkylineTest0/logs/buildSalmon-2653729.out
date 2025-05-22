@@ -1,0 +1,94 @@
+The flag 'directory' used in rule salmonQuant is only valid for outputs, not inputs.
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Provided resources: mem_mb=131072, mem_mib=125000, disk_mb=77933, disk_mib=74323
+Select jobs to execute...
+
+[Wed May 21 11:06:52 2025]
+rule buildSalmon:
+    input: /data/home/parkercol/PathSeq/SlurmBaseCode/buildSalmon.sh, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/sorted_protein_kaiju_RNA.tab, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/formatted_non_host_proteins_nucleotide_RNA.fa, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/formatted_non_host_proteins_RNA.faa, /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqKaijuConcensusSplitter2/dist/PathSeqKaijuConcensusSplitter2.jar, /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp, /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/qiime2_formatted_taxonomy.tab
+    output: /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/kingdom_sequences.fa, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/phylum_sequences.fa, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/order_sequences.fa, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/class_sequences.fa, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/family_sequences.fa, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/genus_sequences.fa, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/species_sequences.fa, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/kingdom_table.csv, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/phylum_table.csv, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/order_table.csv, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/class_table.csv, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/family_table.csv, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/genus_table.csv, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/species_table.csv, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/kingdom_salmon, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/phylum_salmon, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/order_salmon, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/class_salmon, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/family_salmon, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/genus_salmon, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/species_salmon
+    jobid: 0
+    reason: Missing output files: /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/kingdom_sequences.fa, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/phylum_salmon, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/family_table.csv, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/family_salmon, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/phylum_sequences.fa, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/genus_table.csv, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/kingdom_table.csv, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/kingdom_salmon, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/order_table.csv, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/genus_sequences.fa, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/family_sequences.fa, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/species_sequences.fa, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/order_salmon, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/species_table.csv, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/class_table.csv, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/class_sequences.fa, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/order_sequences.fa, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/species_salmon, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/genus_salmon, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/class_salmon, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/phylum_table.csv
+    wildcards: sample=582760806_A5_S33
+    resources: mem_mb=131072, mem_mib=125000, disk_mb=77933, disk_mib=74323, tmpdir=/data/scratch/parkercol/ai-hpcsubmit2, runtime=2880
+
+
+        module purge
+        module load openjdk
+        which java
+        module load salmon
+        which salmon
+
+        bash /data/home/parkercol/PathSeq/SlurmBaseCode/buildSalmon.sh /data/home/parkercol/PathSeq/SlurmBaseCode/ /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/sorted_protein_kaiju_RNA.tab             /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/formatted_non_host_proteins_nucleotide_RNA.fa /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/formatted_non_host_proteins_RNA.faa             /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqKaijuConcensusSplitter2/dist/PathSeqKaijuConcensusSplitter2.jar RNA             /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/qiime2_formatted_taxonomy.tab /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/
+        
+/data/apps/software/spack/linux-rocky9-x86_64_v3/gcc-11.3.1/openjdk-17.0.11_9-mcbjre6ftmfq4pieucpfccnvrm6tnnxk/bin/java
+/data/apps/software/spack/linux-rocky9-x86_64_v3/gcc-11.3.1/salmon-1.10.2-5pqf3j63zsfujxxfa4qmnj3eqy6g7x5u/bin/salmon
+CHECKPOINT 1: PROTEIN_KAIJU INPUTS:
+1. codePath:
+Directory exists: /data/home/parkercol/PathSeq/SlurmBaseCode/
+/data/home/parkercol/PathSeq/SlurmBaseCode/
+dos2unix: converting file /data/home/parkercol/PathSeq/SlurmBaseCode/dir_check.sh to Unix format...
+2. kaiju protein tab output:
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/sorted_protein_kaiju_RNA.tab
+3. kaiju protein nucleotide output:
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/formatted_non_host_proteins_nucleotide_RNA.fa
+4. kaiju protein translations output:
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/formatted_non_host_proteins_RNA.faa
+5. kaiju consensus splitter program:
+/data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqKaijuConcensusSplitter2/dist/PathSeqKaijuConcensusSplitter2.jar
+6. origin:
+RNA
+7. kaiju taxonomy:
+/data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/qiime2_formatted_taxonomy.tab
+8. kaiju nodes:
+/data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp
+10. output path:
+Directory exists: /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/
+CHECKPOINT 1: CREATE REFERENCE FASTA FILES FROM KAIJU NONHOST OUTPUT
+Starting Dir: /data/home/parkercol/PathSeq/Tests/SkylineTest0
+mkdir: cannot create directory ‘/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon’: File exists
+Directory exists: /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon
+Changing directory to: /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon
+Consensus splitter command:
+java -Xmx90G -jar /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqKaijuConcensusSplitter2/dist/PathSeqKaijuConcensusSplitter2.jar /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/sorted_protein_kaiju_RNA.tab /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/formatted_non_host_proteins_nucleotide_RNA.fa /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/formatted_non_host_proteins_RNA.faa /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/qiime2_formatted_taxonomy.tab /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp 2>stderr.txt
+Finished kaiju concensus splitter.
+CHECKPOINT 2: CREATE SALMON INDEX FROM FASTA FILES
+Version Server Response: Not Found
+The file [kingdom_sequences.fa] provided for the transcriptome does not appear to exist.Version Server Response: Not Found
+The file [phylum_sequences.fa] provided for the transcriptome does not appear to exist.Version Server Response: Not Found
+The file [class_sequences.fa] provided for the transcriptome does not appear to exist.Version Server Response: Not Found
+The file [order_sequences.fa] provided for the transcriptome does not appear to exist.Version Server Response: Not Found
+The file [family_sequences.fa] provided for the transcriptome does not appear to exist.Version Server Response: Not Found
+The file [genus_sequences.fa] provided for the transcriptome does not appear to exist.Version Server Response: Not Found
+The file [species_sequences.fa] provided for the transcriptome does not appear to exist.returned to /data/home/parkercol/PathSeq/Tests/SkylineTest0
+END OF BUILD SALMON INDEX
+Waiting at most 240 seconds for missing files.
+MissingOutputException in rule buildSalmon in file /data/home/parkercol/PathSeq/SlurmBaseCode/Snakefile, line 346:
+Job 0 completed successfully, but some output files are missing. Missing files after 240 seconds. This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait:
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/kingdom_sequences.fa
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/phylum_sequences.fa
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/order_sequences.fa
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/class_sequences.fa
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/family_sequences.fa
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/genus_sequences.fa
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/species_sequences.fa
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/kingdom_table.csv
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/phylum_table.csv
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/order_table.csv
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/class_table.csv
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/family_table.csv
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/genus_table.csv
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/species_table.csv
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/kingdom_salmon
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/phylum_salmon
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/order_salmon
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/class_salmon
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/family_salmon
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/genus_salmon
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_salmon_quant/salmon/species_salmon
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message

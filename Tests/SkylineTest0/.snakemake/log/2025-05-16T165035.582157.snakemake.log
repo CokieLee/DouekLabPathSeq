@@ -1,3 +1,0 @@
-IsADirectoryError in file /data/home/parkercol/PathSeq/SlurmBaseCode/Snakefile, line 6:
-[Errno 21] Is a directory: '/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/Tests/TestInput/'
-  File "/data/home/parkercol/PathSeq/SlurmBaseCode/Snakefile", line 6, in <module>

@@ -91,6 +91,7 @@ directory_exists $salmonIndexOutDir
 echo "Changing directory to: $salmonIndexOutDir"
 cd $salmonIndexOutDir
 
+## concensus splitter 
 concensusSplitterCmd="java -Xmx90G -jar $PathSeqKaijuConcensusSplitter2_program \
                         $sorted_protein_kaiju_output_file_tab \
                         $formatted_non_host_proteins_nucleotide_sequences_file_fa \
@@ -105,6 +106,8 @@ eval "$concensusSplitterCmd"
 
 process_fail_check "Kaiju concensus splitter FAILED. QUITTING"
 echo "Finished kaiju concensus splitter."
+
+## TODO: some kind of check so that its okay if some taxonomic levels were not found from kaiju
 
 
 echo "CHECKPOINT 2: CREATE SALMON INDEX FROM FASTA FILES"

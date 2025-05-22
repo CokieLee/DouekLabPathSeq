@@ -1,0 +1,55 @@
+The flag 'directory' used in rule salmonQuant is only valid for outputs, not inputs.
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Provided resources: mem_mb=131072, mem_mib=125000, disk_mb=122977, disk_mib=117281
+Select jobs to execute...
+
+[Wed May 21 10:47:28 2025]
+rule filterHostBlast:
+    input: /data/home/parkercol/PathSeq/SlurmBaseCode/array_filter_host.sh, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta, /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqRemoveHostForKaiju/dist/PathSeqRemoveHostForKaiju.jar, /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20210716/Mammalia.fa
+    output: /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_filtered/nonMammal_trinity_Origin_RNA.fasta
+    jobid: 0
+    reason: Missing output files: /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_filtered/nonMammal_trinity_Origin_RNA.fasta
+    wildcards: sample=582760806_A5_S33
+    resources: mem_mb=131072, mem_mib=125000, disk_mb=122977, disk_mib=117281, tmpdir=/data/scratch/parkercol/ai-hpcsubmit2, runtime=4320
+
+
+        module purge
+        module load blast-plus
+        which blastn
+        module load openjdk
+        which java
+
+        bash /data/home/parkercol/PathSeq/SlurmBaseCode/array_filter_host.sh /data/home/parkercol/PathSeq/SlurmBaseCode/ /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_filtered RNA         /data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqRemoveHostForKaiju/dist/PathSeqRemoveHostForKaiju.jar /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20210716/Mammalia.fa
+        
+/data/apps/software/spack/linux-rocky9-x86_64_v3/gcc-11.3.1/blast-plus-2.16.0-pczplkq5pkgpqrx7lemluisiynsiu2ss/bin/blastn
+/data/apps/software/spack/linux-rocky9-x86_64_v3/gcc-11.3.1/openjdk-17.0.11_9-mcbjre6ftmfq4pieucpfccnvrm6tnnxk/bin/java
+CHECKPOINT 1: FILTER_HOST INPUTS:
+1. codePath:
+/data/home/parkercol/PathSeq/SlurmBaseCode/
+Directory exists: /data/home/parkercol/PathSeq/SlurmBaseCode/
+dos2unix: converting file /data/home/parkercol/PathSeq/SlurmBaseCode/dir_check.sh to Unix format...
+2. trinityContigFile:
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta
+3. outPath:
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_filtered
+Directory exists: /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_filtered
+4. origin:
+RNA
+5. Prog_RemoveHostForKaiju
+/data/vrc_his/douek_lab/projects/PathSeq/programs/PathSeqRemoveHostForKaiju/dist/PathSeqRemoveHostForKaiju.jar
+6. blastDB_Mammalia
+/data/vrc_his/douek_lab/reference_sets/NCBI_nt/20210716/Mammalia.fa
+Blast search output file: /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_filtered/trinity_RNA_blast_search.tab
+Warning: [blastn] Examining 5 or more matches is recommended
+Output file name: /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_filtered/nonMammal_trinity_Origin_RNA.fasta
+Reading /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_filtered/trinity_RNA_blast_search.tab
+Done reading /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_filtered/trinity_RNA_blast_search.tab
+TRINITY_DN2_c0_g1_i1
+aligned: 0
+unaligned: 1
+[Wed May 21 10:48:34 2025]
+Finished job 0.
+1 of 1 steps (100%) done

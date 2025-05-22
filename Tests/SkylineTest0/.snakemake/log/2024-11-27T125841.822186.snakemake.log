@@ -1,9 +1,0 @@
-Building DAG of jobs...
-MissingInputException in rule buildSalmon in file /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathSeq/Tests/SkylineTest0/Snakefile, line 310:
-Missing input files for rule buildSalmon:
-    output: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNAsalmon_quant/salmon/kingdom_sequences.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNAsalmon_quant/salmon/phylum_sequences.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNAsalmon_quant/salmon/order_sequences.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNAsalmon_quant/salmon/class_sequences.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNAsalmon_quant/salmon/family_sequences.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNAsalmon_quant/salmon/genus_sequences.fa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNAsalmon_quant/salmon/species_sequences.fa
-    wildcards: sample=582760806_A5_S33
-    affected files:
-        /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNAkaiju_output/formatted_non_host_proteins_RNA.faa
-        /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNAkaiju_output/formatted_non_host_proteins_nucleotide_RNA.fa
-        /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Output/Sample_582760806_A5_S33_R1_001_short_test/RNAkaiju_output/sorted_protein_kaiju_RNA_Sample_582760806_A5_S33_R1_001_short_test.tab

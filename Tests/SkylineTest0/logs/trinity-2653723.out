@@ -1,0 +1,112 @@
+The flag 'directory' used in rule salmonQuant is only valid for outputs, not inputs.
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Provided resources: mem_mb=32768, mem_mib=31250, disk_mb=1000, disk_mib=954
+Select jobs to execute...
+
+[Wed May 21 10:46:38 2025]
+rule trinity:
+    input: /data/home/parkercol/PathSeq/SlurmBaseCode/all_trinity.sh, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq
+    output: /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/trinity_out_300_Sample_582760806_A5_S33_R1_001_short_test.txt, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/trinity_err_300_Sample_582760806_A5_S33_R1_001_short_test.txt, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta
+    jobid: 0
+    reason: Missing output files: /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/trinity_out_300_Sample_582760806_A5_S33_R1_001_short_test.txt, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/trinity_err_300_Sample_582760806_A5_S33_R1_001_short_test.txt, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta
+    wildcards: sample=582760806_A5_S33
+    resources: mem_mb=32768, mem_mib=31250, disk_mb=1000, disk_mib=954, tmpdir=/data/scratch/parkercol/ai-hpcsubmit2, runtime=2880
+
+
+        module purge
+        module load trinity
+        which Trinity
+        module load fastp
+        which fastp
+        module load fastx-toolkit
+        which fasta_formatter
+
+        bash /data/home/parkercol/PathSeq/SlurmBaseCode/all_trinity.sh /data/home/parkercol/PathSeq/SlurmBaseCode/ /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq 582760806_A5_S33_R1_001_short_test         582760806_A5_S33_R2_001_short_test RNA 300 1         32G /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test /data/scratch/
+        
+/data/apps/software/spack/linux-rocky9-x86_64_v3/gcc-11.3.1/trinity-2.15.1.FULL-zfkjh5wqj6v2eclg44gtl263sklkp6ro/bin/Trinity
+/data/apps/software/spack/linux-rocky9-x86_64_v3/gcc-11.3.1/fastp-0.23.4-nlda4xzhzdldlmdu5dci5nnnjezkc6cm/bin/fastp
+/data/apps/software/spack/linux-rocky9-x86_64_v3/gcc-11.3.1/fastx-toolkit-0.0.14-vzydz2l2t2efer7qrgw5xwbcrwx3m4ut/bin/fasta_formatter
+CHECKPOINT 1: ALL_TRINITY INPUTS:
+1. codePath:
+/data/home/parkercol/PathSeq/SlurmBaseCode/
+Directory exists: /data/home/parkercol/PathSeq/SlurmBaseCode/
+dos2unix: converting file /data/home/parkercol/PathSeq/SlurmBaseCode/dir_check.sh to Unix format...
+2. unalignedInputLeft:
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq
+3. unalignedInputRight:
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq
+4. left_read_file_base_name:
+582760806_A5_S33_R1_001_short_test
+5. right_read_file_base_name:
+582760806_A5_S33_R2_001_short_test
+6. origin:
+RNA
+7. min_contig_length:
+300
+8. numTrinityThreads:
+1
+9. maxTrinityMemory:
+32G
+10. outPath:
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test
+Directory exists: /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test
+11. scratchDir:
+/data/scratch/
+Directory exists: /data/scratch/
+mkdir: cannot create directory ‘/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output’: File exists
+CHECKPOINT 2: FASTP COMMAND:
+fastp -i /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq -o /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/fastp_unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq -I /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq -O /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/fastp_unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq --dedup --thread 12
+Read1 before filtering:
+total reads: 32
+total bases: 4832
+Q20 bases: 4473(92.5704%)
+Q30 bases: 4113(85.12%)
+
+Read2 before filtering:
+total reads: 32
+total bases: 4832
+Q20 bases: 4349(90.0041%)
+Q30 bases: 4037(83.5472%)
+
+Read1 after filtering:
+total reads: 28
+total bases: 3114
+Q20 bases: 2995(96.1785%)
+Q30 bases: 2836(91.0726%)
+
+Read2 after filtering:
+total reads: 28
+total bases: 3114
+Q20 bases: 3061(98.298%)
+Q30 bases: 2898(93.0636%)
+
+Filtering result:
+reads passed filter: 56
+reads failed due to low quality: 8
+reads failed due to too many N: 0
+reads failed due to too short: 0
+reads with adapter trimmed: 38
+bases trimmed due to adapters: 2012
+
+Duplication rate: 0%
+
+Insert size peak (evaluated by paired-end reads): 87
+
+JSON report: fastp.json
+HTML report: fastp.html
+
+fastp -i /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq -o /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/fastp_unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq -I /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq -O /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/fastp_unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq --dedup --thread 12 
+fastp v0.23.4, time used: 1 seconds
+fastp command complete
+CHECKPOINT 3: TRINITY COMMAND: 
+Trinity --CPU 1 --output myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test --min_contig_length 300 --seqType fq --max_memory 32G --min_kmer_cov 1 --left /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R1_001_short_test.fq --right /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/primate_alignment_rates/unalignedRead1AgainstPrimate_582760806_A5_S33_R2_001_short_test.fq --no_version_check 1>/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/trinity_out_300_Sample_582760806_A5_S33_R1_001_short_test.txt 2>/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/trinity_err_300_Sample_582760806_A5_S33_R1_001_short_test.txt
+Trinity output file present.
+Format command: fasta_formatter -i /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta -o /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_582760806_A5_S33_R1_001_short_test.Trinity.fasta -e
+Fasta_formatter finished with successful exit code: 0
+END OF TRINITY SCRIPT
+[Wed May 21 10:47:23 2025]
+Finished job 0.
+1 of 1 steps (100%) done
