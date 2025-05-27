@@ -1,0 +1,90 @@
+The flag 'directory' used in rule salmonQuant is only valid for outputs, not inputs.
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Provided resources: mem_mb=524288, mem_mib=500000, disk_mb=304675, disk_mib=290561
+Select jobs to execute...
+
+[Fri May 23 23:53:02 2025]
+rule kaiju:
+    input: /data/home/parkercol/PathSeq/SlurmBaseCode/protein_kaiju.sh, /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp, /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/kaiju_db_nr_euk.fmi, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_filtered/nonMammal_trinity_Origin_RNA.fasta
+    output: /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/sorted_protein_kaiju_RNA.tab, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/formatted_non_host_proteins_nucleotide_RNA.fa, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/formatted_non_host_proteins_RNA.faa
+    jobid: 0
+    reason: Missing output files: /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/formatted_non_host_proteins_nucleotide_RNA.fa, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/formatted_non_host_proteins_RNA.faa, /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/sorted_protein_kaiju_RNA.tab
+    wildcards: sample=582760806_A5_S33
+    resources: mem_mb=524288, mem_mib=500000, disk_mb=304675, disk_mib=290561, tmpdir=/data/scratch/parkercol/ai-hpcsubmit2, runtime=2880
+
+
+        module purge
+        module load fastx-toolkit
+
+        bash /data/home/parkercol/PathSeq/SlurmBaseCode/protein_kaiju.sh /data/home/parkercol/PathSeq/SlurmBaseCode/ 582760806_A5_S33_R1_001_short_test 582760806_A5_S33_R2_001_short_test /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_filtered/nonMammal_trinity_Origin_RNA.fasta         RNA /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/prodigal/bin /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/kaiju-v1.9.0-linux-x86_64-static /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/kaiju_db_nr_euk.fmi         /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test
+        
+CHECKPOINT 1: PROTEIN_KAIJU INPUTS:
+1. codePath:
+Directory exists: /data/home/parkercol/PathSeq/SlurmBaseCode/
+/data/home/parkercol/PathSeq/SlurmBaseCode/
+dos2unix: converting file /data/home/parkercol/PathSeq/SlurmBaseCode/dir_check.sh to Unix format...
+2. left_read_file_base_name:
+582760806_A5_S33_R1_001_short_test
+3. right_read_file_base_name:
+582760806_A5_S33_R2_001_short_test
+4. nonMammalContigs:
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_trinity_filtered/nonMammal_trinity_Origin_RNA.fasta
+5. origin:
+RNA
+6. program_prodigal:
+/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/prodigal/bin
+7. program_kaiju
+/data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/kaiju-v1.9.0-linux-x86_64-static
+8. kaiju_nodes:
+/data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp
+9. kaiju_fmi:
+/data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/kaiju_db_nr_euk.fmi
+10. outPath:
+Directory exists: /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test
+/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test
+mkdir: cannot create directory ‘/data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/’: File exists
+Directory exists: /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/
+kaiju output folder: /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/
+CHECKPOINT 2: RUN PRODIGAL:
+Prodigal output files:
+non_host_proteins_translations_output_file: /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/non_host_proteins_RNA.faa
+protein_scores_starts_file_txt: /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/protein_scores_RNA.txt
+non_host_proteins_nucleotide_sequences_file_fa: /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/non_host_proteins_nucleotide_RNA.fa
+coords_output_genbank_like_format: /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/coords_RNA.gbk
+-------------------------------------
+PRODIGAL v2.6.3 [February, 2016]         
+Univ of Tenn / Oak Ridge National Lab
+Doug Hyatt, Loren Hauser, et al.     
+-------------------------------------
+Request:  Metagenomic, Phase:  Training
+Initializing training files...done!
+-------------------------------------
+Request:  Metagenomic, Phase:  Gene Finding
+Finding genes in sequence #1 (400 bp)...done!
+Prodigal run complete.
+CHECKPOINT 3: FORMAT INPUTS:
+formatted protein translations output file: /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/formatted_non_host_proteins_RNA.faa
+formatted protein nucleotide output file: /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/formatted_non_host_proteins_nucleotide_RNA.fa
+Formatting prodigal outputs complete.
+CHECKPOINT 4: RUN KAIJU
+Parameters: 
+  run mode: Greedy
+  minimum match length: 11
+  seed length: 7
+  minimum blosum62 score for matches: 65
+  minimum E-value: 0.01
+  max number of mismatches within a match: 5
+  input file 1: /data/home/parkercol/PathSeq/Tests/SkylineTest0/Output/Sample_582760806_A5_S33_R1_001_short_test/RNA_kaiju_output/formatted_non_host_proteins_RNA.faa
+  output to STDOUT
+23:53:03 Reading database
+ Reading taxonomic tree from file /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nodes.dmp
+ Reading index from file /data/vrc_his/douek_lab/reference_sets/NCBI_nt/20220512/kaiju/nr_euk/kaiju_db_nr_euk.fmi
+23:55:01 Start classification using 1 threads.
+23:55:01 Finished.
+END OF PROTEIN_KAIJU
+[Fri May 23 23:55:04 2025]
+Finished job 0.
+1 of 1 steps (100%) done

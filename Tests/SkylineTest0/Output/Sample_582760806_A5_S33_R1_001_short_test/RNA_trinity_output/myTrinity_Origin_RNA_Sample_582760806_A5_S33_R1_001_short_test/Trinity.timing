@@ -13,9 +13,9 @@ Paired mode
 
 Runtime
 =======
-Start:       Wed May 21 10:46:54 EDT 2025
-End:         Wed May 21 10:47:23 EDT 2025
-Trinity   29 seconds
-  Inchworm (phase 1 - read clustering)  8 seconds
-  Chrysalis (phase 1 - read clustering) 11 seconds
-  Rest (phase 2 - parallel assembly)       10 seconds
+Start:       Fri May 23 17:20:09 EDT 2025
+End:         Fri May 23 17:20:33 EDT 2025
+Trinity   24 seconds
+  Inchworm (phase 1 - read clustering)  6 seconds
+  Chrysalis (phase 1 - read clustering) 10 seconds
+  Rest (phase 2 - parallel assembly)       8 seconds

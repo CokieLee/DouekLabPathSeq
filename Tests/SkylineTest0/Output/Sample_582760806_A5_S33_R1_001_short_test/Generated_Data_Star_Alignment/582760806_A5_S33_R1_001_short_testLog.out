@@ -250,7 +250,7 @@ Number of real (reference) chromosomes= 195
 194	chrUn_GL000218v1	161147	3138125824
 195	chrEBV	171823	3138387968
 --sjdbOverhang = 149 taken from the generated genome
-Started loading the genome: Tue May 20 18:26:19 2025
+Started loading the genome: Fri May 23 17:16:59 2025
 
 Genome: size given as a parameter = 3205999563
 SA: size given as a parameter = 24766048011
@@ -264,7 +264,7 @@ Loading Genome ... done! state: good=1 eof=0 fail=0 bad=0; loaded 3205999563 byt
 SA file size: 24766048011 bytes; state: good=1 eof=0 fail=0 bad=0
 Loading SA ... done! state: good=1 eof=0 fail=0 bad=0; loaded 24766048011 bytes
 Loading SAindex ... done: 1565873619 bytes
-Finished loading the genome: Tue May 20 18:26:30 2025
+Finished loading the genome: Fri May 23 17:17:25 2025
 
 Processing splice junctions database sjdbN=225249,   pGe.sjdbOverhang=149 
 alignIntronMax=alignMatesGapMax=0, the max intron size will be approximately determined by (2^winBinNbits)*winAnchorDistNbins=589824
@@ -322,11 +322,11 @@ BAM sorting bins genomic start loci:
 47	170	153983
 48	170	157347
 Completed: thread #0
-May 20 18:26:30 ..... finished mapping
+May 23 17:17:25 ..... finished mapping
 RAM after mapping:
-VmPeak:	29065808 kB; VmSize:	29017956 kB; VmHWM:	29006784 kB; VmRSS:	29006748 kB; 
+VmPeak:	29065804 kB; VmSize:	29017952 kB; VmHWM:	29006752 kB; VmRSS:	29006712 kB; 
 RAM after freeing genome index memory:
-VmPeak:	29065808 kB; VmSize:	  172324 kB; VmHWM:	29006784 kB; VmRSS:	  161144 kB; 
-May 20 18:26:30 ..... started sorting BAM
+VmPeak:	29065804 kB; VmSize:	  172320 kB; VmHWM:	29006752 kB; VmRSS:	  161108 kB; 
+May 23 17:17:25 ..... started sorting BAM
 Max memory needed for sorting = 6795
 ALL DONE!
