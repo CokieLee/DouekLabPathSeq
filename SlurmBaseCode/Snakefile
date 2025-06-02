@@ -13,14 +13,8 @@ leftEnding = "_R1_" + FULLSAMPLES[0].split("_R1_")[1]
 rightEnding = leftEnding.replace("R1", "R2")
 
 TAXLEVELS = ["kingdom", "phylum", "order", "class", "family", "genus", "species"]
-# TAXLEVELS = ["kingdom", "phylum", "order", "class", "family"]
 
 numContigFilterThreads=8
-
-# print("sample name, left ending, right ending, respectively: ")
-# print(SAMPLES[0])
-# print(leftEnding)
-# print(rightEnding)
 
 ## TODO: it would probably be nice if I could just pass in
 ## the input files as full paths which did not all have to be located in
@@ -51,21 +45,22 @@ rule markSampleCompleted:
         echo "Finished running all rules." > {output}
         """
 
-# Basic rule for testing environment. Should take all input files,
+# Basic rule for testing environment (and/or new features). Should take all input files,
 # and print them each to a file of the same base name.
-# rule testRuleAll:
-#     input:
-#         expand(os.path.join(config["outputpath"], "{sample}.txt"), sample=FULLSAMPLES)
+rule testRuleAll:
+    input:
+        expand(os.path.join(config["outputpath"], "{sample}.txt"), sample=FULLSAMPLES)
 
-# rule testRuleHelper:
-#     params:
-#         "this file corresponds to {sample}"
-#     output:
-#         os.path.join(config["outputpath"], "{sample}.txt")
-#     shell:
-#         """
-#         echo {params} > {output}
-#        """
+rule testRuleHelper:
+    params:
+        "this file corresponds to {sample}"
+    output:
+        os.path.join(config["outputpath"], "{sample}.txt")
+    shell:
+        """
+        echo {params} > {output}
+       """
+
 
 # run bowtie unmasked on samples
 rule bowtieUnmasked:

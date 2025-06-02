@@ -1,0 +1,22 @@
+The flag 'directory' used in rule salmonQuant is only valid for outputs, not inputs.
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Provided resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954
+Select jobs to execute...
+
+[Wed May 28 18:48:56 2025]
+rule testRuleHelper:
+    output: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/Output/EP_08-29-2023_2_S20_L001_R1_001.txt
+    jobid: 0
+    reason: Missing output files: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/Output/EP_08-29-2023_2_S20_L001_R1_001.txt
+    wildcards: sample=EP_08-29-2023_2_S20_L001_R1_001
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=/data/scratch/parkercol/ai-hpcsubmit2
+
+
+        echo this file corresponds to EP_08-29-2023_2_S20_L001_R1_001 > /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/Output/EP_08-29-2023_2_S20_L001_R1_001.txt
+       
+[Wed May 28 18:48:56 2025]
+Finished job 0.
+1 of 1 steps (100%) done
