@@ -1,43 +1,5 @@
 The flag 'directory' used in rule salmonQuant is only valid for outputs, not inputs.
 Building DAG of jobs...
-Using shell: /usr/bin/bash
-Provided cluster nodes: 100
-Job stats:
-job               count    min threads    max threads
---------------  -------  -------------  -------------
-testRuleAll           1              1              1
-testRuleHelper        1              1              1
-total                 2              1              1
-
-Select jobs to execute...
-
-[Wed May 28 18:48:33 2025]
-rule testRuleHelper:
-    output: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/Output/EP_08-29-2023_2_S20_L001_R1_001.txt
-    jobid: 1
-    reason: Missing output files: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/Output/EP_08-29-2023_2_S20_L001_R1_001.txt
-    wildcards: sample=EP_08-29-2023_2_S20_L001_R1_001
-    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=<TBD>
-
-
-        echo this file corresponds to EP_08-29-2023_2_S20_L001_R1_001 > /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/Output/EP_08-29-2023_2_S20_L001_R1_001.txt
-       
-testRuleHelper: submission command "sbatch --cpus-per-task=1 --mem=1000 --time=120 --output=logs/testRuleHelper-%j.out --partition=all --job-name=testRuleHelper /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/.snakemake/tmp.14omjgdw/snakejob.testRuleHelper.1.sh
-Submitted job 1 with external jobid 'Submitted batch job 2695429'.
-[Wed May 28 18:49:03 2025]
-Finished job 1.
-1 of 2 steps (50%) done
-Select jobs to execute...
-
-[Wed May 28 18:49:03 2025]
-localrule testRuleAll:
-    input: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/Output/EP_08-29-2023_2_S20_L001_R1_001.txt
-    jobid: 0
-    reason: Input files updated by another job: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/Output/EP_08-29-2023_2_S20_L001_R1_001.txt
-    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=/data/scratch/parkercol/ai-hpcsubmit2
-
-[Wed May 28 18:49:03 2025]
-Finished job 0.
-2 of 2 steps (100%) done
-Complete log: .snakemake/log/2025-05-28T184823.025017.snakemake.log
+Nothing to be done (all requested files are present and up to date).
+Complete log: .snakemake/log/2025-06-03T131253.600190.snakemake.log
 RAN SNAKEMAKE

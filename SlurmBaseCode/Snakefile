@@ -47,19 +47,19 @@ rule markSampleCompleted:
 
 # Basic rule for testing environment (and/or new features). Should take all input files,
 # and print them each to a file of the same base name.
-rule testRuleAll:
-    input:
-        expand(os.path.join(config["outputpath"], "{sample}.txt"), sample=FULLSAMPLES)
+# rule testRuleAll:
+#     input:
+#         expand(os.path.join(config["outputpath"], "{sample}.txt"), sample=FULLSAMPLES)
 
-rule testRuleHelper:
-    params:
-        "this file corresponds to {sample}"
-    output:
-        os.path.join(config["outputpath"], "{sample}.txt")
-    shell:
-        """
-        echo {params} > {output}
-       """
+# rule testRuleHelper:
+#     params:
+#         "this file corresponds to {sample}"
+#     output:
+#         os.path.join(config["outputpath"], "{sample}.txt")
+#     shell:
+#         """
+#         echo {params} > {output}
+#        """
 
 
 # run bowtie unmasked on samples
