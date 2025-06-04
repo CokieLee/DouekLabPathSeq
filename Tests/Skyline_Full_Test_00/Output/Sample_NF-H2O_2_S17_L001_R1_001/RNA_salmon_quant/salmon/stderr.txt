@@ -1,0 +1,6 @@
+14 predicted proteins stored
+Reading /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/kaiju_NCBInt_2022_Ref/nodes.dmp
+Done reading /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/kaiju_NCBInt_2022_Ref/nodes.dmp
+2420930
+2420930
+Reading /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/kaiju_NCBInt_2022_Ref/nr_euk/qiime2_formatted_taxonomy.tab

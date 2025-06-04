@@ -1,0 +1,11 @@
+{
+    "salmon_version": "1.10.2",
+    "index": "/data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/family_salmon",
+    "libType": "A",
+    "mates1": "/data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/TestInput/NF-H2O_2_S17_L001_R1_001.fastq.gz",
+    "mates2": "/data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/TestInput/NF-H2O_2_S17_L001_R2_001.fastq.gz",
+    "threads": "1",
+    "validateMappings": [],
+    "output": "/data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/family_quant_NF-H2O_2_S17_L001_R1_001",
+    "auxDir": "aux_info"
+}

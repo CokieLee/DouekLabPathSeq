@@ -1,0 +1,410 @@
+# Sequence Data: seqnum=1;seqlen=344;seqhdr="TRINITY_DN0_c0_g1_i1 len=344 path=[0:0-343]"
+# Run Data: version=Prodigal.v2.6.3;run_type=Metagenomic;model="29|Methylacidiphilum_infernorum_V4|B|45.5|11|0";gc_cont=45.50;transl_table=11;uses_sd=0
+
+Beg	End	Std	Total	CodPot	StrtSc	Codon	RBSMot	Spacer	RBSScr	UpsScr	TypeScr	GCCont
+
+171	278	-	-37.07	-16.48	-20.60	ATG	None	None	-0.96	-20.92	1.78	0.454
+171	323	-	-25.56	-17.24	-8.32	ATG	None	None	-0.67	-9.69	2.55	0.471
+171	344	-	-12.89	-12.89	0.00	Edge	None	None	0.00	0.00	3.22	0.483
+
+1	183	+	3.36	0.14	3.22	Edge	None	None	0.00	0.00	3.22	0.464
+
+202	291	-	-62.75	-10.89	-51.86	TTG	None	None	-1.16	-4.99	-45.21	0.422
+
+199	342	+	-8.28	-2.31	-5.97	ATG	None	None	-0.40	-0.88	4.25	0.479
+259	342	+	-6.31	0.04	-6.35	ATG	None	None	-0.40	-5.84	4.25	0.476
+
+263	343	+	-35.12	-5.44	-29.69	TTG	AAA	3bp	2.29	-7.31	-15.73	0.494
+284	343	+	-26.53	-4.37	-22.15	TTG	AAA	12bp	3.12	-0.61	-15.73	0.550
+
+# Sequence Data: seqnum=2;seqlen=469;seqhdr="TRINITY_DN9_c0_g1_i1 len=469 path=[0:0-171 1:172-245 3:246-468]"
+# Run Data: version=Prodigal.v2.6.3;run_type=Metagenomic;model="48|Xylella_fastidiosa_Temecula1|B|51.8|11|1";gc_cont=51.80;transl_table=11;uses_sd=1
+
+Beg	End	Std	Total	CodPot	StrtSc	Codon	RBSMot	Spacer	RBSScr	UpsScr	TypeScr	GCCont
+
+1	81	-	-15.57	-7.24	-8.33	ATG	None	None	-2.96	-1.71	4.77	0.580
+
+2	94	-	-12.85	-5.11	-7.74	ATG	None	None	-2.96	-1.12	4.77	0.581
+
+3	107	-	-22.30	0.53	-22.83	TTG	None	None	-2.96	-3.02	-12.51	0.600
+3	110	-	-3.39	1.36	-4.75	ATG	None	None	-2.96	-2.22	4.77	0.602
+3	155	-	-19.72	-1.16	-18.56	GTG	None	None	-2.96	-1.97	-5.19	0.588
+3	173	-	-21.35	-0.52	-20.83	TTG	AGxAGG/AGGxGG	5-10bp	2.27	-2.16	-12.51	0.591
+3	215	-	-0.41	0.29	-0.70	ATG	None	None	-2.96	-2.51	4.77	0.587
+3	236	-	7.95	3.30	4.64	ATG	GGA/GAG/AGG	5-10bp	2.00	-2.13	4.77	0.590
+
+152	241	-	-67.75	-18.38	-49.37	TTG	None	None	-8.50	-4.43	-35.94	0.578
+152	268	-	-14.57	-11.10	-3.47	ATG	GGA/GAG/AGG	5-10bp	0.91	-6.06	2.18	0.564
+152	283	-	-21.96	-11.26	-10.70	ATG	None	None	-5.73	-6.93	2.46	0.545
+152	358	-	-24.17	-11.92	-12.25	GTG	None	None	-3.63	-1.77	-6.36	0.580
+
+109	276	+	-18.67	-16.46	-2.21	ATG	None	None	-4.48	-0.38	3.15	0.548
+121	276	+	-41.39	-18.59	-22.80	TTG	GGA/GAG/AGG	5-10bp	1.22	-3.09	-20.44	0.545
+130	276	+	-38.90	-19.28	-19.62	TTG	GGAG/GAGG	5-10bp	4.17	-1.58	-21.71	0.537
+187	276	+	-45.60	-17.46	-28.14	GTG	None	None	-8.50	-4.22	-14.91	0.533
+
+309	404	-	-36.50	-11.00	-25.49	GTG	None	None	-7.95	-3.09	-13.95	0.604
+
+367	468	-	-6.21	-9.43	3.22	Edge	None	None	0.00	0.00	3.22	0.559
+
+392	469	+	-7.71	-1.14	-6.57	ATG	GGA/GAG/AGG	5-10bp	2.00	-4.91	4.77	0.551
+
+# Sequence Data: seqnum=3;seqlen=466;seqhdr="TRINITY_DN9_c0_g1_i2 len=466 path=[0:0-171 2:172-242 3:243-465]"
+# Run Data: version=Prodigal.v2.6.3;run_type=Metagenomic;model="34|Prochlorococcus_marinus_MIT_9313|B|50.7|11|0";gc_cont=50.70;transl_table=11;uses_sd=0
+
+Beg	End	Std	Total	CodPot	StrtSc	Codon	RBSMot	Spacer	RBSScr	UpsScr	TypeScr	GCCont
+
+1	81	-	-7.10	-2.39	-4.71	ATG	None	None	0.00	-0.86	4.60	0.580
+
+2	94	-	-13.41	-6.94	-6.47	ATG	None	None	0.00	-2.63	4.60	0.581
+
+3	107	-	-20.24	-0.10	-20.13	TTG	None	None	0.00	-1.18	-10.51	0.600
+3	110	-	3.96	0.35	3.61	ATG	None	None	0.00	-1.00	4.60	0.602
+3	155	-	-4.05	0.45	-4.50	GTG	None	None	0.00	-0.97	-3.53	0.588
+
+152	265	-	-5.01	-6.70	1.69	ATG	None	None	0.00	0.15	2.04	0.535
+152	280	-	-8.00	-7.13	-0.87	ATG	None	None	0.00	-2.69	2.32	0.519
+152	355	-	-13.04	-6.74	-6.31	GTG	None	None	0.00	-1.42	-4.39	0.564
+
+109	273	+	-8.56	-11.46	2.90	ATG	None	None	0.00	0.42	2.98	0.527
+121	273	+	-31.45	-13.63	-17.83	TTG	None	None	0.00	0.18	-17.51	0.523
+130	273	+	-31.80	-12.59	-19.21	TTG	None	None	0.00	-0.08	-18.63	0.514
+
+306	401	-	-25.90	-12.63	-13.27	GTG	None	None	0.00	-3.28	-9.48	0.604
+
+364	465	-	-4.64	-7.86	3.22	Edge	None	None	0.00	0.00	3.22	0.559
+
+389	466	+	1.97	1.26	0.70	ATG	None	None	0.00	-3.90	4.60	0.551
+
+# Sequence Data: seqnum=4;seqlen=353;seqhdr="TRINITY_DN34_c0_g1_i1 len=353 path=[0:0-352]"
+# Run Data: version=Prodigal.v2.6.3;run_type=Metagenomic;model="13|Catenulispora_acidiphila_DSM_44928|B|69.8|11|1";gc_cont=69.80;transl_table=11;uses_sd=1
+
+Beg	End	Std	Total	CodPot	StrtSc	Codon	RBSMot	Spacer	RBSScr	UpsScr	TypeScr	GCCont
+
+3	140	-	36.58	32.66	3.92	ATG	GGA/GAG/AGG	5-10bp	1.03	-1.64	4.54	0.804
+
+137	268	-	-14.71	9.16	-23.87	GTG	None	None	-8.69	-8.63	-6.55	0.727
+137	295	-	-3.59	16.13	-19.72	GTG	None	None	-7.19	-7.11	-5.42	0.679
+137	325	-	-2.52	13.05	-15.57	GTG	None	None	-6.03	-5.00	-4.54	0.672
+137	334	-	9.39	13.66	-4.27	GTG	GGAG/GAGG	5-10bp	4.54	-4.48	-4.33	0.667
+137	352	-	20.14	16.92	3.22	Edge	None	None	0.00	0.00	3.22	0.676
+
+160	279	-	-60.83	-41.99	-18.84	ATG	None	None	-9.58	-10.88	2.12	0.708
+160	312	-	-79.73	-51.55	-28.18	TTG	GGA/GAG/AGG	5-10bp	0.62	-12.45	-15.85	0.680
+160	336	-	-65.67	-48.31	-17.36	TTG	GGAG/GAGG	5-10bp	4.05	-7.25	-13.66	0.672
+160	351	-	-43.13	-43.13	0.00	Edge	None	None	0.00	0.00	3.22	0.682
+
+3	281	+	-5.82	-5.82	0.00	Edge	None	None	0.00	0.00	3.22	0.756
+183	281	+	-31.64	-13.52	-18.12	ATG	None	None	-11.68	-7.68	1.74	0.707
+
+2	289	+	-73.34	-73.34	0.00	Edge	None	None	0.00	0.00	3.22	0.743
+
+286	351	+	-46.27	-21.32	-24.95	TTG	None	None	-4.48	-2.06	-9.51	0.652
+
+# Sequence Data: seqnum=5;seqlen=314;seqhdr="TRINITY_DN32_c0_g1_i1 len=314 path=[0:0-313]"
+# Run Data: version=Prodigal.v2.6.3;run_type=Metagenomic;model="23|Hyperthermus_butylicus_DSM_5456|A|53.7|11|1";gc_cont=53.70;transl_table=11;uses_sd=1
+
+Beg	End	Std	Total	CodPot	StrtSc	Codon	RBSMot	Spacer	RBSScr	UpsScr	TypeScr	GCCont
+
+61	183	-	-32.71	-28.17	-4.54	GTG	GGA/GAG/AGG	11-12bp	0.51	-0.39	-4.16	0.528
+
+2	103	+	-9.59	-9.59	0.00	Edge	None	None	0.00	0.00	3.22	0.627
+8	103	+	-46.61	-16.30	-30.31	GTG	None	None	-13.87	-10.57	-5.37	0.635
+
+3	107	+	-18.93	-18.93	0.00	Edge	None	None	0.00	0.00	3.22	0.619
+6	107	+	-56.14	-28.05	-28.10	GTG	None	None	-13.03	-9.53	-5.04	0.618
+
+137	229	-	-54.26	-22.66	-31.60	GTG	None	None	-14.33	-11.22	-5.55	0.559
+137	313	-	-15.19	-15.19	0.00	Edge	None	None	0.00	0.00	3.22	0.616
+
+180	314	-	5.02	1.80	3.22	Edge	None	None	0.00	0.00	3.22	0.652
+
+1	213	+	-18.31	-18.31	0.00	Edge	None	None	0.00	0.00	3.22	0.582
+100	213	+	-49.46	-22.35	-27.11	GTG	None	None	-11.62	-10.49	-4.50	0.535
+
+220	312	-	-15.85	-15.85	0.00	Edge	None	None	0.00	0.00	3.22	0.677
+
+168	257	+	-29.87	-8.67	-21.20	GTG	None	None	-14.82	-0.14	-5.74	0.589
+
+191	313	+	-31.26	-12.37	-18.90	GTG	None	None	-5.16	-2.69	-2.00	0.675
+
+# Sequence Data: seqnum=6;seqlen=597;seqhdr="TRINITY_DN7_c0_g1_i1 len=597 path=[2:0-192 4:193-337 5:338-376 6:377-596]"
+# Run Data: version=Prodigal.v2.6.3;run_type=Metagenomic;model="30|Mycobacterium_leprae_TN|B|57.8|11|1";gc_cont=57.80;transl_table=11;uses_sd=1
+
+Beg	End	Std	Total	CodPot	StrtSc	Codon	RBSMot	Spacer	RBSScr	UpsScr	TypeScr	GCCont
+
+2	73	+	-2.76	-5.98	3.22	Edge	None	None	0.00	0.00	3.22	0.611
+
+3	122	+	1.59	-1.63	3.22	Edge	None	None	0.00	0.00	3.22	0.592
+
+143	244	-	-27.30	-15.10	-12.20	GTG	None	None	-10.60	0.20	-1.30	0.549
+143	247	-	-25.81	-13.55	-12.26	GTG	None	None	-10.29	-0.21	-1.26	0.543
+143	325	-	-24.42	-16.59	-7.83	GTG	None	None	-5.83	-0.79	-0.71	0.525
+
+154	249	-	-53.36	-9.46	-43.90	TTG	None	None	-11.28	0.15	-32.26	0.531
+
+135	317	+	-29.66	-21.83	-7.83	GTG	None	None	-5.83	-0.79	-0.71	0.525
+
+338	499	-	-30.42	-8.84	-21.58	TTG	3Base/5BMM	13-15bp	-0.98	-1.23	-18.87	0.562
+
+472	564	-	-23.58	-14.07	-9.51	ATG	AGGA/GGAG/GAGG	11-12bp	1.01	-11.33	1.31	0.462
+472	597	-	-8.10	-8.10	0.00	Edge	None	None	0.00	0.00	3.22	0.468
+
+504	596	-	-2.34	-5.56	3.22	Edge	None	None	0.00	0.00	3.22	0.495
+
+423	527	+	-13.25	-10.75	-2.50	GTG	AGxAGG/AGGxGG	5-10bp	2.61	-3.34	-1.26	0.524
+
+475	570	+	-26.09	-10.27	-15.83	GTG	None	None	-11.28	-2.66	-1.38	0.469
+
+# Sequence Data: seqnum=7;seqlen=605;seqhdr="TRINITY_DN7_c0_g1_i2 len=605 path=[0:0-138 2:139-331 3:332-384 6:385-604]"
+# Run Data: version=Prodigal.v2.6.3;run_type=Metagenomic;model="3|Aeropyrum_pernix_K1|A|56.3|11|0";gc_cont=56.30;transl_table=11;uses_sd=0
+
+Beg	End	Std	Total	CodPot	StrtSc	Codon	RBSMot	Spacer	RBSScr	UpsScr	TypeScr	GCCont
+
+29	124	-	-47.83	-11.69	-36.14	GTG	GGT	13bp	-22.26	-7.42	-5.95	0.448
+
+72	176	-	-54.89	-12.78	-42.11	GTG	None	None	-34.36	-1.82	-5.43	0.533
+
+3	95	+	-8.73	-11.95	3.22	Edge	None	None	0.00	0.00	3.22	0.495
+
+2	127	+	-18.32	-18.32	0.00	Edge	None	None	0.00	0.00	3.22	0.476
+35	127	+	-78.96	-25.29	-53.67	ATG	None	None	-38.94	-12.47	-1.75	0.452
+
+100	261	+	-35.79	-24.35	-11.44	TTG	GGT	14bp	-13.02	0.08	2.00	0.574
+
+340	507	-	-26.96	-16.06	-10.89	TTG	GGT	14bp	-12.55	0.08	2.08	0.554
+
+274	417	+	-56.98	-24.26	-32.73	GTG	None	None	-24.86	-3.44	-3.93	0.514
+
+480	572	-	-78.81	-25.29	-53.52	ATG	None	None	-38.94	-12.32	-1.75	0.462
+480	605	-	-18.32	-18.32	0.00	Edge	None	None	0.00	0.00	3.22	0.468
+
+512	604	-	-8.73	-11.95	3.22	Edge	None	None	0.00	0.00	3.22	0.495
+
+431	535	+	-54.89	-12.78	-42.11	GTG	None	None	-34.36	-1.82	-5.43	0.524
+
+483	578	+	-47.83	-11.69	-36.14	GTG	GGT	13bp	-22.26	-7.42	-5.95	0.469
+
+# Sequence Data: seqnum=8;seqlen=460;seqhdr="TRINITY_DN7_c0_g1_i3 len=460 path=[0:0-138 1:139-200 5:201-239 6:240-459]"
+# Run Data: version=Prodigal.v2.6.3;run_type=Metagenomic;model="3|Aeropyrum_pernix_K1|A|56.3|11|0";gc_cont=56.30;transl_table=11;uses_sd=0
+
+Beg	End	Std	Total	CodPot	StrtSc	Codon	RBSMot	Spacer	RBSScr	UpsScr	TypeScr	GCCont
+
+29	124	-	-56.47	-12.09	-44.38	GTG	None	None	-37.69	-0.24	-5.95	0.448
+
+72	176	-	-56.07	-16.86	-39.21	GTG	None	None	-34.36	1.08	-5.43	0.486
+
+3	95	+	-8.73	-11.95	3.22	Edge	None	None	0.00	0.00	3.22	0.495
+
+2	127	+	-18.32	-18.32	0.00	Edge	None	None	0.00	0.00	3.22	0.476
+35	127	+	-79.37	-25.70	-53.67	ATG	None	None	-38.94	-12.47	-1.75	0.452
+
+198	362	-	-36.01	-24.85	-11.16	TTG	GGT	14bp	-12.78	0.08	2.04	0.564
+
+100	204	+	-43.12	-23.65	-19.47	TTG	GGT	14bp	-20.30	0.05	1.28	0.514
+
+335	427	-	-79.21	-25.70	-53.52	ATG	None	None	-38.94	-12.32	-1.75	0.462
+335	460	-	-18.32	-18.32	0.00	Edge	None	None	0.00	0.00	3.22	0.468
+
+367	459	-	-8.73	-11.95	3.22	Edge	None	None	0.00	0.00	3.22	0.495
+
+286	390	+	-55.29	-13.18	-42.11	GTG	None	None	-34.36	-1.82	-5.43	0.524
+
+338	433	+	-48.23	-12.09	-36.14	GTG	GGT	13bp	-22.26	-7.42	-5.95	0.469
+
+# Sequence Data: seqnum=9;seqlen=836;seqhdr="TRINITY_DN30_c0_g1_i1 len=836 path=[0:0-411 2:412-835]"
+# Run Data: version=Prodigal.v2.6.3;run_type=Metagenomic;model="3|Aeropyrum_pernix_K1|A|56.3|11|0";gc_cont=56.30;transl_table=11;uses_sd=0
+
+Beg	End	Std	Total	CodPot	StrtSc	Codon	RBSMot	Spacer	RBSScr	UpsScr	TypeScr	GCCont
+
+65	163	-	-66.46	-23.87	-42.58	GTG	None	None	-36.51	0.20	-5.77	0.545
+
+3	92	+	-13.43	-16.65	3.22	Edge	None	None	0.00	0.00	3.22	0.433
+
+188	310	-	-45.04	-12.47	-32.57	ATG	None	None	-29.21	-1.55	-1.31	0.553
+
+2	235	+	-28.53	-28.53	0.00	Edge	None	None	0.00	0.00	3.22	0.513
+20	235	+	-52.78	-32.66	-20.12	TTG	None	None	-16.46	-5.85	2.68	0.523
+89	235	+	-56.33	-28.13	-28.19	ATG	None	None	-24.34	-2.26	-1.10	0.551
+
+402	515	-	-19.14	-19.94	0.80	ATG	GGTG	5bp	4.39	-1.66	-1.42	0.535
+402	542	-	-57.02	-22.08	-34.93	GTG	None	None	-25.40	-5.02	-4.01	0.553
+
+296	436	+	-57.36	-22.42	-34.93	GTG	None	None	-25.40	-5.02	-4.01	0.546
+323	436	+	-19.48	-20.28	0.80	ATG	GGTG	5bp	4.39	-1.66	-1.42	0.535
+
+603	749	-	-56.33	-28.13	-28.19	ATG	None	None	-24.34	-2.26	-1.10	0.544
+603	818	-	-52.17	-32.66	-19.51	TTG	None	None	-16.46	-5.24	2.68	0.519
+603	836	-	-28.53	-28.53	0.00	Edge	None	None	0.00	0.00	3.22	0.509
+
+528	650	+	-45.04	-12.47	-32.57	ATG	None	None	-29.21	-1.55	-1.31	0.537
+
+746	835	-	-13.43	-16.65	3.22	Edge	None	None	0.00	0.00	3.22	0.444
+
+675	773	+	-66.46	-23.87	-42.58	GTG	None	None	-36.51	0.20	-5.77	0.566
+
+# Sequence Data: seqnum=10;seqlen=467;seqhdr="TRINITY_DN30_c0_g1_i2 len=467 path=[0:0-411 1:412-466]"
+# Run Data: version=Prodigal.v2.6.3;run_type=Metagenomic;model="3|Aeropyrum_pernix_K1|A|56.3|11|0";gc_cont=56.30;transl_table=11;uses_sd=0
+
+Beg	End	Std	Total	CodPot	StrtSc	Codon	RBSMot	Spacer	RBSScr	UpsScr	TypeScr	GCCont
+
+65	163	-	-67.48	-24.90	-42.58	GTG	None	None	-36.51	0.20	-5.77	0.545
+
+3	92	+	-13.43	-16.65	3.22	Edge	None	None	0.00	0.00	3.22	0.433
+
+188	310	-	-46.07	-13.49	-32.57	ATG	None	None	-29.21	-1.55	-1.31	0.553
+
+2	235	+	-28.53	-28.53	0.00	Edge	None	None	0.00	0.00	3.22	0.513
+20	235	+	-53.80	-33.68	-20.12	TTG	None	None	-16.46	-5.85	2.68	0.523
+89	235	+	-57.35	-29.16	-28.19	ATG	None	None	-24.34	-2.26	-1.10	0.551
+
+296	466	+	-39.89	-10.83	-29.06	GTG	None	None	-14.02	-4.38	-2.21	0.526
+323	466	+	-10.20	-8.66	-1.54	ATG	GGTG	5bp	9.88	-2.35	-0.63	0.514
+
+# Sequence Data: seqnum=11;seqlen=360;seqhdr="TRINITY_DN31_c0_g1_i1 len=360 path=[0:0-359]"
+# Run Data: version=Prodigal.v2.6.3;run_type=Metagenomic;model="34|Prochlorococcus_marinus_MIT_9313|B|50.7|11|0";gc_cont=50.70;transl_table=11;uses_sd=0
+
+Beg	End	Std	Total	CodPot	StrtSc	Codon	RBSMot	Spacer	RBSScr	UpsScr	TypeScr	GCCont
+
+89	205	-	-13.59	-12.48	-1.11	ATG	None	None	0.00	-2.71	2.10	0.530
+89	235	-	-12.16	-15.00	2.84	ATG	None	None	0.00	0.69	2.65	0.531
+
+34	183	+	-19.19	-12.40	-6.79	GTG	None	None	0.00	-0.29	-6.00	0.507
+61	183	+	-17.05	-17.58	0.54	ATG	None	None	0.00	-1.17	2.21	0.520
+76	183	+	-17.81	-19.53	1.73	ATG	None	None	0.00	0.29	1.93	0.528
+
+190	330	-	-40.13	-12.35	-27.78	TTG	None	None	0.00	-8.25	-19.03	0.532
+190	336	-	-28.07	-11.28	-16.79	GTG	None	None	0.00	-10.16	-6.12	0.524
+190	360	-	4.74	1.53	3.22	Edge	None	None	0.00	0.00	3.22	0.509
+
+120	254	+	-33.14	-9.74	-23.40	TTG	None	None	0.00	-3.01	-19.90	0.533
+
+272	358	-	-6.31	-9.52	3.22	Edge	None	None	0.00	0.00	3.22	0.506
+
+# Sequence Data: seqnum=12;seqlen=366;seqhdr="TRINITY_DN24_c0_g1_i1 len=366 path=[0:0-365]"
+# Run Data: version=Prodigal.v2.6.3;run_type=Metagenomic;model="23|Hyperthermus_butylicus_DSM_5456|A|53.7|11|1";gc_cont=53.70;transl_table=11;uses_sd=1
+
+Beg	End	Std	Total	CodPot	StrtSc	Codon	RBSMot	Spacer	RBSScr	UpsScr	TypeScr	GCCont
+
+2	91	-	1.64	0.17	1.47	TTG	GGA/GAG/AGG	11-12bp	1.06	-1.47	1.88	0.511
+2	100	-	-10.01	-2.14	-7.87	TTG	GGA/GAG/AGG	5-10bp	0.56	-1.46	1.88	0.495
+
+3	74	-	-24.29	-7.34	-16.94	ATG	None	None	-5.16	-2.95	0.01	0.528
+
+2	70	+	-4.62	-7.84	3.22	Edge	None	None	0.00	0.00	3.22	0.536
+
+105	284	-	-25.37	-26.80	1.43	TTG	GGA/GAG/AGG	5-10bp	0.39	0.21	1.33	0.511
+
+295	366	-	-4.35	-7.57	3.22	Edge	None	None	0.00	0.00	3.22	0.514
+
+291	365	+	-23.37	-6.78	-16.59	ATG	None	None	-5.16	-2.60	0.01	0.520
+
+145	366	+	-21.03	-16.50	-4.53	GTG	4Base/6BMM	13-15bp	-2.93	1.19	-2.28	0.518
+148	366	+	-17.36	-17.09	-0.27	ATG	GGA/GAG/AGG	5-10bp	0.48	-0.27	0.01	0.516
+223	366	+	-24.15	-14.03	-10.12	TTG	None	None	-9.15	-1.53	1.06	0.479
+265	366	+	-13.51	-14.40	0.89	TTG	GGA/GAG/AGG	5-10bp	0.22	0.43	0.74	0.490
+274	366	+	-11.38	-12.09	0.71	TTG	GGA/GAG/AGG	11-12bp	0.38	0.15	0.68	0.516
+
+# Sequence Data: seqnum=13;seqlen=311;seqhdr="TRINITY_DN8_c0_g1_i1 len=311 path=[0:0-310]"
+# Run Data: version=Prodigal.v2.6.3;run_type=Metagenomic;model="22|Halorubrum_lacusprofundi_ATCC_49239|A|57.1|11|0";gc_cont=57.10;transl_table=11;uses_sd=0
+
+Beg	End	Std	Total	CodPot	StrtSc	Codon	RBSMot	Spacer	RBSScr	UpsScr	TypeScr	GCCont
+
+2	139	-	-0.96	6.84	-7.79	GTG	None	None	0.00	-4.10	-3.69	0.565
+2	196	-	-9.96	9.54	-19.50	TTG	None	None	0.00	-2.10	-17.40	0.579
+2	202	-	4.20	10.45	-6.25	GTG	None	None	0.00	-2.56	-3.69	0.577
+
+37	126	-	-78.67	-14.91	-63.76	TTG	None	None	0.00	-13.26	-50.00	0.522
+37	135	-	-35.18	-15.29	-19.90	GTG	None	None	0.00	-9.78	-9.62	0.535
+
+193	285	-	-67.77	-16.53	-51.24	TTG	None	None	0.00	-2.41	-48.33	0.570
+
+140	241	+	-65.06	-18.97	-46.09	TTG	None	None	0.00	-1.65	-43.94	0.578
+
+129	266	+	-24.11	-17.11	-7.00	GTG	None	None	0.00	0.34	-6.84	0.587
+147	266	+	-25.91	-14.44	-11.47	GTG	None	None	0.00	-3.08	-7.89	0.583
+
+# Sequence Data: seqnum=14;seqlen=501;seqhdr="TRINITY_DN5_c0_g1_i1 len=501 path=[0:0-500]"
+# Run Data: version=Prodigal.v2.6.3;run_type=Metagenomic;model="30|Mycobacterium_leprae_TN|B|57.8|11|1";gc_cont=57.80;transl_table=11;uses_sd=1
+
+Beg	End	Std	Total	CodPot	StrtSc	Codon	RBSMot	Spacer	RBSScr	UpsScr	TypeScr	GCCont
+
+2	100	-	-15.51	-0.56	-14.95	GTG	None	None	-4.20	-1.93	-0.51	0.556
+2	115	-	-10.49	-1.52	-8.97	ATG	None	None	-4.20	-0.11	3.65	0.570
+2	130	-	5.08	1.33	3.75	ATG	GGA/GAG/AGG	5-10bp	2.24	-2.13	3.65	0.581
+
+198	299	-	-31.94	-19.59	-12.35	GTG	None	None	-10.60	0.05	-1.30	0.598
+198	326	-	-27.84	-19.91	-7.92	ATG	None	None	-8.33	-0.93	1.84	0.612
+
+132	260	+	-20.33	-13.94	-6.38	GTG	GGA/GAG/AGG	11-12bp	-2.75	-2.11	-1.02	0.643
+
+2	289	+	9.25	6.03	3.22	Edge	None	None	0.00	0.00	3.22	0.604
+188	289	+	-35.19	-11.03	-24.15	GTG	None	None	-10.60	-11.76	-1.30	0.637
+
+190	336	+	-30.23	-19.65	-10.58	GTG	None	None	-7.29	-1.90	-0.89	0.619
+
+308	454	+	-16.93	-11.71	-5.22	ATG	None	None	-7.29	0.47	2.10	0.558
+
+442	501	+	-27.64	-0.90	-26.74	TTG	None	None	-4.20	-2.24	-12.00	0.517
+
+# Sequence Data: seqnum=15;seqlen=336;seqhdr="TRINITY_DN3_c0_g1_i1 len=336 path=[0:0-335]"
+# Run Data: version=Prodigal.v2.6.3;run_type=Metagenomic;model="33|Pelotomaculum_thermopropionicum_SI|B|53.0|11|1";gc_cont=53.00;transl_table=11;uses_sd=1
+
+Beg	End	Std	Total	CodPot	StrtSc	Codon	RBSMot	Spacer	RBSScr	UpsScr	TypeScr	GCCont
+
+2	79	-	-52.66	-25.96	-26.71	TTG	None	None	-11.04	-4.81	-1.88	0.641
+
+3	68	-	-3.32	-1.51	-1.81	ATG	GGAG/GAGG	5-10bp	6.26	-1.81	2.70	0.667
+3	95	-	-14.98	5.64	-20.62	TTG	None	None	-11.04	-7.69	-1.88	0.613
+
+175	336	-	-10.70	-10.70	0.00	Edge	None	None	0.00	0.00	3.22	0.593
+
+192	305	-	-63.34	-14.22	-49.13	TTG	None	None	-24.88	-19.51	-4.24	0.596
+192	335	-	-4.00	-4.00	0.00	Edge	None	None	0.00	0.00	3.22	0.597
+
+3	209	+	-27.23	-27.23	0.00	Edge	None	None	0.00	0.00	3.22	0.604
+
+1	336	+	31.19	29.58	1.61	Edge	None	None	0.00	0.00	1.61	0.604
+4	336	+	12.90	27.54	-14.64	ATG	None	None	-11.04	-6.29	2.70	0.604
+28	336	+	-5.85	18.23	-24.08	GTG	None	None	-11.04	-9.80	-3.23	0.595
+40	336	+	-10.32	9.04	-19.36	ATG	None	None	-11.04	-11.02	2.70	0.589
+55	336	+	-15.96	3.36	-19.32	ATG	None	None	-11.04	-10.98	2.70	0.585
+67	336	+	-22.65	-0.88	-21.77	ATG	GGA/GAG/AGG	5-10bp	-2.06	-13.45	2.70	0.581
+103	336	+	-17.04	0.88	-17.92	ATG	None	None	-11.04	-9.57	2.70	0.598
+112	336	+	-34.97	-4.59	-30.38	TTG	None	None	-11.04	-8.49	-1.88	0.604
+130	336	+	-36.88	-5.81	-31.08	GTG	None	None	-11.04	-7.84	-3.23	0.589
+160	336	+	-51.21	-17.01	-34.19	TTG	None	None	-11.04	-12.30	-1.88	0.605
+211	336	+	-36.83	-16.39	-20.44	GTG	GGxGG	5-10bp	3.91	-12.15	-3.23	0.603
+259	336	+	-66.94	-34.78	-32.16	GTG	None	None	-11.04	-8.92	-3.23	0.615
+
+# Sequence Data: seqnum=16;seqlen=350;seqhdr="TRINITY_DN33_c0_g1_i1 len=350 path=[0:0-349]"
+# Run Data: version=Prodigal.v2.6.3;run_type=Metagenomic;model="36|Ralstonia_solanacearum_PSI07|B|66.1|11|1";gc_cont=66.10;transl_table=11;uses_sd=1
+
+Beg	End	Std	Total	CodPot	StrtSc	Codon	RBSMot	Spacer	RBSScr	UpsScr	TypeScr	GCCont
+
+2	166	-	-9.99	6.48	-16.47	GTG	None	None	-3.31	-5.03	-8.13	0.691
+2	172	-	7.54	11.60	-4.06	ATG	None	None	-3.31	-5.29	4.54	0.684
+2	199	-	15.17	31.10	-15.94	GTG	GGA/GAG/AGG	5-10bp	0.72	-8.52	-8.13	0.667
+2	310	-	70.10	59.35	10.76	ATG	GGAG/GAGG	5-10bp	8.88	-2.67	4.54	0.689
+2	349	-	51.83	50.22	1.61	Edge	None	None	0.00	0.00	1.61	0.672
+
+3	74	-	-45.87	-17.38	-28.50	GTG	None	None	-3.31	-8.15	-8.13	0.667
+3	149	-	-73.35	-43.07	-30.28	TTG	None	None	-3.31	-6.46	-11.60	0.694
+3	350	-	-83.90	-83.90	0.00	Edge	None	None	0.00	0.00	1.61	0.672
+
+3	185	+	-7.28	-7.28	0.00	Edge	None	None	0.00	0.00	3.22	0.667
+18	185	+	-22.12	-17.05	-5.08	ATG	AGGA/GGAG/GAGG	11-12bp	0.18	-7.75	3.00	0.667
+36	185	+	-53.34	-12.92	-40.42	TTG	None	None	-5.62	-14.58	-19.72	0.680
+60	185	+	-60.54	-24.34	-36.21	GTG	None	None	-6.72	-12.45	-16.53	0.675
+
+274	348	+	-42.96	-18.20	-24.76	GTG	None	None	-3.31	-4.41	-8.13	0.627
+
+2	349	+	-28.55	-28.55	0.00	Edge	None	None	0.00	0.00	1.61	0.675
+29	349	+	-44.76	-29.04	-15.72	ATG	None	None	-3.31	-8.04	4.54	0.679
+116	349	+	-44.25	-20.01	-24.24	GTG	GGA/GAG/AGG	5-10bp	0.72	-7.92	-8.13	0.675
+140	349	+	-49.47	-19.87	-29.60	GTG	None	None	-3.31	-9.25	-8.13	0.667
+290	349	+	-24.53	-14.25	-10.27	ATG	GGA/GAG/AGG	5-10bp	0.72	-6.63	4.54	0.583
+
+255	350	+	-28.20	-10.29	-17.91	TTG	GGAG/GAGG	5-10bp	8.88	-6.29	-11.60	0.594
+261	350	+	-38.22	-10.06	-28.16	TTG	GGA/GAG/AGG	5-10bp	0.72	-8.38	-11.60	0.600
+
