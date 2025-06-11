@@ -1,7 +1,7 @@
-                                 Started job on |	Jun 03 12:59:30
-                             Started mapping on |	Jun 03 12:59:55
-                                    Finished on |	Jun 03 13:00:03
-       Mapping speed, Million of reads per hour |	4.46
+                                 Started job on |	Jun 11 10:21:13
+                             Started mapping on |	Jun 11 10:21:22
+                                    Finished on |	Jun 11 10:21:29
+       Mapping speed, Million of reads per hour |	5.10
 
                           Number of input reads |	9914
                       Average input read length |	302

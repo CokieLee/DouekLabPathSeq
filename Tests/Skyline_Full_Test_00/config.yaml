@@ -3,14 +3,14 @@ cluster: sbatch
 jobs: 32
 
 ## parameters that must be changed for each different run
-inputlist: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/TestInput/file_list
-inputdir: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/TestInput/
+inputlist: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/file_list
+inputdir: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/
 origin: RNA
 minContigLen: 300
 
 ## configurable parameters
 codepath: /data/home/parkercol/PathSeq/SlurmBaseCode/
-outputpath: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/Output/
+outputpath: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/
 scratchDir: /data/scratch/
 
 ## paths of necessary installs and references on system
@@ -33,3 +33,33 @@ program_prodigal: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite
 program_kaiju: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/kaiju-v1.9.0-linux-x86_64-static
 program_fastp: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/fastp/
 program_palmscan: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/palmscan-main/bin/
+
+## resource allocation
+rule_resources:
+  bowtieUnmasked:
+    runtime: 2880
+    mem_mb: 65536
+  starAfterBowtie:
+    runtime: 2880
+    mem_mb: 65536
+  bowtiePrimate:
+    runtime: 2880
+    mem_mb: 65536
+  trinity:
+    runtime: 21600
+    mem_mb: 32768
+  filterHostBlast:
+    runtime: 4320
+    mem_mb: 131072
+  kaiju:
+    runtime: 2880
+    mem_mb: 524288
+  buildSalmon:
+    runtime: 2880
+    mem_mb: 131072
+  salmonQuant:
+    runtime: 2880
+    mem_mb: 131072
+  mergeTaxAndQuant:
+    runtime: 2880
+    mem_mb: 131072

@@ -2,12 +2,12 @@ STAR version=2.7.10b
 STAR compilation time,server,dir=2023-12-20T15:44:32-05:00 ai-hpcgpu21.niaid.nih.gov:/data/home/svc_hpcinstaller/tmp/spack-stage/spack-stage-star-2.7.10b-djwbspg7savasevzsvc6diekfeeg2rwl/spack-src/source
 STAR git: 
 ##### Command Line:
-STAR --genomeDir /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/StarReindex/ --readFilesIn /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_NF-H2O_2_S17_L001_R1_001.fq /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_NF-H2O_2_S17_L001_R2_001.fq --outFileNamePrefix ./NF-H2O_2_S17_L001_R1_001 --outReadsUnmapped Fastx --outSAMtype BAM SortedByCoordinate --outSAMstrandField intronMotif
+STAR --genomeDir /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/StarReindex/ --readFilesIn /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_NF-H2O_2_S17_L001_R1_001.fq /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_NF-H2O_2_S17_L001_R2_001.fq --outFileNamePrefix ./NF-H2O_2_S17_L001_R1_001 --outReadsUnmapped Fastx --outSAMtype BAM SortedByCoordinate --outSAMstrandField intronMotif
 ##### Initial USER parameters from Command Line:
 outFileNamePrefix                 ./NF-H2O_2_S17_L001_R1_001
 ###### All USER parameters from Command Line:
 genomeDir                     /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/StarReindex/     ~RE-DEFINED
-readFilesIn                   /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_NF-H2O_2_S17_L001_R1_001.fq   /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_NF-H2O_2_S17_L001_R2_001.fq        ~RE-DEFINED
+readFilesIn                   /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_NF-H2O_2_S17_L001_R1_001.fq   /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_NF-H2O_2_S17_L001_R2_001.fq        ~RE-DEFINED
 outFileNamePrefix             ./NF-H2O_2_S17_L001_R1_001     ~RE-DEFINED
 outReadsUnmapped              Fastx     ~RE-DEFINED
 outSAMtype                    BAM   SortedByCoordinate        ~RE-DEFINED
@@ -16,7 +16,7 @@ outSAMstrandField             intronMotif     ~RE-DEFINED
 
 ##### Final user re-defined parameters-----------------:
 genomeDir                         /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/StarReindex/
-readFilesIn                       /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_NF-H2O_2_S17_L001_R1_001.fq   /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_NF-H2O_2_S17_L001_R2_001.fq   
+readFilesIn                       /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_NF-H2O_2_S17_L001_R1_001.fq   /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_NF-H2O_2_S17_L001_R2_001.fq   
 outFileNamePrefix                 ./NF-H2O_2_S17_L001_R1_001
 outReadsUnmapped                  Fastx
 outSAMtype                        BAM   SortedByCoordinate   
@@ -24,7 +24,7 @@ outSAMstrandField                 intronMotif
 
 -------------------------------
 ##### Final effective command line:
-STAR   --genomeDir /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/StarReindex/   --readFilesIn /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_NF-H2O_2_S17_L001_R1_001.fq   /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_NF-H2O_2_S17_L001_R2_001.fq      --outFileNamePrefix ./NF-H2O_2_S17_L001_R1_001   --outReadsUnmapped Fastx   --outSAMtype BAM   SortedByCoordinate      --outSAMstrandField intronMotif
+STAR   --genomeDir /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/StarReindex/   --readFilesIn /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_NF-H2O_2_S17_L001_R1_001.fq   /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_NF-H2O_2_S17_L001_R2_001.fq      --outFileNamePrefix ./NF-H2O_2_S17_L001_R1_001   --outReadsUnmapped Fastx   --outSAMtype BAM   SortedByCoordinate      --outSAMstrandField intronMotif
 ----------------------------------------
 
 Number of fastq files for each mate = 1
@@ -250,7 +250,7 @@ Number of real (reference) chromosomes= 195
 194	chrUn_GL000218v1	161147	3138125824
 195	chrEBV	171823	3138387968
 --sjdbOverhang = 149 taken from the generated genome
-Started loading the genome: Tue Jun  3 12:59:30 2025
+Started loading the genome: Wed Jun 11 10:21:13 2025
 
 Genome: size given as a parameter = 3205999563
 SA: size given as a parameter = 24766048011
@@ -264,7 +264,7 @@ Loading Genome ... done! state: good=1 eof=0 fail=0 bad=0; loaded 3205999563 byt
 SA file size: 24766048011 bytes; state: good=1 eof=0 fail=0 bad=0
 Loading SA ... done! state: good=1 eof=0 fail=0 bad=0; loaded 24766048011 bytes
 Loading SAindex ... done: 1565873619 bytes
-Finished loading the genome: Tue Jun  3 12:59:55 2025
+Finished loading the genome: Wed Jun 11 10:21:22 2025
 
 Processing splice junctions database sjdbN=225249,   pGe.sjdbOverhang=149 
 alignIntronMax=alignMatesGapMax=0, the max intron size will be approximately determined by (2^winBinNbits)*winAnchorDistNbins=589824
@@ -322,11 +322,11 @@ BAM sorting bins genomic start loci:
 47	170	115305
 48	170	117054
 Completed: thread #0
-Jun 03 13:00:03 ..... finished mapping
+Jun 11 10:21:29 ..... finished mapping
 RAM after mapping:
-VmPeak:	29065876 kB; VmSize:	29018024 kB; VmHWM:	29004660 kB; VmRSS:	29004660 kB; 
+VmPeak:	29065876 kB; VmSize:	29018024 kB; VmHWM:	29004664 kB; VmRSS:	29004664 kB; 
 RAM after freeing genome index memory:
-VmPeak:	29065876 kB; VmSize:	  172392 kB; VmHWM:	29004660 kB; VmRSS:	  159040 kB; 
-Jun 03 13:00:03 ..... started sorting BAM
+VmPeak:	29065876 kB; VmSize:	  172392 kB; VmHWM:	29004664 kB; VmRSS:	  159044 kB; 
+Jun 11 10:21:29 ..... started sorting BAM
 Max memory needed for sorting = 8640
 ALL DONE!

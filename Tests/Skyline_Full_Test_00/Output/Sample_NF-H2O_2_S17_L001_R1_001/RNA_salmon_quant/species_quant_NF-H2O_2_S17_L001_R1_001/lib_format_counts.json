@@ -1,5 +1,5 @@
 {
-    "read_files": "[ /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/TestInput/NF-H2O_2_S17_L001_R1_001.fastq.gz, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/TestInput/NF-H2O_2_S17_L001_R2_001.fastq.gz]",
+    "read_files": "[ /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R1_001.fastq.gz, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R2_001.fastq.gz]",
     "expected_format": "IU",
     "compatible_fragment_ratio": 1.0,
     "num_compatible_fragments": 15,

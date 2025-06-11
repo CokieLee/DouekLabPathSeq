@@ -2,7 +2,7 @@
     "salmon_version": "1.10.2",
     "index": "Trinity.tmp.fasta.salmon.idx",
     "libType": "U",
-    "unmatedReads": "/data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_trinity_output/myTrinity_Origin_RNA_Sample_NF-H2O_2_S17_L001_R1_001/both.fa",
+    "unmatedReads": "/data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_trinity_output/myTrinity_Origin_RNA_Sample_NF-H2O_2_S17_L001_R1_001/both.fa",
     "output": "salmon_outdir",
     "threads": "1",
     "minAssignedFrags": "1",

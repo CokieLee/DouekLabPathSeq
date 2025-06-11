@@ -1,5 +1,5 @@
 {
-    "read_files": "[ /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_trinity_output/myTrinity_Origin_RNA_Sample_NF-H2O_2_S17_L001_R1_001/both.fa ]",
+    "read_files": "[ /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_trinity_output/myTrinity_Origin_RNA_Sample_NF-H2O_2_S17_L001_R1_001/both.fa ]",
     "expected_format": "U",
     "compatible_fragment_ratio": 1.0,
     "num_compatible_fragments": 820,

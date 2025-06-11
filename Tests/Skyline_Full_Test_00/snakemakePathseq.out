@@ -1,5 +1,546 @@
 The flag 'directory' used in rule salmonQuant is only valid for outputs, not inputs.
 Building DAG of jobs...
-Nothing to be done (all requested files are present and up to date).
-Complete log: .snakemake/log/2025-06-03T131253.600190.snakemake.log
+Using shell: /usr/bin/bash
+Provided cluster nodes: 100
+Job stats:
+job                    count    min threads    max threads
+-------------------  -------  -------------  -------------
+all                        1              1              1
+bowtiePrimate              1              1              1
+bowtieUnmasked             1              1              1
+buildSalmon                1              1              1
+filterHostBlast            1              1              1
+kaiju                      1              1              1
+markSampleCompleted        1              1              1
+mergeTaxAndQuant           7              1              1
+salmonQuant                7              1              1
+starAfterBowtie            1              1              1
+trinity                    1              1              1
+total                     23              1              1
+
+Select jobs to execute...
+
+[Wed Jun 11 10:20:39 2025]
+rule bowtieUnmasked:
+    input: /data/home/parkercol/PathSeq/SlurmBaseCode/bowtieUnmaskedGenome.sh, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R1_001.fastq.gz, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R2_001.fastq.gz, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/picard_2.18.14/picard.jar
+    output: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_NF-H2O_2_S17_L001_R1_001.fq, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_NF-H2O_2_S17_L001_R2_001.fq, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/ERCC_alignment_rates/ERCC_alignment_rate_NF-H2O_2_S17_L001_R1_001.txt, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/picard_stderr_NF-H2O_2_S17_L001_R1_001.txt, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/picard_stdout_NF-H2O_2_S17_L001_R1_001.txt, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/finished_bowtieUnmaskedGenome.txt
+    jobid: 9
+    reason: Code has changed since last execution
+    wildcards: sample=NF-H2O_2_S17_L001
+    resources: mem_mb=65536, mem_mib=62500, disk_mb=1000, disk_mib=954, tmpdir=<TBD>, runtime=2880
+
+
+        module purge
+        module load openjdk
+        which java
+        module load bowtie2
+        which bowtie2
+        module load samtools
+        which samtools
+
+        bash /data/home/parkercol/PathSeq/SlurmBaseCode/bowtieUnmaskedGenome.sh /data/home/parkercol/PathSeq/SlurmBaseCode/ NF-H2O_2_S17_L001_R1_001 NF-H2O_2_S17_L001_R2_001 /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R1_001.fastq.gz         /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R2_001.fastq.gz /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/ /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/ERCC92/ERCC92         /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/bowtieHg19Unmasked_2021_Ref/genome /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/picard_2.18.14/picard.jar
+        
+bowtieUnmasked: submission command "sbatch --cpus-per-task=1 --mem=65536 --time=2880 --output=logs/bowtieUnmasked-%j.out --partition=all --job-name=bowtieUnmasked /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/.snakemake/tmp.y0omfpj4/snakejob.bowtieUnmasked.9.sh
+Submitted job 9 with external jobid 'Submitted batch job 2784593'.
+[Wed Jun 11 10:21:09 2025]
+Finished job 9.
+1 of 23 steps (4%) done
+Select jobs to execute...
+
+[Wed Jun 11 10:21:09 2025]
+rule starAfterBowtie:
+    input: /data/home/parkercol/PathSeq/SlurmBaseCode/starAfterBowtie.sh, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_NF-H2O_2_S17_L001_R1_001.fq, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_NF-H2O_2_S17_L001_R2_001.fq
+    output: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_Star_Alignment/NF-H2O_2_S17_L001_R1_001_unalignedRead1AgainstTranscriptome.fq, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_Star_Alignment/NF-H2O_2_S17_L001_R2_001_unalignedRead2AgainstTranscriptome.fq, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_Star_Alignment/NF-H2O_2_S17_L001_R1_001_star_alignment_stats.txt
+    jobid: 8
+    reason: Input files updated by another job: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_NF-H2O_2_S17_L001_R1_001.fq, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_NF-H2O_2_S17_L001_R2_001.fq
+    wildcards: sample=NF-H2O_2_S17_L001
+    resources: mem_mb=65536, mem_mib=62500, disk_mb=1000, disk_mib=954, tmpdir=<TBD>, runtime=2880
+
+
+        module purge
+        module load star
+        which STAR
+        module load samtools
+        which samtools
+
+        bash /data/home/parkercol/PathSeq/SlurmBaseCode/starAfterBowtie.sh /data/home/parkercol/PathSeq/SlurmBaseCode/ /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead1AgainstGenome_NF-H2O_2_S17_L001_R1_001.fq /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/unalignedRead2AgainstGenome_NF-H2O_2_S17_L001_R2_001.fq         NF-H2O_2_S17_L001_R1_001 NF-H2O_2_S17_L001_R2_001 /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/ /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/StarReindex/
+        
+starAfterBowtie: submission command "sbatch --cpus-per-task=1 --mem=65536 --time=2880 --output=logs/starAfterBowtie-%j.out --partition=all --job-name=starAfterBowtie /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/.snakemake/tmp.y0omfpj4/snakejob.starAfterBowtie.8.sh
+Submitted job 8 with external jobid 'Submitted batch job 2784595'.
+[Wed Jun 11 10:21:39 2025]
+Finished job 8.
+2 of 23 steps (9%) done
+Select jobs to execute...
+
+[Wed Jun 11 10:21:39 2025]
+rule bowtiePrimate:
+    input: /data/home/parkercol/PathSeq/SlurmBaseCode/bowtiePrimate.sh, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_Star_Alignment/NF-H2O_2_S17_L001_R1_001_unalignedRead1AgainstTranscriptome.fq, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_Star_Alignment/NF-H2O_2_S17_L001_R2_001_unalignedRead2AgainstTranscriptome.fq
+    output: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NF-H2O_2_S17_L001_R1_001.fq, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NF-H2O_2_S17_L001_R2_001.fq
+    jobid: 7
+    reason: Input files updated by another job: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_Star_Alignment/NF-H2O_2_S17_L001_R1_001_unalignedRead1AgainstTranscriptome.fq, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_Star_Alignment/NF-H2O_2_S17_L001_R2_001_unalignedRead2AgainstTranscriptome.fq
+    wildcards: sample=NF-H2O_2_S17_L001
+    resources: mem_mb=65536, mem_mib=62500, disk_mb=1000, disk_mib=954, tmpdir=<TBD>, runtime=2880
+
+
+        module purge
+        module load bowtie2
+        which bowtie2
+        module load samtools
+        which samtools
+
+        bash /data/home/parkercol/PathSeq/SlurmBaseCode/bowtiePrimate.sh /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_Star_Alignment/NF-H2O_2_S17_L001_R1_001_unalignedRead1AgainstTranscriptome.fq /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/Generated_Data_Star_Alignment/NF-H2O_2_S17_L001_R2_001_unalignedRead2AgainstTranscriptome.fq /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001         /data/home/parkercol/PathSeq/SlurmBaseCode/ NF-H2O_2_S17_L001_R1_001 NF-H2O_2_S17_L001_R2_001 /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/bowtie_NCBIntPrimate_2021_Ref/primates
+        
+bowtiePrimate: submission command "sbatch --cpus-per-task=1 --mem=65536 --time=2880 --output=logs/bowtiePrimate-%j.out --partition=all --job-name=bowtiePrimate /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/.snakemake/tmp.y0omfpj4/snakejob.bowtiePrimate.7.sh
+Submitted job 7 with external jobid 'Submitted batch job 2784596'.
+[Wed Jun 11 10:22:59 2025]
+Finished job 7.
+3 of 23 steps (13%) done
+Select jobs to execute...
+
+[Wed Jun 11 10:22:59 2025]
+rule trinity:
+    input: /data/home/parkercol/PathSeq/SlurmBaseCode/all_trinity.sh, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NF-H2O_2_S17_L001_R1_001.fq, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NF-H2O_2_S17_L001_R2_001.fq
+    output: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_NF-H2O_2_S17_L001_R1_001.Trinity.fasta, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_trinity_output/trinity_out_300_Sample_NF-H2O_2_S17_L001_R1_001.txt, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_trinity_output/trinity_err_300_Sample_NF-H2O_2_S17_L001_R1_001.txt, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_trinity_output/myTrinity_Origin_RNA_Sample_NF-H2O_2_S17_L001_R1_001.Trinity.fasta
+    jobid: 6
+    reason: Input files updated by another job: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NF-H2O_2_S17_L001_R2_001.fq, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NF-H2O_2_S17_L001_R1_001.fq
+    wildcards: sample=NF-H2O_2_S17_L001
+    resources: mem_mb=32768, mem_mib=31250, disk_mb=1000, disk_mib=954, tmpdir=<TBD>, runtime=21600
+
+
+        module purge
+        module load trinity
+        which Trinity
+        module load fastp
+        which fastp
+        module load fastx-toolkit
+        which fasta_formatter
+
+        bash /data/home/parkercol/PathSeq/SlurmBaseCode/all_trinity.sh /data/home/parkercol/PathSeq/SlurmBaseCode/ /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NF-H2O_2_S17_L001_R1_001.fq /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NF-H2O_2_S17_L001_R2_001.fq NF-H2O_2_S17_L001_R1_001         NF-H2O_2_S17_L001_R2_001 RNA 300 1         32G /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001 /data/scratch/
+        
+trinity: submission command "sbatch --cpus-per-task=1 --mem=32768 --time=21600 --output=logs/trinity-%j.out --partition=himem --job-name=trinity /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/.snakemake/tmp.y0omfpj4/snakejob.trinity.6.sh
+Submitted job 6 with external jobid 'Submitted batch job 2784600'.
+[Wed Jun 11 10:24:59 2025]
+Finished job 6.
+4 of 23 steps (17%) done
+Select jobs to execute...
+
+[Wed Jun 11 10:24:59 2025]
+rule filterHostBlast:
+    input: /data/home/parkercol/PathSeq/SlurmBaseCode/array_filter_host.sh, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_NF-H2O_2_S17_L001_R1_001.Trinity.fasta, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/PathSeqRemoveHostForKaiju/dist/PathSeqRemoveHostForKaiju.jar, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/blast_Mammalia_2021_DB/Mammalia.fa
+    output: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_trinity_filtered/nonMammal_trinity_Origin_RNA.fasta
+    jobid: 5
+    reason: Input files updated by another job: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_NF-H2O_2_S17_L001_R1_001.Trinity.fasta
+    wildcards: sample=NF-H2O_2_S17_L001
+    resources: mem_mb=131072, mem_mib=125000, disk_mb=122977, disk_mib=117281, tmpdir=<TBD>, runtime=4320
+
+
+        module purge
+        module load blast-plus
+        which blastn
+        module load openjdk
+        which java
+
+        bash /data/home/parkercol/PathSeq/SlurmBaseCode/array_filter_host.sh /data/home/parkercol/PathSeq/SlurmBaseCode/ /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_trinity_output/formatted_myTrinity_Origin_RNA_Sample_NF-H2O_2_S17_L001_R1_001.Trinity.fasta /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_trinity_filtered RNA         /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/PathSeqRemoveHostForKaiju/dist/PathSeqRemoveHostForKaiju.jar /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/blast_Mammalia_2021_DB/Mammalia.fa
+        
+filterHostBlast: submission command "sbatch --cpus-per-task=1 --mem=131072 --time=4320 --output=logs/filterHostBlast-%j.out --partition=all --job-name=filterHostBlast /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/.snakemake/tmp.y0omfpj4/snakejob.filterHostBlast.5.sh
+Submitted job 5 with external jobid 'Submitted batch job 2784602'.
+[Wed Jun 11 10:25:09 2025]
+Finished job 5.
+5 of 23 steps (22%) done
+Select jobs to execute...
+
+[Wed Jun 11 10:25:09 2025]
+rule kaiju:
+    input: /data/home/parkercol/PathSeq/SlurmBaseCode/protein_kaiju.sh, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/kaiju_NCBInt_2022_Ref/nodes.dmp, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/kaiju_NCBInt_2022_Ref/nr_euk/kaiju_db_nr_euk.fmi, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_trinity_filtered/nonMammal_trinity_Origin_RNA.fasta
+    output: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_kaiju_output/sorted_protein_kaiju_RNA.tab, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_kaiju_output/formatted_non_host_proteins_nucleotide_RNA.fa, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_kaiju_output/formatted_non_host_proteins_RNA.faa
+    jobid: 4
+    reason: Input files updated by another job: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_trinity_filtered/nonMammal_trinity_Origin_RNA.fasta
+    wildcards: sample=NF-H2O_2_S17_L001
+    resources: mem_mb=524288, mem_mib=500000, disk_mb=304675, disk_mib=290561, tmpdir=<TBD>, runtime=2880
+
+
+        module purge
+        module load fastx-toolkit
+
+        bash /data/home/parkercol/PathSeq/SlurmBaseCode/protein_kaiju.sh /data/home/parkercol/PathSeq/SlurmBaseCode/ NF-H2O_2_S17_L001_R1_001 NF-H2O_2_S17_L001_R2_001 /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_trinity_filtered/nonMammal_trinity_Origin_RNA.fasta         RNA /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/prodigal/bin /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/kaiju-v1.9.0-linux-x86_64-static /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/kaiju_NCBInt_2022_Ref/nodes.dmp /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/kaiju_NCBInt_2022_Ref/nr_euk/kaiju_db_nr_euk.fmi         /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001
+        
+kaiju: submission command "sbatch --cpus-per-task=1 --mem=524288 --time=2880 --output=logs/kaiju-%j.out --partition=himem --job-name=kaiju /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/.snakemake/tmp.y0omfpj4/snakejob.kaiju.4.sh
+Submitted job 4 with external jobid 'Submitted batch job 2784603'.
+[Wed Jun 11 10:26:39 2025]
+Finished job 4.
+6 of 23 steps (26%) done
+Select jobs to execute...
+
+[Wed Jun 11 10:26:39 2025]
+rule buildSalmon:
+    input: /data/home/parkercol/PathSeq/SlurmBaseCode/buildSalmon.sh, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_kaiju_output/sorted_protein_kaiju_RNA.tab, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_kaiju_output/formatted_non_host_proteins_nucleotide_RNA.fa, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_kaiju_output/formatted_non_host_proteins_RNA.faa, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/PathSeqKaijuConcensusSplitter2/dist/PathSeqKaijuConcensusSplitter2.jar, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/kaiju_NCBInt_2022_Ref/nodes.dmp, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/kaiju_NCBInt_2022_Ref/nr_euk/qiime2_formatted_taxonomy.tab
+    output: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/kingdom_sequences.fa, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/phylum_sequences.fa, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/order_sequences.fa, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/class_sequences.fa, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/family_sequences.fa, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/genus_sequences.fa, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/species_sequences.fa, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/kingdom_table.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/phylum_table.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/order_table.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/class_table.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/family_table.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/genus_table.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/species_table.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/kingdom_salmon, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/phylum_salmon, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/order_salmon, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/class_salmon, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/family_salmon, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/genus_salmon, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/species_salmon
+    jobid: 3
+    reason: Input files updated by another job: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_kaiju_output/formatted_non_host_proteins_RNA.faa, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_kaiju_output/formatted_non_host_proteins_nucleotide_RNA.fa, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_kaiju_output/sorted_protein_kaiju_RNA.tab
+    wildcards: sample=NF-H2O_2_S17_L001
+    resources: mem_mb=131072, mem_mib=125000, disk_mb=77933, disk_mib=74323, tmpdir=<TBD>, runtime=2880
+
+
+        module purge
+        module load openjdk
+        which java
+        module load salmon
+        which salmon
+
+        bash /data/home/parkercol/PathSeq/SlurmBaseCode/buildSalmon.sh /data/home/parkercol/PathSeq/SlurmBaseCode/ /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_kaiju_output/sorted_protein_kaiju_RNA.tab             /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_kaiju_output/formatted_non_host_proteins_nucleotide_RNA.fa /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_kaiju_output/formatted_non_host_proteins_RNA.faa             /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/PathSeqKaijuConcensusSplitter2/dist/PathSeqKaijuConcensusSplitter2.jar RNA             /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/kaiju_NCBInt_2022_Ref/nr_euk/qiime2_formatted_taxonomy.tab /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/kaiju_NCBInt_2022_Ref/nodes.dmp /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/
+        
+buildSalmon: submission command "sbatch --cpus-per-task=1 --mem=131072 --time=2880 --output=logs/buildSalmon-%j.out --partition=all --job-name=buildSalmon /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/.snakemake/tmp.y0omfpj4/snakejob.buildSalmon.3.sh
+Submitted job 3 with external jobid 'Submitted batch job 2784605'.
+[Wed Jun 11 10:37:00 2025]
+Finished job 3.
+7 of 23 steps (30%) done
+Select jobs to execute...
+
+[Wed Jun 11 10:37:00 2025]
+rule salmonQuant:
+    input: /data/home/parkercol/PathSeq/SlurmBaseCode/salmonQuantSingleLevel.sh, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R1_001.fastq.gz, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R2_001.fastq.gz, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/kingdom_salmon
+    output: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/kingdom_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf
+    jobid: 10
+    reason: Input files updated by another job: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/kingdom_salmon
+    wildcards: sample=NF-H2O_2_S17_L001, taxlevel=kingdom
+    resources: mem_mb=131072, mem_mib=125000, disk_mb=1000, disk_mib=954, tmpdir=<TBD>, runtime=2880
+
+
+        module purge
+        module load salmon
+        which salmon
+
+        bash /data/home/parkercol/PathSeq/SlurmBaseCode/salmonQuantSingleLevel.sh /data/home/parkercol/PathSeq/SlurmBaseCode/             /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R1_001.fastq.gz /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R2_001.fastq.gz             NF-H2O_2_S17_L001_R1_001 RNA kingdom             /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/kingdom_salmon /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001
+        
+salmonQuant: submission command "sbatch --cpus-per-task=1 --mem=131072 --time=2880 --output=logs/salmonQuant-%j.out --partition=all --job-name=salmonQuant /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/.snakemake/tmp.y0omfpj4/snakejob.salmonQuant.10.sh
+Submitted job 10 with external jobid 'Submitted batch job 2784615'.
+
+[Wed Jun 11 10:37:01 2025]
+rule salmonQuant:
+    input: /data/home/parkercol/PathSeq/SlurmBaseCode/salmonQuantSingleLevel.sh, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R1_001.fastq.gz, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R2_001.fastq.gz, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/phylum_salmon
+    output: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/phylum_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf
+    jobid: 12
+    reason: Input files updated by another job: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/phylum_salmon
+    wildcards: sample=NF-H2O_2_S17_L001, taxlevel=phylum
+    resources: mem_mb=131072, mem_mib=125000, disk_mb=1000, disk_mib=954, tmpdir=<TBD>, runtime=2880
+
+
+        module purge
+        module load salmon
+        which salmon
+
+        bash /data/home/parkercol/PathSeq/SlurmBaseCode/salmonQuantSingleLevel.sh /data/home/parkercol/PathSeq/SlurmBaseCode/             /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R1_001.fastq.gz /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R2_001.fastq.gz             NF-H2O_2_S17_L001_R1_001 RNA phylum             /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/phylum_salmon /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001
+        
+salmonQuant: submission command "sbatch --cpus-per-task=1 --mem=131072 --time=2880 --output=logs/salmonQuant-%j.out --partition=all --job-name=salmonQuant /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/.snakemake/tmp.y0omfpj4/snakejob.salmonQuant.12.sh
+Submitted job 12 with external jobid 'Submitted batch job 2784616'.
+
+[Wed Jun 11 10:37:01 2025]
+rule salmonQuant:
+    input: /data/home/parkercol/PathSeq/SlurmBaseCode/salmonQuantSingleLevel.sh, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R1_001.fastq.gz, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R2_001.fastq.gz, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/order_salmon
+    output: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/order_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf
+    jobid: 14
+    reason: Input files updated by another job: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/order_salmon
+    wildcards: sample=NF-H2O_2_S17_L001, taxlevel=order
+    resources: mem_mb=131072, mem_mib=125000, disk_mb=1000, disk_mib=954, tmpdir=<TBD>, runtime=2880
+
+
+        module purge
+        module load salmon
+        which salmon
+
+        bash /data/home/parkercol/PathSeq/SlurmBaseCode/salmonQuantSingleLevel.sh /data/home/parkercol/PathSeq/SlurmBaseCode/             /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R1_001.fastq.gz /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R2_001.fastq.gz             NF-H2O_2_S17_L001_R1_001 RNA order             /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/order_salmon /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001
+        
+salmonQuant: submission command "sbatch --cpus-per-task=1 --mem=131072 --time=2880 --output=logs/salmonQuant-%j.out --partition=all --job-name=salmonQuant /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/.snakemake/tmp.y0omfpj4/snakejob.salmonQuant.14.sh
+Submitted job 14 with external jobid 'Submitted batch job 2784617'.
+
+[Wed Jun 11 10:37:02 2025]
+rule salmonQuant:
+    input: /data/home/parkercol/PathSeq/SlurmBaseCode/salmonQuantSingleLevel.sh, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R1_001.fastq.gz, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R2_001.fastq.gz, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/class_salmon
+    output: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/class_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf
+    jobid: 16
+    reason: Input files updated by another job: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/class_salmon
+    wildcards: sample=NF-H2O_2_S17_L001, taxlevel=class
+    resources: mem_mb=131072, mem_mib=125000, disk_mb=1000, disk_mib=954, tmpdir=<TBD>, runtime=2880
+
+
+        module purge
+        module load salmon
+        which salmon
+
+        bash /data/home/parkercol/PathSeq/SlurmBaseCode/salmonQuantSingleLevel.sh /data/home/parkercol/PathSeq/SlurmBaseCode/             /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R1_001.fastq.gz /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R2_001.fastq.gz             NF-H2O_2_S17_L001_R1_001 RNA class             /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/class_salmon /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001
+        
+salmonQuant: submission command "sbatch --cpus-per-task=1 --mem=131072 --time=2880 --output=logs/salmonQuant-%j.out --partition=all --job-name=salmonQuant /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/.snakemake/tmp.y0omfpj4/snakejob.salmonQuant.16.sh
+Submitted job 16 with external jobid 'Submitted batch job 2784618'.
+
+[Wed Jun 11 10:37:02 2025]
+rule salmonQuant:
+    input: /data/home/parkercol/PathSeq/SlurmBaseCode/salmonQuantSingleLevel.sh, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R1_001.fastq.gz, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R2_001.fastq.gz, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/family_salmon
+    output: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/family_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf
+    jobid: 18
+    reason: Input files updated by another job: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/family_salmon
+    wildcards: sample=NF-H2O_2_S17_L001, taxlevel=family
+    resources: mem_mb=131072, mem_mib=125000, disk_mb=1000, disk_mib=954, tmpdir=<TBD>, runtime=2880
+
+
+        module purge
+        module load salmon
+        which salmon
+
+        bash /data/home/parkercol/PathSeq/SlurmBaseCode/salmonQuantSingleLevel.sh /data/home/parkercol/PathSeq/SlurmBaseCode/             /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R1_001.fastq.gz /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R2_001.fastq.gz             NF-H2O_2_S17_L001_R1_001 RNA family             /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/family_salmon /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001
+        
+salmonQuant: submission command "sbatch --cpus-per-task=1 --mem=131072 --time=2880 --output=logs/salmonQuant-%j.out --partition=all --job-name=salmonQuant /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/.snakemake/tmp.y0omfpj4/snakejob.salmonQuant.18.sh
+Submitted job 18 with external jobid 'Submitted batch job 2784619'.
+
+[Wed Jun 11 10:37:03 2025]
+rule salmonQuant:
+    input: /data/home/parkercol/PathSeq/SlurmBaseCode/salmonQuantSingleLevel.sh, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R1_001.fastq.gz, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R2_001.fastq.gz, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/genus_salmon
+    output: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/genus_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf
+    jobid: 20
+    reason: Input files updated by another job: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/genus_salmon
+    wildcards: sample=NF-H2O_2_S17_L001, taxlevel=genus
+    resources: mem_mb=131072, mem_mib=125000, disk_mb=1000, disk_mib=954, tmpdir=<TBD>, runtime=2880
+
+
+        module purge
+        module load salmon
+        which salmon
+
+        bash /data/home/parkercol/PathSeq/SlurmBaseCode/salmonQuantSingleLevel.sh /data/home/parkercol/PathSeq/SlurmBaseCode/             /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R1_001.fastq.gz /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R2_001.fastq.gz             NF-H2O_2_S17_L001_R1_001 RNA genus             /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/genus_salmon /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001
+        
+salmonQuant: submission command "sbatch --cpus-per-task=1 --mem=131072 --time=2880 --output=logs/salmonQuant-%j.out --partition=all --job-name=salmonQuant /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/.snakemake/tmp.y0omfpj4/snakejob.salmonQuant.20.sh
+Submitted job 20 with external jobid 'Submitted batch job 2784620'.
+
+[Wed Jun 11 10:37:03 2025]
+rule salmonQuant:
+    input: /data/home/parkercol/PathSeq/SlurmBaseCode/salmonQuantSingleLevel.sh, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R1_001.fastq.gz, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R2_001.fastq.gz, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/species_salmon
+    output: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/species_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf
+    jobid: 22
+    reason: Input files updated by another job: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/species_salmon
+    wildcards: sample=NF-H2O_2_S17_L001, taxlevel=species
+    resources: mem_mb=131072, mem_mib=125000, disk_mb=1000, disk_mib=954, tmpdir=<TBD>, runtime=2880
+
+
+        module purge
+        module load salmon
+        which salmon
+
+        bash /data/home/parkercol/PathSeq/SlurmBaseCode/salmonQuantSingleLevel.sh /data/home/parkercol/PathSeq/SlurmBaseCode/             /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R1_001.fastq.gz /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/TestInput/NF-H2O_2_S17_L001_R2_001.fastq.gz             NF-H2O_2_S17_L001_R1_001 RNA species             /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/species_salmon /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001
+        
+salmonQuant: submission command "sbatch --cpus-per-task=1 --mem=131072 --time=2880 --output=logs/salmonQuant-%j.out --partition=all --job-name=salmonQuant /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/.snakemake/tmp.y0omfpj4/snakejob.salmonQuant.22.sh
+Submitted job 22 with external jobid 'Submitted batch job 2784621'.
+[Wed Jun 11 10:37:10 2025]
+Finished job 10.
+8 of 23 steps (35%) done
+Select jobs to execute...
+
+[Wed Jun 11 10:37:10 2025]
+rule mergeTaxAndQuant:
+    input: /data/home/parkercol/PathSeq/SlurmBaseCode/mergeTaxonomyAndQuantificationSingleLevel.sh, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/kingdom_table.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/kingdom_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar
+    output: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_kingdom_NF-H2O_2_S17_L001_R1_001_pseudocounts.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_kingdom_NF-H2O_2_S17_L001_R1_001_tpm.csv
+    jobid: 2
+    reason: Input files updated by another job: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/kingdom_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/kingdom_table.csv
+    wildcards: sample=NF-H2O_2_S17_L001, taxlevel=kingdom
+    resources: mem_mb=131072, mem_mib=125000, disk_mb=1000, disk_mib=954, tmpdir=<TBD>, runtime=2880
+
+
+        module purge
+        module load openjdk
+        which java
+
+        bash /data/home/parkercol/PathSeq/SlurmBaseCode/mergeTaxonomyAndQuantificationSingleLevel.sh /data/home/parkercol/PathSeq/SlurmBaseCode/ /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/kingdom_table.csv             /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/kingdom_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf NF-H2O_2_S17_L001_R1_001 RNA             kingdom /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001
+        
+mergeTaxAndQuant: submission command "sbatch --cpus-per-task=1 --mem=131072 --time=2880 --output=logs/mergeTaxAndQuant-%j.out --partition=all --job-name=mergeTaxAndQuant /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/.snakemake/tmp.y0omfpj4/snakejob.mergeTaxAndQuant.2.sh
+Submitted job 2 with external jobid 'Submitted batch job 2784622'.
+[Wed Jun 11 10:37:11 2025]
+Finished job 12.
+9 of 23 steps (39%) done
+Select jobs to execute...
+
+[Wed Jun 11 10:37:11 2025]
+rule mergeTaxAndQuant:
+    input: /data/home/parkercol/PathSeq/SlurmBaseCode/mergeTaxonomyAndQuantificationSingleLevel.sh, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/phylum_table.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/phylum_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar
+    output: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_phylum_NF-H2O_2_S17_L001_R1_001_pseudocounts.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_phylum_NF-H2O_2_S17_L001_R1_001_tpm.csv
+    jobid: 11
+    reason: Input files updated by another job: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/phylum_table.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/phylum_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf
+    wildcards: sample=NF-H2O_2_S17_L001, taxlevel=phylum
+    resources: mem_mb=131072, mem_mib=125000, disk_mb=1000, disk_mib=954, tmpdir=<TBD>, runtime=2880
+
+
+        module purge
+        module load openjdk
+        which java
+
+        bash /data/home/parkercol/PathSeq/SlurmBaseCode/mergeTaxonomyAndQuantificationSingleLevel.sh /data/home/parkercol/PathSeq/SlurmBaseCode/ /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/phylum_table.csv             /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/phylum_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf NF-H2O_2_S17_L001_R1_001 RNA             phylum /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001
+        
+mergeTaxAndQuant: submission command "sbatch --cpus-per-task=1 --mem=131072 --time=2880 --output=logs/mergeTaxAndQuant-%j.out --partition=all --job-name=mergeTaxAndQuant /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/.snakemake/tmp.y0omfpj4/snakejob.mergeTaxAndQuant.11.sh
+Submitted job 11 with external jobid 'Submitted batch job 2784623'.
+[Wed Jun 11 10:37:12 2025]
+Finished job 14.
+10 of 23 steps (43%) done
+Select jobs to execute...
+
+[Wed Jun 11 10:37:12 2025]
+rule mergeTaxAndQuant:
+    input: /data/home/parkercol/PathSeq/SlurmBaseCode/mergeTaxonomyAndQuantificationSingleLevel.sh, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/order_table.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/order_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar
+    output: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_order_NF-H2O_2_S17_L001_R1_001_pseudocounts.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_order_NF-H2O_2_S17_L001_R1_001_tpm.csv
+    jobid: 13
+    reason: Input files updated by another job: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/order_table.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/order_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf
+    wildcards: sample=NF-H2O_2_S17_L001, taxlevel=order
+    resources: mem_mb=131072, mem_mib=125000, disk_mb=1000, disk_mib=954, tmpdir=<TBD>, runtime=2880
+
+
+        module purge
+        module load openjdk
+        which java
+
+        bash /data/home/parkercol/PathSeq/SlurmBaseCode/mergeTaxonomyAndQuantificationSingleLevel.sh /data/home/parkercol/PathSeq/SlurmBaseCode/ /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/order_table.csv             /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/order_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf NF-H2O_2_S17_L001_R1_001 RNA             order /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001
+        
+mergeTaxAndQuant: submission command "sbatch --cpus-per-task=1 --mem=131072 --time=2880 --output=logs/mergeTaxAndQuant-%j.out --partition=all --job-name=mergeTaxAndQuant /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/.snakemake/tmp.y0omfpj4/snakejob.mergeTaxAndQuant.13.sh
+Submitted job 13 with external jobid 'Submitted batch job 2784624'.
+[Wed Jun 11 10:37:13 2025]
+Finished job 16.
+11 of 23 steps (48%) done
+Select jobs to execute...
+
+[Wed Jun 11 10:37:13 2025]
+rule mergeTaxAndQuant:
+    input: /data/home/parkercol/PathSeq/SlurmBaseCode/mergeTaxonomyAndQuantificationSingleLevel.sh, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/class_table.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/class_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar
+    output: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_class_NF-H2O_2_S17_L001_R1_001_pseudocounts.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_class_NF-H2O_2_S17_L001_R1_001_tpm.csv
+    jobid: 15
+    reason: Input files updated by another job: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/class_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/class_table.csv
+    wildcards: sample=NF-H2O_2_S17_L001, taxlevel=class
+    resources: mem_mb=131072, mem_mib=125000, disk_mb=1000, disk_mib=954, tmpdir=<TBD>, runtime=2880
+
+
+        module purge
+        module load openjdk
+        which java
+
+        bash /data/home/parkercol/PathSeq/SlurmBaseCode/mergeTaxonomyAndQuantificationSingleLevel.sh /data/home/parkercol/PathSeq/SlurmBaseCode/ /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/class_table.csv             /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/class_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf NF-H2O_2_S17_L001_R1_001 RNA             class /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001
+        
+mergeTaxAndQuant: submission command "sbatch --cpus-per-task=1 --mem=131072 --time=2880 --output=logs/mergeTaxAndQuant-%j.out --partition=all --job-name=mergeTaxAndQuant /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/.snakemake/tmp.y0omfpj4/snakejob.mergeTaxAndQuant.15.sh
+Submitted job 15 with external jobid 'Submitted batch job 2784625'.
+[Wed Jun 11 10:37:14 2025]
+Finished job 18.
+12 of 23 steps (52%) done
+Select jobs to execute...
+
+[Wed Jun 11 10:37:14 2025]
+rule mergeTaxAndQuant:
+    input: /data/home/parkercol/PathSeq/SlurmBaseCode/mergeTaxonomyAndQuantificationSingleLevel.sh, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/family_table.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/family_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar
+    output: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_family_NF-H2O_2_S17_L001_R1_001_pseudocounts.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_family_NF-H2O_2_S17_L001_R1_001_tpm.csv
+    jobid: 17
+    reason: Input files updated by another job: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/family_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/family_table.csv
+    wildcards: sample=NF-H2O_2_S17_L001, taxlevel=family
+    resources: mem_mb=131072, mem_mib=125000, disk_mb=1000, disk_mib=954, tmpdir=<TBD>, runtime=2880
+
+
+        module purge
+        module load openjdk
+        which java
+
+        bash /data/home/parkercol/PathSeq/SlurmBaseCode/mergeTaxonomyAndQuantificationSingleLevel.sh /data/home/parkercol/PathSeq/SlurmBaseCode/ /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/family_table.csv             /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/family_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf NF-H2O_2_S17_L001_R1_001 RNA             family /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001
+        
+mergeTaxAndQuant: submission command "sbatch --cpus-per-task=1 --mem=131072 --time=2880 --output=logs/mergeTaxAndQuant-%j.out --partition=all --job-name=mergeTaxAndQuant /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/.snakemake/tmp.y0omfpj4/snakejob.mergeTaxAndQuant.17.sh
+Submitted job 17 with external jobid 'Submitted batch job 2784626'.
+[Wed Jun 11 10:37:15 2025]
+Finished job 20.
+13 of 23 steps (57%) done
+Select jobs to execute...
+
+[Wed Jun 11 10:37:15 2025]
+rule mergeTaxAndQuant:
+    input: /data/home/parkercol/PathSeq/SlurmBaseCode/mergeTaxonomyAndQuantificationSingleLevel.sh, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/genus_table.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/genus_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar
+    output: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_genus_NF-H2O_2_S17_L001_R1_001_pseudocounts.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_genus_NF-H2O_2_S17_L001_R1_001_tpm.csv
+    jobid: 19
+    reason: Input files updated by another job: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/genus_table.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/genus_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf
+    wildcards: sample=NF-H2O_2_S17_L001, taxlevel=genus
+    resources: mem_mb=131072, mem_mib=125000, disk_mb=1000, disk_mib=954, tmpdir=<TBD>, runtime=2880
+
+
+        module purge
+        module load openjdk
+        which java
+
+        bash /data/home/parkercol/PathSeq/SlurmBaseCode/mergeTaxonomyAndQuantificationSingleLevel.sh /data/home/parkercol/PathSeq/SlurmBaseCode/ /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/genus_table.csv             /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/genus_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf NF-H2O_2_S17_L001_R1_001 RNA             genus /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001
+        
+mergeTaxAndQuant: submission command "sbatch --cpus-per-task=1 --mem=131072 --time=2880 --output=logs/mergeTaxAndQuant-%j.out --partition=all --job-name=mergeTaxAndQuant /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/.snakemake/tmp.y0omfpj4/snakejob.mergeTaxAndQuant.19.sh
+Submitted job 19 with external jobid 'Submitted batch job 2784627'.
+[Wed Jun 11 10:37:16 2025]
+Finished job 22.
+14 of 23 steps (61%) done
+Select jobs to execute...
+
+[Wed Jun 11 10:37:16 2025]
+rule mergeTaxAndQuant:
+    input: /data/home/parkercol/PathSeq/SlurmBaseCode/mergeTaxonomyAndQuantificationSingleLevel.sh, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/species_table.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/species_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf, /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar
+    output: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_species_NF-H2O_2_S17_L001_R1_001_pseudocounts.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_species_NF-H2O_2_S17_L001_R1_001_tpm.csv
+    jobid: 21
+    reason: Input files updated by another job: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/species_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/species_table.csv
+    wildcards: sample=NF-H2O_2_S17_L001, taxlevel=species
+    resources: mem_mb=131072, mem_mib=125000, disk_mb=1000, disk_mib=954, tmpdir=<TBD>, runtime=2880
+
+
+        module purge
+        module load openjdk
+        which java
+
+        bash /data/home/parkercol/PathSeq/SlurmBaseCode/mergeTaxonomyAndQuantificationSingleLevel.sh /data/home/parkercol/PathSeq/SlurmBaseCode/ /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/species_table.csv             /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/species_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf NF-H2O_2_S17_L001_R1_001 RNA             species /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001
+        
+mergeTaxAndQuant: submission command "sbatch --cpus-per-task=1 --mem=131072 --time=2880 --output=logs/mergeTaxAndQuant-%j.out --partition=all --job-name=mergeTaxAndQuant /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/.snakemake/tmp.y0omfpj4/snakejob.mergeTaxAndQuant.21.sh
+Submitted job 21 with external jobid 'Submitted batch job 2784628'.
+[Wed Jun 11 10:37:26 2025]
+Finished job 2.
+15 of 23 steps (65%) done
+[Wed Jun 11 10:37:27 2025]
+Finished job 11.
+16 of 23 steps (70%) done
+[Wed Jun 11 10:37:28 2025]
+Finished job 13.
+17 of 23 steps (74%) done
+[Wed Jun 11 10:37:29 2025]
+Finished job 15.
+18 of 23 steps (78%) done
+[Wed Jun 11 10:37:30 2025]
+Finished job 17.
+19 of 23 steps (83%) done
+[Wed Jun 11 10:37:31 2025]
+Finished job 19.
+20 of 23 steps (87%) done
+[Wed Jun 11 10:37:32 2025]
+Finished job 21.
+21 of 23 steps (91%) done
+Select jobs to execute...
+
+[Wed Jun 11 10:37:32 2025]
+rule markSampleCompleted:
+    input: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_kingdom_NF-H2O_2_S17_L001_R1_001_pseudocounts.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_phylum_NF-H2O_2_S17_L001_R1_001_pseudocounts.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_order_NF-H2O_2_S17_L001_R1_001_pseudocounts.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_class_NF-H2O_2_S17_L001_R1_001_pseudocounts.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_family_NF-H2O_2_S17_L001_R1_001_pseudocounts.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_genus_NF-H2O_2_S17_L001_R1_001_pseudocounts.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_species_NF-H2O_2_S17_L001_R1_001_pseudocounts.csv
+    output: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001_finished.txt
+    jobid: 1
+    reason: Input files updated by another job: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_family_NF-H2O_2_S17_L001_R1_001_pseudocounts.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_genus_NF-H2O_2_S17_L001_R1_001_pseudocounts.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_species_NF-H2O_2_S17_L001_R1_001_pseudocounts.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_kingdom_NF-H2O_2_S17_L001_R1_001_pseudocounts.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_phylum_NF-H2O_2_S17_L001_R1_001_pseudocounts.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_class_NF-H2O_2_S17_L001_R1_001_pseudocounts.csv, /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_merge_TaxAndQuant/RNA_order_NF-H2O_2_S17_L001_R1_001_pseudocounts.csv
+    wildcards: sample=NF-H2O_2_S17_L001
+    resources: mem_mb=256, mem_mib=245, disk_mb=1000, disk_mib=954, tmpdir=<TBD>, runtime=100
+
+
+        touch /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001_finished.txt
+        echo "Finished running all rules." > /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001_finished.txt
+        
+markSampleCompleted: submission command "sbatch --cpus-per-task=1 --mem=256 --time=100 --output=logs/markSampleCompleted-%j.out --partition=all --job-name=markSampleCompleted /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/.snakemake/tmp.y0omfpj4/snakejob.markSampleCompleted.1.sh
+Submitted job 1 with external jobid 'Submitted batch job 2784629'.
+[Wed Jun 11 10:37:42 2025]
+Finished job 1.
+22 of 23 steps (96%) done
+Select jobs to execute...
+
+[Wed Jun 11 10:37:42 2025]
+localrule all:
+    input: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001_finished.txt
+    jobid: 0
+    reason: Input files updated by another job: /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001_finished.txt
+    resources: mem_mb=1000, mem_mib=954, disk_mb=1000, disk_mib=954, tmpdir=/data/scratch/parkercol/ai-hpcsubmit1
+
+[Wed Jun 11 10:37:42 2025]
+Finished job 0.
+23 of 23 steps (100%) done
+Complete log: .snakemake/log/2025-06-11T102038.770669.snakemake.log
 RAN SNAKEMAKE

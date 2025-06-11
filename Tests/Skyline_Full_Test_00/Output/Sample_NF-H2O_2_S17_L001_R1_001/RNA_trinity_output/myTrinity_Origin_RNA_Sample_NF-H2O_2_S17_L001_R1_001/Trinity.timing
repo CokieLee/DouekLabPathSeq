@@ -2,7 +2,7 @@ Statistics:
 ===========
 Trinity Version:      Trinity-v2.15.1
 Compiler:             GCC
-Trinity Parameters:   --CPU 1 --output myTrinity_Origin_RNA_Sample_NF-H2O_2_S17_L001_R1_001 --min_contig_length 300 --seqType fq --max_memory 32G --min_kmer_cov 1 --left /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/Output/Sample_NF-H2O_2_S17_L001_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NF-H2O_2_S17_L001_R1_001.fq --right /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test/Output/Sample_NF-H2O_2_S17_L001_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NF-H2O_2_S17_L001_R2_001.fq --no_version_check
+Trinity Parameters:   --CPU 1 --output myTrinity_Origin_RNA_Sample_NF-H2O_2_S17_L001_R1_001 --min_contig_length 300 --seqType fq --max_memory 32G --min_kmer_cov 1 --left /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NF-H2O_2_S17_L001_R1_001.fq --right /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/primate_alignment_rates/unalignedRead1AgainstPrimate_NF-H2O_2_S17_L001_R2_001.fq --no_version_check
 Paired mode
  Input data
   Left.fasta    1 MByte
@@ -13,9 +13,9 @@ Paired mode
 
 Runtime
 =======
-Start:       Tue Jun  3 13:01:55 EDT 2025
-End:         Tue Jun  3 13:04:19 EDT 2025
-Trinity   144 seconds
-  Inchworm (phase 1 - read clustering)  10 seconds
-  Chrysalis (phase 1 - read clustering) 120 seconds
-  Rest (phase 2 - parallel assembly)       14 seconds
+Start:       Wed Jun 11 10:23:13 EDT 2025
+End:         Wed Jun 11 10:24:57 EDT 2025
+Trinity   104 seconds
+  Inchworm (phase 1 - read clustering)  7 seconds
+  Chrysalis (phase 1 - read clustering) 88 seconds
+  Rest (phase 2 - parallel assembly)       9 seconds
