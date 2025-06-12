@@ -1,7 +1,4 @@
-## #! /data/apps/software/spack/linux-rocky9-x86_64_v3/gcc-11.3.1/python-3.11.9-4z43o4ehnup5m55fsulcwvtbp7l2lfme/bin/python
-
-#! /data/home/parkercol/.conda/envs/pathseq/bin/python3.12
-
+#! /data/apps/software/spack/linux-rocky9-x86_64_v3/gcc-11.3.1/python-3.11.9-4z43o4ehnup5m55fsulcwvtbp7l2lfme/bin/python
 
 """
 Snakemake SLURM submit script convenience wrapper for biowulf

@@ -1,7 +1,6 @@
-cluster: sbatch
+cluster: bw_submit.py
 cluster-cancel: scancel
 restart-times: 1
-cluster-cancel: scancel
 max-jobs-per-second: 1
 max-status-checks-per-second: 1
 local-cores: 4

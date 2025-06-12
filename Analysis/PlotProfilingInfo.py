@@ -144,23 +144,47 @@ def compileRuleInfo(sacct, logsPath, ruleName):
 ## function to make 2 scatter plots: one of file's size (x-axis) against the max memory usage
 #   of a program which used the file as an input. one of file's size against program time.
 # Input: dataframe with at least columns "inputSize", "CPUTime", and "maxRSS"
-def plotTimeAndMem(ruleInfo, ruleName):
+def plotTime(ruleInfo, ruleName, timeAllocSlope = None, timeAllocInt = None):
     ruleInfoTime = ruleInfo.dropna(subset=['CPUTime'])
+    timesInputSizes = ruleInfoTime['inputSize'].astype(float) / 1000000    ## read bytes in terms of MB
+    cpuTimes = ruleInfoTime['CPUTime'].astype(float)
+    slope_t, intercept_t = np.polyfit(timesInputSizes, cpuTimes, 1)
+    fitLine_t = slope_t * timesInputSizes + intercept_t
+
     TimeFig, TimeAx = plt.subplots()
-    TimeAx.scatter(ruleInfoTime['inputSize'].astype(int), ruleInfoTime['CPUTime'].astype(float))
+    TimeAx.scatter(timesInputSizes, cpuTimes)
+    TimeAx.plot(timesInputSizes, fitLine_t, label='Best fit line: y=' + str(slope_t) + 'x+' + str(intercept_t))
+    # if a memory allocation function is given, plot it in red
+    if (timeAllocSlope != None and timeAllocInt != None):
+        fitLine_MemAlloc = timeAllocSlope * timesInputSizes + timeAllocInt
+        TimeAx.plot(timesInputSizes, fitLine_MemAlloc, color='red', label=('Pathseq allocation: y=' + str(timeAllocSlope) + 'x+' + str(timeAllocInt)) )
+    TimeAx.set_ylim(0, max(cpuTimes) + 1)
     TimeAx.set_title(ruleName + " on Skyline (89 samples from Krystelle's Microbiome data)")
-    TimeAx.set_xlabel("Input file size (1GB ~= 15M reads)")
+    TimeAx.set_xlabel("Input file size in MB (1MB ~= 15K reads)")
     TimeAx.set_ylabel("CPUTime in hours")
-    TimeAx.set_xticks(np.arange(0, ( (7 + 1) + 1000000000), 1000000000))
+    TimeAx.legend()
     TimeFig.savefig(os.path.join(outputDir, ruleName + "_inputSize_vs_CPUTime.png"))
 
-    # # plot scatter plot of input size against memory usage
+def plotMem(ruleInfo, ruleName, memAllocSlope = None, memAllocInt = None):
+    ## plot scatter plot of input size against memory usage
     ruleInfoMem = ruleInfo.dropna(subset=['maxRSS'])
+    memInputSizes = ruleInfoMem['inputSize'].astype(float) / 1000000    # input sizes in MB
+    memSizes = ruleInfoMem['maxRSS'].astype(float) / 1000000    # memory in MB
+    slope_m, intercept_m = np.polyfit(memInputSizes, memSizes, 1)
+    fitLine_m = slope_m * memInputSizes + intercept_m
+
     MemFig, MemAx = plt.subplots()
-    MemAx.scatter(ruleInfoMem['inputSize'].astype(int), ruleInfoMem['maxRSS'].astype(float))
+    MemAx.scatter(memInputSizes, memSizes)
+    # plot the line of best fit for the scatter plot
+    MemAx.plot(memInputSizes, fitLine_m, label='Best fit line: y=' + str(slope_m) + 'x+' + str(intercept_m))
+    # if a memory allocation function is given, plot it in red
+    if (memAllocSlope != None and memAllocInt != None):
+        fitLine_MemAlloc = memAllocSlope * memInputSizes + memAllocInt
+        MemAx.plot(memInputSizes, fitLine_MemAlloc, color='red', label=('Pathseq allocation: y=' + str(memAllocSlope) + 'x+' + str(memAllocInt)))
     MemAx.set_title(ruleName + " on Skyline (89 samples from Krystelle's Microbiome data)")
-    MemAx.set_xlabel("Input file size (1GB ~= 15M reads)")
-    MemAx.set_ylabel("Max memory used in kb")
+    MemAx.set_xlabel("Input file size in MB (1MB ~= 15K reads)")
+    MemAx.set_ylabel("Max memory used in MB")
+    MemAx.legend()
     MemFig.savefig(os.path.join(outputDir, ruleName + "_inputSize_vs_maxRSS.png"))
 
 ## function which takes in a list of unsorted numbers (input sizes for a particular rule),
@@ -178,21 +202,24 @@ def plotCDF(unsortedNumbers, ruleName):
     fig.savefig(os.path.join(outputDir, ruleName + "_inputSize_CDF.png"))
 
 ###################################################################
-## plot the time taken and memory used for bowtieUnmasked against input file size
+## plot the time taken and memory used for BOWTIEUNMASKED against input file size
 bowtieUnmaskedInfo = compileRuleInfo(sacct, logsPath, "bowtieUnmasked")
-plotTimeAndMem(bowtieUnmaskedInfo, "bowtieUnmasked")
+plotTime(bowtieUnmaskedInfo, "bowtieUnmasked", 0.0035, 1)
+plotMem(bowtieUnmaskedInfo, "bowtieUnmasked", 0.01, 3.75)
 # plot CDF of all input files for bowtieUnmasked
 plotCDF(bowtieUnmaskedInfo['inputSize'].to_numpy(), "bowtieUnmasked")
 
 ## plot the time taken for star against input file size
 starInfo = compileRuleInfo(sacct, logsPath, "star")
-plotTimeAndMem(starInfo, "star")
+plotTime(starInfo, "star")
+plotMem(starInfo, "star")
 # plot CDF of all input files for star
 plotCDF(starInfo['inputSize'].to_numpy(), "star")
 
 ## plot the time taken for bowtiePrimate against input file size
 bowtiePrimateInfo = compileRuleInfo(sacct, logsPath, "bowtiePrimate")
-plotTimeAndMem(bowtiePrimateInfo, "bowtiePrimate")
+plotTime(bowtiePrimateInfo, "bowtiePrimate")
+plotMem(bowtiePrimateInfo, "bowtiePrimate")
 # plot CDF of all input files for bowtiePrimate
 plotCDF(bowtiePrimateInfo['inputSize'].to_numpy(), "bowtiePrimate")
 

@@ -61,7 +61,6 @@ rule markSampleCompleted:
 #         echo {params} > {output}
 #        """
 
-
 # run bowtie unmasked on samples
 rule bowtieUnmasked:
     input:
@@ -87,7 +86,7 @@ rule bowtieUnmasked:
         os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
                     "ERCC_alignment_rates/ERCC_alignment_rate_{sample}"+ leftEnding +".txt"),
         # second bowtie alignment:
-        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding, 
+        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
                     "Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/picard_stderr_{sample}"+ leftEnding +".txt"),
         os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
                     "Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/picard_stdout_{sample}"+ leftEnding +".txt"),
@@ -109,16 +108,6 @@ rule bowtieUnmasked:
         {input.rightReadFile} {params.outPath} {params.bowtieERCCIndex} \
         {params.bowtieUnmaskedGenomeIndex} {input.picard}
         """
-        ## Biowulf dependencies
-        # module purge
-        # module load java
-        # which java
-        # module load bowtie2
-        # which bowtie2
-        # module load samtools
-        # which samtools
-        # module load R
-        # which R
 
 rule starAfterBowtie:
     input:
