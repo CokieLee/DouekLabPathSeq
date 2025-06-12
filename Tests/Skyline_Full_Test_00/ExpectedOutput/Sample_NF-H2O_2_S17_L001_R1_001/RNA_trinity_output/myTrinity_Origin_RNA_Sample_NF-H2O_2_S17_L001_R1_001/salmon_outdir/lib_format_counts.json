@@ -1,0 +1,22 @@
+{
+    "read_files": "[ /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_trinity_output/myTrinity_Origin_RNA_Sample_NF-H2O_2_S17_L001_R1_001/both.fa ]",
+    "expected_format": "U",
+    "compatible_fragment_ratio": 1.0,
+    "num_compatible_fragments": 820,
+    "num_assigned_fragments": 820,
+    "num_frags_with_concordant_consistent_mappings": 850,
+    "num_frags_with_inconsistent_or_orphan_mappings": 0,
+    "strand_mapping_bias": 0.4588235294117647,
+    "MSF": 0,
+    "OSF": 0,
+    "ISF": 0,
+    "MSR": 0,
+    "OSR": 0,
+    "ISR": 0,
+    "SF": 390,
+    "SR": 460,
+    "MU": 0,
+    "OU": 0,
+    "IU": 0,
+    "U": 0
+}

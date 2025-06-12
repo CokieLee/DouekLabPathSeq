@@ -1,0 +1,22 @@
+{
+    "index_version": 4,
+    "reference_gfa": [
+        "genus_salmon"
+    ],
+    "sampling_type": "dense",
+    "k": 31,
+    "num_kmers": 663,
+    "num_contigs": 4,
+    "seq_length": 783,
+    "have_ref_seq": true,
+    "have_edge_vec": false,
+    "SeqHash": "3b273947877893c521050e3fef4aacdd3f5aa84a05db3e4c53aed22c9edb3aba",
+    "NameHash": "6b03dd3bc89e36c2fb833496740357b8d64dc5c02c9e5c1576a29c63da361ec3",
+    "SeqHash512": "486ad193218a80152d6a2c7200151b3a5fc142b779229e96ffe71ad0e84bb28525c6e930670502d15bfd1a12966ce3a07d11b2259f636a96b3143c944094f92e",
+    "NameHash512": "1a18cd282c183cd0cae8e81b216e4caaffa10fc2328a681153b61dfc7be965150354929cec22a11140f8584b152d7a7f0028b39690d8b0da64d9edb63e0c5b28",
+    "DecoySeqHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "DecoyNameHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "num_decoys": 0,
+    "first_decoy_index": 18446744073709551615,
+    "keep_duplicates": false
+}

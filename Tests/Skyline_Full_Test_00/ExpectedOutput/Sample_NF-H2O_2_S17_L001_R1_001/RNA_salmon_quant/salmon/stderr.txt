@@ -1,0 +1,87 @@
+14 predicted proteins stored
+Reading /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/kaiju_NCBInt_2022_Ref/nodes.dmp
+Done reading /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/kaiju_NCBInt_2022_Ref/nodes.dmp
+2420930
+2420930
+Reading /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/kaiju_NCBInt_2022_Ref/nr_euk/qiime2_formatted_taxonomy.tab
+Done reading /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/kaiju_NCBInt_2022_Ref/nr_euk/qiime2_formatted_taxonomy.tab
+284030982
+Reading /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_kaiju_output/sorted_protein_kaiju_RNA.tab
+TRINITY_DN0_c0_g1_i1_1
+1
+no_rank
+Settled on: unclassified
+0.45
+TRINITY_DN24_c0_g1_i1_1
+147541
+class
+Is a valid taxLevel
+Settled on: class
+0.8
+0.8 is greater than 0.70
+TRINITY_DN32_c0_g1_i1_1
+2569517
+species
+Is a valid taxLevel
+Settled on: species
+0.5227272727272727
+TRINITY_DN33_c0_g1_i1_1
+286
+genus
+Is a valid taxLevel
+Settled on: genus
+1.0
+1.0 is greater than 0.70
+TRINITY_DN3_c0_g1_i1_1
+1
+no_rank
+Settled on: unclassified
+0.7946428571428571
+TRINITY_DN5_c0_g1_i1_1
+1185650
+subspecies
+Not a valid taxLevel
+subspecies
+species
+Settled on: species
+0.7157894736842105
+0.7157894736842105 is greater than 0.70
+TRINITY_DN8_c0_g1_i1_1
+1095729
+strain
+Not a valid taxLevel
+strain
+subspecies
+species
+Settled on: species
+0.6716417910447762
+TRINITY_DN9_c0_g1_i1_1
+2020703
+species
+Is a valid taxLevel
+Settled on: species
+0.6025641025641025
+TRINITY_DN9_c0_g1_i2_1
+566461
+strain
+Not a valid taxLevel
+strain
+species
+Settled on: species
+0.9444444444444444
+0.9444444444444444 is greater than 0.70
+TRINITY_DN9_c0_g1_i2_2
+411462
+strain
+Not a valid taxLevel
+strain
+species
+Settled on: species
+0.9230769230769231
+0.9230769230769231 is greater than 0.70
+Done reading /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_kaiju_output/sorted_protein_kaiju_RNA.tab
+unclassified : 9
+genus : 1
+species : 3
+class : 1
+All contigs with taxonomy: 5

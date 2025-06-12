@@ -1,0 +1,7 @@
+Reading /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/family_table.csv
+Done reading /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/salmon/family_table.csv
+4 total contigs
+4 total taxonomies
+Reading /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/family_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf
+Done reading /data/home/parkercol/PathSeq/Tests/Skyline_Full_Test_00/Output/Sample_NF-H2O_2_S17_L001_R1_001/RNA_salmon_quant/family_quant_NF-H2O_2_S17_L001_R1_001/NF-H2O_2_S17_L001_R1_001_quant.sf
+4

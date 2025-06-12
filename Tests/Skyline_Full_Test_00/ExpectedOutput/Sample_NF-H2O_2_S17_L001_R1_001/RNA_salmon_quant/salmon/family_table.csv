@@ -1,0 +1,5 @@
+contigID,taxAssignment
+TRINITY_DN9_c0_g1_i2_1,k__Bacteria;-p__Actinobacteria;-c__Actinomycetia;-o__Streptomycetales;-f__Streptomycetaceae
+TRINITY_DN9_c0_g1_i2_2,k__Bacteria;-p__Firmicutes;-c__Clostridia;-o__Eubacteriales;-f__Lachnospiraceae
+TRINITY_DN5_c0_g1_i1_1,k__Bacteria;-p__Actinobacteria;-c__Actinomycetia;-o__Corynebacteriales;-f__Mycobacteriaceae
+TRINITY_DN33_c0_g1_i1_1,k__Bacteria;-p__Proteobacteria;-c__Gammaproteobacteria;-o__Pseudomonadales;-f__Pseudomonadaceae
