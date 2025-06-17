@@ -23,16 +23,16 @@ kaiju_nodes: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/Path
 kaiju_fmi: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/kaiju_NCBInt_2022_Ref/nr_euk/kaiju_db_nr_euk.fmi
 NCBI_nt_kaiju_ref_taxonomy: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqReferenceData/kaiju_NCBInt_2022_Ref/nr_euk/qiime2_formatted_taxonomy.tab
 
-## external programs
-program_picard: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/picard_2.18.14/picard.jar
+## custom in-house programs
 program_RemoveHostForKaiju: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/PathSeqRemoveHostForKaiju/dist/PathSeqRemoveHostForKaiju.jar
 program_PathSeqKaijuConcensusSplitter2: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/PathSeqKaijuConcensusSplitter2/dist/PathSeqKaijuConcensusSplitter2.jar
 program_PathSeqMergeQIIME2TaxAndSalmon: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/PathSeqMergeQIIME2TaxAndSalmon/dist/PathSeqMergeQIIME2TaxAndSalmon.jar
 program_PathSeqSplitOutputTableByTaxonomy: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/PathSeqSplitOutputTableByTaxonomy/dist/PathSeqSplitOutputTableByTaxonomy.jar
+## external programs
+program_picard: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/picard_2.18.14/picard.jar
 program_prodigal: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/prodigal/bin
 program_kaiju: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/kaiju-v1.9.0-linux-x86_64-static
-program_fastp: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/fastp/
-program_palmscan: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/palmscan-main/bin/
+# program_palmscan: /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/PathseqExternalPrograms/palmscan-main/bin/
 
 ## resource allocation
 rule_resources:

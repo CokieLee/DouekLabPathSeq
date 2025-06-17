@@ -66,8 +66,8 @@ variable_is_empty $program_kaiju
 file_exist_check $program_kaiju
 echo $program_kaiju
 ## Export paths to prodigal and kaiju programs
-export PATH="$program_prodigal:$PATH"
-export PATH="$program_kaiju:$PATH"
+# export PATH="$program_prodigal:$PATH"
+# export PATH="$program_kaiju:$PATH"
 
 echo "8. kaiju_nodes:"
 variable_is_empty $kaiju_nodes
@@ -131,6 +131,8 @@ echo "non_host_proteins_translations_output_file: $non_host_proteins_translation
 echo "protein_scores_starts_file_txt: $protein_scores_starts_file_txt"
 echo "non_host_proteins_nucleotide_sequences_file_fa: $non_host_proteins_nucleotide_sequences_file_fa"
 echo "coords_output_genbank_like_format: $coords_output_genbank_like_format"
+
+prodigal -v
 
 prodigal -a $non_host_proteins_translations_output_file_faa -o $coords_output_genbank_like_format -i $nonMammalContigs -s $protein_scores_starts_file_txt -p meta -d $non_host_proteins_nucleotide_sequences_file_fa
 process_fail_check "Prodigal run FAILED. QUITTING"

@@ -203,7 +203,6 @@ rule trinity:
         minContigLen=config["minContigLen"],
         numThreads="1",
         maxMemory="32G",
-        fastp=config["program_fastp"],
         scratchDir=config["scratchDir"]
     output:
         ## following outputs are directly used by subsequent steps
@@ -237,14 +236,6 @@ rule trinity:
         {params.sampleNameRight} {params.origin} {params.minContigLen} {params.numThreads} \
         {params.maxMemory} {params.outPath} {params.scratchDir}
         """
-        ## does this really need py-setuptools? what even is that
-        ## Biowulf dependencies
-        # module load trinity
-        # which Trinity
-        # module load fastp
-        # which fastp
-        # module load fastxtoolkit
-        # which fasta_formatter
 
 ## blast trinity assembled contigs for mammalian contamination
 rule filterHostBlast:
@@ -316,6 +307,7 @@ rule kaiju:
         """
         module purge
         module load fastx-toolkit
+        module load kaiju
 
         bash {input.scriptPath} {params.codePath} {params.sampleNameLeft} {params.sampleNameRight} {input.nonHostContigs} \
         {params.origin} {params.program_prodigal} {params.program_kaiju} {input.kaiju_nodes} {input.kaiju_fmi} \
@@ -502,80 +494,83 @@ rule mergeTaxAndQuant:
             {params.taxLevel} {input.program_MergeQIIME2TaxAndSalmon} {params.outPath}
         """
 
-## TODO: sometimes not all of the following kingdoms will be found.
-## make pipeline flexible to this.
-## TODO: pathDiv.R uses a hardcoded path to find R library locations
-## rule prepForDiversity
-rule calculateDiversity:
-    input:
-        scriptPath=os.path.join(config["codepath"], "prepForDiversity.sh"),
-        mergedPseudocounts=os.path.join(config["outputpath"],
-                                        "Sample_{sample}" + leftEnding,
-                                        config["origin"] + "_merge_TaxAndQuant",
-                                        config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_pseudocounts.csv"),
-        mergedTPM=os.path.join(config["outputpath"],
-                                "Sample_{sample}" + leftEnding,
-                                config["origin"] + "_merge_TaxAndQuant",
-                                config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_tpm.csv"),
-        program_PathSeqSplitOutputTableByTaxonomy=config["program_PathSeqSplitOutputTableByTaxonomy"],
-        program_RDivScript=os.path.join(config["codepath"], "pathDiv.R")
-    params:
-        baseName="{sample}" + leftEnding,
-        origin=config["origin"],
-        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
-        codePath=config["codepath"]
-    output:
-        os.path.join(config["outputpath"],
-                    "Sample_{sample}" + leftEnding,
-                    config["origin"] + "_diversity",
-                    "Eukaryota_" + config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_diversity.csv"),
-        os.path.join(config["outputpath"],
-                    "Sample_{sample}" + leftEnding,
-                    config["origin"] + "_diversity",
-                    "Bacteria_" + config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_diversity.csv"),
-        os.path.join(config["outputpath"],
-                    "Sample_{sample}" + leftEnding,
-                    config["origin"] + "_diversity",
-                    "Viruses_" + config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_diversity.csv"),
-        os.path.join(config["outputpath"],
-                    "Sample_{sample}" + leftEnding,
-                    config["origin"] + "_diversity",
-                    "Archaea_" + config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_diversity.csv")
-    shell:
-        """
-        module purge
-        module load openjdk
-        which java
-        module load r
-        which Rscript
+## The following are rules that are not yet successfully integrated into pipeline
+## However, post-processing scripts exist
 
-        bash {input.scriptPath} {params.codePath} {input.mergedPseudocounts} \
-            {input.mergedTPM} {params.baseName} {params.origin} {wildcards.taxlevel} \
-            {input.program_PathSeqSplitOutputTableByTaxonomy} {input.program_RDivScript} {params.outPath}
-        """
+# ## TODO: sometimes not all of the following kingdoms will be found.
+# ## make pipeline flexible to this.
+# ## TODO: pathDiv.R uses a hardcoded path to find R library locations
+# ## rule prepForDiversity
+# rule calculateDiversity:
+#     input:
+#         scriptPath=os.path.join(config["codepath"], "prepForDiversity.sh"),
+#         mergedPseudocounts=os.path.join(config["outputpath"],
+#                                         "Sample_{sample}" + leftEnding,
+#                                         config["origin"] + "_merge_TaxAndQuant",
+#                                         config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_pseudocounts.csv"),
+#         mergedTPM=os.path.join(config["outputpath"],
+#                                 "Sample_{sample}" + leftEnding,
+#                                 config["origin"] + "_merge_TaxAndQuant",
+#                                 config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_tpm.csv"),
+#         program_PathSeqSplitOutputTableByTaxonomy=config["program_PathSeqSplitOutputTableByTaxonomy"],
+#         program_RDivScript=os.path.join(config["codepath"], "pathDiv.R")
+#     params:
+#         baseName="{sample}" + leftEnding,
+#         origin=config["origin"],
+#         outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
+#         codePath=config["codepath"]
+#     output:
+#         os.path.join(config["outputpath"],
+#                     "Sample_{sample}" + leftEnding,
+#                     config["origin"] + "_diversity",
+#                     "Eukaryota_" + config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_diversity.csv"),
+#         os.path.join(config["outputpath"],
+#                     "Sample_{sample}" + leftEnding,
+#                     config["origin"] + "_diversity",
+#                     "Bacteria_" + config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_diversity.csv"),
+#         os.path.join(config["outputpath"],
+#                     "Sample_{sample}" + leftEnding,
+#                     config["origin"] + "_diversity",
+#                     "Viruses_" + config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_diversity.csv"),
+#         os.path.join(config["outputpath"],
+#                     "Sample_{sample}" + leftEnding,
+#                     config["origin"] + "_diversity",
+#                     "Archaea_" + config["origin"] + "_{taxlevel}_{sample}" + leftEnding + "_diversity.csv")
+#     shell:
+#         """
+#         module purge
+#         module load openjdk
+#         which java
+#         module load r
+#         which Rscript
 
-## rule palmscan looks for RNA virus palmprints from still
-## unclassified outputs of salmon
-rule palmScan:
-    input:
-        scriptPath=os.path.join(config["codepath"], "palm_scan.sh"),
-        unclassifiedSeqs=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
-                                        config["origin"] + "_salmon_quant", "salmon",
-                                        "unclassified_sequences.fa")
-    params:
-        baseName="{sample}" + leftEnding,
-        program_palmscan=config["program_palmscan"],
-        scratchDir=config["scratchDir"],
-        origin=config["origin"],
-        outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
-        codePath=config["codepath"]
-    output:
-        os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
-                    "palmscan",
-                    config["origin"] + "_Sample_{sample}" + leftEnding + "_palmscan.fa")
-    shell:
-        """
-        bash {input.scriptPath} {params.codePath} {input.unclassifiedSeqs} \
-        {params.program_palmscan} {params.scratchDir} {params.baseName} \
-        {params.origin} {params.outPath}
-        """
+#         bash {input.scriptPath} {params.codePath} {input.mergedPseudocounts} \
+#             {input.mergedTPM} {params.baseName} {params.origin} {wildcards.taxlevel} \
+#             {input.program_PathSeqSplitOutputTableByTaxonomy} {input.program_RDivScript} {params.outPath}
+#         """
+
+# ## rule palmscan looks for RNA virus palmprints from still
+# ## unclassified outputs of salmon
+# rule palmScan:
+#     input:
+#         scriptPath=os.path.join(config["codepath"], "palm_scan.sh"),
+#         unclassifiedSeqs=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+#                                         config["origin"] + "_salmon_quant", "salmon",
+#                                         "unclassified_sequences.fa")
+#     params:
+#         baseName="{sample}" + leftEnding,
+#         program_palmscan=config["program_palmscan"],
+#         scratchDir=config["scratchDir"],
+#         origin=config["origin"],
+#         outPath=os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding),
+#         codePath=config["codepath"]
+#     output:
+#         os.path.join(config["outputpath"], "Sample_{sample}" + leftEnding,
+#                     "palmscan",
+#                     config["origin"] + "_Sample_{sample}" + leftEnding + "_palmscan.fa")
+#     shell:
+#         """
+#         bash {input.scriptPath} {params.codePath} {input.unclassifiedSeqs} \
+#         {params.program_palmscan} {params.scratchDir} {params.baseName} \
+#         {params.origin} {params.outPath}
+#         """
