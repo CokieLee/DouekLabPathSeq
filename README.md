@@ -10,17 +10,18 @@ searches remaining unclassified contigs for RNA viral motifs (to find possible n
 
 # How to run pathseq
 ## System requirements
-Pathseq is made to run on a Linux system. We have tested specifically on Linux kernel 5.14.0-284.30.1.el9_2.x86_64.\
-We also provide dependencies with a conda environment. We use conda version 24.1.2.\
+Currently, PathSeq is made to run on a linux cluster (Rocky Linux v9.5) which uses the workload manager Slurm (version 23.02.6), and a module system. \
 \
-Pathseq can be run either on a single computer, or on a cluster.\
+Plans are in development to containerize rules such that the pipeline is HPC agnostic.
+So, to run on a non-Skyline HPC, you may need to change the "module load" statements, or else otherwise ensure the correct dependencies are available to each rule.
+\
+Pathseq can be run either on a single computer, or on a cluster. \
 To run Pathseq on a cluster, such that each rule launches as its own job, you must define a "profile" for your cluster. A profile maps the concept of launching a rule as a cluster job to concrete commands run by your system.
 The profile settings can be given to the snakemake command directly as flags, but it is recommended to persist the settings in a profile configuration file (which is passed to the snakemake command as the argument of the --profile flag).\
-More information on snakemake 7 cluster execution and profiles: https://snakemake.readthedocs.io/en/v7.22.0/executing/cluster.html\
-We provide a working profile configuration file in "skyline_profile/config.yaml". This configuration file is tested on our Linux cluster, running Slurm versino 23.02.6. It may need to be modified for other systems. More detail on explaining and modifying this file is in the "Software dependency details" section below.\
+More information on snakemake 7 cluster execution and profiles: https://snakemake.readthedocs.io/en/v7.22.0/executing/cluster.html \
+We provide a working profile configuration file in "skyline_profile/config.yaml" (specific to our HPC). \
 \
-To run Pathseq on a single computer, no profile setting files are necessary.
-
+To run Pathseq on a single computer, no profile setting files are necessary. You must also remove the --profile flag from the "runSnakemake.sh" script when running.
 
 TODO:
 - explain how the sample fastqs must be named, how their names are used, and how output folders are named.
