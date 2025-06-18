@@ -8,8 +8,8 @@
 module load snakemake/7.22.0
 which snakemake
 
-snakemake --snakefile /data/home/parkercol/DouekLabPathSeq/SlurmBaseCode/Snakefile \
-	  --profile /data/home/parkercol/DouekLabPathSeq/skyline_profile/ \
+snakemake --snakefile /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/DouekLabPathSeq/SlurmBaseCode/Snakefile \
+	  --profile /data/vrc_his/douek_lab/projects/PathSeq/cokie_pathseq_rewrite/DouekLabPathSeq/skyline_profile/ \
 	  -p -c $SLURM_CPUS_PER_TASK --latency-wait 120 \
 	  --unlock
 
