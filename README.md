@@ -51,10 +51,12 @@ TODO: reference databases, external software.
 
 ## Running Pathseq on your own data
 There are three files which may be customized in order to run on your own data.
-1. A configuration file specifying all arguments to the run. There is a template at "DouekLabPathSeq/configTemplate/config.yaml". \
+1. A configuration file specifying all arguments to the run. \
+   There is a template at "DouekLabPathSeq/configTemplate/config.yaml". \
    You must make sure all paths are valid full paths in your system. Full paths allow you to house (potentially very large) input data, output data, and reference databases outside your code area. ALL runs require a configuration file. \
    In the configuration file, you can also set resource usage for each rule's batch job. "runtime" is the allowed job time specified in minutes, "mem_mb" is the allowed job memory usage in megabytes.
-2. A run script. There is a template at "DouekLabPathSeq/configTemplate/runSnakemake.sh". \
+2. A run script. \
+   There is a template at "DouekLabPathSeq/configTemplate/runSnakemake.sh". \
    This script takes a path to the Snakefile ("DouekLabPathSeq/SlurmBaseCode/Snakefile"), and a path to the profile ("DouekLabPathSeq/skyline_profile"). Depending on where you have stored the DouekLabPathSeq repo, you may need to customize these paths. They can be relative or full paths.
 3. A profile file(s). An example profile specific to the Skyline HPC is located at "DouekLabPathSeq/skyline_profile/". \
    This defines what commands on your system are used to launch a batch job (i.e. how your system should translate the contents of the "resources" section of each rule in the Snakefile into a command that can be understand by your cluster's workload management software). This file is only required if you want to run the pipeline in cluster mode. \
@@ -63,8 +65,25 @@ There are three files which may be customized in order to run on your own data.
    This file should run the same snakefile as the snakemake command in "runSnakemake.sh" does. This script is only necessary if your snakemake run is interrupted in the middle (i.e. time out). In this case, it "unlocks" the snakefile (the snakemake process places a lock on the working directory at the start of a run, and this lock may become stale if the process is interrupted).
 
 # Software details
+## Additional software and reference database requirements
+
+
 ## Program versions used in development:
-snakemake 7.22.0
+snakemake 7.22.0 \
 python 3.11
-## Details on each rule, dependencies and output:
+
+## Details on each rule and its dependencies:
+1. BowtieUnmasked \
+      Dependencies:
+      1. openjdk (java) v 17.0.11
+      2. 
+2. StarAfterBowtie
+3. BowtiePrimate
+4. Trinity
+5. FilterHostBlast
+6. kaiju
+7. BuildSalmon
+8. SalmonQuant
+9. MergeTaxAndQuant
+
 ## What the cluster profile means, and how to modify it
