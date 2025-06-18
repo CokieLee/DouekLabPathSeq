@@ -66,8 +66,8 @@ variable_is_empty $program_kaiju
 file_exist_check $program_kaiju
 echo $program_kaiju
 ## Export paths to prodigal and kaiju programs
-# export PATH="$program_prodigal:$PATH"
-# export PATH="$program_kaiju:$PATH"
+export PATH="$program_prodigal:$PATH"
+export PATH="$program_kaiju:$PATH"
 
 echo "8. kaiju_nodes:"
 variable_is_empty $kaiju_nodes
