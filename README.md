@@ -32,10 +32,32 @@ Pathseq takes its metagnomics sequencing data as paired-end reads in fastq.gz fo
 The config file's "inputpath" parameter specifies the path to a directory containing any such fastq.gz files. This directory must also contain a text file "file_list", which lists the file names of each fastq.gz file you wish to input to Pathseq. Pathseq treats all fastq.gz files listed on "file_list" as separate samples, and will run the complete pipeline for each sample separately, and output information related to each sample into separate output subdirectories, within a main output subdirectory. \
 
 #### Output format
-The config file's "outputpath" specifies the full path to the directory where the user wishes for output data to be written. For each separate sample, a separate subdirectory within the output directory will be created. Within each subdirectory, a directory for each rule is created. More detail on the outputs of each rule can be foudn below in the Software details section.\
+The config file's "outputpath" specifies the full path to the directory where the user wishes for output data to be written. \
+1. For each separate sample, a separate subdirectory within the output directory will be created. \
+2. Within each subdirectory, a directory for each rule is created. \
 
 #### Other arguments needed
-TODO: reference databases, external software.
+Some software must be given to rules in the snakefile as paths to executables, rather than as "module load" statements or as scripts in the "SlurmBaseCode" folder. \
+There is no technical reason for doing so, it is mostly for legacy reasons. These executables are given in "DouekLabPathSeq/PathseqExternalPrograms/". Paths to each one must be supplied to the config.yaml file. \
+In-house executables: \
+1. PathSeqRemoveHostForKaiju
+2. PathSeqKaijuConcensusSplitter2
+3. PathseqmergeQIIME2TaxAndSalmon
+4. PathseqSplitOutputTableByTaxonomy
+Other executables: \
+1. Picard (2.18.14)
+2. Prodigal (2.6.3)
+3. Kaiju (1.9.0)
+
+\
+Additionally, the following reference databases are required: \
+1. ERCC92 spike-in controls for bowtie
+2. human genome reference dataset index for bowtie
+3. human genome reference dataset for star
+4. primate genome reference dataset for bowtie
+5. mammal genome database for blast
+6. nodes and fmi for kaiju
+7. reference taxonomy for kaiju
 
 ## Testing your installation on Skyline
 1. After installing Pathseq
@@ -65,9 +87,6 @@ There are three files which may be customized in order to run on your own data.
    This file should run the same snakefile as the snakemake command in "runSnakemake.sh" does. This script is only necessary if your snakemake run is interrupted in the middle (i.e. time out). In this case, it "unlocks" the snakefile (the snakemake process places a lock on the working directory at the start of a run, and this lock may become stale if the process is interrupted).
 
 # Software details
-## Additional software and reference database requirements
-
-
 ## Program versions used in development:
 snakemake 7.22.0 \
 python 3.11
