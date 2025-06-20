@@ -121,14 +121,17 @@ python 3.11
 1. BowtieUnmasked \
      Purpose: \
      To decontaminate input by retaining only input reads which do not align to the human genome.
+
       Dependencies:
       1. openjdk (java) v17.0.11
       2. bowtie2 v2.5.1
       3. Samtools v2.18.14
       4. picard v2.18.14 \
+
      Output:
      1. ERCC spike-in controls output (alignment counts and rates, just to check if bowtie2 is working as intended)
      2. files in "[outputpath]/[sample name]/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/". This directory contains a file showing alignment rates, a .sam file showing alignment results, and two fq files (one of forward reads, one of backward reads) of reads that remain unaligned. The unaligned files form the input into the next rule.
+
 3. StarAfterBowtie \
      Purpose: \
      To decontaminate input by retaining only input reads which do not align to the human genome.
