@@ -118,9 +118,10 @@ snakemake 7.22.0 \
 python 3.11
 
 ## Details on each rule and its dependencies:
-1. BowtieUnmasked \
+1. BowtieUnmasked
+
      Purpose: \
-     To decontaminate input by retaining only input reads which do not align to the human genome.
+          To decontaminate input by retaining only input reads which do not align to the human genome.
 
       Dependencies:
       1. openjdk (java) v17.0.11
