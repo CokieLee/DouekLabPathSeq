@@ -30,30 +30,34 @@ Pathseq must also be given a configuration file to run. This file specifies all 
 More details about arguments required are below:
 
 #### Input data requirements
-The config file requires the following parameters to be filled in: \
+The config file requires the following parameters to be filled in:
 1. "inputlist" \
      The full path to a text file containing a list of the file names of all forward-read input fasta files. Each file name should be on its own line. PathSeq treats each fasta file given as its own separate sample, and will run the full pipeline analysis separately for each sample. In other words, the output would be the same as if you ran the pipeline separately for each input file, but giving them to PathSeq together allows PathSeq to run them in parallel if enough cluster nodes are given (number of cluster nodes to use is specified in the profile. More detail in "What the cluster profile means").
-3. "inputdir"
+3. "inputdir" \
      The full path to a directory containing all the forward-read fasta files listed in "inputlist", as well as their backward-read counterparts. The directory can contain other files, including the "inputlist" file, but "inputlist" does not have to be kept inside "inputdir".
-5. "origin"
+5. "origin" \
      "RNA" or "DNA" depending on whether your input sequencing reads are from RNA or DNA.
-7. "minContigLen"
+7. "minContigLen" \
      The minimum contig length for contig assembly (can stay the same as your read lengths, or be longer).
-9. "codepath"
+9. "codepath" \
      The full path to the rule scripts, which in this repository are found inside "DouekLabPathSeq/SlurmBaseCode/". These are scripts which will be run as a part of each snakemake rule, and correspond to each step of the pipeline.
-11. "outputpath"
+11. "outputpath" \
      The full path to the directory where you would like house the outputs of the scripts. Within this directory, PathSeq will create separate sub-directories for the output of each sample you give it. More detail below in "Output format".
-13. Reference databases
+13. Reference databases \
     The full paths to certain reference database locations that are required by some of the bioinformatics softwares used. More detail in "Other arguments needed".
-15. External programs
+15. External programs \
     The full paths to certain executable files that need to be given to certain steps of the pipeline. More detail in "Other arguments needed".
-17. Resource allocation
+17. Resource allocation \
      If running on cluster mode, then for each rule, you must specify the maximum time allowed to the rule ("runtime", which is specified in minutes), and the maximum memory allowed to the rule ("mem_mb", in megabytes). This is so the cluster can properly launch batch jobs for each rule. In "DouekLabPathSeq/configTemplate/config.yaml", resource allocations have been given which we found generally worked well for a microbiome dataset with input fasta files generally under 2-3 GB. You may need to adjust these resource allocations based on your dataset (larger input files, higher coverage, and higher microbial diversity may all increase the amount of resources needed).
 
 #### Output format
-The config file's "outputpath" specifies the full path to the directory where the user wishes for output data to be written. \
-1. For each separate sample, a separate subdirectory within the output directory will be created. \
-2. Within each subdirectory, a directory for each rule is created. \
+The config file's "outputpath" specifies the full path to the directory where you wish the pipeline's output should be written. \
+1. For each separate sample given, a separate subdirectory within the output directory will be created.
+2. Within each subdirectory, a directory for each rule is created. An examination of the "output" section of each rule in the Snakefile will show what Snakemake expects to get back from each rule. An overview is given in "Details on each rule and its dependencies". \
+3. The final output for each sample is contained in "[outputpath]/[sample name]/RNA_merge_TaxAndQuant/". This directory contains two file types for each taxonomic level (species, genus, class, family, phylum, order, kingdom). \
+     Both the types of files have a first column showing the taxonomic classification found fitting the given taxonomic level (i.e. in the species files, the species name is listed if PathSeq believes it found an instance of a given species. in the kingdom files, the kingdom name is listed if PathSeq believes it found an instance of a given kingdom). \
+   The "tpm" type files have a second column showing the tpm (transcripts per million, i.e. normalized count) count that Pathseq believes corresponds to the taxonomic classification specified in the first column. \
+   The "pseudocounts" type files have a second column showing the pseudocount (raw count plus a small, non-zero value to "smooth" data) corresponding to the taxonomic classification in the first column.
 
 #### Other arguments needed
 Some software must be given to rules in the snakefile as paths to executables, rather than as "module load" statements or as scripts in the "SlurmBaseCode" folder. \
