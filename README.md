@@ -134,7 +134,7 @@ python 3.11
      To decontaminate input by retaining only input reads which do not align to the human genome.
      Dependencies:
      1. Star v2.7.10
-     2. Samtools v1.21
+     2. Samtools v1.21 \
      Output:
      files in "[outputpath]/[sample name]/Generated_Data_Star_Alignment/". This directory contains a file showing alignment statistics, a file showing an alignment summary (which inputs aligned), two bam files showing the inputs that ended up aligning, and two fq files (one of forward reads, one of backward reads) containing those input reads which have still not aligned to anything. These unaligned files form the input into the next rule.
 5. BowtiePrimate \
@@ -142,7 +142,7 @@ python 3.11
      To decontaminate input by retaining only input reads which do not align to primate genomes.
      Dependencies:
      1. Bowtie2 v2.5.1
-     2. Samtools v1.21
+     2. Samtools v1.21 \
      Output:
      Files in "[outputpath]/[sample name]/primate_alignment_rates/". This directory contains a file showing the alignment rates, a sam file showing the alignment results, and two fq files (one of forward reads, one of backward reads) containing those input reads which have still nto aligned to anything. These unaligned files form the input into the next rule.
 7. Trinity \
@@ -151,31 +151,31 @@ python 3.11
      Dependencies:
      1. Trinity 2.15.1
      2. Fastq v0.23.4
-     3. Fastx-toolkit v0.0.14
+     3. Fastx-toolkit v0.0.14 \
      Output:
-9. FilterHostBlast
+9. FilterHostBlast \
      Dependencies:
      1. Blast-plus v2.16.0
-     2. Openjdk (java) v17.0.11
+     2. Openjdk (java) v17.0.11 \
      Output:
-10. kaiju
+10. kaiju \
      Dependencies:
      1. Fastx-toolkit v0.0.14
      2. prodigal v2.6.3
-     3. kaiju v1.9.0
+     3. kaiju v1.9.0 \
      Output:
-12. BuildSalmon
+12. BuildSalmon \
      Dependencies:
      1. openjdk (java) v 17.0.11
-     2. salmon v1.10.2
+     2. salmon v1.10.2 \
      Output:
-14. SalmonQuant
+14. SalmonQuant \
      Dependencies:
-     1. salmon v1.10.2
+     1. salmon v1.10.2 \
      Output:
-16. MergeTaxAndQuant
+16. MergeTaxAndQuant \
      Dependencies:
-     1. openjdk (java) v17.0.11
+     1. openjdk (java) v17.0.11 \
      Output:
 
 ## What the cluster profile means
