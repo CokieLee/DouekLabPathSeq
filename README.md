@@ -53,7 +53,7 @@ The config file requires the following parameters to be filled in:
 #### Output format
 The config file's "outputpath" specifies the full path to the directory where you wish the pipeline's output should be written.
 1. For each separate sample given, a separate subdirectory within the output directory will be created.
-2. Within each subdirectory, a directory for each rule is created. An examination of the "output" section of each rule in the Snakefile will show what Snakemake expects to get back from each rule. An overview is given in "Details on each rule and its dependencies". \
+2. Within each subdirectory, a directory for each pipeline step (roughly corresponding to each snakefile rule) is created. An examination of the "output" section of each rule in the Snakefile will show what Snakemake expects to get back from each rule. An overview is given in "Details on each rule and its dependencies". \
 3. The final output for each sample is contained in "[outputpath]/[sample name]/RNA_merge_TaxAndQuant/". This directory contains two file types for each taxonomic level (species, genus, class, family, phylum, order, kingdom). \
      Both the types of files have a first column showing the taxonomic classification found fitting the given taxonomic level (i.e. in the species files, the species name is listed if PathSeq believes it found an instance of a given species. in the kingdom files, the kingdom name is listed if PathSeq believes it found an instance of a given kingdom). \
    The "tpm" type files have a second column showing the tpm (transcripts per million, i.e. normalized count) count that Pathseq believes corresponds to the taxonomic classification specified in the first column. \
@@ -157,37 +157,60 @@ python 3.11
      Output:
      1. Files in "[outputpath]/[sample name]/primate_alignment_rates/". This directory contains a file showing the alignment rates, a sam file showing the alignment results, and two fq files (one of forward reads, one of backward reads) containing those input reads which have still nto aligned to anything. These unaligned files form the input into the next rule.
 
-7. Trinity \
-     Purpose: \
-     To denovo assembly individual reads into larger contigs.
+7. Trinity
+
+     Purpose:
+     1. To denovo assembly individual reads into larger contigs.
+
      Dependencies:
      1. Trinity 2.15.1
      2. Fastq v0.23.4
-     3. Fastx-toolkit v0.0.14 \
+     3. Fastx-toolkit v0.0.14
+
      Output:
-9. FilterHostBlast \
+     1. files in "[outputpath]/[sample name]/RNA_trinity_output/". This directory contains a .Trinity.fasta file showing the contigs that Trinity was able to form from the input reads. This file forms the input into the next rule
+
+9. FilterHostBlast
+
+     Purpose:
+     1. To decontaminate the contigs by removing any contig which constitutes a blast match with mammalian genomes.
+
      Dependencies:
      1. Blast-plus v2.16.0
-     2. Openjdk (java) v17.0.11 \
+     2. Openjdk (java) v17.0.11
+
      Output:
-10. kaiju \
+     1. files in "[outputpath]/[sample name]/RNA_trinity_filtered/". This directory contains a file showing the blast results for all input contigs, and a fasta file of all contigs given that did not constitute a blast match with mammalian genoomes. This fasta file forms the input into the next rule.
+
+11. kaiju
+
      Dependencies:
      1. Fastx-toolkit v0.0.14
      2. prodigal v2.6.3
-     3. kaiju v1.9.0 \
+     3. kaiju v1.9.0
+
      Output:
-12. BuildSalmon \
+
+13. BuildSalmon
+
      Dependencies:
      1. openjdk (java) v 17.0.11
-     2. salmon v1.10.2 \
+     2. salmon v1.10.2
+
      Output:
-14. SalmonQuant \
+
+15. SalmonQuant
+
      Dependencies:
-     1. salmon v1.10.2 \
+     1. salmon v1.10.2
+
      Output:
-16. MergeTaxAndQuant \
+
+17. MergeTaxAndQuant
+
      Dependencies:
-     1. openjdk (java) v17.0.11 \
+     1. openjdk (java) v17.0.11
+
      Output:
 
 ## What the cluster profile means
