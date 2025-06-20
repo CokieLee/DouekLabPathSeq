@@ -24,11 +24,23 @@ We provide a working profile configuration file in "skyline_profile/config.yaml"
 To run Pathseq on a single computer, no profile setting files are necessary. You must also remove the --profile flag from the "runSnakemake.sh" script when running.
 
 ## Input and output formatting
-Pathseq must also be given a configuration file to run. This file specifies all other arguments, including the input and output directory full paths, the sequencing origin (RNA or DNA), the mininum contig length (ordinarily set to the read length), path to the rule scripts (in SlurmBaseCode), other external programs used, reference databases, and a scratch directory (directory used to store temporary data while computing).\
-More details about arguments required are below:\
-Pathseq takes its metagnomics sequencing data as paired-end reads in fastq.gz format (gzipped fastq).\
+Pathseq takes its metagnomics sequencing data as paired-end reads in fastq/fasta or fastq.gz format. For each sample, the paired end reads must be given as one fasta file of forward reads and one fasta file of backward reads. \
+\
+Pathseq must also be given a configuration file to run. This file specifies all arguments (besides the cluster profile, which must be given in the run script. See below for "Running PathSeq on your own data" and "what the cluster profile means"), including the metagenomics sequencing reads you wish to analyze. \
+More details about arguments required are below: \
 
 #### Input data requirements
+The config file requires the following parameters to be filled in: \
+1. "inputlist" \
+     The full path to a text file containing a list of the names of all forward-read input fasta files. The file should have one line per-file-name, and one file per-sample to analyze. \
+3. "inputdir"
+4. "origin"
+5. "minContigLen"
+6. "codepath"
+7. "outputpath"
+8. Reference databases
+9. External programs
+10. Resource allocation
 The config file's "inputpath" parameter specifies the path to a directory containing any such fastq.gz files. This directory must also contain a text file "file_list", which lists the file names of each fastq.gz file you wish to input to Pathseq. Pathseq treats all fastq.gz files listed on "file_list" as separate samples, and will run the complete pipeline for each sample separately, and output information related to each sample into separate output subdirectories, within a main output subdirectory. \
 
 #### Output format
@@ -105,4 +117,4 @@ python 3.11
 8. SalmonQuant
 9. MergeTaxAndQuant
 
-## What the cluster profile means, and how to modify it
+## What the cluster profile means
