@@ -51,7 +51,7 @@ The config file requires the following parameters to be filled in:
      If running on cluster mode, then for each rule, you must specify the maximum time allowed to the rule ("runtime", which is specified in minutes), and the maximum memory allowed to the rule ("mem_mb", in megabytes). This is so the cluster can properly launch batch jobs for each rule. In "DouekLabPathSeq/configTemplate/config.yaml", resource allocations have been given which we found generally worked well for a microbiome dataset with input fasta files generally under 2-3 GB. You may need to adjust these resource allocations based on your dataset (larger input files, higher coverage, and higher microbial diversity may all increase the amount of resources needed).
 
 #### Output format
-The config file's "outputpath" specifies the full path to the directory where you wish the pipeline's output should be written. \
+The config file's "outputpath" specifies the full path to the directory where you wish the pipeline's output should be written.
 1. For each separate sample given, a separate subdirectory within the output directory will be created.
 2. Within each subdirectory, a directory for each rule is created. An examination of the "output" section of each rule in the Snakefile will show what Snakemake expects to get back from each rule. An overview is given in "Details on each rule and its dependencies". \
 3. The final output for each sample is contained in "[outputpath]/[sample name]/RNA_merge_TaxAndQuant/". This directory contains two file types for each taxonomic level (species, genus, class, family, phylum, order, kingdom). \
@@ -62,17 +62,17 @@ The config file's "outputpath" specifies the full path to the directory where yo
 #### Other arguments needed
 Some software must be given to rules in the snakefile as paths to executables, rather than as "module load" statements or as scripts in the "SlurmBaseCode" folder. \
 There is no technical reason for doing so, it is mostly for legacy reasons. These executables are given in "DouekLabPathSeq/PathseqExternalPrograms/". Paths to each one must be supplied to the config.yaml file. \
-In-house executables: \
+In-house executables:
 1. PathSeqRemoveHostForKaiju
 2. PathSeqKaijuConcensusSplitter2
 3. PathseqmergeQIIME2TaxAndSalmon
-4. PathseqSplitOutputTableByTaxonomy
-Other executables: \
+4. PathseqSplitOutputTableByTaxonomy \
+Other executables:
 1. Picard (2.18.14)
 2. Prodigal (2.6.3)
 3. Kaiju (1.9.0)
 \
-Additionally, the following reference databases are required: \
+Additionally, the following reference databases are required:
 1. ERCC92 spike-in controls for bowtie
 2. human genome reference dataset index for bowtie
 3. human genome reference dataset for star
@@ -110,21 +110,60 @@ There are three files which may be customized in order to run on your own data.
 
 # Software details
 ## Program versions used in development:
+Rocky Linux v9.5 \
+slurm 23.02.6 \
 snakemake 7.22.0 \
 python 3.11
 
 ## Details on each rule and its dependencies:
 1. BowtieUnmasked \
       Dependencies:
-      1. openjdk (java) v 17.0.11
-      2. 
+      1. openjdk (java) v17.0.11
+      2. bowtie2 v2.5.1
+      3. Samtools v2.18.14
+      4. picard v2.18.14 \
+     Output:
+     1. ERCC spike-in controls output (alignment counts and rates, just to check if bowtie2 is working as intended)
+     2. files in "[outputpath]/[sample name]/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/". This directory contains a file showing alignment rates, a .sam file showing alignment results, and two fq files of reads that remain unaligned. The unaligned files form the input into the next rule.
 2. StarAfterBowtie
-3. BowtiePrimate
-4. Trinity
-5. FilterHostBlast
-6. kaiju
-7. BuildSalmon
-8. SalmonQuant
-9. MergeTaxAndQuant
+     Dependencies:
+     1. Star v2.7.10
+     2. Samtools v1.21
+     Output:
+4. BowtiePrimate
+     Dependencies:
+     1. Bowtie2 v2.5.1
+     2. Samtools v1.21
+     Output:
+6. Trinity
+     Dependencies:
+     1. Trinity 2.15.1
+     2. Fastq v0.23.4
+     3. Fastx-toolkit v0.0.14
+     Output:
+8. FilterHostBlast
+     Dependencies:
+     1. Blast-plus v2.16.0
+     2. Openjdk (java) v17.0.11
+     Output:
+10. kaiju
+     Dependencies:
+     1. Fastx-toolkit v0.0.14
+     2. prodigal v2.6.3
+     3. kaiju v1.9.0
+     Output:
+12. BuildSalmon
+     Dependencies:
+     1. openjdk (java) v 17.0.11
+     2. salmon v1.10.2
+     Output:
+14. SalmonQuant
+     Dependencies:
+     1. salmon v1.10.2
+     Output:
+16. MergeTaxAndQuant
+     Dependencies:
+     1. openjdk (java) v17.0.11
+     Output:
 
 ## What the cluster profile means
