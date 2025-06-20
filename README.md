@@ -61,19 +61,18 @@ The config file's "outputpath" specifies the full path to the directory where yo
 
 #### Other arguments needed
 Some software must be given to rules in the snakefile as paths to executables, rather than as "module load" statements or as scripts in the "SlurmBaseCode" folder. \
-There is no technical reason for doing so, it is mostly for legacy reasons. These executables are given in "DouekLabPathSeq/PathseqExternalPrograms/". Paths to each one must be supplied to the config.yaml file. \
+There is no technical reason for doing so, it is mostly for legacy reasons. These executables are given in "DouekLabPathSeq/PathseqExternalPrograms/". Paths to each one must be supplied to the config.yaml file.
 
 In-house executables:
 1. PathSeqRemoveHostForKaiju
 2. PathSeqKaijuConcensusSplitter2
 3. PathseqmergeQIIME2TaxAndSalmon
-4. PathseqSplitOutputTableByTaxonomy \
+4. PathseqSplitOutputTableByTaxonomy
 
 Other executables:
 1. Picard (2.18.14)
 2. Prodigal (2.6.3)
 3. Kaiju (1.9.0) \
-\
 
 Additionally, the following reference databases are required:
 1. ERCC92 spike-in controls for bowtie
@@ -120,6 +119,8 @@ python 3.11
 
 ## Details on each rule and its dependencies:
 1. BowtieUnmasked \
+     Purpose: \
+     To decontaminate input by retaining only input reads which do not align to the human genome.
       Dependencies:
       1. openjdk (java) v17.0.11
       2. bowtie2 v2.5.1
@@ -127,24 +128,32 @@ python 3.11
       4. picard v2.18.14 \
      Output:
      1. ERCC spike-in controls output (alignment counts and rates, just to check if bowtie2 is working as intended)
-     2. files in "[outputpath]/[sample name]/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/". This directory contains a file showing alignment rates, a .sam file showing alignment results, and two fq files of reads that remain unaligned. The unaligned files form the input into the next rule.
-2. StarAfterBowtie
+     2. files in "[outputpath]/[sample name]/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/". This directory contains a file showing alignment rates, a .sam file showing alignment results, and two fq files (one of forward reads, one of backward reads) of reads that remain unaligned. The unaligned files form the input into the next rule.
+3. StarAfterBowtie
+     Purpose: \
+     To decontaminate input by retaining only input reads which do not align to the human genome.
      Dependencies:
      1. Star v2.7.10
      2. Samtools v1.21
      Output:
-4. BowtiePrimate
+     files in "[outputpath]/[sample name]/Generated_Data_Star_Alignment/". This directory contains a file showing alignment statistics, a file showing an alignment summary (which inputs aligned), two bam files showing the inputs that ended up aligning, and two fq files (one of forward reads, one of backward reads) containing those input reads which have still not aligned to anything. These unaligned files form the input into the next rule.
+5. BowtiePrimate
+     Purpose: \
+     To decontaminate input by retaining only input reads which do not align to primate genomes.
      Dependencies:
      1. Bowtie2 v2.5.1
      2. Samtools v1.21
      Output:
-6. Trinity
+     Files in "[outputpath]/[sample name]/primate_alignment_rates/". This directory contains a file showing the alignment rates, a sam file showing the alignment results, and two fq files (one of forward reads, one of backward reads) containing those input reads which have still nto aligned to anything. These unaligned files form the input into the next rule.
+7. Trinity
+     Purpose: \
+     To denovo assembly individual reads into larger contigs.
      Dependencies:
      1. Trinity 2.15.1
      2. Fastq v0.23.4
      3. Fastx-toolkit v0.0.14
      Output:
-8. FilterHostBlast
+9. FilterHostBlast
      Dependencies:
      1. Blast-plus v2.16.0
      2. Openjdk (java) v17.0.11
