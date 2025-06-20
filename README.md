@@ -70,7 +70,7 @@ In-house executables:
 Other executables:
 1. Picard (2.18.14)
 2. Prodigal (2.6.3)
-3. Kaiju (1.9.0)
+3. Kaiju (1.9.0) \
 \
 Additionally, the following reference databases are required:
 1. ERCC92 spike-in controls for bowtie
