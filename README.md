@@ -138,13 +138,16 @@ python 3.11
      Output:
      files in "[outputpath]/[sample name]/Generated_Data_Star_Alignment/". This directory contains a file showing alignment statistics, a file showing an alignment summary (which inputs aligned), two bam files showing the inputs that ended up aligning, and two fq files (one of forward reads, one of backward reads) containing those input reads which have still not aligned to anything. These unaligned files form the input into the next rule.
 5. BowtiePrimate \
-     Purpose: \
+
+Purpose: \
      To decontaminate input by retaining only input reads which do not align to primate genomes.
      Dependencies:
      1. Bowtie2 v2.5.1
-     2. Samtools v1.21 \
-     Output:
+     2. Samtools v1.21
+
+Output:
      Files in "[outputpath]/[sample name]/primate_alignment_rates/". This directory contains a file showing the alignment rates, a sam file showing the alignment results, and two fq files (one of forward reads, one of backward reads) containing those input reads which have still nto aligned to anything. These unaligned files form the input into the next rule.
+
 7. Trinity \
      Purpose: \
      To denovo assembly individual reads into larger contigs.
