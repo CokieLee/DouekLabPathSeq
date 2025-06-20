@@ -62,16 +62,19 @@ The config file's "outputpath" specifies the full path to the directory where yo
 #### Other arguments needed
 Some software must be given to rules in the snakefile as paths to executables, rather than as "module load" statements or as scripts in the "SlurmBaseCode" folder. \
 There is no technical reason for doing so, it is mostly for legacy reasons. These executables are given in "DouekLabPathSeq/PathseqExternalPrograms/". Paths to each one must be supplied to the config.yaml file. \
+
 In-house executables:
 1. PathSeqRemoveHostForKaiju
 2. PathSeqKaijuConcensusSplitter2
 3. PathseqmergeQIIME2TaxAndSalmon
 4. PathseqSplitOutputTableByTaxonomy \
+
 Other executables:
 1. Picard (2.18.14)
 2. Prodigal (2.6.3)
 3. Kaiju (1.9.0) \
 \
+
 Additionally, the following reference databases are required:
 1. ERCC92 spike-in controls for bowtie
 2. human genome reference dataset index for bowtie
