@@ -90,7 +90,7 @@ Additionally, the following reference databases are required:
 4. Run the following command from within the SkylineTest0 directory to start the pipeline on your current compute node: \
    ```./runSnakemake.sh``` \
    Or, run it as a batch job on your cluster however you normally submit bash scripts as batch jobs (you may need to change the resource allocation comments at the top to match your system, and the profile contents). \
-   ```sbatch runSnakemake.sh``` \
+   ```sbatch runSnakemake.sh```
 5. Once the code is finished running, check that the outputs in "Tests/Skyline_Full_Test_00/Output/" matches the contents of "Tests/Skyline_Full_Test_00/ExpectedOutput/"
 
 ## Running Pathseq on your own data
@@ -230,5 +230,24 @@ python 3.11
      1. files in "[outputpath]/[sample name]/RNA_merge_TaxAndQuant/". Directory contains two file types for each taxonomic level (species, genus, class, family, phylum, order, kingdom). Both the types of files have a first column showing the taxonomic classification found fitting the given taxonomic level (i.e. in the species files, the species name is listed if PathSeq believes it found an instance of a given species. in the kingdom files, the kingdom name is listed if PathSeq believes it found an instance of a given kingdom). The "tpm" type files have a second column showing the tpm (transcripts per million, i.e. normalized count) count that Pathseq believes corresponds to the taxonomic classification specified in the first column. The "pseudocounts" type files have a second column showing the pseudocount (raw count plus a small, non-zero value to "smooth" data) corresponding to the taxonomic classification in the first column.
 
 ## What the cluster profile means
-More information on snakemake 7 cluster execution and profiles: https://snakemake.readthedocs.io/en/v7.22.0/executing/cluster.html \
-We provide a working profile configuration file in "skyline_profile/config.yaml" (specific to our HPC). \
+More information on snakemake 7 cluster execution and profiles: https://snakemake.readthedocs.io/en/v7.22.0/executing/cluster.html
+
+A profile maps the concept of launching a rule as a cluster job to concrete commands that can be understood by your system. It can take resource usage parameters such as those specified in our "configTemplate/config.yaml", and convert them into the correct commands for requesting jobs according to those resource usage limits.
+
+We provide a working profile configuration file in "skyline_profile/config.yaml" (specific to our HPC).
+1. The core file is "skyline_profile/config.yaml".
+
+This file contains snakemake command parameters in a yaml format (such that the name of each entry corresponds to a snakemake flag, and the value is the argument). Here you can specify running options such as the number of times you'd like to retry a failed rule, frequency of status checks, the command for canceling a job on your cluster (scancel, in the case of Slurm), and the maximum number of jobs you would like to allow snakemake to spawn. \
+The most important option here is the "cluster" field. You can simply give this field the name of the command for spawning jobs on your cluster (sbatch, in the case of slurm). However, in our skyline_profile example, we have given it the name of a file in the same directory, "bw_submit.py". This python script allows for more complex job launching commands. In our case, it can parse the "runtime" and "mem_mb" fields in the "resources" field of each snakemake rule, and convert these to runtime and memory limits of the requested job launch. It can also handle many other resource usage parameters that we do not currently use in our test. More detail on this file is below.
+
+2. The bw_submit.py file is given as the argument to the "cluster" flag of snakemake.
+
+This python script contains a main function. Snakemake handles giving this main function the resource usage parameters specified in our "configTemplate/config.yaml". The main function calls the function "make_sbatch_cmd(props)", which parses the input parameters, and ultimately puts them together into a list of strings, where each string is a correctly formatted combination of a flag and argument. This will be used by snakemake as the command for launching a job for each rule.
+
+In our skyline_profile/bw_submit.py, you can see that the following job launching parameters can be given from the resources section of the snakemake config file:
+1. tasks/ntasks (number of separate processes/threads to be run in parallel, either on one node or across many nodes)
+3. nodes (number of nodes requested from cluster)
+4. mem_mb (amount of memory requested from cluster)
+5. runtime (time limit requested from cluster)
+6. gpu (whether or not to ask cluster for gpu resources)
+7. slurm_partition (which partition to request from, i.e. quick, priority, etc)
