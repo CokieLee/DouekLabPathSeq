@@ -51,8 +51,10 @@ The config file requires the following parameters to be filled in:
 #### Output format
 The config file's "outputpath" specifies the full path to the directory where you wish the pipeline's output should be written.
 1. For each separate sample given, a separate subdirectory within the output directory will be created.
-2. Within each subdirectory, a directory for each pipeline step (roughly corresponding to each snakefile rule) is created. An examination of the "output" section of each rule in the Snakefile will show what Snakemake expects to get back from each rule. An overview is given in "Details on each rule and its dependencies". \
-3. The final output for each sample is contained in "[outputpath]/[sample name]/RNA_merge_TaxAndQuant/". This directory contains two file types for each taxonomic level (species, genus, class, family, phylum, order, kingdom). \
+2. Within each subdirectory, a directory for each pipeline step (roughly corresponding to each snakefile rule) is created. An examination of the "output" section of each rule in the Snakefile will show what Snakemake expects to get back from each rule. An overview is given in "Details on each rule and its dependencies".
+3. The final output for each sample is contained in \
+"[outputpath]/[sample name]/RNA_merge_TaxAndQuant/". \
+This directory contains two file types for each taxonomic level (species, genus, class, family, phylum, order, kingdom). \
      Both the types of files have a first column showing the taxonomic classification found fitting the given taxonomic level (i.e. in the species files, the species name is listed if PathSeq believes it found an instance of a given species. in the kingdom files, the kingdom name is listed if PathSeq believes it found an instance of a given kingdom). \
    The "tpm" type files have a second column showing the tpm (transcripts per million, i.e. normalized count) count that Pathseq believes corresponds to the taxonomic classification specified in the first column. \
    The "pseudocounts" type files have a second column showing the pseudocount (raw count plus a small, non-zero value to "smooth" data) corresponding to the taxonomic classification in the first column.
