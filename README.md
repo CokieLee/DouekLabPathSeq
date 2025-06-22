@@ -70,7 +70,7 @@ In-house executables:
 Other executables:
 1. Picard (2.18.14)
 2. Prodigal (2.6.3)
-3. Kaiju (1.9.0) \
+3. Kaiju (1.9.0)
 
 Additionally, the following reference databases are required:
 1. ERCC92 spike-in controls for bowtie
@@ -87,10 +87,10 @@ Additionally, the following reference databases are required:
 3. There is a folder, "Tests/Skyline_Full_Test_00/". This folder contains:
      a. A "config.yaml" file. This file already contains all input arguments required to run pathseq on the "Tests/TestInput/" input data.
      b. A "runSnakemake.sh" bash script. This bash script uses the "config.yaml" file in the "Skyline_Full_Test_00" directory, and runs Pathseq on it, by running snakemake with "SlurmBaseCode/Snakefile" (the central snakefile).
-4. Run the following command from within the SkylineTest0 directory to start the pipeline on your current compute node:
-   ```./runSnakemake.sh```
-   Or, run it as a batch job on your cluster however you normally submit bash scripts as batch jobs (you may need to change the resource allocation comments at the top to match your system, and the profile contents).
-   ```sbatch runSnakemake.sh```
+4. Run the following command from within the SkylineTest0 directory to start the pipeline on your current compute node: \
+   ```./runSnakemake.sh``` \
+   Or, run it as a batch job on your cluster however you normally submit bash scripts as batch jobs (you may need to change the resource allocation comments at the top to match your system, and the profile contents). \
+   ```sbatch runSnakemake.sh``` \
 5. Once the code is finished running, check that the outputs in "Tests/Skyline_Full_Test_00/Output/" matches the contents of "Tests/Skyline_Full_Test_00/ExpectedOutput/"
 
 ## Running Pathseq on your own data
@@ -125,7 +125,7 @@ python 3.11
       1. openjdk (java) v17.0.11
       2. bowtie2 v2.5.1
       3. Samtools v2.18.14
-      4. picard v2.18.14 \
+      4. picard v2.18.14
 
      Output:
      1. files in "[outputpath]/[sample name]/Generated_Data_1st_Bowtie_Alignment_Unmasked_Genome/". This directory contains ERCC spike-in controls output (alignment counts and rates, just to check if bowtie2 is working as intended).
