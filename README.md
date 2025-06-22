@@ -11,17 +11,15 @@ searches remaining unclassified contigs for RNA viral motifs (to find possible n
 # How to run pathseq
 ## System requirements
 Currently, PathSeq is made to run on a linux cluster (Rocky Linux v9.5) which uses the workload manager Slurm (version 23.02.6), and a module system. \
+It can run either on a single computer, or it can take advantage of a cluster configuration.
 \
-Plans are in development to containerize rules such that the pipeline is HPC agnostic.
-So, to run on a non-Skyline HPC, you may need to change the "module load" statements, or else otherwise ensure the correct dependencies are available to each rule.
+Plans are in development to containerize rules such that the pipeline is HPC agnostic. However, it is currently untested on other systems. \
+To run on a non-Skyline single computer, you will likely at least need to change the "module load" statements, or else otherwise ensure the correct dependencies are available to each rule.
 \
-Pathseq can be run either on a single computer, or on a cluster. \
-To run Pathseq on a cluster, such that each rule launches as its own job, you must define a "profile" for your cluster. A profile maps the concept of launching a rule as a cluster job to concrete commands run by your system.
-The profile settings can be given to the snakemake command directly as flags, but it is recommended to persist the settings in a profile configuration file (which is passed to the snakemake command as the argument of the --profile flag).\
-More information on snakemake 7 cluster execution and profiles: https://snakemake.readthedocs.io/en/v7.22.0/executing/cluster.html \
-We provide a working profile configuration file in "skyline_profile/config.yaml" (specific to our HPC). \
+To run Pathseq on a non-Skyline cluster, such that each rule launches as its own job, you will need to modify not only the "module load statements", but also define a "profile" for your cluster. A profile maps the concept of launching a rule as a cluster job to concrete commands that can be understood by your system. \
+The profile settings can be given to the snakemake command directly as flags, but it is recommended to persist the settings in a profile configuration file (which is passed to the snakemake command as the argument of the --profile flag). More detail is given below in "What the cluster profile means". \
 \
-To run Pathseq on a single computer, no profile setting files are necessary. You must also remove the --profile flag from the "runSnakemake.sh" script when running.
+To run Pathseq on a single computer, no profile setting files are necessary. In fact, you must also remove the --profile flag from the "runSnakemake.sh" script when running.
 
 ## Input and output formatting
 Pathseq takes its metagnomics sequencing data as paired-end reads in fastq/fasta or fastq.gz format. For each sample, the paired end reads must be given as one fasta file of forward reads and one fasta file of backward reads. \
@@ -103,8 +101,8 @@ There are three files which may be customized in order to run on your own data.
    In the configuration file, you can also set resource usage for each rule's batch job. "runtime" is the allowed job time specified in minutes, "mem_mb" is the allowed job memory usage in megabytes.
 2. A run script. \
    There is a template at "DouekLabPathSeq/configTemplate/runSnakemake.sh". \
-   This script takes a path to the Snakefile ("DouekLabPathSeq/SlurmBaseCode/Snakefile"), and a path to the profile ("DouekLabPathSeq/skyline_profile"). Depending on where you have stored the DouekLabPathSeq repo, you may need to customize these paths. They can be relative or full paths.
-3. A profile file(s). An example profile specific to the Skyline HPC is located at "DouekLabPathSeq/skyline_profile/". \
+   This script takes a path to the Snakefile ("DouekLabPathSeq/SlurmBaseCode/Snakefile"), and an optional path to the profile ("DouekLabPathSeq/skyline_profile"). Depending on where you have stored the DouekLabPathSeq repo, you may need to customize these paths. They can be relative or full paths. The profile flag and path must be included if you wish to run on cluster mode, and must be removed to run without cluster mode.
+3. A profile file(s) (if you are running on cluster mode). An example profile specific to the Skyline HPC is located at "DouekLabPathSeq/skyline_profile/". \
    This defines what commands on your system are used to launch a batch job (i.e. how your system should translate the contents of the "resources" section of each rule in the Snakefile into a command that can be understand by your cluster's workload management software). This file is only required if you want to run the pipeline in cluster mode. \
    More details are above in the System requirements section.
 4. A snakemake unlock script. A template is in "DouekLabPathSeq/configTemplate/unlock.sh". \
@@ -184,33 +182,53 @@ python 3.11
 
 11. kaiju
 
+     Purpose:
+     1. To identify genes using prodigal.
+     2. To taxonomically classify contigs based on matches of identified genes to a protein sequence database.
+
      Dependencies:
      1. Fastx-toolkit v0.0.14
      2. prodigal v2.6.3
      3. kaiju v1.9.0
 
      Output:
+     1. files in "[outputpath]/[sample_name]/RNA_kaiju_output/". This directory contains a .tab file showing for each input contig, whether it was unclassified or classified ("C" or "U" in the first column), and what it was classified as. It also contains a sorted (formatted) .fa file of the nucleotide sequences of all contigs classified as non-host, and a sorted (formatted) .faa file of the protein sequences of the same non-host contigs. These three files form the input into the next rule.
 
 13. BuildSalmon
+
+     Purpose:
+     1. To build a salmon index for each taxonomic level, and facilitate the following salmon quantification step.
 
      Dependencies:
      1. openjdk (java) v 17.0.11
      2. salmon v1.10.2
 
      Output:
+     1. files in "[outputpath]/[sample name]/RNA_salmon_quant/salmon/". This directory contains a [tax level]_sequences.fa file and a [tax level]_table.csv file for each taxonomic level. The [tax level]_table.csv files contain tables showing the contig ID of the contig classified in one column, and the taxonomic assignment in the second column. These .csv taxonomic classification summaries are used as an input two steps later, in the "mergeTaxAndQuant" rule.
+     2. This directory also contains a "[tax leve]_salmon/" subdirectory for each taxonomic level. These subdirectories contain indexing information used in the next step "salmon".
 
 15. SalmonQuant
+
+     Purpose:
+     1. To quantify the taxonomic classifications given by kaiju (i.e. to assign counts, either tpm or pseudocounts, to each microbe found in the sample).
 
      Dependencies:
      1. salmon v1.10.2
 
      Output:
+     1. Files in "[outputpath]/[sample name]/RNA_salmon_quant/[tax level]_quant_[sample name]/". One such directory exists for each taxonomic level. Each directory directory contains a .sf file for each taxonomic level, containing the quantifications of the classifications for entries of the original input files. This file contains a quantification summary. The first column shows the contig ID of the contig quantified. Subsequent columns show contig length, effective length, counts in TPM, and the number of reads corresponding to this contig. This .sf file is used in the following step, "mergeTaxAndQuant".
 
 17. MergeTaxAndQuant
+
+     Purpose:
+     1. To combine and format information about both taxnonmic classification of inputs, and quantification of those taxonomic classifications.
 
      Dependencies:
      1. openjdk (java) v17.0.11
 
      Output:
+     1. files in "[outputpath]/[sample name]/RNA_merge_TaxAndQuant/". Directory contains two file types for each taxonomic level (species, genus, class, family, phylum, order, kingdom). Both the types of files have a first column showing the taxonomic classification found fitting the given taxonomic level (i.e. in the species files, the species name is listed if PathSeq believes it found an instance of a given species. in the kingdom files, the kingdom name is listed if PathSeq believes it found an instance of a given kingdom). The "tpm" type files have a second column showing the tpm (transcripts per million, i.e. normalized count) count that Pathseq believes corresponds to the taxonomic classification specified in the first column. The "pseudocounts" type files have a second column showing the pseudocount (raw count plus a small, non-zero value to "smooth" data) corresponding to the taxonomic classification in the first column.
 
 ## What the cluster profile means
+More information on snakemake 7 cluster execution and profiles: https://snakemake.readthedocs.io/en/v7.22.0/executing/cluster.html \
+We provide a working profile configuration file in "skyline_profile/config.yaml" (specific to our HPC). \
