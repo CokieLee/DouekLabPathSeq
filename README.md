@@ -23,7 +23,7 @@ To run Pathseq on a non-Skyline single computer, no profile setting files are ne
 To run on Skyline, you should only need to change the input parameters, about which more information is below in "Input and output formatting" and "Running Pathseq on your own data".
 
 ## Input and output formatting
-Pathseq takes its metagnomics sequencing data as paired-end reads in fastq/fasta or fastq.gz format. For each sample, the paired end reads must be given as one fasta file of forward reads and one fasta file of backward reads. \
+Pathseq takes its metagnomics sequencing data as paired-end reads in fastq/fasta or fastq.gz format. For each sample, the paired end reads must be given as one fasta file of forward reads and one fasta file of backward reads. There are no requirements for what constitutes a "sample". Samples are analyzed separately, so anything you wish to be analyzed separately should be given as separate (right and left) fasta files. \
 \
 Pathseq must also be given a configuration file to run. This file specifies all arguments (besides the cluster profile, which must be given in the run script. See below for "Running PathSeq on your own data" and "what the cluster profile means"), including the metagenomics sequencing reads you wish to analyze. \
 More details about arguments required are below:
@@ -31,11 +31,11 @@ More details about arguments required are below:
 #### Input data requirements
 The config file requires the following parameters to be filled in:
 1. "inputlist" \
-     The full path to a text file containing a list of the file names of all forward-read input fasta files. Each file name should be on its own line. PathSeq treats each fasta file given as its own separate sample, and will run the full pipeline analysis separately for each sample. In other words, the output would be the same as if you ran the pipeline separately for each input file, but giving them to PathSeq together allows PathSeq to run them in parallel if enough cluster nodes are given (number of cluster nodes to use is specified in the profile. More detail in "What the cluster profile means").
+     The full path to a text file containing a list of the file names of all the forward-read input fasta files of each sample you wish to analyze. Each file name should be on its own line. PathSeq treats each fasta file pair given as its own separate sample, and will run the full pipeline analysis separately for each sample. In other words, the output would be the same as if you ran the pipeline separately for each input file (i.e. you can differentiate which sample any identified microbes originate from), but giving them to PathSeq together allows PathSeq to run them in parallel if enough cluster nodes are given (number of cluster nodes to use is specified in the profile. More detail in "What the cluster profile means").
 3. "inputdir" \
-     The full path to a directory containing all the forward-read fasta files listed in "inputlist", as well as their backward-read counterparts. The directory can contain other files, including the "inputlist" file, but "inputlist" does not have to be kept inside "inputdir".
+     The full path to a directory containing all the forward-read fasta files listed in "inputlist", as well as all their backward-read counterparts. The directory can contain other files, including the "inputlist" file, but "inputlist" does not have to be kept inside "inputdir".
 5. "origin" \
-     "RNA" or "DNA" depending on whether your input sequencing reads are from RNA or DNA.
+     Put "RNA" or "DNA" depending on whether your input sequencing reads are from RNA or DNA.
 7. "minContigLen" \
      The minimum contig length for contig assembly (can stay the same as your read lengths, or be longer).
 9. "codepath" \
@@ -97,7 +97,7 @@ Additionally, the following reference databases are required:
 5. Once the code is finished running, check that the outputs in "Tests/Skyline_Full_Test_00/Output/" matches the contents of "Tests/Skyline_Full_Test_00/ExpectedOutput/"
 
 ## Running Pathseq on your own data
-There are three files which may be customized in order to run on your own data.
+There are four files which may be customized in order to run on your own data.
 1. A configuration file specifying all arguments to the run. \
    There is a template at "DouekLabPathSeq/configTemplate/config.yaml". \
    You must make sure all paths are valid full paths in your system. Full paths allow you to house (potentially very large) input data, output data, and reference databases outside your code area. ALL runs require a configuration file. \
