@@ -10,16 +10,16 @@ searches remaining unclassified contigs for RNA viral motifs (to find possible n
 
 # How to run pathseq
 ## System requirements
-Currently, PathSeq is made to run on a linux cluster (Rocky Linux v9.5) which uses the workload manager Slurm (version 23.02.6), and a module system. \
-It can run either on a single computer, or it can take advantage of a cluster configuration.
-\
+Currently, PathSeq is made to run on our HPC "Skyline", which is a linux cluster (Rocky Linux v9.5) using the workload manager Slurm (version 23.02.6), and a module system. \
 Plans are in development to containerize rules such that the pipeline is HPC agnostic. However, it is currently untested on other systems. \
-To run on a non-Skyline single computer, you will likely at least need to change the "module load" statements, or else otherwise ensure the correct dependencies are available to each rule.
-\
-To run Pathseq on a non-Skyline cluster, such that each rule launches as its own job, you will need to modify not only the "module load statements", but also define a "profile" for your cluster. A profile maps the concept of launching a rule as a cluster job to concrete commands that can be understood by your system. \
+
+Pathseq can can run either on a single computer, or it can take advantage of a cluster configuration. \
+To run on a non-Skyline cluster in cluster mode, you will likely need to change the "module load" statements in the Snakefile rules' shell command portion, or else otherwise ensure the correct dependencies are available to each rule. You will also need to define a "profile" for your cluster. A profile maps the concept of launching a rule as a cluster job to concrete commands that can be understood by your system. \
 The profile settings can be given to the snakemake command directly as flags, but it is recommended to persist the settings in a profile configuration file (which is passed to the snakemake command as the argument of the --profile flag). More detail is given below in "What the cluster profile means". \
-\
-To run Pathseq on a single computer, no profile setting files are necessary. In fact, you must also remove the --profile flag from the "runSnakemake.sh" script when running.
+
+To run Pathseq on a single computer, no profile setting files are necessary, and you must also remove the --profile flag from the "runSnakemake.sh" script when running. You will still need to change the "module load" statments, however. \
+
+To run on Skyline, you should only need to change the input parameters, about which more information is below in "Input and output formatting" and "Running Pathseq on your own data".
 
 ## Input and output formatting
 Pathseq takes its metagnomics sequencing data as paired-end reads in fastq/fasta or fastq.gz format. For each sample, the paired end reads must be given as one fasta file of forward reads and one fasta file of backward reads. \
