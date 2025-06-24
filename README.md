@@ -132,7 +132,10 @@ python 3.11
 
      Output:
      1. files in "[outputpath]/[sample name]/Generated_Data_1st_Bowtie_Alignment_Unmasked_Genome/". This directory contains ERCC spike-in controls output (alignment counts and rates, just to check if bowtie2 is working as intended).
-     2. files in "[outputpath]/[sample name]/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/". This directory contains a file showing alignment rates, a .sam file showing alignment results, and two fq files (one of forward reads, one of backward reads) of reads that remain unaligned. The unaligned files form the input into the next rule.
+     3. files in "[outputpath]/[sample name]/Generated_Data_2nd_Bowtie_Alignment_Unmasked_Genome/". This directory contains:
+     4. A file showing alignment rates
+     5. A .sam file showing alignment results
+     6. Two fq files (one of forward reads, one of backward reads) of reads that remain unaligned. The unaligned files form the input into the next rule.
 
 3. StarAfterBowtie
 
@@ -156,7 +159,10 @@ python 3.11
      2. Samtools v1.21
 
      Output:
-     1. Files in "[outputpath]/[sample name]/primate_alignment_rates/". This directory contains a file showing the alignment rates, a sam file showing the alignment results, and two fq files (one of forward reads, one of backward reads) containing those input reads which have still nto aligned to anything. These unaligned files form the input into the next rule.
+     1. Files in "[outputpath]/[sample name]/primate_alignment_rates/". This directory contains:
+     2. A file showing the alignment rates
+     3. A sam file showing the alignment results
+     4. Two fq files (one of forward reads, one of backward reads) containing those input reads which have still nto aligned to anything. These unaligned files form the input into the next rule.
 
 7. Trinity
 
@@ -181,7 +187,9 @@ python 3.11
      2. Openjdk (java) v17.0.11
 
      Output:
-     1. files in "[outputpath]/[sample name]/RNA_trinity_filtered/". This directory contains a file showing the blast results for all input contigs, and a fasta file of all contigs given that did not constitute a blast match with mammalian genoomes. This fasta file forms the input into the next rule.
+     1. files in "[outputpath]/[sample name]/RNA_trinity_filtered/". This directory contains:
+     2. A file showing the blast results for all input contigs
+     3. A fasta file of all contigs given that did not constitute a blast match with mammalian genomes. This fasta file forms the input into the next rule.
 
 11. kaiju
 
@@ -195,7 +203,11 @@ python 3.11
      3. kaiju v1.9.0
 
      Output:
-     1. files in "[outputpath]/[sample_name]/RNA_kaiju_output/". This directory contains a .tab file showing for each input contig, whether it was unclassified or classified ("C" or "U" in the first column), and what it was classified as. It also contains a sorted (formatted) .fa file of the nucleotide sequences of all contigs classified as non-host, and a sorted (formatted) .faa file of the protein sequences of the same non-host contigs. These three files form the input into the next rule.
+     1. files in "[outputpath]/[sample_name]/RNA_kaiju_output/". This directory contains:
+     2. A .tab file showing for each input contig, whether it was unclassified or classified ("C" or "U" in the first column), and what it was classified as.
+     3. A sorted (formatted) .fa file of the nucleotide sequences of all contigs classified as non-host
+     4. A sorted (formatted) .faa file of the protein sequences of the same non-host contigs.
+     5. These three .tab, .fa, and .faa files form the input into the next rule.
 
 13. BuildSalmon
 
@@ -207,8 +219,10 @@ python 3.11
      2. salmon v1.10.2
 
      Output:
-     1. files in "[outputpath]/[sample name]/RNA_salmon_quant/salmon/". This directory contains a [tax level]_sequences.fa file and a [tax level]_table.csv file for each taxonomic level. The [tax level]_table.csv files contain tables showing the contig ID of the contig classified in one column, and the taxonomic assignment in the second column. These .csv taxonomic classification summaries are used as an input two steps later, in the "mergeTaxAndQuant" rule.
-     2. This directory also contains a "[tax leve]_salmon/" subdirectory for each taxonomic level. These subdirectories contain indexing information used in the next step "salmon".
+     1. files in "[outputpath]/[sample name]/RNA_salmon_quant/salmon/". This directory contains;
+     2. A [tax level]_sequences.fa file and a [tax level]_table.csv file for each taxonomic level.
+     3. The [tax level]_table.csv files contain tables showing the contig ID of the contig classified in one column, and the taxonomic assignment in the second column. These .csv taxonomic classification summaries are used as an input two steps later, in the "mergeTaxAndQuant" rule.
+     4. This directory also contains a "[tax leve]_salmon/" subdirectory for each taxonomic level. These subdirectories contain indexing information used in the next step "salmon".
 
 15. SalmonQuant
 
@@ -219,7 +233,8 @@ python 3.11
      1. salmon v1.10.2
 
      Output:
-     1. Files in "[outputpath]/[sample name]/RNA_salmon_quant/[tax level]_quant_[sample name]/". One such directory exists for each taxonomic level. Each directory directory contains a .sf file for each taxonomic level, containing the quantifications of the classifications for entries of the original input files. This file contains a quantification summary. The first column shows the contig ID of the contig quantified. Subsequent columns show contig length, effective length, counts in TPM, and the number of reads corresponding to this contig. This .sf file is used in the following step, "mergeTaxAndQuant".
+     1. Files in "[outputpath]/[sample name]/RNA_salmon_quant/[tax level]_quant_[sample name]/". One such directory exists for each taxonomic level.
+     2. Each directory directory contains a .sf file for each taxonomic level, containing the quantifications of the classifications for entries of the original input files. This file contains a quantification summary. The first column shows the contig ID of the contig quantified. Subsequent columns show contig length, effective length, counts in TPM, and the number of reads corresponding to this contig. This .sf file is used in the following step, "mergeTaxAndQuant".
 
 17. MergeTaxAndQuant
 
@@ -230,7 +245,9 @@ python 3.11
      1. openjdk (java) v17.0.11
 
      Output:
-     1. files in "[outputpath]/[sample name]/RNA_merge_TaxAndQuant/". Directory contains two file types for each taxonomic level (species, genus, class, family, phylum, order, kingdom). Both the types of files have a first column showing the taxonomic classification found fitting the given taxonomic level (i.e. in the species files, the species name is listed if PathSeq believes it found an instance of a given species. in the kingdom files, the kingdom name is listed if PathSeq believes it found an instance of a given kingdom). The "tpm" type files have a second column showing the tpm (transcripts per million, i.e. normalized count) count that Pathseq believes corresponds to the taxonomic classification specified in the first column. The "pseudocounts" type files have a second column showing the pseudocount (raw count plus a small, non-zero value to "smooth" data) corresponding to the taxonomic classification in the first column.
+     1. files in "[outputpath]/[sample name]/RNA_merge_TaxAndQuant/". Directory contains two file types for each taxonomic level (species, genus, class, family, phylum, order, kingdom). Both the types of files have a first column showing the taxonomic classification found fitting the given taxonomic level (i.e. in the species files, the species name is listed if PathSeq believes it found an instance of a given species. in the kingdom files, the kingdom name is listed if PathSeq believes it found an instance of a given kingdom).
+     2. The "tpm" type files have a second column showing the tpm (transcripts per million, i.e. normalized count) count that Pathseq believes corresponds to the taxonomic classification specified in the first column.
+     3. The "pseudocounts" type files have a second column showing the pseudocount (raw count plus a small, non-zero value to "smooth" data) corresponding to the taxonomic classification in the first column.
 
 ## What the cluster profile means
 More information on snakemake 7 cluster execution and profiles: https://snakemake.readthedocs.io/en/v7.22.0/executing/cluster.html
